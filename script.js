@@ -5,30 +5,44 @@ const type = document.getElementById("type");
 const transactions = document.getElementById("transactions");
 const empty = document.getElementById("empty");
 
-let data = JSON.parse(localStorage.getItem("tacboTransactions") || "[]");
+const incomeEl = document.getElementById("income");
+const expenseEl = document.getElementById("expense");
+const balanceEl = document.getElementById("balance");
+
+let data = JSON.parse(localStorage.getItem("tacboTransactions")) || [];
 
 function render() {
   transactions.innerHTML = "";
 
-  if (data.length === 0) {
-    empty.style.display = "block";
-    return;
-  }
-
-  empty.style.display = "none";
+  let totalIncome = 0;
+  let totalExpense = 0;
 
   data.forEach((item, index) => {
+    const money = Number(item.amount);
+
+    if (item.type === "income") {
+      totalIncome += money;
+    } else {
+      totalExpense += money;
+    }
+
     const row = document.createElement("div");
 
     row.innerHTML = `
       <strong>${item.description}</strong>
-      - ${item.amount} $
+      - ${money.toFixed(2)} $
       - ${item.type === "income" ? "Dakhliga" : "Kharashka"}
       <button onclick="removeTransaction(${index})">Tirtir</button>
     `;
 
     transactions.appendChild(row);
   });
+
+  incomeEl.textContent = "$" + totalIncome.toFixed(2);
+  expenseEl.textContent = "$" + totalExpense.toFixed(2);
+  balanceEl.textContent = "$" + (totalIncome - totalExpense).toFixed(2);
+
+  empty.style.display = data.length === 0 ? "block" : "none";
 }
 
 form.addEventListener("submit", function(e) {
@@ -48,7 +62,10 @@ form.addEventListener("submit", function(e) {
     type: type.value
   });
 
-  localStorage.setItem("tacboTransactions", JSON.stringify(data));
+  localStorage.setItem(
+    "tacboTransactions",
+    JSON.stringify(data)
+  );
 
   form.reset();
   render();
@@ -56,8 +73,26 @@ form.addEventListener("submit", function(e) {
 
 function removeTransaction(index) {
   data.splice(index, 1);
-  localStorage.setItem("tacboTransactions", JSON.stringify(data));
+
+  localStorage.setItem(
+    "tacboTransactions",
+    JSON.stringify(data)
+  );
+
   render();
 }
+
+document.getElementById("clearBtn").addEventListener("click", function() {
+  if (confirm("Ma hubtaa inaad dhammaan tirtirayso?")) {
+    data = [];
+
+    localStorage.setItem(
+      "tacboTransactions",
+      JSON.stringify(data)
+    );
+
+    render();
+  }
+});
 
 render();
