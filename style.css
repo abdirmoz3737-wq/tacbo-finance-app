@@ -1,1 +1,153 @@
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7f5;color:#17221b}header{background:#15803d;color:white;padding:28px 18px}header h1{margin:0 0 6px}header p{margin:0}main{max-width:900px;margin:auto;padding:18px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.card,.panel{background:white;border-radius:16px;padding:18px;box-shadow:0 3px 14px #00000012}.card span{display:block;color:#647067;font-size:14px;margin-bottom:8px}.card strong{font-size:24px}.panel{margin-bottom:16px}h2{font-size:20px;margin:0 0 14px}.title-row{display:flex;align-items:center;justify-content:space-between}form{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px}input,select,button{font:inherit;border-radius:10px;padding:12px;border:1px solid #ccd5ce}button{background:#15803d;color:white;border:0;font-weight:bold}.danger{background:#b42318}.transaction{display:flex;justify-content:space-between;border-top:1px solid #e5e9e6;padding:13px 0}.income{color:#15803d}.expense{color:#b42318}.small{font-size:13px;color:#758078}@media(max-width:700px){.cards{grid-template-columns:1fr}form{grid-template-columns:1fr}.title-row{align-items:flex-start;gap:10px;flex-direction:column}}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7f4;
+  color: #17221b;
+}
+
+header {
+  background: linear-gradient(135deg, #237a3b, #49a95d);
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 0 0 25px 25px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+header p {
+  margin: 0;
+  font-size: 16px;
+}
+
+main {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card span {
+  display: block;
+  font-size: 17px;
+  color: #68736c;
+  margin-bottom: 8px;
+}
+
+.card strong {
+  display: block;
+  font-size: 28px;
+  color: #18221b;
+}
+
+.panel {
+  background: white;
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccd6cf;
+  border-radius: 12px;
+  font-size: 16px;
+  background: white;
+}
+
+button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #278442;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f6d35;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#transactions > div {
+  background: #f7faf8;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border-left: 5px solid #3c9951;
+}
+
+#livestockInfo,
+#farmInfo {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f1f8f3;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+@media (max-width: 700px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 0 12px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .card strong {
+    font-size: 25px;
+  }
+}
