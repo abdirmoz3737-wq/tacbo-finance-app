@@ -1,7 +1,6 @@
-// ============================================
+// ==========================================
 // 🌾 TACBO FINANCE & FARM
-// Maamulka Dakhliga, Kharashaadka iyo Beeraha
-// ============================================
+// ==========================================
 
 const form = document.getElementById("transactionForm");
 const description = document.getElementById("description");
@@ -25,48 +24,60 @@ const addFarm = document.getElementById("addFarm");
 const clearBtn = document.getElementById("clearBtn");
 
 
-// ============================================
-// 📦 XOGTA KAYDINTA
-// ============================================
+// ==========================================
+// 💾 XOGTA
+// ==========================================
 
 let data = JSON.parse(
     localStorage.getItem("tacboTransactions") || "[]"
 );
 
 
-// ============================================
+// ==========================================
 // 📅 TAARIIKHDA
 // DD/MM/YYYY
-// ============================================
+// ==========================================
 
 function getDate() {
-    const today = new Date();
 
-    const day = String(today.getDate()).padStart(2, "0");
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const year = today.getFullYear();
+    const now = new Date();
+
+    const day =
+        String(now.getDate()).padStart(2, "0");
+
+    const month =
+        String(now.getMonth() + 1).padStart(2, "0");
+
+    const year =
+        now.getFullYear();
 
     return `${day}/${month}/${year}`;
 }
 
 
-// ============================================
-// 💰 LACAGTA
-// ============================================
+// ==========================================
+// 💰 LACAG
+// ==========================================
 
 function money(value) {
-    return "$" + Number(value).toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+
+    return "$" +
+        Number(value || 0).toLocaleString(
+            "en-US",
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }
+        );
 }
 
 
-// ============================================
-// 💾 SAVE DATA
-// ============================================
+// ==========================================
+// 💾 SAVE
+// ==========================================
 
 function saveData() {
+
     localStorage.setItem(
         "tacboTransactions",
         JSON.stringify(data)
@@ -74,413 +85,9 @@ function saveData() {
 }
 
 
-// ============================================
-// 🔢 XISAABINTA
-// ============================================
-
-function calculateTotals() {
-
-    let income = 0;
-    let expense = 0;
-    let farm = 0;
-
-    data.forEach(item => {
-
-        if (item.category === "income") {
-            income += Number(item.amount);
-        }
-
-        if (item.category === "expense") {
-            expense += Number(item.amount);
-        }
-
-        if (item.category === "farm") {
-            farm += Number(item.amount);
-        }
-
-    });
-
-    const balance = income - expense - farm;
-
-    if (incomeEl) {
-        incomeEl.textContent = money(income);
-    }
-
-    if (expenseEl) {
-        expenseEl.textContent = money(expense);
-    }
-
-    if (farmEl) {
-        farmEl.textContent = money(farm);
-    }
-
-    if (balanceEl) {
-        balanceEl.textContent = money(balance);
-    }
-}
-
-
-// ============================================
-// 🎨 ICON
-// ============================================
-
-function getIcon(category, farmTypeValue) {
-
-    if (category === "income") {
-        return "💰";
-    }
-
-    if (category === "expense") {
-        return "💸";
-    }
-
-    if (farmTypeValue === "Lo") {
-        return "🐄";
-    }
-
-    if (farmTypeValue === "Ari") {
-        return "🐑";
-    }
-
-    if (farmTypeValue === "Beer") {
-        return "🌾";
-    }
-
-    return "🌱";
-}
-
-
-// ============================================
-// 📋 RENDER DIWAANKA
-// ============================================
-
-function render() {
-
-    if (!transactions) {
-        calculateTotals();
-        return;
-    }
-
-    transactions.innerHTML = "";
-
-    if (data.length === 0) {
-
-        if (empty) {
-            empty.style.display = "block";
-        }
-
-        calculateTotals();
-        return;
-    }
-
-    if (empty) {
-        empty.style.display = "none";
-    }
-
-
-    data.forEach((item, index) => {
-
-        const card = document.createElement("div");
-
-        card.className = "transaction-card";
-
-        const icon = getIcon(
-            item.category,
-            item.farmType
-        );
-
-        let title = item.description || "Diiwaan";
-
-        let extra = "";
-
-        if (item.category === "farm") {
-
-            extra = `
-                <div class="farm-details">
-                    ${item.quantity || 0} neef × ${money(item.price || 0)}
-                </div>
-            `;
-
-            title = item.farmType || "Beer";
-        }
-
-        card.innerHTML = `
-
-            <div class="transaction-header">
-
-                <h3>
-                    ${icon} ${title}
-                </h3>
-
-                <button
-                    class="delete-one"
-                    data-index="${index}">
-                    🗑️ Tirtir
-                </button>
-
-            </div>
-
-            ${extra}
-
-            <div class="transaction-date">
-                ${item.date || getDate()}
-            </div>
-
-            <div class="transaction-amount">
-                ${money(item.amount)}
-            </div>
-
-            <button
-                class="delete-one"
-                data-index="${index}">
-                🗑️ Tirtir
-            </button>
-
-        `;
-
-        transactions.appendChild(card);
-
-    });
-
-
-    // Delete buttons
-    document.querySelectorAll(".delete-one")
-        .forEach(button => {
-
-            button.addEventListener("click", function () {
-
-                const index = Number(
-                    this.dataset.index
-                );
-
-                data.splice(index, 1);
-
-                saveData();
-                render();
-
-            });
-
-        });
-
-
-    calculateTotals();
-}
-
-
-// ============================================
-// 💰 DAKHLIGA & KHARASHKA
-// ============================================
-
-if (form) {
-
-    form.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        const desc = description.value.trim();
-        const value = Number(amount.value);
-        const selectedType = type.value;
-
-
-        if (!desc) {
-            alert("Fadlan geli magaca.");
-            return;
-        }
-
-        if (!value || value <= 0) {
-            alert("Fadlan geli lacag sax ah.");
-            return;
-        }
-
-
-        let category = "expense";
-
-        if (
-            selectedType === "income" ||
-            selectedType === "Dakhliga"
-        ) {
-            category = "income";
-        }
-
-
-        data.push({
-
-            id: Date.now(),
-
-            description: desc,
-
-            amount: value,
-
-            category: category,
-
-            icon: category === "income"
-                ? "💰"
-                : "💸",
-
-            date: getDate()
-
-        });
-
-
-        saveData();
-
-        render();
-
-        form.reset();
-
-    });
-
-}
-
-
-// ============================================
-// 🌾 BEER & XOOLAHA
-// ============================================
-
-if (addFarm) {
-
-    addFarm.addEventListener("click", function() {
-
-        const selectedFarm =
-            farmType.value;
-
-        const desc =
-            farmDescription.value.trim();
-
-        const quantity =
-            Number(farmQuantity.value);
-
-        const price =
-            Number(farmPrice.value);
-
-
-        if (!selectedFarm) {
-
-            alert("Fadlan dooro nooca.");
-
-            return;
-        }
-
-
-        if (!desc) {
-
-            alert("Fadlan geli faahfaahinta.");
-
-            return;
-        }
-
-
-        if (!quantity || quantity <= 0) {
-
-            alert("Fadlan geli tirada.");
-
-            return;
-        }
-
-
-        if (!price || price <= 0) {
-
-            alert("Fadlan geli qiimaha.");
-
-            return;
-        }
-
-
-        const total =
-            quantity * price;
-
-
-        data.push({
-
-            id: Date.now(),
-
-            description: desc,
-
-            amount: total,
-
-            category: "farm",
-
-            farmType: selectedFarm,
-
-            quantity: quantity,
-
-            price: price,
-
-            icon: getIcon(
-                "farm",
-                selectedFarm
-            ),
-
-            date: getDate()
-
-        });
-
-
-        saveData();
-
-        render();
-
-
-        farmDescription.value = "";
-        farmQuantity.value = "";
-        farmPrice.value = "";
-
-    });
-
-}
-
-
-// ============================================
-// 🗑️ TIRTIR DHAMMAAN
-// ============================================
-
-if (clearBtn) {
-
-    clearBtn.addEventListener("click", function() {
-
-        if (data.length === 0) {
-
-            alert(
-                "Diwaanku waa madhan yahay."
-            );
-
-            return;
-        }
-
-
-        const hubi = confirm(
-            "MA HUBTAA?\n\n" +
-            "Dhammaan diiwaanka waa la tirtirayaa."
-        );
-
-
-        if (!hubi) {
-            return;
-        }
-
-
-        data = [];
-
-        saveData();
-
-        render();
-
-    });
-
-}
-
-
-// ============================================
-// 🔄 SOO CELI XOGTA
-// ============================================
-
-render();
-
-
-// ============================================
-// 📱 DATE FIX
-// Xogtii hore ee 8/15/2026
-// ============================================
+// ==========================================
+// 📅 SAX TAARIIKHIIYADII HORE
+// ==========================================
 
 function fixOldDates() {
 
@@ -498,33 +105,49 @@ function fixOldDates() {
         }
 
 
-        // 8/15/2026
         const match =
-            item.date.match(
+            String(item.date).match(
                 /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
             );
 
 
-        if (match) {
-
-            const month = match[1];
-            const day = match[2];
-            const year = match[3];
+        if (!match) return;
 
 
-            if (Number(month) <= 12 &&
-                Number(day) <= 31) {
+        const first =
+            Number(match[1]);
 
-                item.date =
-                    String(day).padStart(2, "0")
-                    + "/" +
-                    String(month).padStart(2, "0")
-                    + "/" +
-                    year;
+        const second =
+            Number(match[2]);
+
+        const year =
+            match[3];
+
+
+        // Tusaale:
+        // 8/15/2026
+        // wuxuu noqonayaa:
+        // 15/08/2026
+
+        if (
+            first <= 12 &&
+            second <= 31
+        ) {
+
+            const newDate =
+                String(second).padStart(2, "0") +
+                "/" +
+                String(first).padStart(2, "0") +
+                "/" +
+                year;
+
+
+            if (item.date !== newDate) {
+
+                item.date = newDate;
 
                 changed = true;
             }
-
         }
 
     });
@@ -533,18 +156,683 @@ function fixOldDates() {
     if (changed) {
 
         saveData();
-
-        render();
-
     }
-
 }
 
 
-// Run date correction
+// ==========================================
+// 📊 XISAABTA DASHBOARD
+// ==========================================
+
+function calculateTotals() {
+
+    let income = 0;
+
+    let expense = 0;
+
+    let farm = 0;
+
+
+    data.forEach(item => {
+
+        const value =
+            Number(item.amount || 0);
+
+
+        // 💰 DAKHLI
+        if (item.category === "income") {
+
+            income += value;
+        }
+
+
+        // 💸 KHARASH
+        if (item.category === "expense") {
+
+            expense += value;
+        }
+
+
+        // 🌾 BEER / XOOLO
+        if (item.category === "farm") {
+
+            farm += value;
+
+            /*
+             Xoolaha la iibsaday
+             waxay sidoo kale yihiin kharash.
+            */
+
+            expense += value;
+        }
+
+    });
+
+
+    const balance =
+        income - expense;
+
+
+    if (incomeEl) {
+
+        incomeEl.textContent =
+            money(income);
+    }
+
+
+    if (expenseEl) {
+
+        expenseEl.textContent =
+            money(expense);
+    }
+
+
+    if (farmEl) {
+
+        farmEl.textContent =
+            money(farm);
+    }
+
+
+    if (balanceEl) {
+
+        balanceEl.textContent =
+            money(balance);
+    }
+}
+
+
+// ==========================================
+// 🎨 ICON XOOLAHA / BEERTA
+// ==========================================
+
+function getIcon(item) {
+
+    if (item.category === "income") {
+
+        return "💰";
+    }
+
+
+    if (item.category === "expense") {
+
+        return "💸";
+    }
+
+
+    if (item.farmType === "Ari") {
+
+        return "🐑";
+    }
+
+
+    if (item.farmType === "Lo") {
+
+        return "🐄";
+    }
+
+
+    if (item.farmType === "Beer") {
+
+        return "🌾";
+    }
+
+
+    return "🌱";
+}
+
+
+// ==========================================
+// 📋 DIIWAANKA
+// ==========================================
+
+function render() {
+
+    if (!transactions) {
+
+        calculateTotals();
+
+        return;
+    }
+
+
+    transactions.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+        if (empty) {
+
+            empty.style.display =
+                "block";
+        }
+
+        calculateTotals();
+
+        return;
+    }
+
+
+    if (empty) {
+
+        empty.style.display =
+            "none";
+    }
+
+
+    data.forEach((item, index) => {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "transaction-card";
+
+
+        const icon =
+            getIcon(item);
+
+
+        let title =
+            item.description ||
+            "Diiwaan";
+
+
+        let details = "";
+
+
+        // ==================================
+        // 🐑🐄 XOOLAHA
+        // ==================================
+
+        if (
+            item.category === "farm" &&
+            (
+                item.farmType === "Ari" ||
+                item.farmType === "Lo"
+            )
+        ) {
+
+            title =
+                item.farmType;
+
+
+            details = `
+
+                <div style="
+                    margin:8px 0;
+                    font-size:18px;
+                    color:#66736d;
+                ">
+
+                    ${Number(
+                        item.quantity || 0
+                    ).toLocaleString()}
+
+                    neef
+
+                    ×
+
+                    ${money(item.price)}
+
+                </div>
+
+            `;
+        }
+
+
+        // ==================================
+        // 🌾 BEER
+        // ==================================
+
+        if (
+            item.category === "farm" &&
+            item.farmType === "Beer"
+        ) {
+
+            title = "Beeraha";
+
+
+            details = `
+
+                <div style="
+                    margin:8px 0;
+                    font-size:18px;
+                    color:#66736d;
+                ">
+
+                    🌾 ${item.quantity || 0}
+                    hektar
+
+                </div>
+
+            `;
+        }
+
+
+        // ==================================
+        // 💰 DAKHLI / KHARASH
+        // ==================================
+
+        if (
+            item.category === "income" ||
+            item.category === "expense"
+        ) {
+
+            title =
+                item.description;
+        }
+
+
+        card.innerHTML = `
+
+            <div style="
+                background:#f7faf8;
+                border-left:6px solid #4b9b52;
+                border-radius:18px;
+                padding:18px;
+                margin-bottom:14px;
+            ">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:10px;
+                ">
+
+                    <h3 style="
+                        margin:0;
+                        font-size:22px;
+                    ">
+
+                        ${icon}
+                        ${title}
+
+                    </h3>
+
+                </div>
+
+
+                ${details}
+
+
+                <div style="
+                    color:#68736e;
+                    margin-top:8px;
+                ">
+
+                    📅 ${item.date}
+
+                </div>
+
+
+                <div style="
+                    font-size:27px;
+                    font-weight:bold;
+                    margin-top:10px;
+                ">
+
+                    ${money(item.amount)}
+
+                </div>
+
+
+                <button
+                    class="delete-one"
+                    data-index="${index}"
+                    style="
+                        width:100%;
+                        padding:12px;
+                        margin-top:12px;
+                        border:0;
+                        border-radius:12px;
+                        background:#d1433d;
+                        color:white;
+                        font-weight:bold;
+                        font-size:16px;
+                    "
+                >
+
+                    🗑️ Tirtir
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        transactions.appendChild(card);
+
+    });
+
+
+    // ==================================
+    // 🗑️ TIRTIR HAL DIIWAAN
+    // ==================================
+
+    document
+        .querySelectorAll(".delete-one")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const index =
+                        Number(
+                            this.dataset.index
+                        );
+
+
+                    const confirmDelete =
+                        confirm(
+                            "Ma hubtaa inaad rabto inaad tirtirto diiwaankan?"
+                        );
+
+
+                    if (!confirmDelete) {
+
+                        return;
+                    }
+
+
+                    data.splice(index, 1);
+
+                    saveData();
+
+                    render();
+
+                }
+            );
+
+        });
+
+
+    calculateTotals();
+}
+
+
+// ==========================================
+// 💰 KU DAR DAKHLI / KHARASH
+// ==========================================
+
+if (form) {
+
+    form.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const desc =
+                description.value.trim();
+
+
+            const value =
+                Number(amount.value);
+
+
+            const selectedType =
+                type.value;
+
+
+            if (!desc) {
+
+                alert(
+                    "Fadlan geli faahfaahinta."
+                );
+
+                return;
+            }
+
+
+            if (!value || value <= 0) {
+
+                alert(
+                    "Fadlan geli lacag sax ah."
+                );
+
+                return;
+            }
+
+
+            let category =
+                "expense";
+
+
+            if (
+                selectedType === "income" ||
+                selectedType === "Dakhliga"
+            ) {
+
+                category =
+                    "income";
+            }
+
+
+            data.push({
+
+                id: Date.now(),
+
+                description: desc,
+
+                amount: value,
+
+                category: category,
+
+                date: getDate()
+
+            });
+
+
+            saveData();
+
+            render();
+
+            form.reset();
+
+        }
+    );
+}
+
+
+// ==========================================
+// 🐑🐄🌾 KU DAR XOOLAHA / BEER
+// ==========================================
+
+if (addFarm) {
+
+    addFarm.addEventListener(
+        "click",
+        function() {
+
+            const selected =
+                farmType.value;
+
+
+            const desc =
+                farmDescription.value.trim();
+
+
+            const quantity =
+                Number(
+                    farmQuantity.value
+                );
+
+
+            const price =
+                Number(
+                    farmPrice.value
+                );
+
+
+            if (!selected) {
+
+                alert(
+                    "Fadlan dooro nooca."
+                );
+
+                return;
+            }
+
+
+            if (!desc) {
+
+                alert(
+                    "Fadlan geli faahfaahinta."
+                );
+
+                return;
+            }
+
+
+            if (!quantity || quantity <= 0) {
+
+                alert(
+                    "Fadlan geli tirada."
+                );
+
+                return;
+            }
+
+
+            if (!price || price <= 0) {
+
+                alert(
+                    "Fadlan geli qiimaha."
+                );
+
+                return;
+            }
+
+
+            const total =
+                quantity * price;
+
+
+            let farmName =
+                selected;
+
+
+            if (
+                selected === "Ari" ||
+                selected === "ari"
+            ) {
+
+                farmName = "Ari";
+            }
+
+
+            if (
+                selected === "Lo" ||
+                selected === "lo"
+            ) {
+
+                farmName = "Lo";
+            }
+
+
+            if (
+                selected === "Beer" ||
+                selected === "beer"
+            ) {
+
+                farmName = "Beer";
+            }
+
+
+            data.push({
+
+                id: Date.now(),
+
+                description: desc,
+
+                amount: total,
+
+                category: "farm",
+
+                farmType: farmName,
+
+                quantity: quantity,
+
+                price: price,
+
+                date: getDate()
+
+            });
+
+
+            saveData();
+
+            render();
+
+
+            farmDescription.value =
+                "";
+
+            farmQuantity.value =
+                "";
+
+            farmPrice.value =
+                "";
+
+        }
+    );
+}
+
+
+// ==========================================
+// 🗑️ TIRTIR DHAMMAAN
+// ==========================================
+
+if (clearBtn) {
+
+    clearBtn.addEventListener(
+        "click",
+        function() {
+
+            if (data.length === 0) {
+
+                alert(
+                    "Diiwaanku waa madhan yahay."
+                );
+
+                return;
+            }
+
+
+            const confirmAll =
+                confirm(
+                    "MA HUBTAA?\n\n" +
+                    "Dhammaan diiwaannada waa la tirtirayaa."
+                );
+
+
+            if (!confirmAll) {
+
+                return;
+            }
+
+
+            data = [];
+
+            saveData();
+
+            render();
+
+        }
+    );
+}
+
+
+// ==========================================
+// 🚀 BILOW
+// ==========================================
+
 fixOldDates();
 
-
-// ============================================
-// 🌾 TACBO FINANCE & FARM
-// ============================================
+render();
