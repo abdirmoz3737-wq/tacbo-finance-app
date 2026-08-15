@@ -1,146 +1,718 @@
 <!DOCTYPE html>
 <html lang="so">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TACBO Finance</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TACBO Finance & Farm</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f7f3;
+  color:#17221b;
+}
+
+header{
+  background:linear-gradient(135deg,#237a3b,#58a65d);
+  color:white;
+  padding:30px 20px;
+  text-align:center;
+  border-radius:0 0 30px 30px;
+}
+
+header h1{
+  margin:0 0 8px;
+  font-size:32px;
+}
+
+header p{
+  margin:0;
+  font-size:17px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card h3{
+  margin:0 0 10px;
+  color:#64706a;
+}
+
+.card .money{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.income .money{
+  color:#159447;
+}
+
+.expense .money{
+  color:#d73535;
+}
+
+.balance .money{
+  color:#236bc4;
+}
+
+.section{
+  background:white;
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.section h2{
+  margin-top:0;
+  font-size:24px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:14px;
+  margin-bottom:6px;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccd8cf;
+  border-radius:13px;
+  font-size:16px;
+  background:white;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:13px;
+  margin-top:16px;
+  background:#278c3f;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.danger{
+  background:#c93636;
+}
+
+.blue{
+  background:#2878c7;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.result{
+  margin-top:15px;
+  padding:15px;
+  border-radius:13px;
+  background:#edf8ef;
+  font-weight:bold;
+}
+
+.record{
+  border-left:5px solid #3e914b;
+  background:#f7faf7;
+  border-radius:15px;
+  padding:16px;
+  margin-top:12px;
+}
+
+.record strong{
+  font-size:18px;
+}
+
+.record small{
+  display:block;
+  margin-top:6px;
+  color:#68736d;
+}
+
+.record .delete{
+  margin-top:10px;
+  padding:10px;
+  font-size:14px;
+  background:#d33d3d;
+}
+
+.total{
+  font-size:24px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px;
+  color:#69746d;
+}
+
+@media(max-width:600px){
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+  }
+
+  header h1{
+    font-size:27px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>💰 TACBO Finance</h1>
-  <p>Maamulka dakhliga, kharashaadka iyo beeraha</p>
+  <p>Maamulka dakhliga, kharashaadka, xoolaha iyo beeraha</p>
 </header>
 
-<main>
+<div class="container">
 
-  <section class="cards">
+  <!-- DASHBOARD -->
+  <div class="cards">
 
     <div class="card income">
-      <span>💰 Dakhliga</span>
-      <strong id="income">$0.00</strong>
+      <h3>💰 Dakhliga</h3>
+      <div class="money" id="income">$0.00</div>
     </div>
 
     <div class="card expense">
-      <span>💸 Kharashka</span>
-      <strong id="expense">$0.00</strong>
-    </div>
-
-    <div class="card farm">
-      <span>🌾 Beeraha</span>
-      <strong id="farm">$0.00</strong>
+      <h3>💸 Kharashka</h3>
+      <div class="money" id="expense">$0.00</div>
     </div>
 
     <div class="card balance">
-      <span>📊 Haraaga</span>
-      <strong id="balance">$0.00</strong>
+      <h3>📊 Haraaga</h3>
+      <div class="money" id="balance">$0.00</div>
     </div>
 
-  </section>
+    <div class="card">
+      <h3>🐄🐑 Xoolaha</h3>
+      <div class="money" id="animalsTotal">0</div>
+    </div>
 
-  <section class="panel">
+  </div>
 
-    <h2>➕ Ku dar diiwaan</h2>
 
-    <form id="transactionForm">
+  <!-- KU DAR DHAQALE -->
+  <div class="section">
 
-      <input
-        id="description"
-        type="text"
-        placeholder="Tusaale: Iibka galleyda"
-        required
-      >
-
-      <input
-        id="amount"
-        type="number"
-        min="0.01"
-        step="0.01"
-        placeholder="Lacagta ($)"
-        required
-      >
-
-      <select id="type">
-        <option value="income">💰 Dakhliga</option>
-        <option value="expense">💸 Kharashka</option>
-        <option value="farm">🌾 Beeraha</option>
-      </select>
-
-      <button type="submit">➕ Ku dar</button>
-
-    </form>
-
-  </section>
-
-  <section class="panel">
-
-    <h2>🌾 Beeraha & Xoolaha</h2>
-
-    <label>Waxa la diiwaangelinayo</label>
-
-    <select id="farmType">
-      <option value="field">🌾 Beer</option>
-      <option value="cow">🐄 Lo</option>
-      <option value="sheep">🐑 Ari</option>
-      <option value="tractor">🚜 Tractor/Qalab</option>
-    </select>
+    <h2>➕ Ku dar dhaqaale</h2>
 
     <label>Faahfaahin</label>
+    <input id="description" placeholder="Tusaale: Iibka caanaha">
 
-    <input
-      id="farmDescription"
-      type="text"
-      placeholder="Tusaale: Beer galley 5 hektar"
-    >
+    <label>Lacagta ($)</label>
+    <input id="amount" type="number" min="0" step="0.01" placeholder="Tusaale: 500">
 
-    <label>Tirada</label>
+    <label>Nooca</label>
+    <select id="type">
+      <option value="income">💰 Dakhli</option>
+      <option value="expense">💸 Kharash</option>
+    </select>
 
-    <input
-      id="farmQuantity"
-      type="number"
-      min="0"
-      placeholder="Tusaale: 5"
-    >
+    <button onclick="addTransaction()">➕ Ku dar</button>
 
-    <label>Qiimaha ($)</label>
+  </div>
 
-    <input
-      id="farmPrice"
-      type="number"
-      min="0"
-      step="0.01"
-      placeholder="Tusaale: 700"
-    >
 
-    <button id="addFarm" type="button">
-      🌾 Ku dar Beer/Xoolo
+  <!-- XOOLAHA -->
+  <div class="section">
+
+    <h2>🐄🐑 Ku dar Xoolo</h2>
+
+    <label>Waa maxay?</label>
+    <select id="animalType">
+      <option value="ari">🐑 Ari</option>
+      <option value="lo">🐄 Lo</option>
+      <option value="geel">🐪 Geel</option>
+      <option value="digaag">🐔 Digaag</option>
+    </select>
+
+    <label>Tirada neefafka</label>
+    <input id="animalQty" type="number" min="1" placeholder="Tusaale: 127">
+
+    <label>Qiimaha hal neef ($)</label>
+    <input id="animalPrice" type="number" min="0" step="0.01" placeholder="Tusaale: 40">
+
+    <div class="result">
+      Wadarta: <span id="animalTotal">$0.00</span>
+    </div>
+
+    <button onclick="addAnimal()">🐑 Ku dar Xoolaha</button>
+
+  </div>
+
+
+  <!-- BEERAHA -->
+  <div class="section">
+
+    <h2>🌾 Ku dar Beer</h2>
+
+    <label>Magaca beeraha / dalagga</label>
+    <input id="farmName" placeholder="Tusaale: Beer galley">
+
+    <div class="row">
+
+      <div>
+        <label>Hektar</label>
+        <input id="farmHectare" type="number" min="0" step="0.01" placeholder="5">
+      </div>
+
+      <div>
+        <label>Kharashka ($)</label>
+        <input id="farmCost" type="number" min="0" step="0.01" placeholder="700">
+      </div>
+
+    </div>
+
+    <button onclick="addFarm()">🌾 Ku dar Beer</button>
+
+  </div>
+
+
+  <!-- DIIWAANKA -->
+  <div class="section">
+
+    <h2>📋 Diiwaanka</h2>
+
+    <div id="records">
+      <p>Weli wax diiwaan ah ma jiraan.</p>
+    </div>
+
+    <button class="danger" onclick="clearAll()">
+      🗑️ Tirtir dhammaan
     </button>
 
-  </section>
+  </div>
 
-  <section class="panel">
+</div>
 
-    <div class="title-row">
-      <h2>📋 Diiwaanka</h2>
+<div class="footer">
+  🌾 TACBO Finance & Farm<br>
+  Maamulka xoolaha, beeraha iyo dhaqaalaha
+</div>
 
-      <button id="clearBtn" class="danger" type="button">
-        🗑️ Tirtir dhammaan
-      </button>
-    </div>
 
-    <div id="empty">
-      Weli wax diiwaan ah ma jiraan.
-    </div>
+<script>
 
-    <div id="transactions"></div>
+let data = JSON.parse(
+  localStorage.getItem("tacboData") || "[]"
+);
 
-  </section>
 
-</main>
+/* -------------------------
+   KEYDI XOGTA
+------------------------- */
 
-<script src="script.js"></script>
+function saveData(){
+  localStorage.setItem(
+    "tacboData",
+    JSON.stringify(data)
+  );
+}
+
+
+/* -------------------------
+   DHAQAALAHA
+------------------------- */
+
+function addTransaction(){
+
+  const description =
+    document.getElementById("description").value.trim();
+
+  const amount =
+    Number(document.getElementById("amount").value);
+
+  const type =
+    document.getElementById("type").value;
+
+  if(!description || amount <= 0){
+    alert("Fadlan buuxi faahfaahinta iyo lacagta.");
+    return;
+  }
+
+  data.push({
+    id:Date.now(),
+    category:"transaction",
+    description:description,
+    amount:amount,
+    type:type,
+    date:new Date().toLocaleDateString("so-SO")
+  });
+
+  saveData();
+
+  document.getElementById("description").value="";
+  document.getElementById("amount").value="";
+
+  render();
+}
+
+
+/* -------------------------
+   XOOLAHA
+------------------------- */
+
+document.getElementById("animalQty")
+.addEventListener("input", calculateAnimal);
+
+document.getElementById("animalPrice")
+.addEventListener("input", calculateAnimal);
+
+
+function calculateAnimal(){
+
+  const qty =
+    Number(document.getElementById("animalQty").value) || 0;
+
+  const price =
+    Number(document.getElementById("animalPrice").value) || 0;
+
+  const total = qty * price;
+
+  document.getElementById("animalTotal")
+    .textContent = "$" + total.toFixed(2);
+}
+
+
+function addAnimal(){
+
+  const animal =
+    document.getElementById("animalType").value;
+
+  const qty =
+    Number(document.getElementById("animalQty").value);
+
+  const price =
+    Number(document.getElementById("animalPrice").value);
+
+  if(qty <= 0 || price < 0){
+    alert("Fadlan geli tirada iyo qiimaha hal neef.");
+    return;
+  }
+
+  const names = {
+    ari:"🐑 Ari",
+    lo:"🐄 Lo",
+    geel:"🐪 Geel",
+    digaag:"🐔 Digaag"
+  };
+
+  const total = qty * price;
+
+  data.push({
+    id:Date.now(),
+    category:"animal",
+    animal:animal,
+    name:names[animal],
+    qty:qty,
+    price:price,
+    total:total,
+    date:new Date().toLocaleDateString("so-SO")
+  });
+
+  saveData();
+
+  document.getElementById("animalQty").value="";
+  document.getElementById("animalPrice").value="";
+  document.getElementById("animalTotal").textContent="$0.00";
+
+  render();
+}
+
+
+/* -------------------------
+   BEER
+------------------------- */
+
+function addFarm(){
+
+  const name =
+    document.getElementById("farmName").value.trim();
+
+  const hectare =
+    Number(document.getElementById("farmHectare").value);
+
+  const cost =
+    Number(document.getElementById("farmCost").value);
+
+  if(!name || hectare <= 0 || cost < 0){
+    alert("Fadlan buuxi magaca beeraha, hektarka iyo kharashka.");
+    return;
+  }
+
+  data.push({
+    id:Date.now(),
+    category:"farm",
+    name:name,
+    hectare:hectare,
+    cost:cost,
+    date:new Date().toLocaleDateString("so-SO")
+  });
+
+  saveData();
+
+  document.getElementById("farmName").value="";
+  document.getElementById("farmHectare").value="";
+  document.getElementById("farmCost").value="";
+
+  render();
+}
+
+
+/* -------------------------
+   TIRTIR HAL DIWAAN
+------------------------- */
+
+function deleteRecord(id){
+
+  data = data.filter(item => item.id !== id);
+
+  saveData();
+
+  render();
+}
+
+
+/* -------------------------
+   TIRTIR DHAMMAAN
+------------------------- */
+
+function clearAll(){
+
+  if(confirm("Ma hubtaa inaad tirtirayso dhammaan xogta?")){
+
+    data=[];
+
+    saveData();
+
+    render();
+  }
+}
+
+
+/* -------------------------
+   DASHBOARD
+------------------------- */
+
+function render(){
+
+  let income = 0;
+  let expense = 0;
+  let animals = 0;
+
+  data.forEach(item => {
+
+    if(item.category === "transaction"){
+
+      if(item.type === "income"){
+        income += item.amount;
+      }
+
+      if(item.type === "expense"){
+        expense += item.amount;
+      }
+    }
+
+    if(item.category === "animal"){
+
+      animals += item.qty;
+
+      /*
+        Xoolaha la iibsaday
+        waxay noqonayaan kharash.
+      */
+
+      expense += item.total;
+    }
+
+    if(item.category === "farm"){
+
+      expense += item.cost;
+    }
+
+  });
+
+
+  const balance = income - expense;
+
+
+  document.getElementById("income")
+    .textContent = "$" + income.toFixed(2);
+
+  document.getElementById("expense")
+    .textContent = "$" + expense.toFixed(2);
+
+  document.getElementById("balance")
+    .textContent = "$" + balance.toFixed(2);
+
+  document.getElementById("animalsTotal")
+    .textContent = animals;
+
+
+  renderRecords();
+}
+
+
+/* -------------------------
+   DIIWAANKA
+------------------------- */
+
+function renderRecords(){
+
+  const box =
+    document.getElementById("records");
+
+  if(data.length === 0){
+
+    box.innerHTML =
+      "<p>Weli wax diiwaan ah ma jiraan.</p>";
+
+    return;
+  }
+
+
+  box.innerHTML = "";
+
+
+  [...data].reverse().forEach(item => {
+
+    const div =
+      document.createElement("div");
+
+    div.className="record";
+
+
+    /* DHAQALE */
+
+    if(item.category === "transaction"){
+
+      const icon =
+        item.type === "income" ? "💰" : "💸";
+
+      const title =
+        item.type === "income" ? "Dakhli" : "Kharash";
+
+      div.innerHTML = `
+        <strong>${icon} ${item.description}</strong>
+        <small>${title} • ${item.date}</small>
+        <div class="total">
+          $${item.amount.toFixed(2)}
+        </div>
+
+        <button class="delete"
+          onclick="deleteRecord(${item.id})">
+          🗑️ Tirtir
+        </button>
+      `;
+    }
+
+
+    /* XOOLAHA */
+
+    if(item.category === "animal"){
+
+      div.innerHTML = `
+        <strong>${item.name}</strong>
+
+        <small>
+          ${item.qty} neef × $${item.price.toFixed(2)}
+        </small>
+
+        <small>${item.date}</small>
+
+        <div class="total">
+          $${item.total.toFixed(2)}
+        </div>
+
+        <button class="delete"
+          onclick="deleteRecord(${item.id})">
+          🗑️ Tirtir
+        </button>
+      `;
+    }
+
+
+    /* BEER */
+
+    if(item.category === "farm"){
+
+      div.innerHTML = `
+        <strong>🌾 ${item.name}</strong>
+
+        <small>
+          ${item.hectare} hektar
+        </small>
+
+        <small>${item.date}</small>
+
+        <div class="total">
+          Kharash: $${item.cost.toFixed(2)}
+        </div>
+
+        <button class="delete"
+          onclick="deleteRecord(${item.id})">
+          🗑️ Tirtir
+        </button>
+      `;
+    }
+
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* -------------------------
+   BILOW APP
+------------------------- */
+
+render();
+
+</script>
 
 </body>
 </html>
