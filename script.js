@@ -1,3 +1,7 @@
+// ==========================================
+// TACBO FINANCE & FARM
+// ==========================================
+
 const form = document.getElementById("transactionForm");
 const description = document.getElementById("description");
 const amount = document.getElementById("amount");
@@ -19,280 +23,368 @@ const addFarm = document.getElementById("addFarm");
 
 const clearBtn = document.getElementById("clearBtn");
 
+// ==========================================
+// XOGTA KAYDINTA
+// ==========================================
+
 let data = JSON.parse(
-  localStorage.getItem("tacboTransactions") || "[]"
+    localStorage.getItem("tacboTransactions") || "[]"
 );
 
+// ==========================================
+// DATE - QAABKA: 15/08/2026
+// ==========================================
 
-// ===============================
-// MUUQAALKA APP-KA
-// ===============================
+function getDate() {
+    return new Date().toLocaleDateString("en-GB");
+}
+
+// ==========================================
+// LACAGTA
+// ==========================================
+
+function money(value) {
+    return "$" + Number(value).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+// ==========================================
+// SAVE
+// ==========================================
+
+function saveData() {
+    localStorage.setItem(
+        "tacboTransactions",
+        JSON.stringify(data)
+    );
+}
+
+// ==========================================
+// MAGACA XOOLAHA
+// ==========================================
+
+function animalName(value) {
+    if (value === "lo") return "🐄 Lo";
+    if (value === "ari") return "🐑 Ari";
+    return value;
+}
+
+// ==========================================
+// RENDER
+// ==========================================
 
 function render() {
 
-  transactions.innerHTML = "";
+    if (!transactions) return;
 
-  let totalIncome = 0;
-  let totalExpense = 0;
-  let totalFarm = 0;
+    transactions.innerHTML = "";
 
-  data.forEach((item, index) => {
+    let totalIncome = 0;
+    let totalExpense = 0;
+    let totalFarm = 0;
+    let totalAnimals = 0;
 
-    const money = Number(item.amount);
+    data.forEach((item, index) => {
 
-    if (item.type === "income") {
-      totalIncome += money;
+        const value = Number(item.amount || 0);
+
+        if (item.type === "income") {
+            totalIncome += value;
+        }
+
+        if (item.type === "expense") {
+            totalExpense += value;
+        }
+
+        if (item.type === "farm") {
+            totalFarm += value;
+
+            if (item.quantity) {
+                totalAnimals += Number(item.quantity);
+            }
+        }
+
+        const card = document.createElement("div");
+
+        card.className = "transaction";
+
+        let extra = "";
+
+        if (item.type === "farm") {
+
+            extra = `
+                <div class="farm-info">
+                    ${animalName(item.farmType)}
+                </div>
+
+                <div class="quantity">
+                    ${Number(item.quantity).toLocaleString()}
+                    neef × ${money(item.price)}
+                </div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="transaction-content">
+
+                <h3>
+                    ${item.icon || "💰"}
+                    ${item.description}
+                </h3>
+
+                ${extra}
+
+                <p class="date">
+                    ${item.date}
+                </p>
+
+                <strong>
+                    ${money(item.amount)}
+                </strong>
+
+            </div>
+
+            <button
+                class="delete-btn"
+                data-index="${index}"
+            >
+                🗑️ Tirtir
+            </button>
+        `;
+
+        transactions.appendChild(card);
+    });
+
+    // ==========================================
+    // TOTALS
+    // ==========================================
+
+    const balance =
+        totalIncome - totalExpense - totalFarm;
+
+    if (incomeEl) {
+        incomeEl.textContent = money(totalIncome);
     }
 
-    if (item.type === "expense") {
-      totalExpense += money;
+    if (expenseEl) {
+        expenseEl.textContent = money(totalExpense);
     }
 
-    if (item.type === "farm") {
-      totalFarm += money;
+    if (farmEl) {
+        farmEl.textContent = money(totalFarm);
     }
 
-    const row = document.createElement("div");
+    if (balanceEl) {
+        balanceEl.textContent = money(balance);
+    }
 
-    row.className = "transaction";
+    // ==========================================
+    // EMPTY
+    // ==========================================
 
-    row.innerHTML = `
-      <div>
-        <strong>${item.description}</strong>
-        <br>
-        <span>${item.category || ""}</span>
-        <br>
-        <small>${item.date || ""}</small>
-      </div>
+    if (empty) {
+        empty.style.display =
+            data.length === 0 ? "block" : "none";
+    }
 
-      <div>
-        <strong>$${money.toFixed(2)}</strong>
-        <br>
-        <button onclick="removeTransaction(${index})">
-          🗑️ Tirtir
-        </button>
-      </div>
-    `;
+    // ==========================================
+    // TIRTIR
+    // ==========================================
 
-    transactions.appendChild(row);
-  });
+    document.querySelectorAll(".delete-btn").forEach(button => {
 
+        button.addEventListener("click", () => {
 
-  // Lacagaha guud
+            const index = Number(
+                button.dataset.index
+            );
 
-  incomeEl.textContent =
-    "$" + totalIncome.toFixed(2);
+            const hubi = confirm(
+                "Ma hubtaa inaad rabto inaad tirtirto diiwaankan?"
+            );
 
-  expenseEl.textContent =
-    "$" + totalExpense.toFixed(2);
+            if (!hubi) return;
 
-  farmEl.textContent =
-    "$" + totalFarm.toFixed(2);
+            data.splice(index, 1);
 
-  const balance =
-    totalIncome - totalExpense - totalFarm;
+            saveData();
 
-  balanceEl.textContent =
-    "$" + balance.toFixed(2);
-
-
-  if (data.length === 0) {
-    empty.style.display = "block";
-  } else {
-    empty.style.display = "none";
-  }
-
+            render();
+        });
+    });
 }
 
+// ==========================================
+// KU DAR DAKHLIGA / KHARASHKA
+// ==========================================
 
-// ===============================
-// KU DAR DAKHLI / KHARASH / BEER
-// ===============================
+if (form) {
 
-form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", function(e) {
 
-  e.preventDefault();
+        e.preventDefault();
 
-  const desc = description.value.trim();
-  const money = Number(amount.value);
-  const selectedType = type.value;
+        const desc = description.value.trim();
+        const moneyValue = Number(amount.value);
+        const selectedType = type.value;
 
-  if (!desc || money <= 0) {
+        if (!desc) {
+            alert("Fadlan geli magaca ama faahfaahinta.");
+            return;
+        }
 
-    alert("Fadlan geli xog sax ah.");
+        if (!moneyValue || moneyValue <= 0) {
+            alert("Fadlan geli lacag sax ah.");
+            return;
+        }
 
-    return;
-  }
+        let icon = "💰";
 
+        if (selectedType === "income") {
+            icon = "💰";
+        }
 
-  data.push({
+        if (selectedType === "expense") {
+            icon = "💸";
+        }
 
-    description: desc,
+        data.push({
 
-    amount: money,
+            id: Date.now(),
 
-    type: selectedType,
+            description: desc,
 
-    category:
-      selectedType === "income"
-        ? "💰 Dakhliga"
-        : selectedType === "expense"
-        ? "💸 Kharashka"
-        : "🌾 Beeraha",
+            amount: moneyValue,
 
-    date:
-      new Date().toLocaleDateString("so-SO")
+            type: selectedType,
 
-  });
+            icon: icon,
 
+            date: getDate()
 
-  saveData();
+        });
 
-  form.reset();
+        saveData();
 
-  render();
+        render();
 
-});
-
-
-// ===============================
-// KU DAR BEER / XOOLO
-// ===============================
-
-addFarm.addEventListener("click", function() {
-
-  const desc =
-    farmDescription.value.trim();
-
-  const quantity =
-    Number(farmQuantity.value);
-
-  const price =
-    Number(farmPrice.value);
-
-
-  if (!desc || quantity <= 0 || price <= 0) {
-
-    alert("Fadlan buuxi xogta Beeraha/Xoolaha.");
-
-    return;
-  }
-
-
-  let name = "🌾 Beer";
-
-  if (farmType.value === "cow") {
-    name = "🐄 Lo";
-  }
-
-  if (farmType.value === "sheep") {
-    name = "🐑 Ari";
-  }
-
-  if (farmType.value === "tractor") {
-    name = "🚜 Tractor/Qalab";
-  }
-
-
-  const total =
-    quantity * price;
-
-
-  data.push({
-
-    description: desc,
-
-    amount: total,
-
-    type: "farm",
-
-    category: name,
-
-    quantity: quantity,
-
-    unitPrice: price,
-
-    date:
-      new Date().toLocaleDateString("so-SO")
-
-  });
-
-
-  saveData();
-
-
-  farmDescription.value = "";
-
-  farmQuantity.value = "";
-
-  farmPrice.value = "";
-
-
-  render();
-
-});
-
-
-// ===============================
-// TIRTIR HAL DIWAAN
-// ===============================
-
-function removeTransaction(index) {
-
-  if (
-    !confirm("Ma hubtaa inaad tirtirayso diiwaankan?")
-  ) {
-    return;
-  }
-
-
-  data.splice(index, 1);
-
-  saveData();
-
-  render();
-
+        form.reset();
+    });
 }
 
+// ==========================================
+// KU DAR BEER / XOOLAHA
+// ==========================================
 
-// ===============================
+if (addFarm) {
+
+    addFarm.addEventListener("click", function() {
+
+        const selectedAnimal = farmType.value;
+
+        const desc = farmDescription.value.trim();
+
+        const quantity = Number(farmQuantity.value);
+
+        const price = Number(farmPrice.value);
+
+        if (!selectedAnimal) {
+            alert("Fadlan dooro Lo ama Ari.");
+            return;
+        }
+
+        if (!desc) {
+            alert("Fadlan geli faahfaahinta.");
+            return;
+        }
+
+        if (!quantity || quantity <= 0) {
+            alert("Fadlan geli tirada.");
+            return;
+        }
+
+        if (!price || price <= 0) {
+            alert("Fadlan geli qiimaha neefkiiba.");
+            return;
+        }
+
+        const total = quantity * price;
+
+        let icon = "🌾";
+
+        if (selectedAnimal === "lo") {
+            icon = "🐄";
+        }
+
+        if (selectedAnimal === "ari") {
+            icon = "🐑";
+        }
+
+        data.push({
+
+            id: Date.now(),
+
+            description: desc,
+
+            type: "farm",
+
+            farmType: selectedAnimal,
+
+            quantity: quantity,
+
+            price: price,
+
+            amount: total,
+
+            icon: icon,
+
+            date: getDate()
+
+        });
+
+        saveData();
+
+        render();
+
+        farmDescription.value = "";
+
+        farmQuantity.value = "";
+
+        farmPrice.value = "";
+    });
+}
+
+// ==========================================
 // TIRTIR DHAMMAAN
-// ===============================
+// ==========================================
 
-clearBtn.addEventListener("click", function() {
+if (clearBtn) {
 
-  if (
-    !confirm(
-      "Ma hubtaa inaad tirtirayso dhammaan diiwaanka?"
-    )
-  ) {
-    return;
-  }
+    clearBtn.addEventListener("click", function() {
 
+        if (data.length === 0) {
+            alert("Diwaanku waa madhan yahay.");
+            return;
+        }
 
-  data = [];
+        const hubi = confirm(
+            "MA HUBTAA?\n\nDhammaan diiwaanka waa la tirtirayaa."
+        );
 
-  saveData();
+        if (!hubi) return;
 
-  render();
+        data = [];
 
-});
+        saveData();
 
-
-// ===============================
-// KEYDI XOGTA
-// ===============================
-
-function saveData() {
-
-  localStorage.setItem(
-    "tacboTransactions",
-    JSON.stringify(data)
-  );
-
+        render();
+    });
 }
 
-
-// Bilow app-ka
+// ==========================================
+// BILOW APP-KA
+// ==========================================
 
 render();
