@@ -1,34 +1,146 @@
 <!DOCTYPE html>
 <html lang="so">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TACBO Finance</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TACBO Finance</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header><h1>💰 TACBO Finance</h1><p>Maamulka dakhliga iyo kharashaadka</p></header>
+
+<header>
+  <h1>💰 TACBO Finance</h1>
+  <p>Maamulka dakhliga, kharashaadka iyo beeraha</p>
+</header>
+
 <main>
-<section class="cards">
-<div class="card"><span>💵 Dakhliga</span><strong id="income">$0.00</strong></div>
-<div class="card"><span>💸 Kharashka</span><strong id="expense">$0.00</strong></div>
-<div class="card"><span>📊 Haraaga</span><strong id="balance">$0.00</strong></div>
-</section>
-<section class="panel">
-<h2>Ku dar lacag</h2>
-<form id="transactionForm">
-<input id="description" placeholder="Tusaale: Iibka galleyda" required>
-<input id="amount" type="number" min="0.01" step="0.01" placeholder="Lacagta ($)" required>
-<select id="type"><option value="income">Dakhli</option><option value="expense">Kharash</option></select>
-<button type="submit">+ Ku dar</button>
-</form>
-</section>
-<section class="panel">
-<div class="title-row"><h2>Diiwaanka lacagaha</h2><button id="clearBtn" class="danger">Tirtir dhammaan</button></div>
-<div id="empty">Weli wax diiwaan ah ma jiraan.</div>
-<div id="transactions"></div>
-</section>
+
+  <section class="cards">
+
+    <div class="card income">
+      <span>💰 Dakhliga</span>
+      <strong id="income">$0.00</strong>
+    </div>
+
+    <div class="card expense">
+      <span>💸 Kharashka</span>
+      <strong id="expense">$0.00</strong>
+    </div>
+
+    <div class="card farm">
+      <span>🌾 Beeraha</span>
+      <strong id="farm">$0.00</strong>
+    </div>
+
+    <div class="card balance">
+      <span>📊 Haraaga</span>
+      <strong id="balance">$0.00</strong>
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>➕ Ku dar diiwaan</h2>
+
+    <form id="transactionForm">
+
+      <input
+        id="description"
+        type="text"
+        placeholder="Tusaale: Iibka galleyda"
+        required
+      >
+
+      <input
+        id="amount"
+        type="number"
+        min="0.01"
+        step="0.01"
+        placeholder="Lacagta ($)"
+        required
+      >
+
+      <select id="type">
+        <option value="income">💰 Dakhliga</option>
+        <option value="expense">💸 Kharashka</option>
+        <option value="farm">🌾 Beeraha</option>
+      </select>
+
+      <button type="submit">➕ Ku dar</button>
+
+    </form>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>🌾 Beeraha & Xoolaha</h2>
+
+    <label>Waxa la diiwaangelinayo</label>
+
+    <select id="farmType">
+      <option value="field">🌾 Beer</option>
+      <option value="cow">🐄 Lo</option>
+      <option value="sheep">🐑 Ari</option>
+      <option value="tractor">🚜 Tractor/Qalab</option>
+    </select>
+
+    <label>Faahfaahin</label>
+
+    <input
+      id="farmDescription"
+      type="text"
+      placeholder="Tusaale: Beer galley 5 hektar"
+    >
+
+    <label>Tirada</label>
+
+    <input
+      id="farmQuantity"
+      type="number"
+      min="0"
+      placeholder="Tusaale: 5"
+    >
+
+    <label>Qiimaha ($)</label>
+
+    <input
+      id="farmPrice"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="Tusaale: 700"
+    >
+
+    <button id="addFarm" type="button">
+      🌾 Ku dar Beer/Xoolo
+    </button>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="title-row">
+      <h2>📋 Diiwaanka</h2>
+
+      <button id="clearBtn" class="danger" type="button">
+        🗑️ Tirtir dhammaan
+      </button>
+    </div>
+
+    <div id="empty">
+      Weli wax diiwaan ah ma jiraan.
+    </div>
+
+    <div id="transactions"></div>
+
+  </section>
+
 </main>
+
 <script src="script.js"></script>
+
 </body>
 </html>
