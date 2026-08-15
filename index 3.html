@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TACBO Finance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>💰 TACBO Finance</h1><p>Maamulka dakhliga iyo kharashaadka</p></header>
+<main>
+<section class="cards">
+<div class="card"><span>💵 Dakhliga</span><strong id="income">$0.00</strong></div>
+<div class="card"><span>💸 Kharashka</span><strong id="expense">$0.00</strong></div>
+<div class="card"><span>📊 Haraaga</span><strong id="balance">$0.00</strong></div>
+</section>
+<section class="panel">
+<h2>Ku dar lacag</h2>
+<form id="transactionForm">
+<input id="description" placeholder="Tusaale: Iibka galleyda" required>
+<input id="amount" type="number" min="0.01" step="0.01" placeholder="Lacagta ($)" required>
+<select id="type"><option value="income">Dakhli</option><option value="expense">Kharash</option></select>
+<button type="submit">+ Ku dar</button>
+</form>
+</section>
+<section class="panel">
+<div class="title-row"><h2>Diiwaanka lacagaha</h2><button id="clearBtn" class="danger">Tirtir dhammaan</button></div>
+<div id="empty">Weli wax diiwaan ah ma jiraan.</div>
+<div id="transactions"></div>
+</section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
