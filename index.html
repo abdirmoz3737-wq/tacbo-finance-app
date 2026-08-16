@@ -1,208 +1,287 @@
 <!DOCTYPE html>
 <html lang="so">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>TACBO Finance & Farm</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f2f7f3;
-  color:#17221b;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f2f7f3;
+color:#17221b;
 }
 
 header{
-  background:linear-gradient(135deg,#237a3b,#58a65d);
-  color:white;
-  padding:30px 20px;
-  text-align:center;
-  border-radius:0 0 30px 30px;
+background:linear-gradient(135deg,#237a3b,#58a65d);
+color:white;
+padding:30px 20px;
+text-align:center;
+border-radius:0 0 30px 30px;
 }
 
 header h1{
-  margin:0 0 8px;
-  font-size:32px;
+margin:0 0 8px;
+font-size:32px;
 }
 
 header p{
-  margin:0;
-  font-size:17px;
+margin:0;
+font-size:17px;
 }
 
 .container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+max-width:900px;
+margin:auto;
+padding:20px;
 }
 
 .status{
-  padding:13px 15px;
-  border-radius:12px;
-  margin-bottom:20px;
-  background:#fff3cd;
-  color:#856404;
-  font-weight:bold;
+padding:14px 16px;
+border-radius:13px;
+margin-bottom:20px;
+background:#fff3cd;
+color:#856404;
+font-weight:bold;
 }
 
 .status.ok{
-  background:#e8f5e9;
-  color:#176b2c;
+background:#e8f5e9;
+color:#176b2c;
 }
 
 .status.error{
-  background:#fdeaea;
-  color:#b3261e;
+background:#fdeaea;
+color:#b3261e;
 }
 
 .cards{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:20px;
 }
 
 .card{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+background:white;
+border-radius:20px;
+padding:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
 .card h3{
-  margin:0 0 10px;
-  color:#64706a;
+margin:0 0 10px;
+color:#64706a;
 }
 
 .money{
-  font-size:28px;
-  font-weight:bold;
+font-size:28px;
+font-weight:bold;
 }
 
-.income .money{color:#159447}
-.expense .money{color:#d73535}
-.balance .money{color:#236bc4}
+.income .money{
+color:#159447;
+}
+
+.expense .money{
+color:#d73535;
+}
+
+.balance .money{
+color:#236bc4;
+}
+
+.animals .money{
+color:#8a5a18;
+}
 
 .section{
-  background:white;
-  border-radius:22px;
-  padding:22px;
-  margin-bottom:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+background:white;
+border-radius:22px;
+padding:22px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
 .section h2{
-  margin-top:0;
-  font-size:24px;
+margin-top:0;
+font-size:24px;
 }
 
 label{
-  display:block;
-  font-weight:bold;
-  margin-top:14px;
-  margin-bottom:6px;
+display:block;
+font-weight:bold;
+margin-top:14px;
+margin-bottom:6px;
 }
 
-input,select{
-  width:100%;
-  padding:14px;
-  border:1px solid #ccd8cf;
-  border-radius:13px;
-  font-size:16px;
-  background:white;
+input,
+select{
+width:100%;
+padding:14px;
+border:1px solid #ccd8cf;
+border-radius:13px;
+font-size:16px;
+background:white;
+}
+
+input:focus,
+select:focus{
+outline:none;
+border-color:#278c3f;
+box-shadow:0 0 0 3px rgba(39,140,63,.10);
 }
 
 button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:13px;
-  margin-top:16px;
-  background:#278c3f;
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
+width:100%;
+padding:15px;
+border:0;
+border-radius:13px;
+margin-top:16px;
+background:#278c3f;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
 }
 
 button:disabled{
-  opacity:.6;
+opacity:.6;
+cursor:not-allowed;
 }
 
 .danger{
-  background:#c93636;
+background:#c93636;
+}
+
+.secondary{
+background:#236bc4;
 }
 
 .row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .result{
-  margin-top:15px;
-  padding:15px;
-  border-radius:13px;
-  background:#edf8ef;
-  font-weight:bold;
+margin-top:15px;
+padding:17px;
+border-radius:13px;
+background:#edf8ef;
+font-weight:bold;
+line-height:1.7;
+}
+
+.result .big{
+font-size:25px;
+color:#237a3b;
 }
 
 .record{
-  border-left:5px solid #3e914b;
-  background:#f7faf7;
-  border-radius:15px;
-  padding:16px;
-  margin-top:12px;
+border-left:5px solid #3e914b;
+background:#f7faf7;
+border-radius:15px;
+padding:16px;
+margin-top:12px;
 }
 
 .record strong{
-  font-size:18px;
+font-size:18px;
 }
 
 .record small{
-  display:block;
-  margin-top:6px;
-  color:#68736d;
+display:block;
+margin-top:7px;
+color:#68736d;
 }
 
 .total{
-  font-size:24px;
-  font-weight:bold;
-  margin-top:10px;
+font-size:24px;
+font-weight:bold;
+margin-top:10px;
 }
 
 .empty{
-  text-align:center;
-  color:#69746d;
-  padding:15px;
+text-align:center;
+color:#69746d;
+padding:20px;
+}
+
+.badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+background:#e8f5e9;
+color:#176b2c;
+}
+
+.badge.expense{
+background:#fdeaea;
+color:#b3261e;
+}
+
+.badge.animal{
+background:#fff4dc;
+color:#8a5a18;
+}
+
+.badge.farm{
+background:#e8f1ff;
+color:#236bc4;
 }
 
 .footer{
-  text-align:center;
-  padding:30px;
-  color:#69746d;
+text-align:center;
+padding:30px;
+color:#69746d;
+}
+
+hr{
+border:0;
+border-top:1px solid #e1e8e3;
+margin:22px 0;
 }
 
 @media(max-width:600px){
 
-  .cards{
-    grid-template-columns:1fr;
-  }
+.cards{
+grid-template-columns:1fr;
+}
 
-  .row{
-    grid-template-columns:1fr;
-  }
+.row{
+grid-template-columns:1fr;
+}
 
-  header h1{
-    font-size:27px;
-  }
+header h1{
+font-size:27px;
+}
+
+.container{
+padding:14px;
+}
+
+.section{
+padding:18px;
+}
 
 }
+
 </style>
 
 </head>
@@ -210,39 +289,78 @@ button:disabled{
 <body>
 
 <header>
-  <h1>💰 TACBO Finance</h1>
-  <p>Maamulka dakhliga, kharashaadka, xoolaha iyo beeraha</p>
+
+<h1>💰 TACBO Finance</h1>
+
+<p>
+Maamulka dhaqaalaha, xoolaha iyo beeraha
+</p>
+
 </header>
+
 
 <div class="container">
 
+
+<!-- STATUS -->
+
 <div id="status" class="status">
-  ⏳ Supabase ayaa la xiriiraya...
+⏳ Supabase ayaa la xiriiraya...
 </div>
+
 
 <!-- DASHBOARD -->
 
 <div class="cards">
 
+
 <div class="card income">
+
 <h3>💰 Dakhliga</h3>
-<div id="income" class="money">$0.00</div>
+
+<div id="income"
+class="money">
+$0.00
 </div>
+
+</div>
+
 
 <div class="card expense">
+
 <h3>💸 Kharashka</h3>
-<div id="expense" class="money">$0.00</div>
+
+<div id="expense"
+class="money">
+$0.00
 </div>
+
+</div>
+
 
 <div class="card balance">
+
 <h3>📊 Haraaga</h3>
-<div id="balance" class="money">$0.00</div>
+
+<div id="balance"
+class="money">
+$0.00
 </div>
 
-<div class="card">
-<h3>🐄🐑 Xoolaha</h3>
-<div id="animalsTotal" class="money">0</div>
 </div>
+
+
+<div class="card animals">
+
+<h3>🐄🐑 Xoolaha</h3>
+
+<div id="animalsTotal"
+class="money">
+0
+</div>
+
+</div>
+
 
 </div>
 
@@ -251,16 +369,22 @@ button:disabled{
 
 <div class="section">
 
-<h2>➕ Ku dar dhaqaale</h2>
+<h2>➕ Ku dar Dhaqaale</h2>
 
-<label>Faahfaahin</label>
+
+<label>
+Faahfaahin
+</label>
 
 <input
 id="description"
 placeholder="Tusaale: Iibka caanaha"
 >
 
-<label>Lacagta ($)</label>
+
+<label>
+Lacagta ($)
+</label>
 
 <input
 id="amount"
@@ -270,14 +394,20 @@ step="0.01"
 placeholder="500"
 >
 
-<label>📅 Taariikhda</label>
+
+<label>
+📅 Taariikhda
+</label>
 
 <input
 id="transactionDate"
 type="date"
 >
 
-<label>Nooca</label>
+
+<label>
+Nooca
+</label>
 
 <select id="type">
 
@@ -291,23 +421,30 @@ type="date"
 
 </select>
 
+
 <button
 id="transactionBtn"
 onclick="addTransaction()"
 >
-➕ Ku dar
+➕ Ku dar Dhaqaale
 </button>
 
 </div>
+
 
 
 <!-- XOOLAHA -->
 
 <div class="section">
 
-<h2>🐑🐄 Maamulka Xoolaha</h2>
+<h2>
+🐑🐄 Maamulka Xoolaha
+</h2>
 
-<label>Nooca xoolaha</label>
+
+<label>
+Nooca xoolaha
+</label>
 
 <select id="animalType">
 
@@ -321,21 +458,28 @@ onclick="addTransaction()"
 
 </select>
 
-<label>Tirada hadda jirta</label>
+
+<label>
+Tirada hadda jirta
+</label>
 
 <input
 id="animalQty"
 type="number"
 min="0"
 step="1"
-placeholder="Tusaale: 100"
+placeholder="Tusaale: 300"
 >
+
 
 <div class="row">
 
+
 <div>
 
-<label>🍼 Dhashay</label>
+<label>
+🍼 Dhashay
+</label>
 
 <input
 id="animalBorn"
@@ -347,9 +491,12 @@ value="0"
 
 </div>
 
+
 <div>
 
-<label>💀 Dhintay</label>
+<label>
+💀 Dhintay
+</label>
 
 <input
 id="animalDead"
@@ -361,9 +508,13 @@ value="0"
 
 </div>
 
+
 </div>
 
-<label>🛒 La iibiyey</label>
+
+<label>
+🛒 La iibiyey
+</label>
 
 <input
 id="animalSold"
@@ -373,42 +524,67 @@ step="1"
 value="0"
 >
 
-<label>Qiimaha hal neef ($)</label>
+
+<label>
+Qiimaha hal neef ($)
+</label>
 
 <input
 id="animalPrice"
 type="number"
 min="0"
 step="0.01"
-placeholder="Tusaale: 40"
+placeholder="Tusaale: 60"
 >
 
-<label>📅 Taariikhda</label>
+
+<label>
+📅 Taariikhda
+</label>
 
 <input
 id="animalDate"
 type="date"
 >
 
+
 <div class="result">
 
 Tirada kadib isbeddelka:
 
-<strong id="animalNewTotal">
+<br>
+
+<strong
+id="animalNewTotal"
+class="big"
+>
 0
 </strong>
 
 neef
 
+<hr>
+
+💵 Qiimaha xoolaha hadda:
+
+<br>
+
+<strong id="animalTotal">
+$0.00
+</strong>
+
 <br><br>
 
-Qiimaha xoolaha:
+🛒 Lacagta iibka:
 
-<span id="animalTotal">
+<br>
+
+<strong id="animalSaleTotal">
 $0.00
-</span>
+</strong>
 
 </div>
+
 
 <button
 id="animalBtn"
@@ -420,24 +596,34 @@ onclick="addAnimal()"
 </div>
 
 
+
 <!-- BEERAHA -->
 
 <div class="section">
 
-<h2>🌾 Ku dar Beer</h2>
+<h2>
+🌾 Ku dar Beer
+</h2>
 
-<label>Magaca beeraha / dalagga</label>
+
+<label>
+Magaca beeraha / dalagga
+</label>
 
 <input
 id="farmName"
-placeholder="Tusaale: Beer galley"
+placeholder="Tusaale: Beer Galley"
 >
+
 
 <div class="row">
 
+
 <div>
 
-<label>Hektar</label>
+<label>
+Hektar
+</label>
 
 <input
 id="farmHectare"
@@ -449,9 +635,12 @@ placeholder="5"
 
 </div>
 
+
 <div>
 
-<label>Kharashka ($)</label>
+<label>
+Kharashka ($)
+</label>
 
 <input
 id="farmCost"
@@ -463,14 +652,19 @@ placeholder="700"
 
 </div>
 
+
 </div>
 
-<label>📅 Taariikhda</label>
+
+<label>
+📅 Taariikhda
+</label>
 
 <input
 id="farmDate"
 type="date"
 >
+
 
 <button
 id="farmBtn"
@@ -482,11 +676,15 @@ onclick="addFarm()"
 </div>
 
 
+
 <!-- DIIWAANKA -->
 
 <div class="section">
 
-<h2>📋 Diiwaanka</h2>
+<h2>
+📋 Diiwaanka
+</h2>
+
 
 <div id="records">
 
@@ -496,40 +694,46 @@ onclick="addFarm()"
 
 </div>
 
+
 <button
 class="danger"
 onclick="clearAll()"
 >
-🗑️ Tirtir dhammaan
+🗑️ Tirtir Dhammaan
 </button>
 
 </div>
+
 
 </div>
 
 
 <div class="footer">
 
-🌾 TACBO Finance & Farm
+🌾 <strong>TACBO Finance & Farm</strong>
 
-<br>
+<br><br>
 
 Maamulka xoolaha, beeraha iyo dhaqaalaha
 
 </div>
 
 
+
 <script>
 
-/* ==============================
+
+/* =========================================
    SUPABASE
-============================== */
+========================================= */
 
 const SUPABASE_URL =
 "https://ujkjdxytceqfcngdzlqt.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_sxq-3X1EoOx2zbINhQoNeQ__0tANMn5";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -538,9 +742,10 @@ SUPABASE_KEY
 );
 
 
-/* ==============================
+
+/* =========================================
    HELPERS
-============================== */
+========================================= */
 
 function money(n){
 
@@ -550,14 +755,15 @@ Number(n || 0).toFixed(2);
 }
 
 
-function status(msg,error=false){
+function status(message,error=false){
 
-const e =
+const element =
 document.getElementById("status");
 
-e.textContent = msg;
+element.textContent =
+message;
 
-e.className =
+element.className =
 error
 ? "status error"
 : "status ok";
@@ -565,29 +771,35 @@ error
 }
 
 
-function esc(v){
+function esc(value){
 
-const d =
+const div =
 document.createElement("div");
 
-d.textContent =
-v == null ? "" : String(v);
+div.textContent =
+value == null
+? ""
+: String(value);
 
-return d.innerHTML;
+return div.innerHTML;
 
 }
 
 
-function date(v){
+function formatDate(value){
 
-if(!v) return "";
+if(!value){
+return "";
+}
 
 const d =
-new Date(v);
+new Date(value);
 
-return isNaN(d)
-? ""
-: d.toLocaleDateString("so-SO");
+if(isNaN(d)){
+return "";
+}
+
+return d.toLocaleDateString("so-SO");
 
 }
 
@@ -601,39 +813,45 @@ return new Date()
 }
 
 
-function animalName(v){
+function animalName(value){
 
-return {
+if(value === "ari"){
+return "🐑 Ari";
+}
 
-ari:"🐑 Ari",
+if(value === "lo"){
+return "🐄 Lo";
+}
 
-lo:"🐄 Lo"
-
-}[v] || v;
+return value || "Xoolo";
 
 }
 
 
-/* ==============================
+
+/* =========================================
    DEFAULT DATES
-============================== */
+========================================= */
 
-document
-.getElementById("transactionDate")
-.value = today();
-
-document
-.getElementById("animalDate")
-.value = today();
-
-document
-.getElementById("farmDate")
-.value = today();
+document.getElementById(
+"transactionDate"
+).value = today();
 
 
-/* ==============================
-   ANIMAL CALCULATION
-============================== */
+document.getElementById(
+"animalDate"
+).value = today();
+
+
+document.getElementById(
+"farmDate"
+).value = today();
+
+
+
+/* =========================================
+   ANIMAL CALCULATOR
+========================================= */
 
 [
 "animalQty",
@@ -655,63 +873,84 @@ calcAnimal
 
 function calcAnimal(){
 
-const q =
+const quantity =
 Number(
-document
-.getElementById("animalQty")
-.value
+document.getElementById(
+"animalQty"
+).value
 ) || 0;
+
 
 const born =
 Number(
-document
-.getElementById("animalBorn")
-.value
+document.getElementById(
+"animalBorn"
+).value
 ) || 0;
+
 
 const dead =
 Number(
-document
-.getElementById("animalDead")
-.value
+document.getElementById(
+"animalDead"
+).value
 ) || 0;
+
 
 const sold =
 Number(
-document
-.getElementById("animalSold")
-.value
+document.getElementById(
+"animalSold"
+).value
 ) || 0;
+
 
 const price =
 Number(
-document
-.getElementById("animalPrice")
-.value
+document.getElementById(
+"animalPrice"
+).value
 ) || 0;
+
 
 const newTotal =
 Math.max(
 0,
-q + born - dead - sold
+quantity +
+born -
+dead -
+sold
 );
 
-document
-.getElementById("animalNewTotal")
-.textContent =
+
+const saleTotal =
+sold * price;
+
+
+document.getElementById(
+"animalNewTotal"
+).textContent =
 newTotal;
 
-document
-.getElementById("animalTotal")
-.textContent =
+
+document.getElementById(
+"animalTotal"
+).textContent =
 money(newTotal * price);
+
+
+document.getElementById(
+"animalSaleTotal"
+).textContent =
+money(saleTotal);
 
 }
 
 
-/* ==============================
+
+/* =========================================
    ADD TRANSACTION
-============================== */
+========================================= */
 
 async function addTransaction(){
 
@@ -721,6 +960,7 @@ document
 .value
 .trim();
 
+
 const amount =
 Number(
 document
@@ -728,10 +968,19 @@ document
 .value
 );
 
+
 const type =
 document
 .getElementById("type")
 .value;
+
+
+const transactionDate =
+document
+.getElementById("transactionDate")
+.value
+|| today();
+
 
 if(
 !description ||
@@ -747,12 +996,14 @@ return;
 
 }
 
+
 const button =
 document.getElementById(
 "transactionBtn"
 );
 
 button.disabled = true;
+
 
 const {error} =
 await supabaseClient
@@ -768,15 +1019,17 @@ description:description,
 amount:amount,
 
 transaction_date:
-document
-.getElementById("transactionDate")
-.value || today()
+transactionDate
 
 });
 
+
 button.disabled = false;
 
+
 if(error){
+
+console.error(error);
 
 status(
 "❌ Dhaqaalaha lama kaydin: " +
@@ -788,30 +1041,36 @@ return;
 
 }
 
-document
-.getElementById("description")
-.value="";
 
-document
-.getElementById("amount")
-.value="";
+document.getElementById(
+"description"
+).value = "";
 
-document
-.getElementById("transactionDate")
-.value=today();
+
+document.getElementById(
+"amount"
+).value = "";
+
+
+document.getElementById(
+"transactionDate"
+).value = today();
+
 
 status(
 "✅ Dhaqaalaha waa la kaydiyey."
 );
+
 
 await loadData();
 
 }
 
 
-/* ==============================
+
+/* =========================================
    ADD ANIMAL
-============================== */
+========================================= */
 
 async function addAnimal(){
 
@@ -820,12 +1079,14 @@ document
 .getElementById("animalType")
 .value;
 
+
 const quantity =
 Number(
 document
 .getElementById("animalQty")
 .value
 );
+
 
 const born =
 Number(
@@ -834,12 +1095,14 @@ document
 .value
 ) || 0;
 
+
 const dead =
 Number(
 document
 .getElementById("animalDead")
 .value
 ) || 0;
+
 
 const sold =
 Number(
@@ -848,18 +1111,24 @@ document
 .value
 ) || 0;
 
-const unit_price =
+
+const unitPrice =
 Number(
 document
 .getElementById("animalPrice")
 .value
 ) || 0;
 
+
 const selectedDate =
 document
 .getElementById("animalDate")
-.value || today();
+.value
+|| today();
 
+
+
+/* VALIDATION */
 
 if(
 !Number.isInteger(quantity) ||
@@ -876,16 +1145,12 @@ return;
 
 
 if(
-[born,dead,sold]
-.some(
-x =>
-!Number.isInteger(x) ||
-x < 0
-)
+!Number.isInteger(born) ||
+born < 0
 ){
 
 alert(
-"Dhashay, Dhintay iyo La iibiyey waa inay noqdaan tirooyin sax ah."
+"Dhashay waa inay noqotaa tiro sax ah."
 );
 
 return;
@@ -894,12 +1159,12 @@ return;
 
 
 if(
-dead + sold >
-quantity + born
+!Number.isInteger(dead) ||
+dead < 0
 ){
 
 alert(
-"Dhintay + La iibiyey kama badnaan karaan tirada la heli karo."
+"Dhintay waa inay noqotaa tiro sax ah."
 );
 
 return;
@@ -907,13 +1172,66 @@ return;
 }
 
 
+if(
+!Number.isInteger(sold) ||
+sold < 0
+){
+
+alert(
+"La iibiyey waa inay noqotaa tiro sax ah."
+);
+
+return;
+
+}
+
+
+const newTotal =
+quantity +
+born -
+dead -
+sold;
+
+
+if(newTotal < 0){
+
+alert(
+"❌ Tirada la dhintay iyo la iibiyey ayaa ka badan xoolaha la heli karo."
+);
+
+return;
+
+}
+
+
+if(
+sold > 0 &&
+unitPrice <= 0
+){
+
+alert(
+"Fadlan geli qiimaha hal neef haddii aad xoolo iibisay."
+);
+
+return;
+
+}
+
+
+const saleAmount =
+sold * unitPrice;
+
+
 const button =
 document.getElementById(
 "animalBtn"
 );
 
-button.disabled=true;
+button.disabled = true;
 
+
+
+/* KAYDI XOOLAHA */
 
 const {error} =
 await supabaseClient
@@ -930,7 +1248,7 @@ dead:dead,
 
 sold:sold,
 
-unit_price:unit_price,
+unit_price:unitPrice,
 
 created_at:
 selectedDate +
@@ -939,10 +1257,9 @@ selectedDate +
 });
 
 
-button.disabled=false;
-
-
 if(error){
+
+button.disabled = false;
 
 console.error(error);
 
@@ -957,44 +1274,119 @@ return;
 }
 
 
-document
-.getElementById("animalQty")
-.value="";
 
-document
-.getElementById("animalBorn")
-.value="0";
+/* Haddii xoolo la iibiyey,
+   iibka u kaydi DAKHLI */
 
-document
-.getElementById("animalDead")
-.value="0";
+if(
+sold > 0 &&
+unitPrice > 0
+){
 
-document
-.getElementById("animalSold")
-.value="0";
+const animalLabel =
+animal === "ari"
+? "Ari"
+: "Lo";
 
-document
-.getElementById("animalPrice")
-.value="";
 
-document
-.getElementById("animalDate")
-.value=today();
+const {error:saleError} =
+await supabaseClient
+.from("transactions")
+.insert({
+
+type:"income",
+
+category:"livestock_sale",
+
+description:
+"Iibka " +
+animalLabel +
+" - " +
+sold +
+" neef",
+
+amount:saleAmount,
+
+transaction_date:
+selectedDate
+
+});
+
+
+if(saleError){
+
+console.error(saleError);
+
+button.disabled = false;
+
+status(
+"⚠️ Xoolaha waa la kaydiyey laakiin iibka lama gelin dakhliga: " +
+saleError.message,
+true
+);
+
+return;
+
+}
+
+}
+
+
+button.disabled = false;
+
+
+
+/* NADIIFI FORM */
+
+document.getElementById(
+"animalQty"
+).value = "";
+
+
+document.getElementById(
+"animalBorn"
+).value = "0";
+
+
+document.getElementById(
+"animalDead"
+).value = "0";
+
+
+document.getElementById(
+"animalSold"
+).value = "0";
+
+
+document.getElementById(
+"animalPrice"
+).value = "";
+
+
+document.getElementById(
+"animalDate"
+).value = today();
+
 
 calcAnimal();
 
+
 status(
-"✅ Xogta xoolaha waa la kaydiyey."
+sold > 0
+? "✅ Xoolaha waa la kaydiyey, lacagta iibkana Dakhliga ayaa lagu daray."
+: "✅ Xogta xoolaha waa la kaydiyey."
 );
+
 
 await loadData();
 
 }
 
 
-/* ==============================
+
+/* =========================================
    ADD FARM
-============================== */
+========================================= */
 
 async function addFarm(){
 
@@ -1004,6 +1396,7 @@ document
 .value
 .trim();
 
+
 const hectare =
 Number(
 document
@@ -1011,12 +1404,21 @@ document
 .value
 );
 
+
 const cost =
 Number(
 document
 .getElementById("farmCost")
 .value
 );
+
+
+const selectedDate =
+document
+.getElementById("farmDate")
+.value
+|| today();
+
 
 if(
 !name ||
@@ -1036,15 +1438,11 @@ return;
 
 
 const button =
-document.getElementById("farmBtn");
+document.getElementById(
+"farmBtn"
+);
 
-button.disabled=true;
-
-
-const selectedDate =
-document
-.getElementById("farmDate")
-.value || today();
+button.disabled = true;
 
 
 const {error} =
@@ -1067,10 +1465,12 @@ selectedDate +
 });
 
 
-button.disabled=false;
+button.disabled = false;
 
 
 if(error){
+
+console.error(error);
 
 status(
 "❌ Beeraha lama kaydin: " +
@@ -1083,35 +1483,40 @@ return;
 }
 
 
-document
-.getElementById("farmName")
-.value="";
+document.getElementById(
+"farmName"
+).value = "";
 
-document
-.getElementById("farmHectare")
-.value="";
 
-document
-.getElementById("farmCost")
-.value="";
+document.getElementById(
+"farmHectare"
+).value = "";
 
-document
-.getElementById("farmDate")
-.value=today();
+
+document.getElementById(
+"farmCost"
+).value = "";
+
+
+document.getElementById(
+"farmDate"
+).value = today();
 
 
 status(
 "✅ Beeraha waa la kaydiyey."
 );
 
+
 await loadData();
 
 }
 
 
-/* ==============================
+
+/* =========================================
    LOAD DATA
-============================== */
+========================================= */
 
 async function loadData(){
 
@@ -1128,34 +1533,45 @@ livestockResult,
 farmsResult
 ] = await Promise.all([
 
+
 supabaseClient
 .from("transactions")
 .select("*")
 .order(
 "created_at",
-{ascending:false}
+{
+ascending:false
+}
 ),
+
 
 supabaseClient
 .from("livestock")
 .select("*")
 .order(
 "created_at",
-{ascending:false}
+{
+ascending:false
+}
 ),
+
 
 supabaseClient
 .from("farms")
 .select("*")
 .order(
 "created_at",
-{ascending:false}
+{
+ascending:false
+}
 )
 
 ]);
 
 
-if(transactionsResult.error){
+if(
+transactionsResult.error
+){
 
 status(
 "❌ transactions: " +
@@ -1168,7 +1584,9 @@ return;
 }
 
 
-if(livestockResult.error){
+if(
+livestockResult.error
+){
 
 status(
 "❌ livestock: " +
@@ -1181,7 +1599,9 @@ return;
 }
 
 
-if(farmsResult.error){
+if(
+farmsResult.error
+){
 
 status(
 "❌ farms: " +
@@ -1226,9 +1646,10 @@ true
 }
 
 
-/* ==============================
+
+/* =========================================
    RENDER
-============================== */
+========================================= */
 
 function render(
 transactions,
@@ -1236,122 +1657,190 @@ livestock,
 farms
 ){
 
-let income=0;
+let income = 0;
 
-let expense=0;
-
-let animals=0;
+let expense = 0;
 
 
-transactions.forEach(x=>{
+/* DHAQAALAHA */
 
-if(x.type==="income"){
+transactions.forEach(item=>{
 
-income +=
-Number(x.amount) || 0;
+const amount =
+Number(item.amount) || 0;
+
+
+if(item.type === "income"){
+
+income += amount;
 
 }
 
-if(x.type==="expense"){
 
-expense +=
-Number(x.amount) || 0;
+if(item.type === "expense"){
+
+expense += amount;
 
 }
 
 });
 
 
-livestock.forEach(x=>{
 
-const q =
-Number(x.quantity) || 0;
+/* BEERAHA = KHARASH */
+
+farms.forEach(farm=>{
+
+expense +=
+Number(farm.cost) || 0;
+
+});
+
+
+
+/*
+   XOOLAHA
+
+   Waxaan qaadaneynaa
+   record-ka ugu dambeeyey
+   ee Ari iyo Lo.
+
+   Sidaas darteed haddii aad
+   marar badan xog cusub geliso
+   tirada lama labanlaabayo.
+*/
+
+const latestAnimals = {};
+
+
+livestock.forEach(item=>{
+
+const type =
+item.animal_type;
+
+
+if(
+!latestAnimals[type]
+){
+
+latestAnimals[type] = item;
+
+}
+
+});
+
+
+
+let animalsTotal = 0;
+
+
+Object.values(
+latestAnimals
+).forEach(item=>{
+
+const quantity =
+Number(item.quantity) || 0;
 
 const born =
-Number(x.born) || 0;
+Number(item.born) || 0;
 
 const dead =
-Number(x.dead) || 0;
+Number(item.dead) || 0;
 
 const sold =
-Number(x.sold) || 0;
+Number(item.sold) || 0;
 
-const price =
-Number(x.unit_price) || 0;
 
 const current =
 Math.max(
 0,
-q + born - dead - sold
+quantity +
+born -
+dead -
+sold
 );
 
-animals += current;
 
-expense +=
-current * price;
+animalsTotal += current;
 
 });
 
 
-farms.forEach(x=>{
 
-expense +=
-Number(x.cost) || 0;
+/* DASHBOARD */
 
-});
-
-
-document
-.getElementById("income")
-.textContent =
+document.getElementById(
+"income"
+).textContent =
 money(income);
 
-document
-.getElementById("expense")
-.textContent =
+
+document.getElementById(
+"expense"
+).textContent =
 money(expense);
 
-document
-.getElementById("balance")
-.textContent =
+
+document.getElementById(
+"balance"
+).textContent =
 money(
 income - expense
 );
 
-document
-.getElementById("animalsTotal")
-.textContent =
-animals.toLocaleString();
+
+document.getElementById(
+"animalsTotal"
+).textContent =
+animalsTotal.toLocaleString();
 
 
-const all=[
 
-...transactions.map(
-x=>({
+/* DIIWAANKA */
+
+const all = [
+
+
+...transactions.map(item=>({
+
 kind:"transaction",
-...x
-})
-),
 
-...livestock.map(
-x=>({
+...item
+
+})),
+
+
+...livestock.map(item=>({
+
 kind:"livestock",
-...x
-})
-),
 
-...farms.map(
-x=>({
+...item
+
+})),
+
+
+...farms.map(item=>({
+
 kind:"farm",
-...x
-})
-)
 
-].sort(
+...item
+
+}))
+
+
+];
+
+
+all.sort(
 (a,b)=>
-new Date(b.created_at || 0) -
-new Date(a.created_at || 0)
+new Date(
+b.created_at || 0
+) -
+new Date(
+a.created_at || 0
+)
 );
+
 
 
 const box =
@@ -1363,55 +1852,92 @@ document.getElementById(
 if(!all.length){
 
 box.innerHTML =
-'<p class="empty">' +
-'Weli wax diiwaan ah ma jiraan.' +
-'</p>';
+`
+<p class="empty">
+📋 Weli wax diiwaan ah ma jiraan.
+</p>
+`;
 
 return;
 
 }
 
 
-box.innerHTML="";
+box.innerHTML = "";
 
 
-all.forEach(x=>{
 
-const d =
+all.forEach(item=>{
+
+const record =
 document.createElement("div");
 
-d.className="record";
 
+record.className =
+"record";
+
+
+
+/* TRANSACTION */
 
 if(
-x.kind==="transaction"
+item.kind === "transaction"
 ){
 
-d.innerHTML=`
+const isIncome =
+item.type === "income";
+
+
+record.innerHTML = `
 
 <strong>
-${x.type==="income"?"💰":"💸"}
-${esc(x.description)}
+
+${isIncome ? "💰" : "💸"}
+
+${esc(
+item.description
+)}
+
 </strong>
 
 <small>
-${x.type==="income"?"Dakhli":"Kharash"}
+
+<span class="badge ${
+isIncome
+? ""
+: "expense"
+}">
+
+${isIncome
+? "Dakhli"
+: "Kharash"}
+
+</span>
+
 •
-${date(
-x.transaction_date ||
-x.created_at
+
+${formatDate(
+item.transaction_date ||
+item.created_at
 )}
+
 </small>
 
 <div class="total">
-${money(x.amount)}
+
+${money(
+item.amount
+)}
+
 </div>
 
 <button
 class="danger"
-onclick="deleteTransaction('${x.id}')"
+onclick="deleteTransaction('${item.id}')"
 >
+
 🗑️ Tirtir
+
 </button>
 
 `;
@@ -1419,68 +1945,133 @@ onclick="deleteTransaction('${x.id}')"
 }
 
 
+
+/* LIVESTOCK */
+
 else if(
-x.kind==="livestock"
+item.kind === "livestock"
 ){
 
-const q =
-Number(x.quantity) || 0;
+const quantity =
+Number(item.quantity) || 0;
+
 
 const born =
-Number(x.born) || 0;
+Number(item.born) || 0;
+
 
 const dead =
-Number(x.dead) || 0;
+Number(item.dead) || 0;
+
 
 const sold =
-Number(x.sold) || 0;
+Number(item.sold) || 0;
+
 
 const price =
-Number(x.unit_price) || 0;
+Number(item.unit_price) || 0;
+
 
 const current =
 Math.max(
 0,
-q + born - dead - sold
+quantity +
+born -
+dead -
+sold
 );
 
 
-d.innerHTML=`
+const saleAmount =
+sold * price;
+
+
+record.innerHTML = `
 
 <strong>
+
 ${animalName(
-x.animal_type
+item.animal_type
 )}
+
 </strong>
 
 <small>
-Hadda: ${q} neef
+
+<span class="badge animal">
+Xoolo
+</span>
+
+•
+
+${formatDate(
+item.created_at
+)}
+
 </small>
 
 <small>
-🍼 Dhashay: ${born}
-•
-💀 Dhintay: ${dead}
-•
-🛒 Iib: ${sold}
+
+📌 Tirada hore:
+<b>${quantity}</b>
+
+neef
+
 </small>
 
 <small>
-Haraaga:
-<b>${current}</b> neef
+
+🍼 Dhashay:
+<b>${born}</b>
+
 •
-${date(x.created_at)}
+
+💀 Dhintay:
+<b>${dead}</b>
+
+•
+
+🛒 Iib:
+<b>${sold}</b>
+
 </small>
 
+<small>
+
+📊 Haraaga:
+
+<b>${current}</b>
+
+neef
+
+</small>
+
+<small>
+
+💵 Qiimaha hal neef:
+
+${money(price)}
+
+</small>
+
+${
+sold > 0
+? `
 <div class="total">
-${money(current * price)}
+💰 Iibka:
+${money(saleAmount)}
 </div>
+`
+: ""
+}
 
 <button
 class="danger"
-onclick="deleteLivestock('${x.id}')"
+onclick="deleteLivestock('${item.id}')"
 >
+
 🗑️ Tirtir
+
 </button>
 
 `;
@@ -1488,31 +2079,66 @@ onclick="deleteLivestock('${x.id}')"
 }
 
 
-else{
 
-d.innerHTML=`
+/* FARM */
+
+else if(
+item.kind === "farm"
+){
+
+record.innerHTML = `
 
 <strong>
-🌾 ${esc(x.name)}
+
+🌾 ${esc(
+item.name
+)}
+
 </strong>
 
 <small>
-${Number(x.hectare || 0)}
-hektar
+
+<span class="badge farm">
+Beer
+</span>
+
 •
-${date(x.created_at)}
+
+${formatDate(
+item.created_at
+)}
+
+</small>
+
+<small>
+
+📐 Hektar:
+
+<b>
+${Number(
+item.hectare || 0
+)}
+</b>
+
 </small>
 
 <div class="total">
-Kharash:
-${money(x.cost)}
+
+💸 Kharash:
+
+${money(
+item.cost
+)}
+
 </div>
 
 <button
 class="danger"
-onclick="deleteFarm('${x.id}')"
+onclick="deleteFarm('${item.id}')"
 >
+
 🗑️ Tirtir
+
 </button>
 
 `;
@@ -1520,24 +2146,29 @@ onclick="deleteFarm('${x.id}')"
 }
 
 
-box.appendChild(d);
+box.appendChild(record);
 
 });
 
 }
 
 
-/* ==============================
-   DELETE
-============================== */
+
+/* =========================================
+   DELETE TRANSACTION
+========================================= */
 
 async function deleteTransaction(id){
 
 if(
 !confirm(
-"Ma hubtaa inaad tirtirayso?"
+"Ma hubtaa inaad tirtirayso dhaqaalahan?"
 )
-)return;
+){
+
+return;
+
+}
 
 
 const {error} =
@@ -1560,18 +2191,32 @@ return;
 }
 
 
+status(
+"✅ Diiwaanka waa la tirtiray."
+);
+
+
 await loadData();
 
 }
 
 
+
+/* =========================================
+   DELETE LIVESTOCK
+========================================= */
+
 async function deleteLivestock(id){
 
 if(
 !confirm(
-"Ma hubtaa inaad tirtirayso xoolahan?"
+"Ma hubtaa inaad tirtirayso xogtan xoolaha?"
 )
-)return;
+){
+
+return;
+
+}
 
 
 const {error} =
@@ -1584,7 +2229,7 @@ await supabaseClient
 if(error){
 
 status(
-"❌ Lama tirtirin: " +
+"❌ Xogta xoolaha lama tirtirin: " +
 error.message,
 true
 );
@@ -1594,10 +2239,20 @@ return;
 }
 
 
+status(
+"✅ Xogta xoolaha waa la tirtiray."
+);
+
+
 await loadData();
 
 }
 
+
+
+/* =========================================
+   DELETE FARM
+========================================= */
 
 async function deleteFarm(id){
 
@@ -1605,7 +2260,11 @@ if(
 !confirm(
 "Ma hubtaa inaad tirtirayso beertan?"
 )
-)return;
+){
+
+return;
+
+}
 
 
 const {error} =
@@ -1618,7 +2277,7 @@ await supabaseClient
 if(error){
 
 status(
-"❌ Lama tirtirin: " +
+"❌ Beerta lama tirtirin: " +
 error.message,
 true
 );
@@ -1628,50 +2287,97 @@ return;
 }
 
 
+status(
+"✅ Beerta waa la tirtiray."
+);
+
+
 await loadData();
 
 }
 
 
-/* ==============================
+
+/* =========================================
    DELETE ALL
-============================== */
+========================================= */
 
 async function clearAll(){
 
-if(
-!confirm(
-"Ma hubtaa inaad tirtirayso dhammaan xogta?"
-)
-)return;
+const confirmed =
+confirm(
+"⚠️ MA HUBTAA?\n\n" +
+"Dhammaan xogta dhaqaalaha, xoolaha iyo beeraha waa la tirtirayaa."
+);
 
 
-const a =
+if(!confirmed){
+
+return;
+
+}
+
+
+const confirmed2 =
+confirm(
+"⚠️ DIGNIIN KALE!\n\n" +
+"Xogta marka la tirtiro lama soo celin karo."
+);
+
+
+if(!confirmed2){
+
+return;
+
+}
+
+
+
+const transactions =
 await supabaseClient
 .from("transactions")
 .delete()
-.not("id","is",null);
+.not(
+"id",
+"is",
+null
+);
 
 
-const b =
+const livestock =
 await supabaseClient
 .from("livestock")
 .delete()
-.not("id","is",null);
+.not(
+"id",
+"is",
+null
+);
 
 
-const c =
+const farms =
 await supabaseClient
 .from("farms")
 .delete()
-.not("id","is",null);
+.not(
+"id",
+"is",
+null
+);
+
 
 
 if(
-a.error ||
-b.error ||
-c.error
+transactions.error ||
+livestock.error ||
+farms.error
 ){
+
+console.error(
+transactions.error,
+livestock.error,
+farms.error
+);
 
 status(
 "❌ Dhammaan xogta lama tirtirin.",
@@ -1683,18 +2389,27 @@ return;
 }
 
 
+status(
+"✅ Dhammaan xogta waa la tirtiray."
+);
+
+
 await loadData();
 
 }
 
 
-/* ==============================
-   START APP
-============================== */
+
+/* =========================================
+   START
+========================================= */
+
+calcAnimal();
 
 loadData();
 
 </script>
 
 </body>
+
 </html>
