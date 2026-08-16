@@ -3,21 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TACBO Finance & Farm</title>
-  
-<script>
-const SUPABASE_URL = "https://ujkjdxytceqfcngdzlqt.supabase.co";
-const SUPABASE_KEY = "GELI-PUBLISHABLE-KEY-GAAGA-HALKAN";
 
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -51,12 +42,17 @@ header p{
 }
 
 .status{
-  padding:12px 15px;
+  padding:13px 15px;
   border-radius:12px;
   margin-bottom:20px;
+  background:#fff3cd;
+  color:#856404;
+  font-weight:bold;
+}
+
+.status.ok{
   background:#e8f5e9;
   color:#176b2c;
-  font-weight:bold;
 }
 
 .status.error{
@@ -83,7 +79,7 @@ header p{
   color:#64706a;
 }
 
-.card .money{
+.money{
   font-size:28px;
   font-weight:bold;
 }
@@ -142,20 +138,12 @@ button{
   cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
-}
-
 button:disabled{
   opacity:.6;
 }
 
 .danger{
   background:#c93636;
-}
-
-.blue{
-  background:#2878c7;
 }
 
 .row{
@@ -190,29 +178,22 @@ button:disabled{
   color:#68736d;
 }
 
-.record .delete{
-  margin-top:10px;
-  padding:10px;
-  font-size:14px;
-  background:#d33d3d;
-}
-
 .total{
   font-size:24px;
   font-weight:bold;
   margin-top:10px;
 }
 
-.footer{
-  text-align:center;
-  padding:30px;
-  color:#69746d;
-}
-
 .empty{
   text-align:center;
   color:#69746d;
   padding:15px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px;
+  color:#69746d;
 }
 
 @media(max-width:600px){
@@ -231,7 +212,6 @@ button:disabled{
 
 }
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -247,34 +227,30 @@ button:disabled{
     ⏳ Supabase ayaa la xiriiraya...
   </div>
 
-  <!-- DASHBOARD -->
-
   <div class="cards">
 
     <div class="card income">
       <h3>💰 Dakhliga</h3>
-      <div class="money" id="income">$0.00</div>
+      <div id="income" class="money">$0.00</div>
     </div>
 
     <div class="card expense">
       <h3>💸 Kharashka</h3>
-      <div class="money" id="expense">$0.00</div>
+      <div id="expense" class="money">$0.00</div>
     </div>
 
     <div class="card balance">
       <h3>📊 Haraaga</h3>
-      <div class="money" id="balance">$0.00</div>
+      <div id="balance" class="money">$0.00</div>
     </div>
 
     <div class="card">
       <h3>🐄🐑 Xoolaha</h3>
-      <div class="money" id="animalsTotal">0</div>
+      <div id="animalsTotal" class="money">0</div>
     </div>
 
   </div>
 
-
-  <!-- DHAQAALAHA -->
 
   <div class="section">
 
@@ -292,9 +268,9 @@ button:disabled{
     <input
       id="amount"
       type="number"
-      min="0"
+      min="0.01"
       step="0.01"
-      placeholder="Tusaale: 500"
+      placeholder="500"
     >
 
     <label>Nooca</label>
@@ -311,14 +287,15 @@ button:disabled{
 
     </select>
 
-    <button onclick="addTransaction()">
+    <button
+      id="transactionBtn"
+      onclick="addTransaction()"
+    >
       ➕ Ku dar
     </button>
 
   </div>
 
-
-  <!-- XOOLAHA -->
 
   <div class="section">
 
@@ -352,7 +329,8 @@ button:disabled{
       id="animalQty"
       type="number"
       min="1"
-      placeholder="Tusaale: 127"
+      step="1"
+      placeholder="127"
     >
 
     <label>Qiimaha hal neef ($)</label>
@@ -362,7 +340,7 @@ button:disabled{
       type="number"
       min="0"
       step="0.01"
-      placeholder="Tusaale: 40"
+      placeholder="40"
     >
 
     <div class="result">
@@ -370,14 +348,15 @@ button:disabled{
       <span id="animalTotal">$0.00</span>
     </div>
 
-    <button onclick="addAnimal()">
+    <button
+      id="animalBtn"
+      onclick="addAnimal()"
+    >
       🐑 Ku dar Xoolaha
     </button>
 
   </div>
 
-
-  <!-- BEERAHA -->
 
   <div class="section">
 
@@ -399,7 +378,7 @@ button:disabled{
         <input
           id="farmHectare"
           type="number"
-          min="0"
+          min="0.01"
           step="0.01"
           placeholder="5"
         >
@@ -422,14 +401,15 @@ button:disabled{
 
     </div>
 
-    <button onclick="addFarm()">
+    <button
+      id="farmBtn"
+      onclick="addFarm()"
+    >
       🌾 Ku dar Beer
     </button>
 
   </div>
 
-
-  <!-- DIIWAANKA -->
 
   <div class="section">
 
@@ -466,9 +446,9 @@ button:disabled{
 
 <script>
 
-/* ==================================================
+/* =========================
    SUPABASE
-================================================== */
+========================= */
 
 const SUPABASE_URL =
   "https://ujkjdxytceqfcngdzlqt.supabase.co";
@@ -483,26 +463,9 @@ const supabaseClient =
   );
 
 
-/* ==================================================
-   STATUS
-================================================== */
-
-function showStatus(message,error=false){
-
-  const status =
-    document.getElementById("status");
-
-  status.textContent = message;
-
-  status.className =
-    error ? "status error" : "status";
-
-}
-
-
-/* ==================================================
-   FORMAT MONEY
-================================================== */
+/* =========================
+   HELPERS
+========================= */
 
 function money(value){
 
@@ -512,111 +475,74 @@ function money(value){
 }
 
 
-/* ==================================================
-   DHAQAALAHA
-================================================== */
+function showStatus(message,error=false){
 
-async function addTransaction(){
+  const element =
+    document.getElementById("status");
 
-  const description =
-    document
-      .getElementById("description")
-      .value
-      .trim();
+  element.textContent =
+    message;
 
-  const amount =
-    Number(
-      document
-        .getElementById("amount")
-        .value
-    );
-
-  const type =
-    document
-      .getElementById("type")
-      .value;
-
-
-  if(!description || amount <= 0){
-
-    alert(
-      "Fadlan buuxi faahfaahinta iyo lacagta."
-    );
-
-    return;
-  }
-
-
-  try{
-
-    const { error } =
-      await supabaseClient
-        .from("transactions")
-        .insert({
-
-          type:type,
-
-          category:"transaction",
-
-          description:description,
-
-          amount:amount,
-
-          transaction_date:
-            new Date()
-              .toISOString()
-              .split("T")[0]
-
-        });
-
-
-    if(error){
-
-      console.error(error);
-
-      alert(
-        "Khalad ayaa dhacay: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    document
-      .getElementById("description")
-      .value="";
-
-    document
-      .getElementById("amount")
-      .value="";
-
-
-    showStatus(
-      "✅ Dhaqaalaha si guul leh ayaa loo kaydiyey."
-    );
-
-
-    await loadData();
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Internet ama Supabase khalad ayaa jira."
-    );
-
-  }
+  element.className =
+    error
+      ? "status error"
+      : "status ok";
 
 }
 
 
-/* ==================================================
-   XOOLAHA XISAAB
-================================================== */
+function escapeHtml(value){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    value == null
+      ? ""
+      : String(value);
+
+  return div.innerHTML;
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  const d =
+    new Date(value);
+
+  if(isNaN(d)){
+    return "";
+  }
+
+  return d.toLocaleDateString("so-SO");
+
+}
+
+
+function animalName(type){
+
+  const names = {
+
+    ari:"🐑 Ari",
+    lo:"🐄 Lo",
+    geel:"🐪 Geel",
+    digaag:"🐔 Digaag"
+
+  };
+
+  return names[type] || type;
+
+}
+
+
+/* =========================
+   ANIMAL CALCULATOR
+========================= */
 
 document
   .getElementById("animalQty")
@@ -636,7 +562,7 @@ document
 
 function calculateAnimal(){
 
-  const qty =
+  const quantity =
     Number(
       document
         .getElementById("animalQty")
@@ -652,21 +578,124 @@ function calculateAnimal(){
     ) || 0;
 
 
-  const total =
-    qty * price;
-
-
   document
     .getElementById("animalTotal")
     .textContent =
-      money(total);
+      money(quantity * price);
 
 }
 
 
-/* ==================================================
-   KU DAR XOOLAHA
-================================================== */
+/* =========================
+   ADD TRANSACTION
+========================= */
+
+async function addTransaction(){
+
+  const description =
+    document
+      .getElementById("description")
+      .value
+      .trim();
+
+
+  const amount =
+    Number(
+      document
+        .getElementById("amount")
+        .value
+    );
+
+
+  const type =
+    document
+      .getElementById("type")
+      .value;
+
+
+  if(
+    !description ||
+    !Number.isFinite(amount) ||
+    amount <= 0
+  ){
+
+    alert(
+      "Fadlan buuxi faahfaahinta iyo lacagta."
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "transactionBtn"
+    );
+
+  button.disabled=true;
+
+
+  const { error } =
+    await supabaseClient
+      .from("transactions")
+      .insert({
+
+        type:type,
+
+        category:"transaction",
+
+        description:description,
+
+        amount:amount,
+
+        transaction_date:
+          new Date()
+            .toISOString()
+            .slice(0,10)
+
+      });
+
+
+  button.disabled=false;
+
+
+  if(error){
+
+    console.error(error);
+
+    showStatus(
+      "❌ Dhaqaalaha lama kaydin: " +
+      error.message,
+      true
+    );
+
+    return;
+  }
+
+
+  document
+    .getElementById("description")
+    .value="";
+
+
+  document
+    .getElementById("amount")
+    .value="";
+
+
+  showStatus(
+    "✅ Dhaqaalaha waa la kaydiyey."
+  );
+
+
+  await loadData();
+
+}
+
+
+/* =========================
+   ADD LIVESTOCK
+========================= */
 
 async function addAnimal(){
 
@@ -676,7 +705,7 @@ async function addAnimal(){
       .value;
 
 
-  const qty =
+  const quantity =
     Number(
       document
         .getElementById("animalQty")
@@ -684,7 +713,7 @@ async function addAnimal(){
     );
 
 
-  const price =
+  const unit_price =
     Number(
       document
         .getElementById("animalPrice")
@@ -692,7 +721,12 @@ async function addAnimal(){
     );
 
 
-  if(qty <= 0 || price < 0){
+  if(
+    !Number.isInteger(quantity) ||
+    quantity <= 0 ||
+    !Number.isFinite(unit_price) ||
+    unit_price < 0
+  ){
 
     alert(
       "Fadlan geli tirada iyo qiimaha hal neef."
@@ -702,88 +736,73 @@ async function addAnimal(){
   }
 
 
-  const names = {
-
-    ari:"🐑 Ari",
-
-    lo:"🐄 Lo",
-
-    geel:"🐪 Geel",
-
-    digaag:"🐔 Digaag"
-
-  };
-
-
-  try{
-
-    const { error } =
-      await supabaseClient
-        .from("livestock")
-        .insert({
-
-          animal_type:animal,
-
-          quantity:qty,
-
-          unit_price:price
-
-        });
-
-
-    if(error){
-
-      console.error(error);
-
-      alert(
-        "Xoolaha lama kaydin: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    document
-      .getElementById("animalQty")
-      .value="";
-
-
-    document
-      .getElementById("animalPrice")
-      .value="";
-
-
-    document
-      .getElementById("animalTotal")
-      .textContent="$0.00";
-
-
-    showStatus(
-      "✅ Xoolaha si guul leh ayaa loo kaydiyey."
+  const button =
+    document.getElementById(
+      "animalBtn"
     );
 
+  button.disabled=true;
 
-    await loadData();
 
-  }
+  const { error } =
+    await supabaseClient
+      .from("livestock")
+      .insert({
 
-  catch(error){
+        animal_type:animal,
+
+        quantity:quantity,
+
+        unit_price:unit_price
+
+      });
+
+
+  button.disabled=false;
+
+
+  if(error){
 
     console.error(error);
 
-    alert(
-      "Khalad ayaa dhacay."
+    showStatus(
+      "❌ Xoolaha lama kaydin: " +
+      error.message,
+      true
     );
 
+    return;
   }
+
+
+  document
+    .getElementById("animalQty")
+    .value="";
+
+
+  document
+    .getElementById("animalPrice")
+    .value="";
+
+
+  document
+    .getElementById("animalTotal")
+    .textContent="$0.00";
+
+
+  showStatus(
+    "✅ Xoolaha waa la kaydiyey."
+  );
+
+
+  await loadData();
 
 }
 
 
-/* ==================================================
-   BEERAHA
-================================================== */
+/* =========================
+   ADD FARM
+========================= */
 
 async function addFarm(){
 
@@ -812,7 +831,9 @@ async function addFarm(){
 
   if(
     !name ||
+    !Number.isFinite(hectare) ||
     hectare <= 0 ||
+    !Number.isFinite(cost) ||
     cost < 0
   ){
 
@@ -824,82 +845,89 @@ async function addFarm(){
   }
 
 
-  try{
-
-    const { error } =
-      await supabaseClient
-        .from("farms")
-        .insert({
-
-          name:name,
-
-          hectare:hectare,
-
-          cost:cost
-
-        });
-
-
-    if(error){
-
-      console.error(error);
-
-      alert(
-        "Beeraha lama kaydin: " +
-        error.message
-      );
-
-      return;
-    }
-
-
-    document
-      .getElementById("farmName")
-      .value="";
-
-
-    document
-      .getElementById("farmHectare")
-      .value="";
-
-
-    document
-      .getElementById("farmCost")
-      .value="";
-
-
-    showStatus(
-      "✅ Beer si guul leh ayaa loo kaydiyey."
+  const button =
+    document.getElementById(
+      "farmBtn"
     );
 
+  button.disabled=true;
 
-    await loadData();
 
-  }
+  const { error } =
+    await supabaseClient
+      .from("farms")
+      .insert({
 
-  catch(error){
+        name:name,
+
+        hectare:hectare,
+
+        cost:cost
+
+      });
+
+
+  button.disabled=false;
+
+
+  if(error){
 
     console.error(error);
 
-    alert(
-      "Khalad ayaa dhacay."
+    showStatus(
+      "❌ Beeraha lama kaydin: " +
+      error.message,
+      true
     );
 
+    return;
   }
+
+
+  document
+    .getElementById("farmName")
+    .value="";
+
+
+  document
+    .getElementById("farmHectare")
+    .value="";
+
+
+  document
+    .getElementById("farmCost")
+    .value="";
+
+
+  showStatus(
+    "✅ Beeraha waa la kaydiyey."
+  );
+
+
+  await loadData();
 
 }
 
 
-/* ==================================================
+/* =========================
    LOAD DATA
-================================================== */
+========================= */
 
 async function loadData(){
 
-  try{
+  showStatus(
+    "⏳ Xogta Supabase waa la soo dejinayaa..."
+  );
 
-    const transactionsResult =
-      await supabaseClient
+
+  const [
+    transactionsResult,
+    livestockResult,
+    farmsResult
+  ] =
+    await Promise.all([
+
+      supabaseClient
         .from("transactions")
         .select("*")
         .order(
@@ -907,18 +935,9 @@ async function loadData(){
           {
             ascending:false
           }
-        );
+        ),
 
-
-    if(transactionsResult.error){
-
-      throw transactionsResult.error;
-
-    }
-
-
-    const livestockResult =
-      await supabaseClient
+      supabaseClient
         .from("livestock")
         .select("*")
         .order(
@@ -926,18 +945,9 @@ async function loadData(){
           {
             ascending:false
           }
-        );
+        ),
 
-
-    if(livestockResult.error){
-
-      throw livestockResult.error;
-
-    }
-
-
-    const farmsResult =
-      await supabaseClient
+      supabaseClient
         .from("farms")
         .select("*")
         .order(
@@ -945,139 +955,127 @@ async function loadData(){
           {
             ascending:false
           }
-        );
+        )
+
+    ]);
 
 
-    if(farmsResult.error){
-
-      throw farmsResult.error;
-
-    }
-
-
-    const transactions =
-      transactionsResult.data || [];
-
-
-    const livestock =
-      livestockResult.data || [];
-
-
-    const farms =
-      farmsResult.data || [];
-
-
-    renderDashboard(
-      transactions,
-      livestock,
-      farms
-    );
-
-
-    renderRecords(
-      transactions,
-      livestock,
-      farms
-    );
-
+  if(transactionsResult.error){
 
     showStatus(
-      "🟢 TACBO Finance online ayuu yahay."
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "❌ Supabase lama xiriirin: " +
-      error.message,
+      "❌ transactions: " +
+      transactionsResult.error.message,
       true
     );
 
+    return;
   }
+
+
+  if(livestockResult.error){
+
+    showStatus(
+      "❌ livestock: " +
+      livestockResult.error.message,
+      true
+    );
+
+    return;
+  }
+
+
+  if(farmsResult.error){
+
+    showStatus(
+      "❌ farms: " +
+      farmsResult.error.message,
+      true
+    );
+
+    return;
+  }
+
+
+  render(
+
+    transactionsResult.data || [],
+
+    livestockResult.data || [],
+
+    farmsResult.data || []
+
+  );
+
+
+  showStatus(
+    "🟢 TACBO Finance online ayuu yahay."
+  );
 
 }
 
 
-/* ==================================================
-   DASHBOARD
-================================================== */
+/* =========================
+   RENDER
+========================= */
 
-function renderDashboard(
+function render(
   transactions,
   livestock,
   farms
 ){
 
-  let income = 0;
+  let income=0;
 
-  let expense = 0;
+  let expense=0;
 
-  let animals = 0;
+  let animals=0;
 
 
-  transactions.forEach(item => {
+  transactions.forEach(item=>{
 
-    if(item.type === "income"){
+    if(item.type==="income"){
 
       income +=
-        Number(item.amount || 0);
+        Number(item.amount) || 0;
 
     }
 
 
-    if(item.type === "expense"){
+    if(item.type==="expense"){
 
       expense +=
-        Number(item.amount || 0);
+        Number(item.amount) || 0;
 
     }
 
   });
 
 
-  livestock.forEach(item => {
+  livestock.forEach(item=>{
 
-    const qty =
-      Number(
-        item.quantity ??
-        item.qty ??
-        0
-      );
+    const quantity =
+      Number(item.quantity) || 0;
 
 
     const price =
-      Number(
-        item.unit_price ??
-        item.price ??
-        0
-      );
+      Number(item.unit_price) || 0;
 
 
-    animals += qty;
+    animals += quantity;
+
 
     expense +=
-      qty * price;
+      quantity * price;
 
   });
 
 
-  farms.forEach(item => {
+  farms.forEach(item=>{
 
     expense +=
-      Number(
-        item.cost ||
-        0
-      );
+      Number(item.cost) || 0;
 
   });
-
-
-  const balance =
-    income - expense;
 
 
   document
@@ -1095,20 +1093,27 @@ function renderDashboard(
   document
     .getElementById("balance")
     .textContent =
-      money(balance);
+      money(income-expense);
 
 
   document
     .getElementById("animalsTotal")
     .textContent =
-      animals;
+      animals.toLocaleString();
+
+
+  renderRecords(
+    transactions,
+    livestock,
+    farms
+  );
 
 }
 
 
-/* ==================================================
-   DIIWAANKA
-================================================== */
+/* =========================
+   RECORDS
+========================= */
 
 function renderRecords(
   transactions,
@@ -1117,159 +1122,106 @@ function renderRecords(
 ){
 
   const box =
-    document.getElementById("records");
+    document.getElementById(
+      "records"
+    );
 
 
-  const all = [];
+  const all = [
+
+    ...transactions.map(
+      x => ({
+        kind:"transaction",
+        ...x
+      })
+    ),
+
+    ...livestock.map(
+      x => ({
+        kind:"livestock",
+        ...x
+      })
+    ),
+
+    ...farms.map(
+      x => ({
+        kind:"farm",
+        ...x
+      })
+    )
+
+  ];
 
 
-  transactions.forEach(item => {
-
-    all.push({
-
-      category:"transaction",
-
-      id:item.id,
-
-      description:
-        item.description,
-
-      amount:
-        Number(item.amount || 0),
-
-      type:item.type,
-
-      date:
-        item.transaction_date ||
-        item.created_at
-
-    });
-
-  });
+  all.sort(
+    (a,b) =>
+      new Date(
+        b.created_at || 0
+      ) -
+      new Date(
+        a.created_at || 0
+      )
+  );
 
 
-  livestock.forEach(item => {
-
-    all.push({
-
-      category:"animal",
-
-      id:item.id,
-
-      animal:
-        item.animal_type,
-
-      name:getAnimalName(
-        item.animal_type
-      ),
-
-      qty:
-        Number(
-          item.quantity ??
-          item.qty ??
-          0
-        ),
-
-      price:
-        Number(
-          item.unit_price ??
-          item.price ??
-          0
-        ),
-
-      date:
-        item.created_at
-
-    });
-
-  });
-
-
-  farms.forEach(item => {
-
-    all.push({
-
-      category:"farm",
-
-      id:item.id,
-
-      name:
-        item.name,
-
-      hectare:
-        Number(
-          item.hectare ||
-          0
-        ),
-
-      cost:
-        Number(
-          item.cost ||
-          0
-        ),
-
-      date:
-        item.created_at
-
-    });
-
-  });
-
-
-  if(all.length === 0){
+  if(!all.length){
 
     box.innerHTML =
-      `<p class="empty">
-        Weli wax diiwaan ah ma jiraan.
-      </p>`;
+      '<p class="empty">' +
+      'Weli wax diiwaan ah ma jiraan.' +
+      '</p>';
 
     return;
-
   }
 
 
   box.innerHTML="";
 
 
-  all.forEach(item => {
+  all.forEach(item=>{
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     div.className="record";
 
 
-    /* DHAQALE */
-
     if(
-      item.category ===
+      item.kind ===
       "transaction"
     ){
-
-      const icon =
-        item.type === "income"
-        ? "💰"
-        : "💸";
-
-
-      const title =
-        item.type === "income"
-        ? "Dakhli"
-        : "Kharash";
-
 
       div.innerHTML = `
 
         <strong>
-          ${icon}
+          ${
+            item.type === "income"
+            ? "💰"
+            : "💸"
+          }
+
           ${escapeHtml(
             item.description
           )}
+
         </strong>
 
         <small>
-          ${title} •
-          ${formatDate(item.date)}
+          ${
+            item.type === "income"
+            ? "Dakhli"
+            : "Kharash"
+          }
+
+          •
+
+          ${formatDate(
+            item.transaction_date ||
+            item.created_at
+          )}
+
         </small>
 
         <div class="total">
@@ -1277,8 +1229,9 @@ function renderRecords(
         </div>
 
         <button
-          class="delete"
-          onclick="deleteTransaction('${item.id}')"
+          class="danger"
+          onclick=
+          "deleteTransaction('${item.id}')"
         >
           🗑️ Tirtir
         </button>
@@ -1288,39 +1241,49 @@ function renderRecords(
     }
 
 
-    /* XOOLAHA */
-
     if(
-      item.category ===
-      "animal"
+      item.kind ===
+      "livestock"
     ){
+
+      const quantity =
+        Number(item.quantity) || 0;
+
+
+      const price =
+        Number(item.unit_price) || 0;
+
 
       div.innerHTML = `
 
         <strong>
-          ${item.name}
+          ${animalName(
+            item.animal_type
+          )}
         </strong>
 
         <small>
-          ${item.qty}
+          ${quantity}
           neef ×
-          ${money(item.price)}
+          ${money(price)}
         </small>
 
         <small>
-          ${formatDate(item.date)}
+          ${formatDate(
+            item.created_at
+          )}
         </small>
 
         <div class="total">
           ${money(
-            item.qty *
-            item.price
+            quantity * price
           )}
         </div>
 
         <button
-          class="delete"
-          onclick="deleteLivestock('${item.id}')"
+          class="danger"
+          onclick=
+          "deleteLivestock('${item.id}')"
         >
           🗑️ Tirtir
         </button>
@@ -1330,10 +1293,8 @@ function renderRecords(
     }
 
 
-    /* BEER */
-
     if(
-      item.category ===
+      item.kind ===
       "farm"
     ){
 
@@ -1341,16 +1302,22 @@ function renderRecords(
 
         <strong>
           🌾
-          ${escapeHtml(item.name)}
+          ${escapeHtml(
+            item.name
+          )}
         </strong>
 
         <small>
-          ${item.hectare}
+          ${Number(
+            item.hectare || 0
+          )}
           hektar
         </small>
 
         <small>
-          ${formatDate(item.date)}
+          ${formatDate(
+            item.created_at
+          )}
         </small>
 
         <div class="total">
@@ -1359,8 +1326,9 @@ function renderRecords(
         </div>
 
         <button
-          class="delete"
-          onclick="deleteFarm('${item.id}')"
+          class="danger"
+          onclick=
+          "deleteFarm('${item.id}')"
         >
           🗑️ Tirtir
         </button>
@@ -1377,45 +1345,19 @@ function renderRecords(
 }
 
 
-/* ==================================================
-   MAGACYADA XOOLAHA
-================================================== */
-
-function getAnimalName(type){
-
-  const names = {
-
-    ari:"🐑 Ari",
-
-    lo:"🐄 Lo",
-
-    geel:"🐪 Geel",
-
-    digaag:"🐔 Digaag"
-
-  };
-
-
-  return names[type] ||
-    ("🐄 " + type);
-
-}
-
-
-/* ==================================================
-   DELETE TRANSACTION
-================================================== */
+/* =========================
+   DELETE
+========================= */
 
 async function deleteTransaction(id){
 
   if(
     !confirm(
-      "Ma hubtaa inaad tirtirayso diiwaankan?"
+      "Ma hubtaa inaad tirtirayso?"
     )
   ){
 
     return;
-
   }
 
 
@@ -1428,13 +1370,13 @@ async function deleteTransaction(id){
 
   if(error){
 
-    alert(
-      "Lama tirtiri karin: " +
-      error.message
+    showStatus(
+      "❌ Lama tirtirin: " +
+      error.message,
+      true
     );
 
     return;
-
   }
 
 
@@ -1442,10 +1384,6 @@ async function deleteTransaction(id){
 
 }
 
-
-/* ==================================================
-   DELETE LIVESTOCK
-================================================== */
 
 async function deleteLivestock(id){
 
@@ -1456,7 +1394,6 @@ async function deleteLivestock(id){
   ){
 
     return;
-
   }
 
 
@@ -1469,13 +1406,13 @@ async function deleteLivestock(id){
 
   if(error){
 
-    alert(
-      "Lama tirtiri karin: " +
-      error.message
+    showStatus(
+      "❌ Lama tirtirin: " +
+      error.message,
+      true
     );
 
     return;
-
   }
 
 
@@ -1483,10 +1420,6 @@ async function deleteLivestock(id){
 
 }
 
-
-/* ==================================================
-   DELETE FARM
-================================================== */
 
 async function deleteFarm(id){
 
@@ -1497,7 +1430,6 @@ async function deleteFarm(id){
   ){
 
     return;
-
   }
 
 
@@ -1510,13 +1442,13 @@ async function deleteFarm(id){
 
   if(error){
 
-    alert(
-      "Lama tirtiri karin: " +
-      error.message
+    showStatus(
+      "❌ Lama tirtirin: " +
+      error.message,
+      true
     );
 
     return;
-
   }
 
 
@@ -1525,9 +1457,9 @@ async function deleteFarm(id){
 }
 
 
-/* ==================================================
+/* =========================
    DELETE ALL
-================================================== */
+========================= */
 
 async function clearAll(){
 
@@ -1538,110 +1470,53 @@ async function clearAll(){
   ){
 
     return;
-
   }
 
 
-  try{
-
+  const a =
     await supabaseClient
       .from("transactions")
       .delete()
-      .not(
-        "id",
-        "is",
-        null
-      );
+      .not("id","is",null);
 
 
+  const b =
     await supabaseClient
       .from("livestock")
       .delete()
-      .not(
-        "id",
-        "is",
-        null
-      );
+      .not("id","is",null);
 
 
+  const c =
     await supabaseClient
       .from("farms")
       .delete()
-      .not(
-        "id",
-        "is",
-        null
-      );
+      .not("id","is",null);
 
 
-    await loadData();
+  if(
+    a.error ||
+    b.error ||
+    c.error
+  ){
 
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Khalad ayaa dhacay."
+    showStatus(
+      "❌ Dhammaan xogta lama tirtirin.",
+      true
     );
 
+    return;
   }
+
+
+  await loadData();
 
 }
 
 
-/* ==================================================
-   DATE
-================================================== */
-
-function formatDate(date){
-
-  if(!date){
-
-    return "";
-
-  }
-
-
-  try{
-
-    return new Date(date)
-      .toLocaleDateString(
-        "so-SO"
-      );
-
-  }
-
-  catch{
-
-    return date;
-
-  }
-
-}
-
-
-/* ==================================================
-   SECURITY
-================================================== */
-
-function escapeHtml(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    text || "";
-
-  return div.innerHTML;
-
-}
-
-
-/* ==================================================
-   BILOW APP
-================================================== */
+/* =========================
+   START
+========================= */
 
 loadData();
 
