@@ -749,13 +749,19 @@ oninput="filterFinance()"
 /* ==================================
    SUPABASE
 ================================== */
-
 const SUPABASE_URL =
-"GELI_SUPABASE_URL_KAAGA_HALKAN
+"https://ujkjdxytceqfcngdzlqt.supabase.co";
 
-const const SUPABASE_ANON_KEY =
+const SUPABASE_ANON_KEY =
 "sb_publishable_sxq-3X1EoOx2zbINhQoNeQ__0tANMn5";
-"GELI
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+
+
+
 
 const supabaseClient =
 window.supabase.createClient(
