@@ -1,6 +1,4 @@
-// ==========sb_publishable_sxq-3X1EoOx2zbINhQoNeQ__0tANMn5===============================
-// 🌾 TACBO FINANCE & FARM
-// ==========================================
+
 
 const form = document.getElementById("transactionForm");
 const description = document.getElementById("description");
