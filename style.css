@@ -151,3 +151,204 @@ button:hover {
     font-size: 25px;
   }
 }
+/* =================================
+   TACBO MOBILE INTERFACE
+================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7f4;
+  color: #17231b;
+}
+
+header {
+  padding: 22px 15px;
+  border-radius: 0 0 24px 24px;
+}
+
+header h1 {
+  font-size: 27px;
+  margin: 0;
+}
+
+header p {
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+/* TOP NAVIGATION */
+.tabs {
+  display: flex;
+  gap: 10px;
+  padding: 14px 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #f3f7f4;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: 0 0 auto;
+  min-width: 145px;
+  padding: 16px 18px;
+  border: 0;
+  border-radius: 18px;
+  font-size: 17px;
+  font-weight: 700;
+  background: white;
+  color: #2680eb;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+
+.tab.active {
+  background: #287d3e;
+  color: white;
+}
+
+/* CONTENT */
+main,
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 12px;
+}
+
+/* CARDS */
+.card,
+.animal-card,
+.farm-card,
+.finance-card {
+  width: 100%;
+  background: white;
+  border: 1px solid #dce6df;
+  border-radius: 24px;
+  padding: 22px 18px;
+  margin: 16px 0;
+  box-shadow: 0 5px 18px rgba(0,0,0,.05);
+}
+
+.card h2,
+.animal-card h2,
+.farm-card h2,
+.finance-card h2 {
+  margin-top: 0;
+  font-size: 25px;
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #dce5df;
+  border-radius: 16px;
+  background: white;
+  font-size: 17px;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #287d3e;
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.actions button {
+  width: 100%;
+  min-height: 58px;
+  border: 0;
+  border-radius: 18px;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.actions .edit {
+  background: #e5efff;
+  color: #1456a0;
+}
+
+.actions .delete {
+  background: #ffe5e5;
+  color: #b00000;
+}
+
+/* SEARCH */
+input[type="search"] {
+  margin: 10px 0 18px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  header {
+    padding: 20px 12px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+
+  .tabs {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .tab {
+    min-width: 135px;
+    padding: 14px 15px;
+    font-size: 16px;
+  }
+
+  main,
+  .container {
+    padding: 8px;
+  }
+
+  .card,
+  .animal-card,
+  .farm-card,
+  .finance-card {
+    border-radius: 20px;
+    padding: 18px 15px;
+    margin: 12px 0;
+  }
+
+  .card h2,
+  .animal-card h2,
+  .farm-card h2,
+  .finance-card h2 {
+    font-size: 23px;
+  }
+
+  .actions button {
+    min-height: 56px;
+    font-size: 18px;
+  }
+}
