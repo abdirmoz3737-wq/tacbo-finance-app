@@ -1,1 +1,2069 @@
-TACBO_index_DHAQALE_KU_DARAN.html
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TACBO Finance & Farm</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f8f5;
+  color:#17231b;
+}
+
+header{
+  background:#dff1e3;
+  padding:25px 20px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:28px;
+}
+
+header p{
+  margin:8px 0 0;
+  color:#536158;
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  padding:15px;
+  background:white;
+  overflow-x:auto;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.tab{
+  border:0;
+  padding:14px 18px;
+  border-radius:16px;
+  background:#edf2ee;
+  font-size:16px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.tab.active{
+  background:#1d7a3d;
+  color:white;
+}
+
+.page{
+  display:none;
+  padding:18px;
+  max-width:900px;
+  margin:auto;
+}
+
+.page.active{
+  display:block;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+
+h2{
+  margin-top:0;
+  font-size:27px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  font-size:17px;
+  margin:18px 0 8px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:17px;
+  border:2px solid #d7e0d9;
+  border-radius:18px;
+  font-size:17px;
+  background:white;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.save{
+  width:100%;
+  margin-top:22px;
+  padding:17px;
+  border:0;
+  border-radius:18px;
+  background:#1d7a3d;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.save:active{
+  transform:scale(.98);
+}
+
+.item{
+  border:1px solid #dce5df;
+  border-radius:20px;
+  padding:18px;
+  margin-top:14px;
+  background:#fbfdfb;
+}
+
+.item h3{
+  margin:0 0 12px;
+  font-size:21px;
+}
+
+.item p{
+  margin:8px 0;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.edit,
+.delete{
+  flex:1;
+  padding:13px;
+  border:0;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.edit{
+  background:#e5efff;
+  color:#1455a0;
+}
+
+.delete{
+  background:#ffe5e5;
+  color:#a40000;
+}
+
+.search{
+  margin-bottom:15px;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:12px;
+  display:none;
+}
+
+.success{
+  display:block;
+  background:#e2f6e7;
+  color:#17652d;
+}
+
+.error{
+  display:block;
+  background:#ffe4e4;
+  color:#a00000;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#68746d;
+}
+
+/* DASHBOARD */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.stat{
+  background:#eef7ef;
+  border:1px solid #d5e6d8;
+  border-radius:20px;
+  padding:20px;
+}
+
+.stat-title{
+  color:#66736a;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.stat-value{
+  font-size:30px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.green{
+  color:#1d7a3d;
+}
+
+.red{
+  color:#b00020;
+}
+
+.blue{
+  color:#175aa6;
+}
+
+.chart-box{
+  position:relative;
+  height:320px;
+  margin-top:20px;
+}
+
+/* FINANCE */
+
+.finance-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.finance-box{
+  padding:18px;
+  border-radius:18px;
+  background:#f3f7f4;
+}
+
+.finance-box strong{
+  display:block;
+  font-size:24px;
+  margin-top:7px;
+}
+
+.income{
+  color:#16803b;
+}
+
+.expense{
+  color:#b00020;
+}
+
+.profit{
+  color:#175aa6;
+}
+
+@media(max-width:600px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .finance-summary{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  h2{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌾 TACBO Finance & Farm</h1>
+  <p>Maamulka Xoolaha, Beeraha & Dhaqaalaha</p>
+</header>
+
+<div class="tabs">
+
+  <button class="tab active" onclick="showPage('dashboard',this)">
+    📊 Dashboard
+  </button>
+
+  <button class="tab" onclick="showPage('animals',this)">
+    🐑 Xoolaha
+  </button>
+
+  <button class="tab" onclick="showPage('farms',this)">
+    🌾 Beeraha
+  </button>
+
+  <button class="tab" onclick="showPage('finance',this)">
+    💰 Dhaqaale
+  </button>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- DASHBOARD -->
+<!-- ========================= -->
+
+<section id="dashboard" class="page active">
+
+<div class="card">
+
+<h2>📊 Dashboard</h2>
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-title">🐑 Tirada Xoolaha</div>
+<div id="dashAnimals" class="stat-value">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">🌾 Hektarka Beeraha</div>
+<div id="dashFarms" class="stat-value">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">💵 Dakhliga</div>
+<div id="dashIncome" class="stat-value green">$0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">💸 Kharashka</div>
+<div id="dashExpense" class="stat-value red">$0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">📈 Faa'iidada</div>
+<div id="dashProfit" class="stat-value blue">$0</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">🛒 Xoolaha la iibiyey</div>
+<div id="dashSold" class="stat-value">0</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📈 Dhaqaale</h2>
+
+<div class="chart-box">
+<canvas id="financeChart"></canvas>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🐑 Xoolaha</h2>
+
+<div id="dashboardAnimals">
+⏳ Xogta waa la soo gelinayaa...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🌾 Beeraha</h2>
+
+<div id="dashboardFarms">
+⏳ Xogta waa la soo gelinayaa...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- XOOLAHA -->
+<!-- ========================= -->
+
+<section id="animals" class="page">
+
+<div class="card">
+
+<h2>🐑🐄 Maamulka Xoolaha</h2>
+
+<label>Nooca xoolaha</label>
+
+<select id="animalType">
+
+<option value="">Dooro nooca</option>
+
+<option value="Ari">🐑 Ari</option>
+
+<option value="Lo">🐄 Lo</option>
+
+<option value="Geel">🐪 Geel</option>
+
+<option value="Digaag">🐔 Digaag</option>
+
+</select>
+
+
+<label>Tirada hadda jirta</label>
+
+<input
+id="animalCount"
+type="number"
+min="0"
+placeholder="Tusaale: 300"
+>
+
+
+<label>🍼 Dhashay</label>
+
+<input
+id="animalBorn"
+type="number"
+min="0"
+value="0"
+>
+
+
+<label>💀 Dhintay</label>
+
+<input
+id="animalDead"
+type="number"
+min="0"
+value="0"
+>
+
+
+<label>🛒 La iibiyey</label>
+
+<input
+id="animalSold"
+type="number"
+min="0"
+value="0"
+>
+
+
+<label>💵 Qiimaha hal neef ($)</label>
+
+<input
+id="animalPrice"
+type="number"
+min="0"
+placeholder="Tusaale: 60"
+>
+
+
+<label>📅 Taariikhda</label>
+
+<input
+id="animalDate"
+type="date"
+>
+
+
+<button class="save" onclick="saveAnimal()">
+➕ Ku dar Xoolo
+</button>
+
+<div id="animalMessage" class="message"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📋 Diiwaanka Xoolaha</h2>
+
+<input
+class="search"
+id="animalSearch"
+placeholder="🔍 Raadi Ari, Lo, Geel..."
+oninput="filterAnimals()"
+>
+
+<div id="animalsList">
+⏳ Xogta waa la soo gelinayaa...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- BEERAHA -->
+<!-- ========================= -->
+
+<section id="farms" class="page">
+
+<div class="card">
+
+<h2>🌾 Maamulka Beeraha</h2>
+
+<label>Nooca dalagga</label>
+
+<select id="cropType">
+
+<option value="">Dooro dalagga</option>
+
+<option value="Galley">🌽 Galley</option>
+
+<option value="Masaggo">🌾 Masaggo</option>
+
+<option value="Sisinta">🌱 Sisinta</option>
+
+<option value="Yaanyo">🍅 Yaanyo</option>
+
+<option value="Basal">🧅 Basal</option>
+
+<option value="Toon">🧄 Toon</option>
+
+<option value="Khudaar">🥬 Khudaar</option>
+
+</select>
+
+
+<label>📏 Baaxadda beerta (Hektar)</label>
+
+<input
+id="farmArea"
+type="number"
+min="0"
+placeholder="Tusaale: 20"
+>
+
+
+<label>🌱 La beeray</label>
+
+<input
+id="planted"
+type="number"
+min="0"
+placeholder="Tusaale: 20"
+>
+
+
+<label>🌾 La goostay</label>
+
+<input
+id="harvested"
+type="number"
+min="0"
+placeholder="Tusaale: 15"
+>
+
+
+<label>🛒 La iibiyey</label>
+
+<input
+id="farmSold"
+type="number"
+min="0"
+placeholder="Tusaale: 10"
+>
+
+
+<label>💵 Qiimaha ($)</label>
+
+<input
+id="farmPrice"
+type="number"
+min="0"
+placeholder="Tusaale: 500"
+>
+
+
+<label>📅 Taariikhda</label>
+
+<input
+id="farmDate"
+type="date"
+>
+
+
+<button class="save" onclick="saveFarm()">
+➕ Ku dar Beer
+</button>
+
+<div id="farmMessage" class="message"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📋 Diiwaanka Beeraha</h2>
+
+<input
+class="search"
+id="farmSearch"
+placeholder="🔍 Raadi dalagga..."
+oninput="filterFarms()"
+>
+
+<div id="farmsList">
+⏳ Xogta beeraha waa la soo gelinayaa...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- DHAQAALE -->
+<!-- ========================= -->
+
+<section id="finance" class="page">
+
+<div class="card">
+
+<h2>💰 Maamulka Dhaqaalaha</h2>
+
+<div class="finance-summary">
+
+<div class="finance-box">
+💵 Dakhli
+<strong id="totalIncome">$0</strong>
+</div>
+
+<div class="finance-box">
+💸 Kharash
+<strong id="totalExpense">$0</strong>
+</div>
+
+<div class="finance-box">
+📈 Faa'iido
+<strong id="totalProfit">$0</strong>
+</div>
+
+</div>
+
+
+<label>Nooca dhaqaalaha</label>
+
+<select id="financeType">
+
+<option value="">Dooro nooca</option>
+
+<option value="Dakhli">
+💵 Dakhli
+</option>
+
+<option value="Kharash">
+💸 Kharash
+</option>
+
+</select>
+
+
+<label>💰 Lacagta ($)</label>
+
+<input
+id="financeAmount"
+type="number"
+min="0"
+step="0.01"
+placeholder="Tusaale: 500"
+>
+
+
+<label>📝 Faahfaahin</label>
+
+<textarea
+id="financeDescription"
+placeholder="Tusaale: Iibka ari, shidaal, abuur, mushahar..."
+></textarea>
+
+
+<label>📅 Taariikhda</label>
+
+<input
+id="financeDate"
+type="date"
+>
+
+
+<button class="save" onclick="saveFinance()">
+➕ Ku dar Dhaqaale
+</button>
+
+<div id="financeMessage" class="message"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📋 Diiwaanka Dhaqaalaha</h2>
+
+<input
+class="search"
+id="financeSearch"
+placeholder="🔍 Raadi dakhli ama kharash..."
+oninput="filterFinance()"
+>
+
+<div id="financeList">
+⏳ Xogta dhaqaalaha waa la soo gelinayaa...
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* ==================================
+   SUPABASE
+================================== */
+
+const SUPABASE_URL =
+"GELI_SUPABASE_URL_KAAGA_HALKAN";
+
+const SUPABASE_ANON_KEY =
+"GELI_SUPABASE_ANON_KEY_KAAGA_HALKAN";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+
+/* ==================================
+   DATE
+================================== */
+
+const today =
+new Date().toISOString().split("T")[0];
+
+document.getElementById("animalDate").value=today;
+document.getElementById("farmDate").value=today;
+document.getElementById("financeDate").value=today;
+
+
+/* ==================================
+   GLOBAL DATA
+================================== */
+
+let animalsData=[];
+let farmsData=[];
+let financeData=[];
+
+
+/* ==================================
+   NAVIGATION
+================================== */
+
+function showPage(pageId,button){
+
+document.querySelectorAll(".page")
+.forEach(page=>{
+page.classList.remove("active");
+});
+
+document.querySelectorAll(".tab")
+.forEach(tab=>{
+tab.classList.remove("active");
+});
+
+document.getElementById(pageId)
+.classList.add("active");
+
+button.classList.add("active");
+
+if(pageId==="dashboard"){
+loadDashboard();
+}
+
+}
+
+
+/* ==================================
+   MESSAGE
+================================== */
+
+function showMessage(id,text,type){
+
+const box=document.getElementById(id);
+
+box.textContent=text;
+
+box.className="message "+type;
+
+setTimeout(()=>{
+box.className="message";
+},4000);
+
+}
+
+
+/* ==================================
+   ANIMAL ICON
+================================== */
+
+function animalIcon(type){
+
+if(type==="Ari") return "🐑";
+
+if(type==="Lo") return "🐄";
+
+if(type==="Geel") return "🐪";
+
+if(type==="Digaag") return "🐔";
+
+return "🐾";
+
+}
+
+
+/* ==================================
+   SAVE ANIMAL
+================================== */
+
+async function saveAnimal(){
+
+const animal_type=
+document.getElementById("animalType").value;
+
+const count=
+Number(document.getElementById("animalCount").value)||0;
+
+const born=
+Number(document.getElementById("animalBorn").value)||0;
+
+const dead=
+Number(document.getElementById("animalDead").value)||0;
+
+const sold=
+Number(document.getElementById("animalSold").value)||0;
+
+const price=
+Number(document.getElementById("animalPrice").value)||0;
+
+const date=
+document.getElementById("animalDate").value||today;
+
+
+if(!animal_type){
+
+showMessage(
+"animalMessage",
+"❌ Fadlan dooro nooca xoolaha",
+"error"
+);
+
+return;
+}
+
+
+const {error}=
+await supabaseClient
+.from("livestock")
+.insert({
+
+animal_type,
+count,
+born,
+dead,
+sold,
+price,
+date
+
+});
+
+
+if(error){
+
+console.error(error);
+
+showMessage(
+"animalMessage",
+"❌ Xogta xoolaha lama kaydin: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+showMessage(
+"animalMessage",
+"✅ Xogta xoolaha waa la kaydiyey",
+"success"
+);
+
+
+document.getElementById("animalType").value="";
+document.getElementById("animalCount").value="";
+document.getElementById("animalBorn").value=0;
+document.getElementById("animalDead").value=0;
+document.getElementById("animalSold").value=0;
+document.getElementById("animalPrice").value="";
+
+
+loadAnimals();
+
+}
+
+
+/* ==================================
+   LOAD ANIMALS
+================================== */
+
+async function loadAnimals(){
+
+const list=
+document.getElementById("animalsList");
+
+list.innerHTML=
+"⏳ Xogta waa la soo gelinayaa...";
+
+
+const {data,error}=
+await supabaseClient
+.from("livestock")
+.select("*")
+.order("date",{ascending:false});
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML=
+"❌ Xogta xoolaha lama soo gelin.";
+
+return;
+}
+
+
+animalsData=data||[];
+
+renderAnimals(animalsData);
+
+loadDashboard();
+
+}
+
+
+/* ==================================
+   RENDER ANIMALS
+================================== */
+
+function renderAnimals(data){
+
+const list=
+document.getElementById("animalsList");
+
+if(!data.length){
+
+list.innerHTML=
+'<div class="empty">📭 Weli xog xoolo ah lama hayo.</div>';
+
+return;
+}
+
+
+list.innerHTML=
+data.map(item=>`
+
+<div class="item">
+
+<h3>
+${animalIcon(item.animal_type)}
+${item.animal_type}
+</h3>
+
+<p>
+Tirada hadda:
+<strong>${item.count??0}</strong>
+</p>
+
+<p>
+🍼 Dhashay:
+<strong>${item.born??0}</strong>
+</p>
+
+<p>
+💀 Dhintay:
+<strong>${item.dead??0}</strong>
+</p>
+
+<p>
+🛒 La iibiyey:
+<strong>${item.sold??0}</strong>
+</p>
+
+<p>
+💵 Qiime:
+<strong>$${item.price??0}</strong>
+</p>
+
+<p>
+📅 Taariikh:
+<strong>${item.date??""}</strong>
+</p>
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editAnimal(${item.id})">
+✏️ Edit
+</button>
+
+<button
+class="delete"
+onclick="deleteAnimal(${item.id})">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* ==================================
+   SEARCH ANIMALS
+================================== */
+
+function filterAnimals(){
+
+const search=
+document.getElementById("animalSearch")
+.value
+.toLowerCase();
+
+const filtered=
+animalsData.filter(item=>
+String(item.animal_type)
+.toLowerCase()
+.includes(search)
+||
+String(item.date)
+.includes(search)
+);
+
+renderAnimals(filtered);
+
+}
+
+
+/* ==================================
+   EDIT ANIMAL
+================================== */
+
+async function editAnimal(id){
+
+const item=
+animalsData.find(x=>x.id===id);
+
+if(!item)return;
+
+const count=
+prompt(
+"Tirada hadda:",
+item.count??0
+);
+
+if(count===null)return;
+
+const price=
+prompt(
+"Qiimaha hal neef:",
+item.price??0
+);
+
+if(price===null)return;
+
+
+const {error}=
+await supabaseClient
+.from("livestock")
+.update({
+
+count:Number(count),
+price:Number(price)
+
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Lama sixi karin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Xogta waa la saxay");
+
+loadAnimals();
+
+}
+
+
+/* ==================================
+   DELETE ANIMAL
+================================== */
+
+async function deleteAnimal(id){
+
+if(!confirm(
+"Ma hubtaa inaad rabto inaad tirtirto xogtan?"
+))return;
+
+
+const {error}=
+await supabaseClient
+.from("livestock")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Lama tirtirin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Xogta waa la tirtiray");
+
+loadAnimals();
+
+}
+
+
+/* ==================================
+   SAVE FARM
+================================== */
+
+async function saveFarm(){
+
+const crop_type=
+document.getElementById("cropType").value;
+
+const area=
+Number(document.getElementById("farmArea").value)||0;
+
+const planted=
+Number(document.getElementById("planted").value)||0;
+
+const harvested=
+Number(document.getElementById("harvested").value)||0;
+
+const sold=
+Number(document.getElementById("farmSold").value)||0;
+
+const price=
+Number(document.getElementById("farmPrice").value)||0;
+
+const date=
+document.getElementById("farmDate").value||today;
+
+
+if(!crop_type){
+
+showMessage(
+"farmMessage",
+"❌ Fadlan dooro nooca dalagga",
+"error"
+);
+
+return;
+}
+
+
+const {error}=
+await supabaseClient
+.from("farms")
+.insert({
+
+crop_type,
+area,
+planted,
+harvested,
+sold,
+price,
+date
+
+});
+
+
+if(error){
+
+console.error(error);
+
+showMessage(
+"farmMessage",
+"❌ Xogta beerta lama kaydin: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+showMessage(
+"farmMessage",
+"✅ Xogta beerta waa la kaydiyey",
+"success"
+);
+
+
+document.getElementById("cropType").value="";
+document.getElementById("farmArea").value="";
+document.getElementById("planted").value="";
+document.getElementById("harvested").value="";
+document.getElementById("farmSold").value="";
+document.getElementById("farmPrice").value="";
+
+
+loadFarms();
+
+}
+
+
+/* ==================================
+   LOAD FARMS
+================================== */
+
+async function loadFarms(){
+
+const list=
+document.getElementById("farmsList");
+
+list.innerHTML=
+"⏳ Xogta beeraha waa la soo gelinayaa...";
+
+
+const {data,error}=
+await supabaseClient
+.from("farms")
+.select("*")
+.order("date",{ascending:false});
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML=
+"❌ Xogta beeraha lama soo gelin.";
+
+return;
+}
+
+
+farmsData=data||[];
+
+renderFarms(farmsData);
+
+loadDashboard();
+
+}
+
+
+/* ==================================
+   RENDER FARMS
+================================== */
+
+function renderFarms(data){
+
+const list=
+document.getElementById("farmsList");
+
+if(!data.length){
+
+list.innerHTML=
+'<div class="empty">📭 Weli xog beer ah lama hayo.</div>';
+
+return;
+}
+
+
+list.innerHTML=
+data.map(item=>`
+
+<div class="item">
+
+<h3>
+🌾 ${item.crop_type}
+</h3>
+
+<p>
+📏 Baaxad:
+<strong>${item.area??0}</strong>
+hektar
+</p>
+
+<p>
+🌱 La beeray:
+<strong>${item.planted??0}</strong>
+</p>
+
+<p>
+🌾 La goostay:
+<strong>${item.harvested??0}</strong>
+</p>
+
+<p>
+🛒 La iibiyey:
+<strong>${item.sold??0}</strong>
+</p>
+
+<p>
+💵 Qiime:
+<strong>$${item.price??0}</strong>
+</p>
+
+<p>
+📅 Taariikh:
+<strong>${item.date??""}</strong>
+</p>
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editFarm(${item.id})">
+✏️ Edit
+</button>
+
+<button
+class="delete"
+onclick="deleteFarm(${item.id})">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* ==================================
+   SEARCH FARMS
+================================== */
+
+function filterFarms(){
+
+const search=
+document.getElementById("farmSearch")
+.value
+.toLowerCase();
+
+const filtered=
+farmsData.filter(item=>
+String(item.crop_type)
+.toLowerCase()
+.includes(search)
+||
+String(item.date)
+.includes(search)
+);
+
+renderFarms(filtered);
+
+}
+
+
+/* ==================================
+   EDIT FARM
+================================== */
+
+async function editFarm(id){
+
+const item=
+farmsData.find(x=>x.id===id);
+
+if(!item)return;
+
+const area=
+prompt(
+"Baaxadda beerta:",
+item.area??0
+);
+
+if(area===null)return;
+
+const price=
+prompt(
+"Qiimaha:",
+item.price??0
+);
+
+if(price===null)return;
+
+
+const {error}=
+await supabaseClient
+.from("farms")
+.update({
+
+area:Number(area),
+price:Number(price)
+
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Lama sixi karin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Xogta beerta waa la saxay");
+
+loadFarms();
+
+}
+
+
+/* ==================================
+   DELETE FARM
+================================== */
+
+async function deleteFarm(id){
+
+if(!confirm(
+"Ma hubtaa inaad rabto inaad tirtirto xogtan beerta?"
+))return;
+
+
+const {error}=
+await supabaseClient
+.from("farms")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Lama tirtirin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Xogta beerta waa la tirtiray");
+
+loadFarms();
+
+}
+
+
+/* ==================================
+   SAVE FINANCE
+================================== */
+
+async function saveFinance(){
+
+const type=
+document.getElementById("financeType").value;
+
+const amount=
+Number(
+document.getElementById("financeAmount").value
+)||0;
+
+const description=
+document.getElementById("financeDescription").value;
+
+const date=
+document.getElementById("financeDate").value||today;
+
+
+if(!type){
+
+showMessage(
+"financeMessage",
+"❌ Fadlan dooro Dakhli ama Kharash",
+"error"
+);
+
+return;
+}
+
+
+if(amount<=0){
+
+showMessage(
+"financeMessage",
+"❌ Lacagtu waa inay ka weyn tahay 0",
+"error"
+);
+
+return;
+}
+
+
+const {error}=
+await supabaseClient
+.from("finances")
+.insert({
+
+type,
+amount,
+description,
+date
+
+});
+
+
+if(error){
+
+console.error(error);
+
+showMessage(
+"financeMessage",
+"❌ Dhaqaalaha lama kaydin: "+error.message,
+"error"
+);
+
+return;
+}
+
+
+showMessage(
+"financeMessage",
+"✅ Dhaqaalaha waa la kaydiyey",
+"success"
+);
+
+
+document.getElementById("financeType").value="";
+document.getElementById("financeAmount").value="";
+document.getElementById("financeDescription").value="";
+
+
+loadFinance();
+
+}
+
+
+/* ==================================
+   LOAD FINANCE
+================================== */
+
+async function loadFinance(){
+
+const list=
+document.getElementById("financeList");
+
+list.innerHTML=
+"⏳ Xogta dhaqaalaha waa la soo gelinayaa...";
+
+
+const {data,error}=
+await supabaseClient
+.from("finances")
+.select("*")
+.order("date",{ascending:false});
+
+
+if(error){
+
+console.error(error);
+
+list.innerHTML=
+"❌ Xogta dhaqaalaha lama soo gelin.";
+
+return;
+}
+
+
+financeData=data||[];
+
+renderFinance(financeData);
+
+updateFinanceTotals();
+
+updateChart();
+
+loadDashboard();
+
+}
+
+
+/* ==================================
+   RENDER FINANCE
+================================== */
+
+function renderFinance(data){
+
+const list=
+document.getElementById("financeList");
+
+if(!data.length){
+
+list.innerHTML=
+'<div class="empty">📭 Weli xog dhaqaale ah lama hayo.</div>';
+
+return;
+}
+
+
+list.innerHTML=
+data.map(item=>`
+
+<div class="item">
+
+<h3>
+${item.type==="Dakhli"?"💵":"💸"}
+${item.type}
+</h3>
+
+<p>
+💰 Lacag:
+<strong>$${Number(item.amount||0).toFixed(2)}</strong>
+</p>
+
+<p>
+📝 Faahfaahin:
+<strong>${item.description||"—"}</strong>
+</p>
+
+<p>
+📅 Taariikh:
+<strong>${item.date||""}</strong>
+</p>
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editFinance(${item.id})">
+✏️ Edit
+</button>
+
+<button
+class="delete"
+onclick="deleteFinance(${item.id})">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* ==================================
+   SEARCH FINANCE
+================================== */
+
+function filterFinance(){
+
+const search=
+document.getElementById("financeSearch")
+.value
+.toLowerCase();
+
+const filtered=
+financeData.filter(item=>
+String(item.type)
+.toLowerCase()
+.includes(search)
+||
+String(item.description||"")
+.toLowerCase()
+.includes(search)
+||
+String(item.date||"")
+.includes(search)
+);
+
+renderFinance(filtered);
+
+}
+
+
+/* ==================================
+   EDIT FINANCE
+================================== */
+
+async function editFinance(id){
+
+const item=
+financeData.find(x=>x.id===id);
+
+if(!item)return;
+
+const amount=
+prompt(
+"Lacagta:",
+item.amount??0
+);
+
+if(amount===null)return;
+
+const description=
+prompt(
+"Faahfaahinta:",
+item.description||""
+);
+
+if(description===null)return;
+
+
+const {error}=
+await supabaseClient
+.from("finances")
+.update({
+
+amount:Number(amount),
+description:description
+
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Lama sixi karin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Dhaqaalaha waa la saxay");
+
+loadFinance();
+
+}
+
+
+/* ==================================
+   DELETE FINANCE
+================================== */
+
+async function deleteFinance(id){
+
+if(!confirm(
+"Ma hubtaa inaad rabto inaad tirtirto xogtan dhaqaalaha?"
+))return;
+
+
+const {error}=
+await supabaseClient
+.from("finances")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+alert(
+"❌ Dhaqaalaha lama tirtirin: "+
+error.message
+);
+
+return;
+}
+
+
+alert("✅ Dhaqaalaha waa la tirtiray");
+
+loadFinance();
+
+}
+
+
+/* ==================================
+   FINANCE TOTALS
+================================== */
+
+function updateFinanceTotals(){
+
+let income=0;
+let expense=0;
+
+
+financeData.forEach(item=>{
+
+const amount=
+Number(item.amount)||0;
+
+if(item.type==="Dakhli"){
+income+=amount;
+}
+
+if(item.type==="Kharash"){
+expense+=amount;
+}
+
+});
+
+
+const profit=
+income-expense;
+
+
+document.getElementById("totalIncome")
+.textContent="$"+income.toFixed(2);
+
+document.getElementById("totalExpense")
+.textContent="$"+expense.toFixed(2);
+
+document.getElementById("totalProfit")
+.textContent="$"+profit.toFixed(2);
+
+
+document.getElementById("dashIncome")
+.textContent="$"+income.toFixed(2);
+
+document.getElementById("dashExpense")
+.textContent="$"+expense.toFixed(2);
+
+document.getElementById("dashProfit")
+.textContent="$"+profit.toFixed(2);
+
+}
+
+
+/* ==================================
+   CHART
+================================== */
+
+let financeChart=null;
+
+function updateChart(){
+
+let income=0;
+let expense=0;
+
+
+financeData.forEach(item=>{
+
+const amount=
+Number(item.amount)||0;
+
+if(item.type==="Dakhli"){
+income+=amount;
+}
+
+if(item.type==="Kharash"){
+expense+=amount;
+}
+
+});
+
+
+const canvas=
+document.getElementById("financeChart");
+
+if(!canvas)return;
+
+
+if(financeChart){
+financeChart.destroy();
+}
+
+
+financeChart=
+new Chart(canvas,{
+
+type:"doughnut",
+
+data:{
+
+labels:[
+"Dakhli",
+"Kharash"
+],
+
+datasets:[{
+
+data:[
+income,
+expense
+]
+
+}]
+
+},
+
+options:{
+responsive:true,
+maintainAspectRatio:false
+}
+
+});
+
+}
+
+
+/* ==================================
+   DASHBOARD
+================================== */
+
+async function loadDashboard(){
+
+const animalTotal=
+animalsData.reduce(
+(sum,item)=>
+sum+(Number(item.count)||0),
+0
+);
+
+
+const farmTotal=
+farmsData.reduce(
+(sum,item)=>
+sum+(Number(item.area)||0),
+0
+);
+
+
+const soldTotal=
+animalsData.reduce(
+(sum,item)=>
+sum+(Number(item.sold)||0),
+0
+);
+
+
+document.getElementById("dashAnimals")
+.textContent=animalTotal;
+
+document.getElementById("dashFarms")
+.textContent=farmTotal+" ha";
+
+document.getElementById("dashSold")
+.textContent=soldTotal;
+
+
+updateFinanceTotals();
+
+
+const animalsBox=
+document.getElementById("dashboardAnimals");
+
+if(animalsData.length){
+
+animalsBox.innerHTML=
+animalsData.slice(0,5)
+.map(item=>`
+
+<p>
+${animalIcon(item.animal_type)}
+<strong>${item.animal_type}</strong>
+:
+${item.count??0}
+</p>
+
+`).join("");
+
+}else{
+
+animalsBox.innerHTML=
+'<div class="empty">📭 Xog xoolo ah lama hayo.</div>';
+
+}
+
+
+const farmsBox=
+document.getElementById("dashboardFarms");
+
+if(farmsData.length){
+
+farmsBox.innerHTML=
+farmsData.slice(0,5)
+.map(item=>`
+
+<p>
+🌾 <strong>${item.crop_type}</strong>
+:
+${item.area??0} hektar
+</p>
+
+`).join("");
+
+}else{
+
+farmsBox.innerHTML=
+'<div class="empty">📭 Xog beer ah lama hayo.</div>';
+
+}
+
+}
+
+
+/* ==================================
+   START APP
+================================== */
+
+loadAnimals();
+loadFarms();
+loadFinance();
+
+</script>
+
+</body>
+</html>
