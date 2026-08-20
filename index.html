@@ -891,7 +891,29 @@ showMessage(
 
 return;
 }
+const { data: { user } } = await supabaseClient.auth.getUser();
 
+if (!user) {
+  showMessage(
+    "animalMessage",
+    "Fadlan marka hore login samee.",
+    "error"
+  );
+  return;
+}
+
+const { error } = await supabaseClient
+  .from("livestock")
+  .insert({
+    user_id: user.id,
+    animal_type,
+    count,
+    born,
+    dead,
+    sold,
+    price,
+    date
+  });
 
 const {error}=
 await supabaseClient
