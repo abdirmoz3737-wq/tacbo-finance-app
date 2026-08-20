@@ -198,8 +198,6 @@ textarea{
   color:#68746d;
 }
 
-/* DASHBOARD */
-
 .stats{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -243,8 +241,6 @@ textarea{
   margin-top:20px;
 }
 
-/* FINANCE */
-
 .finance-summary{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -262,18 +258,6 @@ textarea{
   display:block;
   font-size:24px;
   margin-top:7px;
-}
-
-.income{
-  color:#16803b;
-}
-
-.expense{
-  color:#b00020;
-}
-
-.profit{
-  color:#175aa6;
 }
 
 @media(max-width:600px){
@@ -325,9 +309,7 @@ textarea{
 </div>
 
 
-<!-- ========================= -->
 <!-- DASHBOARD -->
-<!-- ========================= -->
 
 <section id="dashboard" class="page active">
 
@@ -344,22 +326,22 @@ textarea{
 
 <div class="stat">
 <div class="stat-title">🌾 Hektarka Beeraha</div>
-<div id="dashFarms" class="stat-value">0</div>
+<div id="dashFarms" class="stat-value">0 ha</div>
 </div>
 
 <div class="stat">
 <div class="stat-title">💵 Dakhliga</div>
-<div id="dashIncome" class="stat-value green">$0</div>
+<div id="dashIncome" class="stat-value green">$0.00</div>
 </div>
 
 <div class="stat">
 <div class="stat-title">💸 Kharashka</div>
-<div id="dashExpense" class="stat-value red">$0</div>
+<div id="dashExpense" class="stat-value red">$0.00</div>
 </div>
 
 <div class="stat">
 <div class="stat-title">📈 Faa'iidada</div>
-<div id="dashProfit" class="stat-value blue">$0</div>
+<div id="dashProfit" class="stat-value blue">$0.00</div>
 </div>
 
 <div class="stat">
@@ -371,7 +353,6 @@ textarea{
 
 </div>
 
-
 <div class="card">
 
 <h2>📈 Dhaqaale</h2>
@@ -382,7 +363,6 @@ textarea{
 
 </div>
 
-
 <div class="card">
 
 <h2>🐑 Xoolaha</h2>
@@ -392,7 +372,6 @@ textarea{
 </div>
 
 </div>
-
 
 <div class="card">
 
@@ -407,9 +386,7 @@ textarea{
 </section>
 
 
-<!-- ========================= -->
 <!-- XOOLAHA -->
-<!-- ========================= -->
 
 <section id="animals" class="page">
 
@@ -422,17 +399,12 @@ textarea{
 <select id="animalType">
 
 <option value="">Dooro nooca</option>
-
 <option value="Ari">🐑 Ari</option>
-
 <option value="Lo">🐄 Lo</option>
-
 <option value="Geel">🐪 Geel</option>
-
 <option value="Digaag">🐔 Digaag</option>
 
 </select>
-
 
 <label>Tirada hadda jirta</label>
 
@@ -443,7 +415,6 @@ min="0"
 placeholder="Tusaale: 300"
 >
 
-
 <label>🍼 Dhashay</label>
 
 <input
@@ -452,7 +423,6 @@ type="number"
 min="0"
 value="0"
 >
-
 
 <label>💀 Dhintay</label>
 
@@ -463,7 +433,6 @@ min="0"
 value="0"
 >
 
-
 <label>🛒 La iibiyey</label>
 
 <input
@@ -472,7 +441,6 @@ type="number"
 min="0"
 value="0"
 >
-
 
 <label>💵 Qiimaha hal neef ($)</label>
 
@@ -483,14 +451,12 @@ min="0"
 placeholder="Tusaale: 60"
 >
 
-
 <label>📅 Taariikhda</label>
 
 <input
 id="animalDate"
 type="date"
 >
-
 
 <button class="save" onclick="saveAnimal()">
 ➕ Ku dar Xoolo
@@ -521,9 +487,7 @@ oninput="filterAnimals()"
 </section>
 
 
-<!-- ========================= -->
 <!-- BEERAHA -->
-<!-- ========================= -->
 
 <section id="farms" class="page">
 
@@ -536,23 +500,15 @@ oninput="filterAnimals()"
 <select id="cropType">
 
 <option value="">Dooro dalagga</option>
-
 <option value="Galley">🌽 Galley</option>
-
 <option value="Masaggo">🌾 Masaggo</option>
-
 <option value="Sisinta">🌱 Sisinta</option>
-
 <option value="Yaanyo">🍅 Yaanyo</option>
-
 <option value="Basal">🧅 Basal</option>
-
 <option value="Toon">🧄 Toon</option>
-
 <option value="Khudaar">🥬 Khudaar</option>
 
 </select>
-
 
 <label>📏 Baaxadda beerta (Hektar)</label>
 
@@ -563,7 +519,6 @@ min="0"
 placeholder="Tusaale: 20"
 >
 
-
 <label>🌱 La beeray</label>
 
 <input
@@ -572,7 +527,6 @@ type="number"
 min="0"
 placeholder="Tusaale: 20"
 >
-
 
 <label>🌾 La goostay</label>
 
@@ -583,7 +537,6 @@ min="0"
 placeholder="Tusaale: 15"
 >
 
-
 <label>🛒 La iibiyey</label>
 
 <input
@@ -592,7 +545,6 @@ type="number"
 min="0"
 placeholder="Tusaale: 10"
 >
-
 
 <label>💵 Qiimaha ($)</label>
 
@@ -603,14 +555,12 @@ min="0"
 placeholder="Tusaale: 500"
 >
 
-
 <label>📅 Taariikhda</label>
 
 <input
 id="farmDate"
 type="date"
 >
-
 
 <button class="save" onclick="saveFarm()">
 ➕ Ku dar Beer
@@ -641,9 +591,7 @@ oninput="filterFarms()"
 </section>
 
 
-<!-- ========================= -->
 <!-- DHAQAALE -->
-<!-- ========================= -->
 
 <section id="finance" class="page">
 
@@ -655,21 +603,20 @@ oninput="filterFarms()"
 
 <div class="finance-box">
 💵 Dakhli
-<strong id="totalIncome">$0</strong>
+<strong id="totalIncome">$0.00</strong>
 </div>
 
 <div class="finance-box">
 💸 Kharash
-<strong id="totalExpense">$0</strong>
+<strong id="totalExpense">$0.00</strong>
 </div>
 
 <div class="finance-box">
 📈 Faa'iido
-<strong id="totalProfit">$0</strong>
+<strong id="totalProfit">$0.00</strong>
 </div>
 
 </div>
-
 
 <label>Nooca dhaqaalaha</label>
 
@@ -687,7 +634,6 @@ oninput="filterFarms()"
 
 </select>
 
-
 <label>💰 Lacagta ($)</label>
 
 <input
@@ -698,7 +644,6 @@ step="0.01"
 placeholder="Tusaale: 500"
 >
 
-
 <label>📝 Faahfaahin</label>
 
 <textarea
@@ -706,14 +651,12 @@ id="financeDescription"
 placeholder="Tusaale: Iibka ari, shidaal, abuur, mushahar..."
 ></textarea>
 
-
 <label>📅 Taariikhda</label>
 
 <input
 id="financeDate"
 type="date"
 >
-
 
 <button class="save" onclick="saveFinance()">
 ➕ Ku dar Dhaqaale
@@ -746,9 +689,9 @@ oninput="filterFinance()"
 
 <script>
 
-/* ==================================
+/* =====================================
    SUPABASE
-================================== */
+===================================== */
 
 const SUPABASE_URL =
 "https://ujkjdxytceqfcngdzlqt.supabase.co";
@@ -758,1388 +701,1698 @@ const SUPABASE_ANON_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
-
-
-
-/* ==================================
+/* =====================================
    DATE
-================================== */
+===================================== */
 
 const today =
 new Date().toISOString().split("T")[0];
 
-document.getElementById("animalDate").value=today;
-document.getElementById("farmDate").value=today;
-document.getElementById("financeDate").value=today;
+document.getElementById("animalDate").value = today;
+document.getElementById("farmDate").value = today;
+document.getElementById("financeDate").value = today;
 
 
-/* ==================================
+/* =====================================
    GLOBAL DATA
-================================== */
+===================================== */
 
-let animalsData=[];
-let farmsData=[];
-let financeData=[];
+let animalsData = [];
+let farmsData = [];
+let financeData = [];
+
+let financeChart = null;
 
 
-/* ==================================
+/* =====================================
+   CURRENT USER
+===================================== */
+
+async function getCurrentUser(){
+
+  const { data, error } =
+    await supabaseClient.auth.getUser();
+
+  if(error){
+    console.error(error);
+    return null;
+  }
+
+  return data?.user || null;
+}
+
+
+/* =====================================
    NAVIGATION
-================================== */
+===================================== */
 
-function showPage(pageId,button){
+function showPage(pageId, button){
 
-document.querySelectorAll(".page")
-.forEach(page=>{
-page.classList.remove("active");
-});
+  document.querySelectorAll(".page")
+  .forEach(page => {
+    page.classList.remove("active");
+  });
 
-document.querySelectorAll(".tab")
-.forEach(tab=>{
-tab.classList.remove("active");
-});
+  document.querySelectorAll(".tab")
+  .forEach(tab => {
+    tab.classList.remove("active");
+  });
 
-document.getElementById(pageId)
-.classList.add("active");
+  const page =
+    document.getElementById(pageId);
 
-button.classList.add("active");
+  if(page){
+    page.classList.add("active");
+  }
 
-if(pageId==="dashboard"){
-loadDashboard();
+  if(button){
+    button.classList.add("active");
+  }
+
+  if(pageId === "dashboard"){
+    loadDashboard();
+  }
+
 }
 
-}
 
-
-/* ==================================
+/* =====================================
    MESSAGE
-================================== */
+===================================== */
 
 function showMessage(id,text,type){
 
-const box=document.getElementById(id);
+  const box =
+    document.getElementById(id);
 
-box.textContent=text;
+  if(!box) return;
 
-box.className="message "+type;
+  box.textContent = text;
 
-setTimeout(()=>{
-box.className="message";
-},4000);
+  box.className =
+    "message " + type;
+
+  setTimeout(() => {
+    box.className = "message";
+  },4000);
 
 }
 
 
-/* ==================================
+/* =====================================
    ANIMAL ICON
-================================== */
+===================================== */
 
 function animalIcon(type){
 
-if(type==="Ari") return "🐑";
+  if(type === "Ari") return "🐑";
 
-if(type==="Lo") return "🐄";
+  if(type === "Lo") return "🐄";
 
-if(type==="Geel") return "🐪";
+  if(type === "Geel") return "🐪";
 
-if(type==="Digaag") return "🐔";
+  if(type === "Digaag") return "🐔";
 
-return "🐾";
+  return "🐾";
 
 }
 
 
-/* ==================================
+/* =====================================
    SAVE ANIMAL
-================================== */
+===================================== */
 
 async function saveAnimal(){
 
-const animal_type=
-document.getElementById("animalType").value;
+  const animal_type =
+    document.getElementById("animalType").value;
 
-const count=
-Number(document.getElementById("animalCount").value)||0;
+  const count =
+    Number(
+      document.getElementById("animalCount").value
+    ) || 0;
 
-const born=
-Number(document.getElementById("animalBorn").value)||0;
+  const born =
+    Number(
+      document.getElementById("animalBorn").value
+    ) || 0;
 
-const dead=
-Number(document.getElementById("animalDead").value)||0;
+  const dead =
+    Number(
+      document.getElementById("animalDead").value
+    ) || 0;
 
-const sold=
-Number(document.getElementById("animalSold").value)||0;
+  const sold =
+    Number(
+      document.getElementById("animalSold").value
+    ) || 0;
 
-const price=
-Number(document.getElementById("animalPrice").value)||0;
+  const price =
+    Number(
+      document.getElementById("animalPrice").value
+    ) || 0;
 
-const date=
-document.getElementById("animalDate").value||today;
+  const date =
+    document.getElementById("animalDate").value || today;
 
 
-  const { data: { user } } = await supabaseClient.auth.getUser();
+  if(!animal_type){
 
-if (!user) {
+    showMessage(
+      "animalMessage",
+      "❌ Fadlan dooro nooca xoolaha.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(count <= 0){
+
+    showMessage(
+      "animalMessage",
+      "❌ Fadlan geli tirada xoolaha.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const user =
+    await getCurrentUser();
+
+  if(!user){
+
+    showMessage(
+      "animalMessage",
+      "❌ Fadlan marka hore login samee.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("livestock")
+      .insert({
+        user_id: user.id,
+        animal_type: animal_type,
+        count: count,
+        born: born,
+        dead: dead,
+        sold: sold,
+        price: price,
+        date: date
+      });
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "animalMessage",
+      "❌ Xogta xoolaha lama kaydin: " +
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
   showMessage(
     "animalMessage",
-    "❌ Fadlan marka hore login samee.",
-    "error"
-  );
-  return;
-}
-
-const { error } = await supabaseClient
-  .from("livestock")
-  .insert({
-    user_id: user.id,
-    animal_type,
-    count,
-    born,
-    dead,
-    sold,
-    price,
-    date
-  });
-
-if (error) {
-  console.error(error);
-
-  showMessage(
-    "animalMessage",
-    "❌ Xogta xoolaha lama kaydin: " + error.message,
-    "error"
+    "✅ Xogta xoolaha waa la kaydiyey.",
+    "success"
   );
 
-  return;
-}
 
-showMessage(
-  "animalMessage",
-  "✅ Xogta xoolaha waa la kaydiyey",
-  "success"
-);
-
-document.getElementById("animalType").value = "";
-document.getElementById("animalCount").value = "";
-document.getElementById("animalBorn").value = "";
-document.getElementById("animalDead").value = "";
-document.getElementById("animalSold").value = "";
-document.getElementById("animalPrice").value = "";
-
-const { error } = await supabaseClient
-  .from("livestock")
-  .insert({
-    user_id: user.id,
-    animal_type,
-    count,
-    born,
-    dead,
-    sold,
-    price,
-    date
-  });
-
-if (error) {
-  console.error(error);
-
-  showMessage(
-    "animalMessage",
-    "❌ Xogta xoolaha lama kaydin: " + error.message,
-    "error"
-  );
-
-  return;
-}
-
-showMessage(
-  "animalMessage",
-  "✅ Xogta xoolaha waa la kaydiyey",
-  "success"
-);
-
-const { error } = await supabaseClient
-  .from("livestock")
-  .insert({
-    user_id: user.id,
-    animal_type,
-    count,
-    born,
-    dead,
-    sold,
-    price,
-    date
-  });
-
-const {error}=
-await supabaseClient
-.from("livestock")
-.insert({
-
-animal_type,
-count,
-born,
-dead,
-sold,
-price,
-date
-
-});
+  document.getElementById("animalType").value = "";
+  document.getElementById("animalCount").value = "";
+  document.getElementById("animalBorn").value = "0";
+  document.getElementById("animalDead").value = "0";
+  document.getElementById("animalSold").value = "0";
+  document.getElementById("animalPrice").value = "";
 
 
-if(error){
-
-console.error(error);
-
-showMessage(
-"animalMessage",
-"❌ Xogta xoolaha lama kaydin: "+error.message,
-"error"
-);
-
-return;
-}
-
-
-showMessage(
-"animalMessage",
-"✅ Xogta xoolaha waa la kaydiyey",
-"success"
-);
-
-
-document.getElementById("animalType").value="";
-document.getElementById("animalCount").value="";
-document.getElementById("animalBorn").value=0;
-document.getElementById("animalDead").value=0;
-document.getElementById("animalSold").value=0;
-document.getElementById("animalPrice").value="";
-
-
-loadAnimals();
+  await loadAnimals();
 
 }
 
 
-/* ==================================
+/* =====================================
    LOAD ANIMALS
-================================== */
+===================================== */
 
 async function loadAnimals(){
 
-const list=
-document.getElementById("animalsList");
+  const list =
+    document.getElementById("animalsList");
 
-list.innerHTML=
-"⏳ Xogta waa la soo gelinayaa...";
-
-
-const {data,error}=
-await supabaseClient
-.from("livestock")
-.select("*")
-.order("date",{ascending:false});
+  if(list){
+    list.innerHTML =
+      "⏳ Xogta waa la soo gelinayaa...";
+  }
 
 
-if(error){
+  const user =
+    await getCurrentUser();
 
-console.error(error);
 
-list.innerHTML=
-"❌ Xogta xoolaha lama soo gelin.";
+  if(!user){
 
-return;
+    animalsData = [];
+
+    if(list){
+      list.innerHTML =
+        '<div class="empty">🔐 Fadlan login samee si aad u aragto xogta xoolaha.</div>';
+    }
+
+    return;
+  }
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("livestock")
+      .select("*")
+      .eq("user_id",user.id)
+      .order("date",{ascending:false});
+
+
+  if(error){
+
+    console.error(error);
+
+    if(list){
+      list.innerHTML =
+        "❌ Xogta xoolaha lama soo gelin: " +
+        error.message;
+    }
+
+    return;
+  }
+
+
+  animalsData = data || [];
+
+  renderAnimals(animalsData);
+
+  loadDashboard();
+
 }
 
 
-animalsData=data||[];
-
-renderAnimals(animalsData);
-
-loadDashboard();
-
-}
-
-
-/* ==================================
+/* =====================================
    RENDER ANIMALS
-================================== */
+===================================== */
 
 function renderAnimals(data){
 
-const list=
-document.getElementById("animalsList");
+  const list =
+    document.getElementById("animalsList");
 
-if(!data.length){
+  if(!list) return;
 
-list.innerHTML=
-'<div class="empty">📭 Weli xog xoolo ah lama hayo.</div>';
 
-return;
+  if(!data.length){
+
+    list.innerHTML =
+      '<div class="empty">📭 Weli xog xoolo ah lama hayo.</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    data.map(item => `
+
+      <div class="item">
+
+        <h3>
+          ${animalIcon(item.animal_type)}
+          ${item.animal_type || ""}
+        </h3>
+
+        <p>
+          Tirada hadda:
+          <strong>${item.count ?? 0}</strong>
+        </p>
+
+        <p>
+          🍼 Dhashay:
+          <strong>${item.born ?? 0}</strong>
+        </p>
+
+        <p>
+          💀 Dhintay:
+          <strong>${item.dead ?? 0}</strong>
+        </p>
+
+        <p>
+          🛒 La iibiyey:
+          <strong>${item.sold ?? 0}</strong>
+        </p>
+
+        <p>
+          💵 Qiime:
+          <strong>$${Number(item.price ?? 0).toFixed(2)}</strong>
+        </p>
+
+        <p>
+          📅 Taariikh:
+          <strong>${item.date ?? ""}</strong>
+        </p>
+
+        <div class="actions">
+
+          <button
+            class="edit"
+            onclick="editAnimal('${item.id}')">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="delete"
+            onclick="deleteAnimal('${item.id}')">
+            🗑️ Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
 }
 
 
-list.innerHTML=
-data.map(item=>`
-
-<div class="item">
-
-<h3>
-${animalIcon(item.animal_type)}
-${item.animal_type}
-</h3>
-
-<p>
-Tirada hadda:
-<strong>${item.count??0}</strong>
-</p>
-
-<p>
-🍼 Dhashay:
-<strong>${item.born??0}</strong>
-</p>
-
-<p>
-💀 Dhintay:
-<strong>${item.dead??0}</strong>
-</p>
-
-<p>
-🛒 La iibiyey:
-<strong>${item.sold??0}</strong>
-</p>
-
-<p>
-💵 Qiime:
-<strong>$${item.price??0}</strong>
-</p>
-
-<p>
-📅 Taariikh:
-<strong>${item.date??""}</strong>
-</p>
-
-<div class="actions">
-
-<button
-class="edit"
-onclick='editAnimal("${item.id}")'>✏️ Edit
-
-
-
-<button
-class="delete"
-onclick='deleteAnimal("${item.id}")'>🗑️ Delete
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* ==================================
+/* =====================================
    SEARCH ANIMALS
-================================== */
+===================================== */
 
 function filterAnimals(){
 
-const search=
-document.getElementById("animalSearch")
-.value
-.toLowerCase();
+  const search =
+    document.getElementById("animalSearch")
+    .value
+    .toLowerCase()
+    .trim();
 
-const filtered=
-animalsData.filter(item=>
-String(item.animal_type)
-.toLowerCase()
-.includes(search)
-||
-String(item.date)
-.includes(search)
-);
 
-renderAnimals(filtered);
+  const filtered =
+    animalsData.filter(item =>
+
+      String(item.animal_type || "")
+        .toLowerCase()
+        .includes(search)
+
+      ||
+
+      String(item.date || "")
+        .includes(search)
+
+    );
+
+
+  renderAnimals(filtered);
 
 }
 
 
-/* ==================================
+/* =====================================
    EDIT ANIMAL
-================================== */
+===================================== */
 
 async function editAnimal(id){
 
-const item=
-animalsData.find(x=>x.id===id);
+  const item =
+    animalsData.find(
+      x => String(x.id) === String(id)
+    );
 
-if(!item)return;
-
-const count=
-prompt(
-"Tirada hadda:",
-item.count??0
-);
-
-if(count===null)return;
-
-const price=
-prompt(
-"Qiimaha hal neef:",
-item.price??0
-);
-
-if(price===null)return;
+  if(!item) return;
 
 
-const {error}=
-await supabaseClient
-.from("livestock")
-.update({
+  const count =
+    prompt(
+      "Tirada hadda:",
+      item.count ?? 0
+    );
 
-count:Number(count),
-price:Number(price)
-
-})
-.eq("id",id);
+  if(count === null) return;
 
 
-if(error){
+  const born =
+    prompt(
+      "Dhashay:",
+      item.born ?? 0
+    );
 
-alert(
-"❌ Lama sixi karin: "+
-error.message
-);
+  if(born === null) return;
 
-return;
+
+  const dead =
+    prompt(
+      "Dhintay:",
+      item.dead ?? 0
+    );
+
+  if(dead === null) return;
+
+
+  const sold =
+    prompt(
+      "La iibiyey:",
+      item.sold ?? 0
+    );
+
+  if(sold === null) return;
+
+
+  const price =
+    prompt(
+      "Qiimaha hal neef:",
+      item.price ?? 0
+    );
+
+  if(price === null) return;
+
+
+  const { error } =
+    await supabaseClient
+      .from("livestock")
+      .update({
+
+        count: Number(count) || 0,
+        born: Number(born) || 0,
+        dead: Number(dead) || 0,
+        sold: Number(sold) || 0,
+        price: Number(price) || 0
+
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "❌ Lama sixi karin: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert("✅ Xogta xoolaha waa la saxay.");
+
+  loadAnimals();
+
 }
 
 
-alert("✅ Xogta waa la saxay");
-
-loadAnimals();
-
-}
-
-
-/* ==================================
+/* =====================================
    DELETE ANIMAL
-================================== */
+===================================== */
 
 async function deleteAnimal(id){
 
-if(!confirm(
-"Ma hubtaa inaad rabto inaad tirtirto xogtan?"
-))return;
+  if(!confirm(
+    "Ma hubtaa inaad rabto inaad tirtirto xogtan?"
+  )){
+    return;
+  }
 
 
-const {error}=
-await supabaseClient
-.from("livestock")
-.delete()
-.eq("id",id);
+  const { error } =
+    await supabaseClient
+      .from("livestock")
+      .delete()
+      .eq("id",id);
 
 
-if(error){
+  if(error){
 
-alert(
-"❌ Lama tirtirin: "+
-error.message
-);
+    alert(
+      "❌ Lama tirtirin: " +
+      error.message
+    );
 
-return;
+    return;
+  }
+
+
+  alert("✅ Xogta waa la tirtiray.");
+
+  loadAnimals();
+
 }
 
 
-alert("✅ Xogta waa la tirtiray");
-
-loadAnimals();
-
-}
-
-
-/* ==================================
+/* =====================================
    SAVE FARM
-================================== */
+===================================== */
 
 async function saveFarm(){
 
-const crop_type=
-document.getElementById("cropType").value;
+  const crop_type =
+    document.getElementById("cropType").value;
 
-const area=
-Number(document.getElementById("farmArea").value)||0;
+  const area =
+    Number(
+      document.getElementById("farmArea").value
+    ) || 0;
 
-const planted=
-Number(document.getElementById("planted").value)||0;
+  const planted =
+    Number(
+      document.getElementById("planted").value
+    ) || 0;
 
-const harvested=
-Number(document.getElementById("harvested").value)||0;
+  const harvested =
+    Number(
+      document.getElementById("harvested").value
+    ) || 0;
 
-const sold=
-Number(document.getElementById("farmSold").value)||0;
+  const sold =
+    Number(
+      document.getElementById("farmSold").value
+    ) || 0;
 
-const price=
-Number(document.getElementById("farmPrice").value)||0;
+  const price =
+    Number(
+      document.getElementById("farmPrice").value
+    ) || 0;
 
-const date=
-document.getElementById("farmDate").value||today;
+  const date =
+    document.getElementById("farmDate").value || today;
 
 
-if(!crop_type){
+  if(!crop_type){
 
-showMessage(
-"farmMessage",
-"❌ Fadlan dooro nooca dalagga",
-"error"
-);
+    showMessage(
+      "farmMessage",
+      "❌ Fadlan dooro nooca dalagga.",
+      "error"
+    );
 
-return;
+    return;
+  }
+
+
+  if(area <= 0){
+
+    showMessage(
+      "farmMessage",
+      "❌ Fadlan geli baaxadda beerta.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const user =
+    await getCurrentUser();
+
+
+  if(!user){
+
+    showMessage(
+      "farmMessage",
+      "❌ Fadlan marka hore login samee.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("farms")
+      .insert({
+
+        user_id: user.id,
+        crop_type: crop_type,
+        area: area,
+        planted: planted,
+        harvested: harvested,
+        sold: sold,
+        price: price,
+        date: date
+
+      });
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "farmMessage",
+      "❌ Xogta beerta lama kaydin: " +
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "farmMessage",
+    "✅ Xogta beerta waa la kaydiyey.",
+    "success"
+  );
+
+
+  document.getElementById("cropType").value = "";
+  document.getElementById("farmArea").value = "";
+  document.getElementById("planted").value = "";
+  document.getElementById("harvested").value = "";
+  document.getElementById("farmSold").value = "";
+  document.getElementById("farmPrice").value = "";
+
+
+  loadFarms();
+
 }
 
 
-const {error}=
-await supabaseClient
-.from("farms")
-.insert({
-
-crop_type,
-area,
-planted,
-harvested,
-sold,
-price,
-date
-
-});
-
-
-if(error){
-
-console.error(error);
-
-showMessage(
-"farmMessage",
-"❌ Xogta beerta lama kaydin: "+error.message,
-"error"
-);
-
-return;
-}
-
-
-showMessage(
-"farmMessage",
-"✅ Xogta beerta waa la kaydiyey",
-"success"
-);
-
-
-document.getElementById("cropType").value="";
-document.getElementById("farmArea").value="";
-document.getElementById("planted").value="";
-document.getElementById("harvested").value="";
-document.getElementById("farmSold").value="";
-document.getElementById("farmPrice").value="";
-
-
-loadFarms();
-
-}
-
-
-/* ==================================
+/* =====================================
    LOAD FARMS
-================================== */
+===================================== */
 
 async function loadFarms(){
 
-const list=
-document.getElementById("farmsList");
+  const list =
+    document.getElementById("farmsList");
 
-list.innerHTML=
-"⏳ Xogta beeraha waa la soo gelinayaa...";
-
-
-const {data,error}=
-await supabaseClient
-.from("farms")
-.select("*")
-.order("date",{ascending:false});
+  if(list){
+    list.innerHTML =
+      "⏳ Xogta beeraha waa la soo gelinayaa...";
+  }
 
 
-if(error){
+  const user =
+    await getCurrentUser();
 
-console.error(error);
 
-list.innerHTML=
-"❌ Xogta beeraha lama soo gelin.";
+  if(!user){
 
-return;
+    farmsData = [];
+
+    if(list){
+      list.innerHTML =
+        '<div class="empty">🔐 Fadlan login samee si aad u aragto xogta beeraha.</div>';
+    }
+
+    return;
+  }
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("farms")
+      .select("*")
+      .eq("user_id",user.id)
+      .order("date",{ascending:false});
+
+
+  if(error){
+
+    console.error(error);
+
+    if(list){
+      list.innerHTML =
+        "❌ Xogta beeraha lama soo gelin: " +
+        error.message;
+    }
+
+    return;
+  }
+
+
+  farmsData = data || [];
+
+  renderFarms(farmsData);
+
+  loadDashboard();
+
 }
 
 
-farmsData=data||[];
-
-renderFarms(farmsData);
-
-loadDashboard();
-
-}
-
-
-/* ==================================
+/* =====================================
    RENDER FARMS
-================================== */
+===================================== */
 
 function renderFarms(data){
 
-const list=
-document.getElementById("farmsList");
+  const list =
+    document.getElementById("farmsList");
 
-if(!data.length){
+  if(!list) return;
 
-list.innerHTML=
-'<div class="empty">📭 Weli xog beer ah lama hayo.</div>';
 
-return;
+  if(!data.length){
+
+    list.innerHTML =
+      '<div class="empty">📭 Weli xog beer ah lama hayo.</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    data.map(item => `
+
+      <div class="item">
+
+        <h3>
+          🌾 ${item.crop_type || ""}
+        </h3>
+
+        <p>
+          📏 Baaxad:
+          <strong>${item.area ?? 0}</strong>
+          hektar
+        </p>
+
+        <p>
+          🌱 La beeray:
+          <strong>${item.planted ?? 0}</strong>
+        </p>
+
+        <p>
+          🌾 La goostay:
+          <strong>${item.harvested ?? 0}</strong>
+        </p>
+
+        <p>
+          🛒 La iibiyey:
+          <strong>${item.sold ?? 0}</strong>
+        </p>
+
+        <p>
+          💵 Qiime:
+          <strong>$${Number(item.price ?? 0).toFixed(2)}</strong>
+        </p>
+
+        <p>
+          📅 Taariikh:
+          <strong>${item.date ?? ""}</strong>
+        </p>
+
+        <div class="actions">
+
+          <button
+            class="edit"
+            onclick="editFarm('${item.id}')">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="delete"
+            onclick="deleteFarm('${item.id}')">
+            🗑️ Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
 }
 
 
-list.innerHTML=
-data.map(item=>`
-
-<div class="item">
-
-<h3>
-🌾 ${item.crop_type}
-</h3>
-
-<p>
-📏 Baaxad:
-<strong>${item.area??0}</strong>
-hektar
-</p>
-
-<p>
-🌱 La beeray:
-<strong>${item.planted??0}</strong>
-</p>
-
-<p>
-🌾 La goostay:
-<strong>${item.harvested??0}</strong>
-</p>
-
-<p>
-🛒 La iibiyey:
-<strong>${item.sold??0}</strong>
-</p>
-
-<p>
-💵 Qiime:
-<strong>$${item.price??0}</strong>
-</p>
-
-<p>
-📅 Taariikh:
-<strong>${item.date??""}</strong>
-</p>
-
-<div class="actions">
-
-<button
-class="edit"
-onclick='editFarm("${item.id}")'>✏️ Edit
-
-<button
-class="delete"
-onclick='deleteFarm("${item.id}")'>🗑️ Delete
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* ==================================
+/* =====================================
    SEARCH FARMS
-================================== */
+===================================== */
 
 function filterFarms(){
 
-const search=
-document.getElementById("farmSearch")
-.value
-.toLowerCase();
+  const search =
+    document.getElementById("farmSearch")
+    .value
+    .toLowerCase()
+    .trim();
 
-const filtered=
-farmsData.filter(item=>
-String(item.crop_type)
-.toLowerCase()
-.includes(search)
-||
-String(item.date)
-.includes(search)
-);
 
-renderFarms(filtered);
+  const filtered =
+    farmsData.filter(item =>
+
+      String(item.crop_type || "")
+        .toLowerCase()
+        .includes(search)
+
+      ||
+
+      String(item.date || "")
+        .includes(search)
+
+    );
+
+
+  renderFarms(filtered);
 
 }
 
 
-/* ==================================
+/* =====================================
    EDIT FARM
-================================== */
+===================================== */
 
 async function editFarm(id){
 
-const item=
-farmsData.find(x=>x.id===id);
+  const item =
+    farmsData.find(
+      x => String(x.id) === String(id)
+    );
 
-if(!item)return;
-
-const area=
-prompt(
-"Baaxadda beerta:",
-item.area??0
-);
-
-if(area===null)return;
-
-const price=
-prompt(
-"Qiimaha:",
-item.price??0
-);
-
-if(price===null)return;
+  if(!item) return;
 
 
-const {error}=
-await supabaseClient
-.from("farms")
-.update({
+  const area =
+    prompt(
+      "Baaxadda beerta:",
+      item.area ?? 0
+    );
 
-area:Number(area),
-price:Number(price)
-
-})
-.eq("id",id);
+  if(area === null) return;
 
 
-if(error){
+  const planted =
+    prompt(
+      "La beeray:",
+      item.planted ?? 0
+    );
 
-alert(
-"❌ Lama sixi karin: "+
-error.message
-);
+  if(planted === null) return;
 
-return;
+
+  const harvested =
+    prompt(
+      "La goostay:",
+      item.harvested ?? 0
+    );
+
+  if(harvested === null) return;
+
+
+  const sold =
+    prompt(
+      "La iibiyey:",
+      item.sold ?? 0
+    );
+
+  if(sold === null) return;
+
+
+  const price =
+    prompt(
+      "Qiimaha:",
+      item.price ?? 0
+    );
+
+  if(price === null) return;
+
+
+  const { error } =
+    await supabaseClient
+      .from("farms")
+      .update({
+
+        area: Number(area) || 0,
+        planted: Number(planted) || 0,
+        harvested: Number(harvested) || 0,
+        sold: Number(sold) || 0,
+        price: Number(price) || 0
+
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "❌ Lama sixi karin: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert("✅ Xogta beerta waa la saxay.");
+
+  loadFarms();
+
 }
 
 
-alert("✅ Xogta beerta waa la saxay");
-
-loadFarms();
-
-}
-
-
-/* ==================================
+/* =====================================
    DELETE FARM
-================================== */
+===================================== */
 
 async function deleteFarm(id){
 
-if(!confirm(
-"Ma hubtaa inaad rabto inaad tirtirto xogtan beerta?"
-))return;
+  if(!confirm(
+    "Ma hubtaa inaad rabto inaad tirtirto xogtan beerta?"
+  )){
+    return;
+  }
 
 
-const {error}=
-await supabaseClient
-.from("farms")
-.delete()
-.eq("id",id);
+  const { error } =
+    await supabaseClient
+      .from("farms")
+      .delete()
+      .eq("id",id);
 
 
-if(error){
+  if(error){
 
-alert(
-"❌ Lama tirtirin: "+
-error.message
-);
+    alert(
+      "❌ Lama tirtirin: " +
+      error.message
+    );
 
-return;
+    return;
+  }
+
+
+  alert("✅ Xogta beerta waa la tirtiray.");
+
+  loadFarms();
+
 }
 
 
-alert("✅ Xogta beerta waa la tirtiray");
-
-loadFarms();
-
-}
-
-
-/* ==================================
+/* =====================================
    SAVE FINANCE
-================================== */
+===================================== */
 
 async function saveFinance(){
 
-const type=
-document.getElementById("financeType").value;
+  const type =
+    document.getElementById("financeType").value;
 
-const amount=
-Number(
-document.getElementById("financeAmount").value
-)||0;
+  const amount =
+    Number(
+      document.getElementById("financeAmount").value
+    ) || 0;
 
-const description=
-document.getElementById("financeDescription").value;
+  const description =
+    document.getElementById("financeDescription").value
+    .trim();
 
-const date=
-document.getElementById("financeDate").value||today;
+  const date =
+    document.getElementById("financeDate").value || today;
 
 
-if(!type){
+  if(!type){
 
-showMessage(
-"financeMessage",
-"❌ Fadlan dooro Dakhli ama Kharash",
-"error"
-);
+    showMessage(
+      "financeMessage",
+      "❌ Fadlan dooro Dakhli ama Kharash.",
+      "error"
+    );
 
-return;
+    return;
+  }
+
+
+  if(amount <= 0){
+
+    showMessage(
+      "financeMessage",
+      "❌ Lacagtu waa inay ka weyn tahay 0.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const user =
+    await getCurrentUser();
+
+
+  if(!user){
+
+    showMessage(
+      "financeMessage",
+      "❌ Fadlan marka hore login samee.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("finances")
+      .insert({
+
+        user_id: user.id,
+        type: type,
+        amount: amount,
+        description: description,
+        date: date
+
+      });
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      "financeMessage",
+      "❌ Dhaqaalaha lama kaydin: " +
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "financeMessage",
+    "✅ Dhaqaalaha waa la kaydiyey.",
+    "success"
+  );
+
+
+  document.getElementById("financeType").value = "";
+  document.getElementById("financeAmount").value = "";
+  document.getElementById("financeDescription").value = "";
+
+
+  loadFinance();
+
 }
 
 
-if(amount<=0){
-
-showMessage(
-"financeMessage",
-"❌ Lacagtu waa inay ka weyn tahay 0",
-"error"
-);
-
-return;
-}
-
-
-const {error}=
-await supabaseClient
-.from("finances")
-.insert({
-
-type,
-amount,
-description,
-date
-
-});
-
-
-if(error){
-
-console.error(error);
-
-showMessage(
-"financeMessage",
-"❌ Dhaqaalaha lama kaydin: "+error.message,
-"error"
-);
-
-return;
-}
-
-
-showMessage(
-"financeMessage",
-"✅ Dhaqaalaha waa la kaydiyey",
-"success"
-);
-
-
-document.getElementById("financeType").value="";
-document.getElementById("financeAmount").value="";
-document.getElementById("financeDescription").value="";
-
-
-loadFinance();
-
-}
-
-
-/* ==================================
+/* =====================================
    LOAD FINANCE
-================================== */
+===================================== */
 
 async function loadFinance(){
 
-const list=
-document.getElementById("financeList");
+  const list =
+    document.getElementById("financeList");
 
-list.innerHTML=
-"⏳ Xogta dhaqaalaha waa la soo gelinayaa...";
-
-
-const {data,error}=
-await supabaseClient
-.from("finances")
-.select("*")
-.order("date",{ascending:false});
+  if(list){
+    list.innerHTML =
+      "⏳ Xogta dhaqaalaha waa la soo gelinayaa...";
+  }
 
 
-if(error){
+  const user =
+    await getCurrentUser();
 
-console.error(error);
 
-list.innerHTML=
-"❌ Xogta dhaqaalaha lama soo gelin.";
+  if(!user){
 
-return;
+    financeData = [];
+
+    if(list){
+      list.innerHTML =
+        '<div class="empty">🔐 Fadlan login samee si aad u aragto dhaqaalaha.</div>';
+    }
+
+    updateFinanceTotals();
+
+    updateChart();
+
+    return;
+  }
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("finances")
+      .select("*")
+      .eq("user_id",user.id)
+      .order("date",{ascending:false});
+
+
+  if(error){
+
+    console.error(error);
+
+    if(list){
+      list.innerHTML =
+        "❌ Xogta dhaqaalaha lama soo gelin: " +
+        error.message;
+    }
+
+    return;
+  }
+
+
+  financeData = data || [];
+
+  renderFinance(financeData);
+
+  updateFinanceTotals();
+
+  updateChart();
+
+  loadDashboard();
+
 }
 
 
-financeData=data||[];
-
-renderFinance(financeData);
-
-updateFinanceTotals();
-
-updateChart();
-
-loadDashboard();
-
-}
-
-
-/* ==================================
+/* =====================================
    RENDER FINANCE
-================================== */
+===================================== */
 
 function renderFinance(data){
 
-const list=
-document.getElementById("financeList");
+  const list =
+    document.getElementById("financeList");
 
-if(!data.length){
+  if(!list) return;
 
-list.innerHTML=
-'<div class="empty">📭 Weli xog dhaqaale ah lama hayo.</div>';
 
-return;
+  if(!data.length){
+
+    list.innerHTML =
+      '<div class="empty">📭 Weli xog dhaqaale ah lama hayo.</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    data.map(item => `
+
+      <div class="item">
+
+        <h3>
+          ${item.type === "Dakhli" ? "💵" : "💸"}
+          ${item.type || ""}
+        </h3>
+
+        <p>
+          💰 Lacag:
+          <strong>
+            $${Number(item.amount || 0).toFixed(2)}
+          </strong>
+        </p>
+
+        <p>
+          📝 Faahfaahin:
+          <strong>
+            ${item.description || "—"}
+          </strong>
+        </p>
+
+        <p>
+          📅 Taariikh:
+          <strong>
+            ${item.date || ""}
+          </strong>
+        </p>
+
+        <div class="actions">
+
+          <button
+            class="edit"
+            onclick="editFinance('${item.id}')">
+            ✏️ Edit
+          </button>
+
+          <button
+            class="delete"
+            onclick="deleteFinance('${item.id}')">
+            🗑️ Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
 }
 
 
-list.innerHTML=
-data.map(item=>`
-
-<div class="item">
-
-<h3>
-${item.type==="Dakhli"?"💵":"💸"}
-${item.type}
-</h3>
-
-<p>
-💰 Lacag:
-<strong>$${Number(item.amount||0).toFixed(2)}</strong>
-</p>
-
-<p>
-📝 Faahfaahin:
-<strong>${item.description||"—"}</strong>
-</p>
-
-<p>
-📅 Taariikh:
-<strong>${item.date||""}</strong>
-</p>
-
-<div class="actions">
-
-<button
-class="edit"
-onclick="editFinance(${item.id})">
-✏️ Edit
-</button>
-
-<button
-class="delete"
-onclick="deleteFinance(${item.id})">
-🗑️ Delete
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* ==================================
+/* =====================================
    SEARCH FINANCE
-================================== */
+===================================== */
 
 function filterFinance(){
 
-const search=
-document.getElementById("financeSearch")
-.value
-.toLowerCase();
+  const search =
+    document.getElementById("financeSearch")
+    .value
+    .toLowerCase()
+    .trim();
 
-const filtered=
-financeData.filter(item=>
-String(item.type)
-.toLowerCase()
-.includes(search)
-||
-String(item.description||"")
-.toLowerCase()
-.includes(search)
-||
-String(item.date||"")
-.includes(search)
-);
 
-renderFinance(filtered);
+  const filtered =
+    financeData.filter(item =>
+
+      String(item.type || "")
+        .toLowerCase()
+        .includes(search)
+
+      ||
+
+      String(item.description || "")
+        .toLowerCase()
+        .includes(search)
+
+      ||
+
+      String(item.date || "")
+        .includes(search)
+
+    );
+
+
+  renderFinance(filtered);
 
 }
 
 
-/* ==================================
+/* =====================================
    EDIT FINANCE
-================================== */
+===================================== */
 
 async function editFinance(id){
 
-const item=
-financeData.find(x=>x.id===id);
+  const item =
+    financeData.find(
+      x => String(x.id) === String(id)
+    );
 
-if(!item)return;
-
-const amount=
-prompt(
-"Lacagta:",
-item.amount??0
-);
-
-if(amount===null)return;
-
-const description=
-prompt(
-"Faahfaahinta:",
-item.description||""
-);
-
-if(description===null)return;
+  if(!item) return;
 
 
-const {error}=
-await supabaseClient
-.from("finances")
-.update({
+  const amount =
+    prompt(
+      "Lacagta:",
+      item.amount ?? 0
+    );
 
-amount:Number(amount),
-description:description
-
-})
-.eq("id",id);
+  if(amount === null) return;
 
 
-if(error){
+  const description =
+    prompt(
+      "Faahfaahinta:",
+      item.description || ""
+    );
 
-alert(
-"❌ Lama sixi karin: "+
-error.message
-);
+  if(description === null) return;
 
-return;
+
+  const { error } =
+    await supabaseClient
+      .from("finances")
+      .update({
+
+        amount: Number(amount) || 0,
+        description: description
+
+      })
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "❌ Lama sixi karin: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert("✅ Dhaqaalaha waa la saxay.");
+
+  loadFinance();
+
 }
 
 
-alert("✅ Dhaqaalaha waa la saxay");
-
-loadFinance();
-
-}
-
-
-/* ==================================
+/* =====================================
    DELETE FINANCE
-================================== */
+===================================== */
 
 async function deleteFinance(id){
 
-if(!confirm(
-"Ma hubtaa inaad rabto inaad tirtirto xogtan dhaqaalaha?"
-))return;
+  if(!confirm(
+    "Ma hubtaa inaad rabto inaad tirtirto xogtan dhaqaalaha?"
+  )){
+    return;
+  }
 
 
-const {error}=
-await supabaseClient
-.from("finances")
-.delete()
-.eq("id",id);
+  const { error } =
+    await supabaseClient
+      .from("finances")
+      .delete()
+      .eq("id",id);
 
 
-if(error){
+  if(error){
 
-alert(
-"❌ Dhaqaalaha lama tirtirin: "+
-error.message
-);
+    alert(
+      "❌ Dhaqaalaha lama tirtirin: " +
+      error.message
+    );
 
-return;
+    return;
+  }
+
+
+  alert("✅ Dhaqaalaha waa la tirtiray.");
+
+  loadFinance();
+
 }
 
 
-alert("✅ Dhaqaalaha waa la tirtiray");
-
-loadFinance();
-
-}
-
-
-/* ==================================
+/* =====================================
    FINANCE TOTALS
-================================== */
+===================================== */
 
 function updateFinanceTotals(){
 
-let income=0;
-let expense=0;
+  let income = 0;
+  let expense = 0;
 
 
-financeData.forEach(item=>{
+  financeData.forEach(item => {
 
-const amount=
-Number(item.amount)||0;
+    const amount =
+      Number(item.amount) || 0;
 
-if(item.type==="Dakhli"){
-income+=amount;
+
+    if(item.type === "Dakhli"){
+      income += amount;
+    }
+
+
+    if(item.type === "Kharash"){
+      expense += amount;
+    }
+
+  });
+
+
+  const profit =
+    income - expense;
+
+
+  const totalIncome =
+    document.getElementById("totalIncome");
+
+  const totalExpense =
+    document.getElementById("totalExpense");
+
+  const totalProfit =
+    document.getElementById("totalProfit");
+
+  const dashIncome =
+    document.getElementById("dashIncome");
+
+  const dashExpense =
+    document.getElementById("dashExpense");
+
+  const dashProfit =
+    document.getElementById("dashProfit");
+
+
+  if(totalIncome)
+    totalIncome.textContent =
+      "$" + income.toFixed(2);
+
+  if(totalExpense)
+    totalExpense.textContent =
+      "$" + expense.toFixed(2);
+
+  if(totalProfit)
+    totalProfit.textContent =
+      "$" + profit.toFixed(2);
+
+  if(dashIncome)
+    dashIncome.textContent =
+      "$" + income.toFixed(2);
+
+  if(dashExpense)
+    dashExpense.textContent =
+      "$" + expense.toFixed(2);
+
+  if(dashProfit)
+    dashProfit.textContent =
+      "$" + profit.toFixed(2);
+
 }
 
-if(item.type==="Kharash"){
-expense+=amount;
-}
 
-});
-
-
-const profit=
-income-expense;
-
-
-document.getElementById("totalIncome")
-.textContent="$"+income.toFixed(2);
-
-document.getElementById("totalExpense")
-.textContent="$"+expense.toFixed(2);
-
-document.getElementById("totalProfit")
-.textContent="$"+profit.toFixed(2);
-
-
-document.getElementById("dashIncome")
-.textContent="$"+income.toFixed(2);
-
-document.getElementById("dashExpense")
-.textContent="$"+expense.toFixed(2);
-
-document.getElementById("dashProfit")
-.textContent="$"+profit.toFixed(2);
-
-}
-
-
-/* ==================================
+/* =====================================
    CHART
-================================== */
-
-let financeChart=null;
+===================================== */
 
 function updateChart(){
 
-let income=0;
-let expense=0;
+  let income = 0;
+  let expense = 0;
 
 
-financeData.forEach(item=>{
+  financeData.forEach(item => {
 
-const amount=
-Number(item.amount)||0;
+    const amount =
+      Number(item.amount) || 0;
 
-if(item.type==="Dakhli"){
-income+=amount;
+
+    if(item.type === "Dakhli"){
+      income += amount;
+    }
+
+
+    if(item.type === "Kharash"){
+      expense += amount;
+    }
+
+  });
+
+
+  const canvas =
+    document.getElementById("financeChart");
+
+
+  if(!canvas) return;
+
+
+  if(financeChart){
+    financeChart.destroy();
+  }
+
+
+  financeChart =
+    new Chart(canvas,{
+
+      type:"doughnut",
+
+      data:{
+
+        labels:[
+          "Dakhli",
+          "Kharash"
+        ],
+
+        datasets:[{
+
+          data:[
+            income,
+            expense
+          ]
+
+        }]
+
+      },
+
+      options:{
+        responsive:true,
+        maintainAspectRatio:false
+      }
+
+    });
+
 }
 
-if(item.type==="Kharash"){
-expense+=amount;
-}
 
-});
-
-
-const canvas=
-document.getElementById("financeChart");
-
-if(!canvas)return;
-
-
-if(financeChart){
-financeChart.destroy();
-}
-
-
-financeChart=
-new Chart(canvas,{
-
-type:"doughnut",
-
-data:{
-
-labels:[
-"Dakhli",
-"Kharash"
-],
-
-datasets:[{
-
-data:[
-income,
-expense
-]
-
-}]
-
-},
-
-options:{
-responsive:true,
-maintainAspectRatio:false
-}
-
-});
-
-}
-
-
-/* ==================================
+/* =====================================
    DASHBOARD
-================================== */
+===================================== */
 
-async function loadDashboard(){
+function loadDashboard(){
 
-const animalTotal=
-animalsData.reduce(
-(sum,item)=>
-sum+(Number(item.count)||0),
-0
-);
-
-
-const farmTotal=
-farmsData.reduce(
-(sum,item)=>
-sum+(Number(item.area)||0),
-0
-);
+  const animalTotal =
+    animalsData.reduce(
+      (sum,item) =>
+        sum + (Number(item.count) || 0),
+      0
+    );
 
 
-const soldTotal=
-animalsData.reduce(
-(sum,item)=>
-sum+(Number(item.sold)||0),
-0
-);
+  const farmTotal =
+    farmsData.reduce(
+      (sum,item) =>
+        sum + (Number(item.area) || 0),
+      0
+    );
 
 
-document.getElementById("dashAnimals")
-.textContent=animalTotal;
-
-document.getElementById("dashFarms")
-.textContent=farmTotal+" ha";
-
-document.getElementById("dashSold")
-.textContent=soldTotal;
+  const soldTotal =
+    animalsData.reduce(
+      (sum,item) =>
+        sum + (Number(item.sold) || 0),
+      0
+    );
 
 
-updateFinanceTotals();
+  const dashAnimals =
+    document.getElementById("dashAnimals");
+
+  const dashFarms =
+    document.getElementById("dashFarms");
+
+  const dashSold =
+    document.getElementById("dashSold");
 
 
-const animalsBox=
-document.getElementById("dashboardAnimals");
+  if(dashAnimals)
+    dashAnimals.textContent =
+      animalTotal;
 
-if(animalsData.length){
 
-animalsBox.innerHTML=
-animalsData.slice(0,5)
-.map(item=>`
+  if(dashFarms)
+    dashFarms.textContent =
+      farmTotal + " ha";
 
-<p>
-${animalIcon(item.animal_type)}
-<strong>${item.animal_type}</strong>
-:
-${item.count??0}
-</p>
 
-`).join("");
+  if(dashSold)
+    dashSold.textContent =
+      soldTotal;
 
-}else{
 
-animalsBox.innerHTML=
-'<div class="empty">📭 Xog xoolo ah lama hayo.</div>';
+  updateFinanceTotals();
+
+
+  const animalsBox =
+    document.getElementById("dashboardAnimals");
+
+
+  if(animalsBox){
+
+    if(animalsData.length){
+
+      animalsBox.innerHTML =
+        animalsData
+          .slice(0,5)
+          .map(item => `
+
+            <p>
+              ${animalIcon(item.animal_type)}
+              <strong>
+                ${item.animal_type}
+              </strong>
+              :
+              ${item.count ?? 0}
+            </p>
+
+          `)
+          .join("");
+
+    }else{
+
+      animalsBox.innerHTML =
+        '<div class="empty">📭 Xog xoolo ah lama hayo.</div>';
+
+    }
+
+  }
+
+
+  const farmsBox =
+    document.getElementById("dashboardFarms");
+
+
+  if(farmsBox){
+
+    if(farmsData.length){
+
+      farmsBox.innerHTML =
+        farmsData
+          .slice(0,5)
+          .map(item => `
+
+            <p>
+              🌾
+              <strong>
+                ${item.crop_type}
+              </strong>
+              :
+              ${item.area ?? 0}
+              hektar
+            </p>
+
+          `)
+          .join("");
+
+    }else{
+
+      farmsBox.innerHTML =
+        '<div class="empty">📭 Xog beer ah lama hayo.</div>';
+
+    }
+
+  }
 
 }
 
 
-const farmsBox=
-document.getElementById("dashboardFarms");
-
-if(farmsData.length){
-
-farmsBox.innerHTML=
-farmsData.slice(0,5)
-.map(item=>`
-
-<p>
-🌾 <strong>${item.crop_type}</strong>
-:
-${item.area??0} hektar
-</p>
-
-`).join("");
-
-}else{
-
-farmsBox.innerHTML=
-'<div class="empty">📭 Xog beer ah lama hayo.</div>';
-
-}
-
-}
-
-
-/* ==================================
+/* =====================================
    START APP
-================================== */
+===================================== */
 
-loadAnimals();
-loadFarms();
-loadFinance();
+async function startApp(){
+
+  await loadAnimals();
+
+  await loadFarms();
+
+  await loadFinance();
+
+  loadDashboard();
+
+}
+
+
+startApp();
 
 </script>
 
