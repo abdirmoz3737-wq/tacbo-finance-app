@@ -881,16 +881,55 @@ const date=
 document.getElementById("animalDate").value||today;
 
 
-if(!animal_type){
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+if (!user) {
+  showMessage(
+    "animalMessage",
+    "❌ Fadlan marka hore login samee.",
+    "error"
+  );
+  return;
+}
+
+const { error } = await supabaseClient
+  .from("livestock")
+  .insert({
+    user_id: user.id,
+    animal_type,
+    count,
+    born,
+    dead,
+    sold,
+    price,
+    date
+  });
+
+if (error) {
+  console.error(error);
+
+  showMessage(
+    "animalMessage",
+    "❌ Xogta xoolaha lama kaydin: " + error.message,
+    "error"
+  );
+
+  return;
+}
 
 showMessage(
-"animalMessage",
-"❌ Fadlan dooro nooca xoolaha",
-"error"
+  "animalMessage",
+  "✅ Xogta xoolaha waa la kaydiyey",
+  "success"
 );
 
-return;
-}
+document.getElementById("animalType").value = "";
+document.getElementById("animalCount").value = "";
+document.getElementById("animalBorn").value = "";
+document.getElementById("animalDead").value = "";
+document.getElementById("animalSold").value = "";
+document.getElementById("animalPrice").value = "";
+
 const { error } = await supabaseClient
   .from("livestock")
   .insert({
