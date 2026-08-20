@@ -891,16 +891,36 @@ showMessage(
 
 return;
 }
-const { data: { user } } = await supabaseClient.auth.getUser();
+const { error } = await supabaseClient
+  .from("livestock")
+  .insert({
+    user_id: user.id,
+    animal_type,
+    count,
+    born,
+    dead,
+    sold,
+    price,
+    date
+  });
 
-if (!user) {
+if (error) {
+  console.error(error);
+
   showMessage(
     "animalMessage",
-    "Fadlan marka hore login samee.",
+    "❌ Xogta xoolaha lama kaydin: " + error.message,
     "error"
   );
+
   return;
 }
+
+showMessage(
+  "animalMessage",
+  "✅ Xogta xoolaha waa la kaydiyey",
+  "success"
+);
 
 const { error } = await supabaseClient
   .from("livestock")
