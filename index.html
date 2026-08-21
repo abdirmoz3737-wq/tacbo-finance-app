@@ -1848,7 +1848,96 @@ ${item.date || ""}
 }).join("");
 
 }
-// ================================
+// ========================================
+// FINANCE EDIT & DELETE
+// ========================================
+
+async function editFinance(id) {
+  const { data: finance, error } = await supabaseClient
+    .from("finances")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !finance) {
+    alert("❌ Xogta dhaqaalaha lama helin.");
+    return;
+  }
+
+  const type = prompt(
+    "Nooca (income/expense):",
+    finance.type || ""
+  );
+  if (type === null) return;
+
+  const amount = prompt(
+    "💰 Lacagta:",
+    finance.amount || 0
+  );
+  if (amount === null) return;
+
+  const description = prompt(
+    "📝 Faahfaahin:",
+    finance.description || ""
+  );
+  if (description === null) return;
+
+  const date = prompt(
+    "📅 Taariikhda:",
+    finance.date || ""
+  );
+  if (date === null) return;
+
+  const { error: updateError } = await supabaseClient
+    .from("finances")
+    .update({
+      type: type,
+      amount: Number(amount) || 0,
+      description: description,
+      date: date
+    })
+    .eq("id", id);
+
+  if (updateError) {
+    alert("❌ Edit ma shaqayn: " + updateError.message);
+    return;
+  }
+
+  alert("✅ Xogta dhaqaalaha waa la hagaajiyey.");
+
+  if (typeof loadFinance === "function") {
+    await loadFinance();
+  } else {
+    location.reload();
+  }
+}
+
+
+async function deleteFinance(id) {
+  const confirmDelete = confirm(
+    "⚠️ Ma hubtaa inaad tirtirayso xogtan dhaqaalaha?"
+  );
+
+  if (!confirmDelete) return;
+
+  const { error } = await supabaseClient
+    .from("finances")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("❌ Delete ma shaqayn: " + error.message);
+    return;
+  }
+
+  alert("✅ Xogta dhaqaalaha waa la tirtiray.");
+
+  if (typeof loadFinance === "function") {
+    await loadFinance();
+  } else {
+    location.reload();
+  }
+}// ================================
 // FARM EDIT & DELETE
 // ================================
 
