@@ -1820,7 +1820,92 @@ ${item.date || ""}
 }).join("");
 
 }
+// ================================
+// FARM EDIT & DELETE
+// ================================
 
+async function editFarm(id) {
+  const { data: farm, error } = await supabaseClient
+    .from("farms")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !farm) {
+    alert("❌ Beerta lama helin.");
+    return;
+  }
+
+  const crop = prompt("🌱 Dalagga:", farm.crop || "");
+  if (crop === null) return;
+
+  const area = prompt("📐 Aagga (hectar):", farm.area || 0);
+  if (area === null) return;
+
+  const planted = prompt("🌱 La beeray:", farm.planted || 0);
+  if (planted === null) return;
+
+  const harvested = prompt("🌾 La goostay:", farm.harvested || 0);
+  if (harvested === null) return;
+
+  const sold = prompt("💰 La iibiyey:", farm.sold || 0);
+  if (sold === null) return;
+
+  const { error: updateError } = await supabaseClient
+    .from("farms")
+    .update({
+      crop: crop,
+      area: Number(area) || 0,
+      planted: Number(planted) || 0,
+      harvested: Number(harvested) || 0,
+      sold: Number(sold) || 0
+    })
+    .eq("id", id);
+
+  if (updateError) {
+    alert("❌ Edit ma shaqayn: " + updateError.message);
+    return;
+  }
+
+  alert("✅ Beerta waa la hagaajiyey.");
+
+  if (typeof loadFarm === "function") {
+    await loadFarm();
+  } else if (typeof loadFarms === "function") {
+    await loadFarms();
+  } else {
+    location.reload();
+  }
+}
+
+
+async function deleteFarm(id) {
+  const confirmDelete = confirm(
+    "⚠️ Ma hubtaa inaad tirtirayso beertan?"
+  );
+
+  if (!confirmDelete) return;
+
+  const { error } = await supabaseClient
+    .from("farms")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("❌ Delete ma shaqayn: " + error.message);
+    return;
+  }
+
+  alert("✅ Beerta waa la tirtiray.");
+
+  if (typeof loadFarm === "function") {
+    await loadFarm();
+  } else if (typeof loadFarms === "function") {
+    await loadFarms();
+  } else {
+    location.reload();
+  }
+}
 
 /* ================================
    ADD FINANCE
