@@ -3063,5 +3063,439 @@ function escapeMedicineHTML(value) {
 
 showMedicineType("animal");
 
-</script> </body>
+</script>
+<div style="max-width:900px;margin:20px auto;padding:20px;background:#f4f8f5;border-radius:20px;">
+
+  <h2 style="text-align:center;color:#17231b;">
+    💊 Daawada Xoolaha & 🌱 Daawada Beerta
+  </h2>
+
+  <!-- TABS -->
+  <div style="display:flex;gap:10px;margin-bottom:20px;">
+    <button
+      type="button"
+      id="tacboVetTab"
+      onclick="tacboShowMedicine('animal')"
+      style="flex:1;padding:14px;border:0;border-radius:14px;background:#387d46;color:white;font-size:16px;font-weight:bold;">
+      💊 Daawada Xoolaha
+    </button>
+
+    <button
+      type="button"
+      id="tacboFarmTab"
+      onclick="tacboShowMedicine('farm')"
+      style="flex:1;padding:14px;border:0;border-radius:14px;background:#edf2ee;color:#17231b;font-size:16px;font-weight:bold;">
+      🌱 Daawada Beerta
+    </button>
+  </div>
+
+  <!-- FORM -->
+  <div style="background:white;padding:18px;border-radius:18px;margin-bottom:20px;">
+
+    <input
+      id="tacboMedicineName"
+      type="text"
+      placeholder="💊 Magaca daawada"
+      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
+
+    <input
+      id="tacboMedicineQuantity"
+      type="number"
+      placeholder="Tirada / Quantity"
+      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
+
+    <input
+      id="tacboMedicinePrice"
+      type="number"
+      step="0.01"
+      placeholder="💰 Qiimaha ($)"
+      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
+
+    <input
+      id="tacboMedicineDate"
+      type="date"
+      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
+
+    <textarea
+      id="tacboMedicineDescription"
+      placeholder="📝 Faahfaahin"
+      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;min-height:80px;"></textarea>
+
+    <button
+      type="button"
+      id="tacboMedicineSave"
+      onclick="tacboSaveMedicine()"
+      style="width:100%;padding:15px;border:0;border-radius:14px;background:#387d46;color:white;font-size:17px;font-weight:bold;">
+      ➕ Ku dar Daawo
+    </button>
+
+    <button
+      type="button"
+      id="tacboMedicineCancel"
+      onclick="tacboCancelMedicine()"
+      style="display:none;width:100%;padding:15px;margin-top:8px;border:0;border-radius:14px;background:#777;color:white;font-size:16px;font-weight:bold;">
+      ❌ Jooji Edit
+    </button>
+
+  </div>
+
+  <!-- LIST -->
+  <h3 id="tacboMedicineTitle" style="color:#17231b;">
+    💊 Daawooyinka Xoolaha
+  </h3>
+
+  <div id="tacboMedicineList"></div>
+
+</div>
+
+<script>
+(function(){
+
+  let tacboMedicineType = "animal";
+  let tacboEditingMedicineId = null;
+
+  let tacboMedicines = JSON.parse(
+    localStorage.getItem("tacbo_vet_farm_medicines") || "[]"
+  );
+
+  window.tacboShowMedicine = function(type){
+
+    tacboMedicineType = type;
+
+    const vetTab = document.getElementById("tacboVetTab");
+    const farmTab = document.getElementById("tacboFarmTab");
+    const title = document.getElementById("tacboMedicineTitle");
+
+    if(type === "animal"){
+
+      vetTab.style.background = "#387d46";
+      vetTab.style.color = "white";
+
+      farmTab.style.background = "#edf2ee";
+      farmTab.style.color = "#17231b";
+
+      title.textContent = "💊 Daawooyinka Xoolaha";
+
+    }else{
+
+      farmTab.style.background = "#387d46";
+      farmTab.style.color = "white";
+
+      vetTab.style.background = "#edf2ee";
+      vetTab.style.color = "#17231b";
+
+      title.textContent = "🌱 Daawooyinka Beerta";
+    }
+
+    tacboCancelMedicine();
+    tacboRenderMedicines();
+  };
+
+
+  window.tacboSaveMedicine = function(){
+
+    const name =
+      document.getElementById("tacboMedicineName").value.trim();
+
+    const quantity =
+      document.getElementById("tacboMedicineQuantity").value;
+
+    const price =
+      document.getElementById("tacboMedicinePrice").value;
+
+    const date =
+      document.getElementById("tacboMedicineDate").value;
+
+    const description =
+      document.getElementById("tacboMedicineDescription").value.trim();
+
+
+    if(!name){
+      alert("❌ Fadlan geli magaca daawada.");
+      return;
+    }
+
+    if(!quantity){
+      alert("❌ Fadlan geli tirada.");
+      return;
+    }
+
+
+    if(tacboEditingMedicineId){
+
+      const item = tacboMedicines.find(function(m){
+        return m.id === tacboEditingMedicineId;
+      });
+
+      if(item){
+
+        item.name = name;
+        item.quantity = quantity;
+        item.price = price;
+        item.date = date;
+        item.description = description;
+        item.type = tacboMedicineType;
+      }
+
+      alert("✅ Daawada waa la tafatiray.");
+
+    }else{
+
+      tacboMedicines.push({
+
+        id: Date.now().toString(),
+
+        type: tacboMedicineType,
+
+        name: name,
+
+        quantity: quantity,
+
+        price: price,
+
+        date: date,
+
+        description: description
+
+      });
+
+      alert("✅ Daawada waa la kaydiyey.");
+    }
+
+
+    localStorage.setItem(
+      "tacbo_vet_farm_medicines",
+      JSON.stringify(tacboMedicines)
+    );
+
+    tacboCancelMedicine();
+    tacboRenderMedicines();
+  };
+
+
+  window.tacboEditMedicine = function(id){
+
+    const item = tacboMedicines.find(function(m){
+      return m.id === id;
+    });
+
+    if(!item){
+      alert("❌ Daawada lama helin.");
+      return;
+    }
+
+    tacboEditingMedicineId = id;
+    tacboMedicineType = item.type;
+
+    document.getElementById("tacboMedicineName").value =
+      item.name || "";
+
+    document.getElementById("tacboMedicineQuantity").value =
+      item.quantity || "";
+
+    document.getElementById("tacboMedicinePrice").value =
+      item.price || "";
+
+    document.getElementById("tacboMedicineDate").value =
+      item.date || "";
+
+    document.getElementById("tacboMedicineDescription").value =
+      item.description || "";
+
+
+    document.getElementById("tacboMedicineSave").textContent =
+      "💾 Kaydi Isbeddelka";
+
+    document.getElementById("tacboMedicineCancel").style.display =
+      "block";
+
+    tacboShowMedicine(item.type);
+
+    window.scrollTo({
+      top: document.getElementById("medicineSection").offsetTop,
+      behavior: "smooth"
+    });
+  };
+
+
+  window.tacboDeleteMedicine = function(id){
+
+    const item = tacboMedicines.find(function(m){
+      return m.id === id;
+    });
+
+    if(!item) return;
+
+    const ok = confirm(
+      "Ma hubtaa inaad tirtirayso " + item.name + "?"
+    );
+
+    if(!ok) return;
+
+
+    tacboMedicines =
+      tacboMedicines.filter(function(m){
+        return m.id !== id;
+      });
+
+
+    localStorage.setItem(
+      "tacbo_vet_farm_medicines",
+      JSON.stringify(tacboMedicines)
+    );
+
+    alert("🗑️ Daawada waa la tirtiray.");
+
+    tacboRenderMedicines();
+  };
+
+
+  window.tacboCancelMedicine = function(){
+
+    tacboEditingMedicineId = null;
+
+    document.getElementById("tacboMedicineName").value = "";
+    document.getElementById("tacboMedicineQuantity").value = "";
+    document.getElementById("tacboMedicinePrice").value = "";
+    document.getElementById("tacboMedicineDate").value = "";
+    document.getElementById("tacboMedicineDescription").value = "";
+
+    document.getElementById("tacboMedicineSave").textContent =
+      "➕ Ku dar Daawo";
+
+    document.getElementById("tacboMedicineCancel").style.display =
+      "none";
+  };
+
+
+  function tacboRenderMedicines(){
+
+    const list =
+      document.getElementById("tacboMedicineList");
+
+    const filtered =
+      tacboMedicines.filter(function(item){
+        return item.type === tacboMedicineType;
+      });
+
+
+    if(filtered.length === 0){
+
+      list.innerHTML =
+        '<div style="background:white;padding:25px;text-align:center;border-radius:16px;color:#777;">' +
+        '📦 Xog wali lama hayo.' +
+        '</div>';
+
+      return;
+    }
+
+
+    list.innerHTML = filtered.map(function(item){
+
+      const total =
+        (Number(item.quantity) || 0) *
+        (Number(item.price) || 0);
+
+
+      return `
+        <div style="
+          background:white;
+          padding:16px;
+          margin-bottom:12px;
+          border-radius:16px;
+          border:1px solid #dce5df;
+        ">
+
+          <div style="font-size:18px;font-weight:bold;color:#17231b;">
+            ${item.type === "animal" ? "💊" : "🌱"}
+            ${tacboEscape(item.name)}
+          </div>
+
+          <div style="margin-top:8px;color:#536158;">
+            📦 Tirada: <strong>${tacboEscape(item.quantity)}</strong>
+          </div>
+
+          <div style="color:#536158;">
+            💰 Qiimaha: <strong>$${tacboEscape(item.price || 0)}</strong>
+          </div>
+
+          <div style="color:#536158;">
+            💵 Wadarta: <strong>$${total.toFixed(2)}</strong>
+          </div>
+
+          ${
+            item.date
+            ? `<div style="color:#536158;">📅 Taariikh: ${tacboEscape(item.date)}</div>`
+            : ""
+          }
+
+          ${
+            item.description
+            ? `<div style="margin-top:8px;color:#536158;">📝 ${tacboEscape(item.description)}</div>`
+            : ""
+          }
+
+          <div style="display:flex;gap:8px;margin-top:14px;">
+
+            <button
+              type="button"
+              onclick="tacboEditMedicine('${item.id}')"
+              style="
+                flex:1;
+                padding:11px;
+                border:0;
+                border-radius:10px;
+                background:#edf2ee;
+                color:#17231b;
+                font-weight:bold;
+              ">
+              ✏️ Edit
+            </button>
+
+            <button
+              type="button"
+              onclick="tacboDeleteMedicine('${item.id}')"
+              style="
+                flex:1;
+                padding:11px;
+                border:0;
+                border-radius:10px;
+                background:#ffe5e5;
+                color:#b00020;
+                font-weight:bold;
+              ">
+              🗑️ Delete
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+  }
+
+
+  function tacboEscape(value){
+
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+
+
+  tacboShowMedicine("animal");
+
+})();
+</script>
+<!-- 💊 DAAWADA XOOLAHA & 🌱 BEERTA -->
+<section id="medicineSection">
+    <!-- CODE-KA LABADA QAYBOOD HALKAN GALI -->
+</section>
+
+</body>
 </html>
+
