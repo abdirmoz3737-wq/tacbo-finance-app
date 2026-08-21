@@ -2386,5 +2386,682 @@ startApp();
 
 </script>
 
-</body>
+<!-- ================================
+     💊 DAWADA XOOLAHA & 🌱 BEERTA
+================================ -->
+
+<section id="medicineSection" style="
+  margin:30px auto;
+  max-width:900px;
+  padding:25px;
+  background:#ffffff;
+  border-radius:24px;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+">
+
+  <h2 style="
+    text-align:center;
+    margin-bottom:20px;
+    color:#17231b;
+  ">
+    💊 Daawada Xoolaha &nbsp; | &nbsp; 🌱 Daawada Beerta
+  </h2>
+
+  <!-- TABS -->
+  <div style="
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+  ">
+    <button
+      type="button"
+      id="animalMedicineTab"
+      onclick="showMedicineType('animal')"
+      style="
+        flex:1;
+        padding:14px;
+        border:0;
+        border-radius:14px;
+        background:#387d46;
+        color:white;
+        font-size:17px;
+        font-weight:bold;
+      "
+    >
+      💊 Daawada Xoolaha
+    </button>
+
+    <button
+      type="button"
+      id="farmMedicineTab"
+      onclick="showMedicineType('farm')"
+      style="
+        flex:1;
+        padding:14px;
+        border:0;
+        border-radius:14px;
+        background:#edf2ee;
+        color:#17231b;
+        font-size:17px;
+        font-weight:bold;
+      "
+    >
+      🌱 Daawada Beerta
+    </button>
+  </div>
+
+  <!-- FORM -->
+  <div style="
+    background:#f4f8f5;
+    padding:20px;
+    border-radius:18px;
+    margin-bottom:25px;
+  ">
+
+    <input
+      id="medicineName"
+      type="text"
+      placeholder="💊 Magaca daawada"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #d5dfd8;
+        border-radius:12px;
+        font-size:16px;
+      "
+    >
+
+    <input
+      id="medicineQuantity"
+      type="number"
+      placeholder="Tirada / Quantity"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #d5dfd8;
+        border-radius:12px;
+        font-size:16px;
+      "
+    >
+
+    <input
+      id="medicinePrice"
+      type="number"
+      step="0.01"
+      placeholder="💰 Qiimaha ($)"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #d5dfd8;
+        border-radius:12px;
+        font-size:16px;
+      "
+    >
+
+    <input
+      id="medicineDate"
+      type="date"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #d5dfd8;
+        border-radius:12px;
+        font-size:16px;
+      "
+    >
+
+    <textarea
+      id="medicineDescription"
+      placeholder="📝 Faahfaahin"
+      style="
+        width:100%;
+        box-sizing:border-box;
+        min-height:90px;
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #d5dfd8;
+        border-radius:12px;
+        font-size:16px;
+        resize:vertical;
+      "
+    ></textarea>
+
+    <button
+      type="button"
+      id="medicineSaveButton"
+      onclick="saveMedicine()"
+      style="
+        width:100%;
+        padding:15px;
+        border:0;
+        border-radius:14px;
+        background:#387d46;
+        color:white;
+        font-size:18px;
+        font-weight:bold;
+      "
+    >
+      ➕ Ku dar Daawo
+    </button>
+
+    <button
+      type="button"
+      id="medicineCancelButton"
+      onclick="cancelMedicineEdit()"
+      style="
+        display:none;
+        width:100%;
+        padding:13px;
+        margin-top:10px;
+        border:0;
+        border-radius:14px;
+        background:#777;
+        color:white;
+        font-size:16px;
+      "
+    >
+      ❌ Jooji Edit
+    </button>
+
+  </div>
+
+  <!-- LIST -->
+  <h3 id="medicineListTitle" style="
+    color:#17231b;
+    margin-bottom:15px;
+  ">
+    💊 Daawooyinka Xoolaha
+  </h3>
+
+  <div id="medicineList"></div>
+
+</section>
+
+
+<script>
+/* =================================
+   💊 MEDICINE SYSTEM
+   LocalStorage - Supabase MA AHAN
+================================= */
+
+let medicineType = "animal";
+let editingMedicineId = null;
+
+let medicines = JSON.parse(
+  localStorage.getItem("tacbo_medicines") || "[]"
+);
+
+
+/* ================================
+   SHOW TYPE
+================================ */
+
+function showMedicineType(type) {
+
+  medicineType = type;
+
+  const animalTab =
+    document.getElementById("animalMedicineTab");
+
+  const farmTab =
+    document.getElementById("farmMedicineTab");
+
+  const title =
+    document.getElementById("medicineListTitle");
+
+  if (type === "animal") {
+
+    animalTab.style.background = "#387d46";
+    animalTab.style.color = "white";
+
+    farmTab.style.background = "#edf2ee";
+    farmTab.style.color = "#17231b";
+
+    title.textContent =
+      "💊 Daawooyinka Xoolaha";
+
+  } else {
+
+    farmTab.style.background = "#387d46";
+    farmTab.style.color = "white";
+
+    animalTab.style.background = "#edf2ee";
+    animalTab.style.color = "#17231b";
+
+    title.textContent =
+      "🌱 Daawooyinka Beerta";
+  }
+
+  renderMedicines();
+}
+
+
+/* ================================
+   SAVE
+================================ */
+
+function saveMedicine() {
+
+  const name =
+    document.getElementById("medicineName").value.trim();
+
+  const quantity =
+    document.getElementById("medicineQuantity").value;
+
+  const price =
+    document.getElementById("medicinePrice").value;
+
+  const date =
+    document.getElementById("medicineDate").value;
+
+  const description =
+    document.getElementById("medicineDescription").value.trim();
+
+
+  if (!name) {
+    alert("❌ Fadlan geli magaca daawada.");
+    return;
+  }
+
+
+  if (editingMedicineId) {
+
+    const index = medicines.findIndex(
+      function(item) {
+        return item.id === editingMedicineId;
+      }
+    );
+
+    if (index !== -1) {
+
+      medicines[index] = {
+        ...medicines[index],
+        type: medicineType,
+        name: name,
+        quantity: Number(quantity) || 0,
+        price: Number(price) || 0,
+        date: date,
+        description: description
+      };
+    }
+
+    editingMedicineId = null;
+
+    document.getElementById(
+      "medicineSaveButton"
+    ).textContent = "➕ Ku dar Daawo";
+
+    document.getElementById(
+      "medicineCancelButton"
+    ).style.display = "none";
+
+  } else {
+
+    medicines.push({
+
+      id:
+        Date.now().toString(),
+
+      type:
+        medicineType,
+
+      name:
+        name,
+
+      quantity:
+        Number(quantity) || 0,
+
+      price:
+        Number(price) || 0,
+
+      date:
+        date,
+
+      description:
+        description
+    });
+  }
+
+
+  localStorage.setItem(
+    "tacbo_medicines",
+    JSON.stringify(medicines)
+  );
+
+
+  clearMedicineForm();
+
+  renderMedicines();
+
+  alert("✅ Daawada waa la kaydiyey.");
+}
+
+
+/* ================================
+   RENDER
+================================ */
+
+function renderMedicines() {
+
+  const list =
+    document.getElementById("medicineList");
+
+
+  const data =
+    medicines.filter(function(item) {
+
+      return item.type === medicineType;
+
+    });
+
+
+  if (!data.length) {
+
+    list.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:30px;
+        background:#f4f8f5;
+        border-radius:16px;
+        color:#68736c;
+        font-size:17px;
+      ">
+        📭 Weli daawo laguma darin.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML = data.map(function(item) {
+
+    const icon =
+      medicineType === "animal"
+        ? "💊"
+        : "🌱";
+
+
+    return `
+
+      <div style="
+        background:#f8faf8;
+        border:1px solid #dce6df;
+        border-radius:18px;
+        padding:20px;
+        margin-bottom:15px;
+      ">
+
+        <h3 style="
+          margin:0 0 15px 0;
+          color:#17231b;
+        ">
+          ${icon} ${escapeMedicineHTML(item.name)}
+        </h3>
+
+
+        <p>
+          📦 <strong>Tirada:</strong>
+          ${Number(item.quantity || 0)}
+        </p>
+
+
+        <p>
+          💰 <strong>Qiimaha:</strong>
+          $${Number(item.price || 0).toFixed(2)}
+        </p>
+
+
+        <p>
+          📅 <strong>Taariikh:</strong>
+          ${escapeMedicineHTML(item.date || "")}
+        </p>
+
+
+        <p>
+          📝 <strong>Faahfaahin:</strong>
+          ${escapeMedicineHTML(item.description || "")}
+        </p>
+
+
+        <div style="
+          display:flex;
+          gap:10px;
+          margin-top:18px;
+        ">
+
+          <button
+            type="button"
+            onclick="editMedicine('${item.id}')"
+            style="
+              flex:1;
+              padding:12px;
+              border:0;
+              border-radius:12px;
+              background:#3267d6;
+              color:white;
+              font-size:16px;
+              font-weight:bold;
+            "
+          >
+            ✏️ Edit
+          </button>
+
+
+          <button
+            type="button"
+            onclick="deleteMedicine('${item.id}')"
+            style="
+              flex:1;
+              padding:12px;
+              border:0;
+              border-radius:12px;
+              background:#d9362e;
+              color:white;
+              font-size:16px;
+              font-weight:bold;
+            "
+          >
+            🗑️ Delete
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+}
+
+
+/* ================================
+   EDIT
+================================ */
+
+function editMedicine(id) {
+
+  const item =
+    medicines.find(function(m) {
+
+      return m.id === id;
+
+    });
+
+
+  if (!item) {
+
+    alert("❌ Daawada lama helin.");
+
+    return;
+  }
+
+
+  editingMedicineId = id;
+
+  medicineType = item.type;
+
+
+  document.getElementById(
+    "medicineName"
+  ).value = item.name || "";
+
+
+  document.getElementById(
+    "medicineQuantity"
+  ).value = item.quantity || "";
+
+
+  document.getElementById(
+    "medicinePrice"
+  ).value = item.price || "";
+
+
+  document.getElementById(
+    "medicineDate"
+  ).value = item.date || "";
+
+
+  document.getElementById(
+    "medicineDescription"
+  ).value = item.description || "";
+
+
+  document.getElementById(
+    "medicineSaveButton"
+  ).textContent = "💾 Kaydi Isbeddelka";
+
+
+  document.getElementById(
+    "medicineCancelButton"
+  ).style.display = "block";
+
+
+  showMedicineType(medicineType);
+
+
+  document.getElementById(
+    "medicineSection"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+
+/* ================================
+   DELETE
+================================ */
+
+function deleteMedicine(id) {
+
+  const ok =
+    confirm(
+      "⚠️ Ma hubtaa inaad tirtirayso daawadan?"
+    );
+
+
+  if (!ok) return;
+
+
+  medicines =
+    medicines.filter(function(item) {
+
+      return item.id !== id;
+
+    });
+
+
+  localStorage.setItem(
+    "tacbo_medicines",
+    JSON.stringify(medicines)
+  );
+
+
+  renderMedicines();
+
+
+  alert("✅ Daawada waa la tirtiray.");
+}
+
+
+/* ================================
+   CANCEL EDIT
+================================ */
+
+function cancelMedicineEdit() {
+
+  editingMedicineId = null;
+
+  clearMedicineForm();
+
+
+  document.getElementById(
+    "medicineSaveButton"
+  ).textContent = "➕ Ku dar Daawo";
+
+
+  document.getElementById(
+    "medicineCancelButton"
+  ).style.display = "none";
+}
+
+
+/* ================================
+   CLEAR FORM
+================================ */
+
+function clearMedicineForm() {
+
+  document.getElementById(
+    "medicineName"
+  ).value = "";
+
+  document.getElementById(
+    "medicineQuantity"
+  ).value = "";
+
+  document.getElementById(
+    "medicinePrice"
+  ).value = "";
+
+  document.getElementById(
+    "medicineDate"
+  ).value = "";
+
+  document.getElementById(
+    "medicineDescription"
+  ).value = "";
+}
+
+
+/* ================================
+   SECURITY / HTML
+================================ */
+
+function escapeMedicineHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+/* ================================
+   START
+================================ */
+
+showMedicineType("animal");
+
+</script> </body>
 </html>
