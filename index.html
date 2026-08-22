@@ -2,871 +2,813 @@
 <html lang="so">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TACBO Finance & Farm</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f8f5;
-  color:#17231b;
+ margin:0;background:#f4f7f5;color:#17231c;
+ font-family:Arial,sans-serif
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+ width:245px;position:fixed;left:18px;top:18px;bottom:18px;
+ background:linear-gradient(180deg,#087c3e,#00582b);
+ border-radius:18px;color:white;overflow:auto;
+ box-shadow:0 4px 18px #0002
+}
+.brand{
+ background:#fff;color:#075f31;padding:15px;
+ display:flex;gap:10px;align-items:center
+}
+.brand-logo{font-size:40px}
+.brand h1{margin:0;font-size:27px}
+.brand small{font-size:13px}
+.nav{padding:12px}
+.nav button{
+ width:100%;border:0;background:transparent;color:#fff;
+ padding:12px;border-radius:11px;text-align:left;margin:2px 0
+}
+.nav button:hover,.nav button.active{background:#ffffff22}
+.ico{display:inline-block;width:32px;font-size:21px;text-align:center}
+.farm{
+ margin:15px 10px;padding:16px;text-align:center;
+ background:#ffffff18;border-radius:13px
+}
+.farm-icon{font-size:43px}
+.farm h3{margin:7px 0}
+.farm p{font-size:12px;margin:3px}
+.contact{
+ margin:12px 10px;padding:13px;border-radius:12px;
+ background:#edf8f0;color:#245b39;font-size:12px
 }
 
-header{
-  background:#dff1e3;
-  padding:25px 20px;
-  text-align:center;
+/* MAIN */
+.main{
+ margin-left:281px;width:calc(100% - 299px);
+ padding:18px 0
+}
+.header{
+ background:white;border:1px solid #e4ebe6;border-radius:16px;
+ padding:15px 20px;display:flex;
+ justify-content:space-between;align-items:center
+}
+.header-left{display:flex;gap:15px;align-items:center}
+.header-logo{font-size:28px}
+.header h2{font-size:18px;margin:0 0 5px}
+.header p{margin:0;color:#68736c;font-size:13px}
+.header-right{display:flex;gap:18px;align-items:center}
+.avatar{
+ width:45px;height:45px;border-radius:50%;
+ background:#dff0e5;display:grid;place-items:center;font-size:25px
 }
 
-header h1{
-  margin:0;
-  font-size:28px;
-}
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
 
-header p{
-  margin:8px 0 0;
-  color:#536158;
+/* DASHBOARD CARDS */
+.cards{
+ display:grid;grid-template-columns:repeat(6,1fr);
+ gap:12px;margin-top:15px
 }
-
-.tabs{
-  display:flex;
-  gap:10px;
-  padding:15px;
-  background:white;
-  overflow-x:auto;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.tab{
-  border:0;
-  padding:14px 18px;
-  border-radius:16px;
-  background:#edf2ee;
-  font-size:16px;
-  font-weight:bold;
-  white-space:nowrap;
-}
-
-.tab.active{
-  background:#1d7a3d;
-  color:white;
-}
-
-.page{
-  display:none;
-  padding:18px;
-  max-width:900px;
-  margin:auto;
-}
-
-.page.active{
-  display:block;
-}
-
 .card{
-  background:white;
-  border-radius:24px;
-  padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 4px 18px rgba(0,0,0,.06);
+ background:white;border:1px solid #e4ebe6;border-radius:15px;
+ padding:15px 10px;text-align:center;min-height:140px
+}
+.circle{
+ width:52px;height:52px;border-radius:50%;
+ display:grid;place-items:center;margin:auto auto 9px;
+ font-size:27px
+}
+.green-bg{background:#dff2df}
+.yellow-bg{background:#e9f2df}
+.money-bg{background:#dff4e7}
+.red-bg{background:#ffe4e4}
+.blue-bg{background:#e5f0fc}
+.purple-bg{background:#eee2fa}
+.card h4{font-size:12px;margin:0}
+.num{font-size:25px;font-weight:bold;margin:8px 0 2px}
+.green{color:#087c3e}
+.red{color:#c62222}
+.blue{color:#1769ad}
+
+/* PANELS */
+.two{
+ display:grid;grid-template-columns:2fr 1fr;
+ gap:12px;margin-top:12px
+}
+.panel{
+ background:white;border:1px solid #e4ebe6;
+ border-radius:15px;padding:14px;margin-top:12px
+}
+.panel-title{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:10px
+}
+.panel-title h3{font-size:15px;margin:0}
+.select{
+ border:1px solid #dce4df;border-radius:8px;
+ padding:7px;background:white
 }
 
-h2{
-  margin-top:0;
-  font-size:25px;
+/* CHART */
+.legend{font-size:11px;display:flex;gap:18px}
+.legend span{display:flex;align-items:center}
+.legend i{
+ width:11px;height:11px;border-radius:2px;
+ display:inline-block;margin-right:4px
+}
+.lg-green{background:#159447}
+.lg-red{background:#e52c2c}
+.lg-blue{background:#1769ad}
+
+.chart{
+ height:250px;margin-top:8px;
+ background:repeating-linear-gradient(
+  to bottom,transparent 0,transparent 39px,#edf0ee 40px
+ );
+ border-bottom:1px solid #ddd;
+ display:flex;align-items:end;padding:10px
+}
+.chart-bars{
+ height:100%;width:100%;
+ display:flex;align-items:end;justify-content:space-around
+}
+.bar-group{
+ height:100%;flex:1;
+ display:flex;align-items:end;
+ justify-content:center;gap:4px
+}
+.bar{width:13px;border-radius:5px 5px 0 0}
+.bar-income{background:#159447}
+.bar-expense{background:#e52c2c}
+.bar-profit{background:#1769ad}
+.months{
+ display:flex;justify-content:space-around;
+ color:#68736c;font-size:11px;margin-top:7px
+}
+.mini-cards{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:8px;margin-top:10px
+}
+.mini{
+ background:#edf8f0;border-radius:10px;padding:10px
+}
+.mini:nth-child(2){background:#fff0f0}
+.mini:nth-child(3){background:#edf5fc}
+.mini b{display:block;font-size:18px;margin:5px 0}
+
+/* DONUT */
+.donut{
+ width:185px;height:185px;border-radius:50%;
+ margin:10px auto;
+ background:conic-gradient(
+ #159447 0 40.7%,
+ #1769ad 40.7% 65.1%,
+ #f3aa15 65.1% 78.1%,
+ #9a80c8 78.1% 89.5%,
+ #e33b3b 89.5% 100%
+ );
+ position:relative
+}
+.donut:after{
+ content:"";position:absolute;inset:47px;
+ background:white;border-radius:50%
+}
+.donut-text{
+ position:absolute;z-index:2;inset:0;
+ display:grid;place-content:center;
+ text-align:center;font-size:12px
+}
+.donut-text b{font-size:18px;margin-top:4px}
+.cost-list{list-style:none;padding:0;margin:0}
+.cost-list li{
+ display:flex;justify-content:space-between;
+ padding:7px 0;border-bottom:1px solid #edf0ee;
+ font-size:11px
+}
+.more{
+ width:100%;padding:9px;border:1px solid #e0e6e2;
+ background:white;border-radius:8px;margin-top:9px
 }
 
-label{
-  display:block;
-  font-weight:bold;
-  margin:17px 0 8px;
+/* ACTIVITY */
+.activity-grid{
+ display:grid;grid-template-columns:2fr 1fr;
+ gap:12px
+}
+.activity-row{
+ display:flex;justify-content:space-between;
+ align-items:center;padding:10px 0;
+ border-bottom:1px solid #edf0ee;font-size:12px
+}
+.left-act{display:flex;gap:9px;align-items:center}
+.act-icon{
+ width:30px;height:30px;border-radius:50%;
+ display:grid;place-items:center
+}
+.up{background:#e3f6e8;color:#158342}
+.down{background:#ffe9e9;color:#d52b2b}
+.tag{
+ font-size:9px;padding:4px 7px;border-radius:5px;
+ background:#e7f4eb;color:#287043
+}
+.tag-red{background:#ffeaea;color:#b52a2a}
+
+.stock-row{
+ display:flex;justify-content:space-between;
+ padding:11px 0;border-bottom:1px solid #edf0ee
+}
+.stock-animal{font-size:20px;margin-right:8px}
+
+/* TABLE */
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{
+ padding:10px;border-bottom:1px solid #edf0ee;
+ text-align:left;font-size:12px
+}
+th{font-size:10px;color:#68736c}
+.toolbar{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;flex-wrap:wrap
+}
+.search{
+ border:1px solid #dce4df;border-radius:8px;
+ padding:9px;width:220px
+}
+.btn{
+ border:0;border-radius:8px;padding:9px 12px
+}
+.btn-green{background:#087c3e;color:white}
+.btn-gray{background:#edf2ef}
+.btn-blue{background:#e7f1ff;color:#1767ad}
+.btn-red{background:#ffe8e8;color:#bd2222}
+
+/* FORM */
+.form-grid{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:11px
+}
+.field label{
+ display:block;font-size:11px;
+ color:#647068;margin-bottom:4px
+}
+.field input,.field select,.field textarea{
+ width:100%;padding:9px;
+ border:1px solid #dbe3de;border-radius:8px
+}
+.form-actions{margin-top:14px;display:flex;gap:8px}
+
+/* MODAL */
+.modal{
+ display:none;position:fixed;inset:0;
+ background:#0008;z-index:100;
+ align-items:center;justify-content:center;
+ padding:15px
+}
+.modal.show{display:flex}
+.modal-box{
+ background:white;width:min(650px,100%);
+ max-height:90vh;overflow:auto;
+ border-radius:15px;padding:17px
+}
+.modal-head{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:15px
+}
+.modal-head button{
+ border:0;border-radius:50%;
+ width:32px;height:32px
 }
 
-input,
-select,
-textarea{
-  width:100%;
-  padding:16px;
-  border:2px solid #d7e0d9;
-  border-radius:17px;
-  font-size:17px;
-  background:white;
+/* FOOTER */
+.footer{
+ display:flex;justify-content:space-between;
+ color:#68736c;font-size:10px;padding:13px 8px
 }
 
-textarea{
-  min-height:100px;
+/* MOBILE */
+@media(max-width:1200px){
+ .cards{grid-template-columns:repeat(3,1fr)}
+ .two,.activity-grid{grid-template-columns:1fr}
 }
-
-.save{
-  width:100%;
-  margin-top:20px;
-  padding:17px;
-  border:0;
-  border-radius:17px;
-  background:#1d7a3d;
-  color:white;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.item{
-  border:1px solid #dce5df;
-  border-radius:18px;
-  padding:17px;
-  margin-top:13px;
-  background:#fbfdfb;
-}
-
-.item h3{
-  margin:0 0 10px;
-}
-
-.item p{
-  margin:8px 0;
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:13px;
-}
-
-.actions button{
-  flex:1;
-  padding:12px;
-  border:0;
-  border-radius:13px;
-  font-weight:bold;
-}
-
-.edit{
-  background:#e5efff;
-  color:#1455a0;
-}
-
-.delete{
-  background:#ffe5e5;
-  color:#a00000;
-}
-
-.message{
-  margin-top:14px;
-  padding:13px;
-  border-radius:12px;
-  display:none;
-}
-
-.success{
-  display:block;
-  background:#e2f6e7;
-  color:#17652d;
-}
-
-.error{
-  display:block;
-  background:#ffe4e4;
-  color:#a00000;
-}
-
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#68746d;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.stat{
-  background:#eef7ef;
-  border:1px solid #d5e6d8;
-  border-radius:18px;
-  padding:18px;
-}
-
-.stat-title{
-  color:#66736a;
-  font-weight:bold;
-}
-
-.stat-value{
-  font-size:28px;
-  font-weight:bold;
-  margin-top:7px;
-}
-
-.green{
-  color:#1d7a3d;
-}
-
-.red{
-  color:#b00020;
-}
-
-.blue{
-  color:#175aa6;
-}
-
-@media(max-width:600px){
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .actions{
-    flex-direction:column;
-  }
-
+@media(max-width:800px){
+ .sidebar{
+  left:5px;top:5px;bottom:5px;width:70px
+ }
+ .brand{justify-content:center;padding:10px 4px}
+ .brand h1,.brand small{display:none}
+ .nav button{text-align:center;padding:12px 4px}
+ .nav button span:not(.ico){display:none}
+ .ico{margin:0}
+ .farm,.contact{display:none}
+ .main{
+  margin-left:84px;
+  width:calc(100% - 91px);
+  padding:8px
+ }
+ .header{padding:12px}
+ .header p{display:none}
+ .header h2{font-size:15px}
+ .cards{grid-template-columns:repeat(2,1fr)}
+ .two,.activity-grid{grid-template-columns:1fr}
+ .mini-cards{grid-template-columns:1fr}
+ .form-grid{grid-template-columns:1fr}
+ .footer{flex-direction:column;gap:5px}
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<div class="app">
 
-<h1>🌾 TACBO Finance & Farm</h1>
+<aside class="sidebar">
 
-<p>
-Maamulka Xoolaha, Beeraha & Dhaqaalaha
-</p>
+<div class="brand">
+<div class="brand-logo">🌾</div>
+<div>
+<h1>TACBO</h1>
+<small>Finance & Farm</small>
+</div>
+</div>
+
+<nav class="nav">
+
+<button class="active" onclick="showPage('dashboard',this)">
+<span class="ico">⌂</span><span>Dashboard</span>
+</button>
+
+<button onclick="showPage('xoolaha',this)">
+<span class="ico">🐄</span><span>Xoolaha</span>
+</button>
+
+<button onclick="showPage('beeraha',this)">
+<span class="ico">🌾</span><span>Beeraha</span>
+</button>
+
+<button onclick="showPage('dhaqaalaha',this)">
+<span class="ico">💵</span><span>Dhaqaalaha</span>
+</button>
+
+<button onclick="showPage('iibka',this)">
+<span class="ico">🛒</span><span>Iibka</span>
+</button>
+
+<button onclick="showPage('kharashka',this)">
+<span class="ico">💳</span><span>Kharashka</span>
+</button>
+
+<button onclick="showPage('warbixin',this)">
+<span class="ico">▥</span><span>Warbixinno</span>
+</button>
+
+<button onclick="showPage('faaido',this)">
+<span class="ico">📈</span><span>Faa'iido/Khasaaro</span>
+</button>
+
+<button onclick="showPage('calendar',this)">
+<span class="ico">📅</span><span>Calendar</span>
+</button>
+
+<button onclick="showPage('dejinta',this)">
+<span class="ico">⚙</span><span>Dejinta</span>
+</button>
+
+</nav>
+
+<div class="farm">
+<div class="farm-icon">🌳🏠🐄</div>
+<h3>TACBO Farm</h3>
+<p>Beera & Xoolaha</p>
+<p>Waa Hantida Mustaqbalka</p>
+</div>
+
+<div class="contact">
+🎧 <b>Taageero</b><br>
++252 61 2345678<br>
+info@tacbo.com
+</div>
+
+</aside>
+
+
+<main class="main">
+
+<header class="header">
+
+<div class="header-left">
+<div class="header-logo">🌾</div>
+<div>
+<h2 id="welcome">Ku soo dhawoow, Xasan Caaqil 👋</h2>
+<p>Maamulka Xoolaha, Beeraha & Dhaqaalaha</p>
+</div>
+</div>
+
+<div class="header-right">
+<span>☼</span>
+<span>🔔</span>
+<div class="avatar">👨🏽</div>
+<span>⌄</span>
+</div>
 
 </header>
 
 
-<div class="tabs">
-
-<button
-class="tab active"
-onclick="showPage('dashboard',this)"
->
-📊 Dashboard
-</button>
-
-<button
-class="tab"
-onclick="showPage('animals',this)"
->
-🐑 Xoolaha
-</button>
-
-<button
-class="tab"
-onclick="showPage('farms',this)"
->
-🌾 Beeraha
-</button>
-
-<button
-class="tab"
-onclick="showPage('finance',this)"
->
-💰 Dhaqaale
-</button>
-
-</div>
-
-
 <!-- DASHBOARD -->
 
-<section
-id="dashboard"
-class="page active"
->
+<section id="dashboard" class="page active">
+
+<div class="cards">
 
 <div class="card">
-
-<h2>📊 Dashboard</h2>
-
-<div class="stats">
-
-<div class="stat">
-
-<div class="stat-title">
-🐑 Tirada Xoolaha
+<div class="circle green-bg">🐄</div>
+<h4>Tirada Xoolaha</h4>
+<div class="num" id="dAnimals">33</div>
+<small>Guud ahaan</small>
 </div>
-
-<div
-id="dashAnimals"
-class="stat-value"
->
-0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-🌾 Hektarka Beeraha
-</div>
-
-<div
-id="dashFarms"
-class="stat-value"
->
-0 ha
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-💵 Dakhliga
-</div>
-
-<div
-id="dashIncome"
-class="stat-value green"
->
-$0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-💸 Kharashka
-</div>
-
-<div
-id="dashExpense"
-class="stat-value red"
->
-$0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-📈 Faa'iidada
-</div>
-
-<div
-id="dashProfit"
-class="stat-value blue"
->
-$0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-title">
-🛒 La iibiyey
-</div>
-
-<div
-id="dashSold"
-class="stat-value"
->
-0
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 
 <div class="card">
-
-<h2>🐑 Xoolaha</h2>
-
-<div id="dashboardAnimals">
-
-⏳ Xogta waa la soo gelinayaa...
-
+<div class="circle yellow-bg">🌾</div>
+<h4>Hektarka Beeraha</h4>
+<div class="num" id="dLand">2 ha</div>
+<small>Guud ahaan</small>
 </div>
-
-</div>
-
 
 <div class="card">
+<div class="circle money-bg">💵</div>
+<h4>Dakhliga Guud</h4>
+<div class="num green" id="dIncome">$60.00</div>
+<small>Dakhli</small>
+</div>
 
-<h2>🌾 Beeraha</h2>
+<div class="card">
+<div class="circle red-bg">💳</div>
+<h4>Kharashka Guud</h4>
+<div class="num red" id="dExpense">$6,150.00</div>
+<small>Kharash</small>
+</div>
 
-<div id="dashboardFarms">
+<div class="card">
+<div class="circle blue-bg">📈</div>
+<h4>Faa'iidada (Khasaaraha)</h4>
+<div class="num blue" id="dProfit">-$6,090.00</div>
+<small>Faa'iido/Khasaaro</small>
+</div>
 
-⏳ Xogta waa la soo gelinayaa...
+<div class="card">
+<div class="circle purple-bg">🛒</div>
+<h4>Iibiyey</h4>
+<div class="num" id="dSales">1</div>
+<small>La iibiyey</small>
+</div>
 
 </div>
 
+
+<div class="two">
+
+<div class="panel">
+
+<div class="panel-title">
+<h3>Faa'iido / Khasaaro (Bishan)</h3>
+<select class="select">
+<option>6 Bilood</option>
+</select>
+</div>
+
+<div class="legend">
+<span><i class="lg-green"></i>Dakhliga</span>
+<span><i class="lg-red"></i>Kharashka</span>
+<span><i class="lg-blue"></i>Faa'iidada</span>
+</div>
+
+<div class="chart">
+<div class="chart-bars">
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:50%"></div>
+<div class="bar bar-expense" style="height:5%"></div>
+<div class="bar bar-profit" style="height:20%"></div>
+</div>
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:50%"></div>
+<div class="bar bar-expense" style="height:8%"></div>
+<div class="bar bar-profit" style="height:17%"></div>
+</div>
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:70%"></div>
+<div class="bar bar-expense" style="height:15%"></div>
+<div class="bar bar-profit" style="height:35%"></div>
+</div>
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:68%"></div>
+<div class="bar bar-expense" style="height:5%"></div>
+<div class="bar bar-profit" style="height:40%"></div>
+</div>
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:63%"></div>
+<div class="bar bar-expense" style="height:22%"></div>
+<div class="bar bar-profit" style="height:48%"></div>
+</div>
+
+<div class="bar-group">
+<div class="bar bar-income" style="height:78%"></div>
+<div class="bar bar-expense" style="height:35%"></div>
+<div class="bar bar-profit" style="height:55%"></div>
+</div>
+
+</div>
+</div>
+
+<div class="months">
+<span>Jan</span><span>Feb</span><span>Mar</span>
+<span>Apr</span><span>May</span><span>Jun</span>
+</div>
+
+<div class="mini-cards">
+
+<div class="mini">
+<small>Dakhliga Guud</small>
+<b class="green" id="mIncome">$60.00</b>
+<small>↑ Dakhli</small>
+</div>
+
+<div class="mini">
+<small>Kharashka Guud</small>
+<b class="red" id="mExpense">$6,150.00</b>
+<small>↑ Kharash</small>
+</div>
+
+<div class="mini">
+<small>Faa'iidada</small>
+<b class="blue" id="mProfit">-$6,090.00</b>
+<small>↓ Natiijada</small>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+<h3>Qaybinta Kharashka</h3>
+</div>
+
+<div class="donut">
+<div class="donut-text">
+Wadar
+<b id="donutTotal">$6,150.00</b>
+</div>
+</div>
+
+<ul class="cost-list">
+<li><span>🟢 Cunto Xoolaha</span><b>$2,500.00</b></li>
+<li><span>🔵 Shaqaale</span><b>$1,500.00</b></li>
+<li><span>🟡 Biyo & Koronto</span><b>$800.00</b></li>
+<li><span>🟣 Kaalin & Daawo</span><b>$700.00</b></li>
+<li><span>🔴 Kharash kale</span><b>$650.00</b></li>
+</ul>
+
+<button class="more" onclick="showPage('kharashka')">
+Dhammaan Kharashka　›
+</button>
+
+</div>
+
+</div>
+
+
+<div class="activity-grid">
+
+<div class="panel">
+
+<div class="panel-title">
+<h3>Dhaqdhaqaaqa Ugu Dambeeyay</h3>
+<button class="more" style="width:auto;margin:0"
+onclick="showPage('dhaqaalaha')">
+Dhammaan Dhaqdhaqaaqa ›
+</button>
+</div>
+
+<div id="recentList"></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+<h3>Xoogta Xoolaha</h3>
+</div>
+
+<div id="stockList"></div>
+
+<button class="more" onclick="showPage('xoolaha')">
+Dhammaan Xoolaha ›
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+<h3>Dulmarka Deg Degga ah</h3>
+</div>
+
+<div class="table-wrap">
+
+<table>
+<thead>
+<tr>
+<th>Nooca</th>
+<th>Tirada</th>
+<th>Dakhli</th>
+<th>Kharashka</th>
+<th>Faa'iido/Khasaaro</th>
+</tr>
+</thead>
+
+<tbody id="quickTable"></tbody>
+
+</table>
+
+</div>
+</div>
+
+
+<div class="footer">
+<span>© 2026 TACBO Finance & Farm. All rights reserved.</span>
+<span>Nidaamka Maamulka Xogta Beeraha & Xoolaha 🌿</span>
 </div>
 
 </section>
-
 
 
 <!-- XOOLAHA -->
 
-<section
-id="animals"
-class="page"
->
+<section id="xoolaha" class="page">
 
-<div class="card">
+<div class="panel">
 
-<h2>
-🐑🐄 Maamulka Xoolaha
-</h2>
+<div class="toolbar">
+<h3>🐄 Maamulka Xoolaha</h3>
 
+<div>
+<input class="search" id="animalSearch"
+placeholder="Raadi xoolaha..."
+oninput="renderAnimals()">
 
-<label>
-Nooca xoolaha
-</label>
-
-<select id="animalType">
-
-<option value="">
-Dooro nooca
-</option>
-
-<option value="Ari">
-🐑 Ari
-</option>
-
-<option value="Lo">
-🐄 Lo
-</option>
-
-<option value="Geel">
-🐪 Geel
-</option>
-
-<option value="Digaag">
-🐔 Digaag
-</option>
-
-</select>
-
-
-<label>
-Tirada hadda jirta
-</label>
-
-<input
-id="animalCount"
-type="number"
-min="0"
-placeholder="Tusaale: 300"
->
-
-
-<label>
-🍼 Dhashay
-</label>
-
-<input
-id="animalBorn"
-type="number"
-min="0"
-value="0"
->
-
-
-<label>
-💀 Dhintay
-</label>
-
-<input
-id="animalDead"
-type="number"
-min="0"
-value="0"
->
-
-
-<label>
-🛒 La iibiyey
-</label>
-
-<input
-id="animalSold"
-type="number"
-min="0"
-value="0"
->
-
-
-<label>
-💵 Qiimaha hal neef ($)
-</label>
-
-<input
-id="animalPrice"
-type="number"
-min="0"
-placeholder="Tusaale: 60"
->
-
-
-<label>
-📅 Taariikhda
-</label>
-
-<input
-id="animalDate"
-type="date"
->
-
-
-<button
-class="save"
-onclick="saveAnimal()"
->
-➕ Ku dar Xoolo
+<button class="btn btn-green"
+onclick="animalModal()">
++ Ku dar Xoolo
 </button>
+</div>
+</div>
 
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Nooca</th>
+<th>Tirada</th>
+<th>Lab/Dhedig</th>
+<th>Da'</th>
+<th>Taariikh</th>
+<th>Action</th>
+</tr>
+</thead>
 
-<div
-id="animalMessage"
-class="message"
-></div>
+<tbody id="animalTable"></tbody>
+</table>
+</div>
 
 </div>
 
 
-<div class="card">
+<div class="panel">
 
-<h2>
-📋 Diiwaanka Xoolaha
-</h2>
+<div class="toolbar">
+<h3>Diiwaanka Xoolaha</h3>
+<button class="btn btn-green" onclick="eventModal()">
++ Dhalasho / Dhimasho / Iib
+</button>
+</div>
 
-<input
-id="animalSearch"
-placeholder="🔍 Raadi Ari, Lo, Geel..."
-oninput="filterAnimals()"
->
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Nooca</th>
+<th>Dhacdo</th>
+<th>Tiro</th>
+<th>Lacag</th>
+<th>Taariikh</th>
+<th>Action</th>
+</tr>
+</thead>
 
-<div id="animalsList">
-
-⏳ Xogta xoolaha waa la soo gelinayaa...
-
+<tbody id="eventTable"></tbody>
+</table>
 </div>
 
 </div>
 
 </section>
-
 
 
 <!-- BEERAHA -->
 
-<section
-id="farms"
-class="page"
->
+<section id="beeraha" class="page">
 
-<div class="card">
+<div class="panel">
 
-<h2>
-🌾 Maamulka Beeraha
-</h2>
-
-
-<label>
-Nooca dalagga
-</label>
-
-<select id="cropType">
-
-<option value="">
-Dooro dalagga
-</option>
-
-<option value="Galley">
-🌽 Galley
-</option>
-
-<option value="Masaggo">
-🌾 Masaggo
-</option>
-
-<option value="Sisinta">
-🌱 Sisinta
-</option>
-
-<option value="Yaanyo">
-🍅 Yaanyo
-</option>
-
-<option value="Basal">
-🧅 Basal
-</option>
-
-<option value="Toon">
-🧄 Toon
-</option>
-
-<option value="Khudaar">
-🥬 Khudaar
-</option>
-
-</select>
-
-
-<label>
-📏 Baaxadda beerta (Hektar)
-</label>
-
-<input
-id="farmArea"
-type="number"
-min="0"
-placeholder="Tusaale: 20"
->
-
-
-<label>
-🌱 La beeray
-</label>
-
-<input
-id="planted"
-type="number"
-min="0"
->
-
-
-<label>
-🌾 La goostay
-</label>
-
-<input
-id="harvested"
-type="number"
-min="0"
->
-
-
-<label>
-🛒 La iibiyey
-</label>
-
-<input
-id="farmSold"
-type="number"
-min="0"
->
-
-
-<label>
-💵 Qiimaha ($)
-</label>
-
-<input
-id="farmPrice"
-type="number"
-min="0"
->
-
-
-<label>
-📅 Taariikhda
-</label>
-
-<input
-id="farmDate"
-type="date"
->
-
-
-<button
-class="save"
-onclick="saveFarm()"
->
-➕ Ku dar Beer
+<div class="toolbar">
+<h3>🌾 Maamulka Beeraha</h3>
+<button class="btn btn-green" onclick="farmModal()">
++ Ku dar Beer
 </button>
-
-
-<div
-id="farmMessage"
-class="message"
-></div>
-
 </div>
 
+<div class="table-wrap">
 
-<div class="card">
+<table>
+<thead>
+<tr>
+<th>Beerta</th>
+<th>Hektar</th>
+<th>Dalagga</th>
+<th>Wax-soo-saar</th>
+<th>Xaalad</th>
+<th>Action</th>
+</tr>
+</thead>
 
-<h2>
-📋 Diiwaanka Beeraha
-</h2>
+<tbody id="farmTable"></tbody>
 
-<div id="farmsList">
-
-⏳ Xogta beeraha waa la soo gelinayaa...
+</table>
 
 </div>
 
 </div>
 
 </section>
-
 
 
 <!-- DHAQAALE -->
 
-<section
-id="finance"
-class="page"
->
+<section id="dhaqaalaha" class="page">
 
-<div class="card">
+<div class="panel">
 
-<h2>
-💰 Maamulka Dhaqaalaha
-</h2>
+<div class="toolbar">
+<h3>💵 Dhaqaalaha</h3>
 
+<div>
+<input class="search" id="financeSearch"
+placeholder="Raadi..."
+oninput="renderFinance()">
 
-<div class="stats">
-
-<div class="stat">
-
-💵 Dakhli
-
-<div
-id="totalIncome"
-class="stat-value green"
->
-$0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-💸 Kharash
-
-<div
-id="totalExpense"
-class="stat-value red"
->
-$0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-📈 Faa'iido
-
-<div
-id="totalProfit"
-class="stat-value blue"
->
-$0
-</div>
-
-</div>
-
-</div>
-
-
-<label>
-Nooca dhaqaalaha
-</label>
-
-<select id="financeType">
-
-<option value="">
-Dooro nooca
-</option>
-
-<option value="Dakhli">
-💵 Dakhli
-</option>
-
-<option value="Kharash">
-💸 Kharash
-</option>
-
-</select>
-
-
-<label>
-💰 Lacagta ($)
-</label>
-
-<input
-id="financeAmount"
-type="number"
-min="0"
-step="0.01"
->
-
-
-<label>
-📝 Faahfaahin
-</label>
-
-<textarea
-id="financeDescription"
-></textarea>
-
-
-<label>
-📅 Taariikhda
-</label>
-
-<input
-id="financeDate"
-type="date"
->
-
-
-<button
-class="save"
-onclick="saveFinance()"
->
-➕ Ku dar Dhaqaale
+<button class="btn btn-green"
+onclick="financeModal()">
++ Ku dar Dhaqaale
 </button>
-
-
-<div
-id="financeMessage"
-class="message"
-></div>
-
+</div>
 </div>
 
+<div class="table-wrap">
 
-<div class="card">
+<table>
+<thead>
+<tr>
+<th>Nooca</th>
+<th>Sharaxaad</th>
+<th>Lacag</th>
+<th>Taariikh</th>
+<th>Action</th>
+</tr>
+</thead>
 
-<h2>
-📋 Diiwaanka Dhaqaalaha
-</h2>
+<tbody id="financeTable"></tbody>
 
-<div id="financeList">
-
-⏳ Xogta dhaqaalaha waa la soo gelinayaa...
+</table>
 
 </div>
 
@@ -875,2627 +817,1382 @@ class="message"
 </section>
 
 
+<!-- IIBKA -->
+
+<section id="iibka" class="page">
+
+<div class="panel">
+
+<div class="toolbar">
+<h3>🛒 Iibka</h3>
+
+<button class="btn btn-green"
+onclick="saleModal()">
++ Ku dar Iib
+</button>
+</div>
+
+<div class="table-wrap">
+
+<table>
+<thead>
+<tr>
+<th>Waxa la iibiyay</th>
+<th>Nooca</th>
+<th>Tiro</th>
+<th>Qiime</th>
+<th>Taariikh</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="saleTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- KHARASH -->
+
+<section id="kharashka" class="page">
+
+<div class="panel">
+
+<div class="toolbar">
+<h3>💳 Kharashka</h3>
+
+<button class="btn btn-green"
+onclick="expenseModal()">
++ Ku dar Kharash
+</button>
+</div>
+
+<div class="table-wrap">
+
+<table>
+<thead>
+<tr>
+<th>Qaybta</th>
+<th>Sharaxaad</th>
+<th>Lacag</th>
+<th>Taariikh</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="expenseTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- WARBIXIN -->
+
+<section id="warbixin" class="page">
+
+<div class="panel">
+
+<div class="toolbar">
+<h3>📊 Warbixinno</h3>
+
+<button class="btn btn-gray"
+onclick="window.print()">
+🖨 Print
+</button>
+</div>
+
+<div id="report"></div>
+
+</div>
+
+</section>
+
+
+<!-- FAA'IIDO -->
+
+<section id="faaido" class="page">
+
+<div class="panel">
+
+<div style="text-align:center;padding:25px">
+<p>Faa'iido / Khasaaro Guud</p>
+
+<h1 id="bigProfit"
+style="font-size:42px">
+-$6,090.00
+</h1>
+
+<b id="profitStatus"></b>
+
+</div>
+
+<div id="profitDetail"></div>
+
+</div>
+
+</section>
+
+
+<!-- CALENDAR -->
+
+<section id="calendar" class="page">
+
+<div class="panel">
+
+<div class="toolbar">
+<h3>📅 Calendar</h3>
+
+<button class="btn btn-green"
+onclick="taskModal()">
++ Hawl cusub
+</button>
+</div>
+
+<div class="field">
+<label>Taariikh</label>
+<input id="calendarDate" type="date"
+onchange="renderTasks()">
+</div>
+
+<div id="taskList"></div>
+
+</div>
+
+</section>
+
+
+<!-- DEJINTA -->
+
+<section id="dejinta" class="page">
+
+<div class="panel">
+
+<h3>⚙ Dejinta</h3>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Magaca shirkadda</label>
+<input id="setCompany">
+</div>
+
+<div class="field">
+<label>Magaca maamulka</label>
+<input id="setUser">
+</div>
+
+<div class="field">
+<label>Goobta</label>
+<input id="setLocation">
+</div>
+
+</div>
+
+<div class="form-actions">
+
+<button class="btn btn-green"
+onclick="saveSettings()">
+Kaydi
+</button>
+
+<button class="btn btn-gray"
+onclick="backup()">
+⬇ Backup
+</button>
+
+<button class="btn btn-gray"
+onclick="document.getElementById('restore').click()">
+⬆ Restore
+</button>
+
+<input id="restore"
+type="file"
+accept=".json"
+style="display:none"
+onchange="restore(event)">
+
+<button class="btn btn-red"
+onclick="resetData()">
+Tirtir Xogta
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h3 id="modalTitle"></h3>
+
+<button onclick="closeModal()">×</button>
+
+</div>
+
+<div id="modalBody"></div>
+
+</div>
+
+</div>
+
 
 <script>
 
-/* ================================
-   SUPABASE
-================================ */
+/* =========================
+   DATA
+========================= */
 
-const SUPABASE_URL =
-"https://ujkjdxytceqfcngdzlqt.supabase.co";
+const KEY="TACBO_FINANCE_FARM";
 
-const SUPABASE_ANON_KEY =
-"sb_publishable_sxq-3X1EoOx2zbINhQoNeQ__0tANMn5";
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
 
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
-);
+animals:[
+{id:1,type:"Ari",count:25,sex:"Dhedig",age:"1 sano",date:"2026-08-22"},
+{id:2,type:"Lo",count:5,sex:"Isku jira",age:"2 sano",date:"2026-08-22"},
+{id:3,type:"Geel",count:2,sex:"Dhedig",age:"3 sano",date:"2026-08-22"},
+{id:4,type:"Digaag",count:1,sex:"Dhedig",age:"6 bilood",date:"2026-08-22"}
+],
 
+farms:[
+{id:1,name:"TACBO Farm",area:2,crop:"Galley",yield:"—",status:"Shaqaynaysa"}
+],
 
-/* ================================
-   VARIABLES
-================================ */
+finances:[
+{id:1,type:"Dakhli",desc:"Dakhli iibka",amount:60,date:"2026-08-22"},
+{id:2,type:"Kharash",desc:"Cunto Xoolaha",amount:2500,date:"2026-08-20"},
+{id:3,type:"Kharash",desc:"Shaqaale",amount:1500,date:"2026-08-20"},
+{id:4,type:"Kharash",desc:"Biyo & Koronto",amount:800,date:"2026-08-19"},
+{id:5,type:"Kharash",desc:"Kaalin & Daawo",amount:700,date:"2026-08-19"},
+{id:6,type:"Kharash",desc:"Kharash kale",amount:650,date:"2026-08-19"}
+],
 
-let animalsData = [];
-let farmsData = [];
-let financeData = [];
+sales:[
+{id:1,name:"Xoolo",cat:"Xoolaha",qty:1,price:60,date:"2026-08-22"}
+],
 
-const today =
-new Date().toISOString().split("T")[0];
+events:[],
+tasks:[],
 
-document.getElementById("animalDate").value = today;
-document.getElementById("farmDate").value = today;
-document.getElementById("financeDate").value = today;
-
-
-/* ================================
-   PAGE
-================================ */
-
-function showPage(id,button){
-
-document
-.querySelectorAll(".page")
-.forEach(page =>
-page.classList.remove("active")
-);
-
-document
-.querySelectorAll(".tab")
-.forEach(tab =>
-tab.classList.remove("active")
-);
-
-document
-.getElementById(id)
-.classList.add("active");
-
-if(button){
-button.classList.add("active");
+settings:{
+company:"TACBO Finance & Farm",
+user:"Xasan Caaqil",
+location:"Shalla Bot, Shabeellaha Hoose"
 }
 
+};
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
 }
 
-
-/* ================================
-   MESSAGE
-================================ */
-
-function showMessage(id,text,type){
-
-const box =
-document.getElementById(id);
-
-box.textContent = text;
-
-box.className =
-"message " +
-(type === "success"
-? "success"
-: "error");
-
-setTimeout(function(){
-
-box.className = "message";
-
-},5000);
-
+function money(n){
+ return "$"+Number(n||0).toLocaleString(undefined,{
+ minimumFractionDigits:2,
+ maximumFractionDigits:2
+ });
 }
 
-
-/* ================================
-   ANIMAL ICON
-================================ */
-
-function animalIcon(type){
-
-if(type === "Ari") return "🐑";
-
-if(type === "Lo") return "🐄";
-
-if(type === "Geel") return "🐪";
-
-if(type === "Digaag") return "🐔";
-
-return "🐾";
-
+function today(){
+ return new Date().toISOString().slice(0,10);
 }
 
+function showPage(id,btn){
 
-/* ================================
-   LOAD ANIMALS
-================================ */
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.remove("active"));
 
-async function loadAnimals(){
+ document.getElementById(id)
+ .classList.add("active");
 
-const list =
-document.getElementById("animalsList");
+ document.querySelectorAll(".nav button")
+ .forEach(x=>x.classList.remove("active"));
 
-list.innerHTML =
-"⏳ Xogta waa la soo gelinayaa...";
+ if(btn)btn.classList.add("active");
 
+ renderAll();
+}
 
-const result =
-await supabaseClient
-.from("livestock")
-.select("*")
-.order("date",{
-ascending:false,
-nullsFirst:false
-});
+function openModal(title,body){
 
+ document.getElementById("modalTitle")
+ .textContent=title;
 
-if(result.error){
+ document.getElementById("modalBody")
+ .innerHTML=body;
 
-console.error(result.error);
+ document.getElementById("modal")
+ .classList.add("show");
+}
 
-list.innerHTML =
-"❌ Khalad: " +
-result.error.message;
+function closeModal(){
+ document.getElementById("modal")
+ .classList.remove("show");
+}
 
-return;
+function field(id,label,value="",type="text"){
 
+ return `
+ <div class="field">
+ <label>${label}</label>
+ <input id="${id}" type="${type}"
+ value="${String(value??"").replaceAll('"',"&quot;")}">
+ </div>`;
 }
 
 
-animalsData =
-result.data || [];
+/* =========================
+   XOOLAHA
+========================= */
 
-renderAnimals(animalsData);
+function animalModal(id=null){
 
-updateDashboard();
+ let x=db.animals.find(a=>a.id===id)||{};
 
+ openModal(
+ id?"✏️ Edit Xoolo":"🐄 Ku dar Xoolo",
+
+ `<div class="form-grid">
+
+ ${field("at","Nooca",x.type||"Ari")}
+ ${field("ac","Tirada",x.count||"","number")}
+ ${field("as","Lab/Dhedig",x.sex||"Dhedig")}
+ ${field("aa","Da' / Faahfaahin",x.age||"")}
+ ${field("ad","Taariikh",x.date||today(),"date")}
+
+ </div>
+
+ <div class="form-actions">
+ <button class="btn btn-green"
+ onclick="saveAnimal(${id||0})">
+ Kaydi
+ </button>
+ </div>`
+ );
+}
+
+function saveAnimal(id){
+
+ let x={
+ id:id||Date.now(),
+ type:document.getElementById("at").value,
+ count:+document.getElementById("ac").value,
+ sex:document.getElementById("as").value,
+ age:document.getElementById("aa").value,
+ date:document.getElementById("ad").value
+ };
+
+ if(!x.type||x.count<=0){
+  alert("Geli xog sax ah.");
+  return;
+ }
+
+ if(id)
+  db.animals=db.animals.map(a=>a.id===id?x:a);
+ else
+  db.animals.push(x);
+
+ save();
+ closeModal();
+ renderAll();
+}
+
+function delAnimal(id){
+
+ if(confirm("Ma hubtaa inaad tirtirayso xoolahan?")){
+
+  db.animals=db.animals.filter(x=>x.id!==id);
+
+  save();
+  renderAll();
+ }
+}
+
+function renderAnimals(){
+
+ let q=(document.getElementById("animalSearch")?.value||"")
+ .toLowerCase();
+
+ let list=db.animals.filter(x=>
+ x.type.toLowerCase().includes(q)
+ );
+
+ document.getElementById("animalTable").innerHTML=
+ list.length?list.map(x=>`
+
+ <tr>
+ <td>${x.type}</td>
+ <td><b>${x.count}</b></td>
+ <td>${x.sex}</td>
+ <td>${x.age}</td>
+ <td>${x.date}</td>
+
+ <td>
+ <button class="btn btn-blue"
+ onclick="animalModal(${x.id})">
+ ✏️ Edit
+ </button>
+
+ <button class="btn btn-red"
+ onclick="delAnimal(${x.id})">
+ 🗑 Delete
+ </button>
+ </td>
+
+ </tr>
+
+ `).join(""):
+ `<tr><td colspan="6">
+ <div class="empty">Xog lama helin.</div>
+ </td></tr>`;
+
+ renderEvents();
 }
 
 
-/* ================================
-   RENDER ANIMALS
-================================ */
+/* =========================
+   XOOLAHA EVENTS
+========================= */
 
-function renderAnimals(data){
+function eventModal(id=null){
 
-const list =
-document.getElementById("animalsList");
+ let x=db.events.find(a=>a.id===id)||{};
 
+ openModal(
+ "📋 Diiwaanka Xoolaha",
 
-if(!data.length){
+ `<div class="form-grid">
 
-list.innerHTML =
-'<div class="empty">📭 Weli xog xoolo ah lama hayo.</div>';
+ ${field("et","Nooca",x.type||"Ari")}
 
-return;
+ <div class="field">
+ <label>Dhacdo</label>
+ <select id="ee">
+ <option>Dhalasho</option>
+ <option>Dhimasho</option>
+ <option>Iib</option>
+ <option>Iibsasho</option>
+ </select>
+ </div>
 
+ ${field("ec","Tiro",x.count||"","number")}
+ ${field("em","Lacag",x.amount||"","number")}
+ ${field("ed","Taariikh",x.date||today(),"date")}
+
+ </div>
+
+ <div class="form-actions">
+ <button class="btn btn-green"
+ onclick="saveEvent(${id||0})">
+ Kaydi
+ </button>
+ </div>`
+ );
+}
+
+function saveEvent(id){
+
+ let x={
+ id:id||Date.now(),
+ type:document.getElementById("et").value,
+ event:document.getElementById("ee").value,
+ count:+document.getElementById("ec").value,
+ amount:+document.getElementById("em").value||0,
+ date:document.getElementById("ed").value
+ };
+
+ if(!x.count){
+  alert("Geli tirada.");
+  return;
+ }
+
+ if(id)
+  db.events=db.events.map(a=>a.id===id?x:a);
+ else
+  db.events.push(x);
+
+ save();
+ closeModal();
+ renderAll();
+}
+
+function delEvent(id){
+
+ if(confirm("Tirtir dhacdadan?")){
+  db.events=db.events.filter(x=>x.id!==id);
+  save();
+  renderAll();
+ }
+}
+
+function renderEvents(){
+
+ document.getElementById("eventTable").innerHTML=
+ db.events.length?
+ db.events.slice().reverse().map(x=>`
+
+ <tr>
+ <td>${x.type}</td>
+ <td>${x.event}</td>
+ <td>${x.count}</td>
+ <td>${x.amount?money(x.amount):"-"}</td>
+ <td>${x.date}</td>
+
+ <td>
+ <button class="btn btn-blue"
+ onclick="eventModal(${x.id})">✏️</button>
+
+ <button class="btn btn-red"
+ onclick="delEvent(${x.id})">🗑</button>
+ </td>
+
+ </tr>
+
+ `).join(""):
+ `<tr><td colspan="6">
+ <div class="empty">Diiwaan ma jiro.</div>
+ </td></tr>`;
 }
 
 
-list.innerHTML =
-data.map(function(item){
+/* =========================
+   BEERAHA
+========================= */
 
-return `
+function farmModal(id=null){
 
-<div class="item">
+ let x=db.farms.find(a=>a.id===id)||{};
 
-<h3>
-${animalIcon(item.animal_type)}
-${item.animal_type || ""}
-</h3>
+ openModal(
+ id?"✏️ Edit Beer":"🌾 Ku dar Beer",
 
-<p>
-Tirada hadda:
-<strong>
-${item.count ?? item.quantity ?? 0}
-</strong>
-</p>
+ `<div class="form-grid">
 
-<p>
-🍼 Dhashay:
-<strong>
-${item.born ?? 0}
-</strong>
-</p>
+ ${field("fn","Magaca Beerta",x.name||"")}
+ ${field("fa","Hektar",x.area||"","number")}
+ ${field("fc","Dalagga",x.crop||"")}
+ ${field("fy","Wax-soo-saar",x.yield||"")}
+ ${field("fs","Xaalad",x.status||"Shaqaynaysa")}
 
-<p>
-💀 Dhintay:
-<strong>
-${item.dead ?? 0}
-</strong>
-</p>
+ </div>
 
-<p>
-🛒 La iibiyey:
-<strong>
-${item.sold ?? 0}
-</strong>
-</p>
+ <div class="form-actions">
+ <button class="btn btn-green"
+ onclick="saveFarm(${id||0})">
+ Kaydi
+ </button>
+ </div>`
+ );
+}
 
-<p>
-💵 Qiimaha:
-<strong>
-$${Number(
-item.price ??
-item.price_per_animal ??
-0
-).toFixed(2)}
-</strong>
-</p>
+function saveFarm(id){
 
-<p>
-📅 Taariikh:
-<strong>
-${item.date ??
-item.purchase_date ??
-""}
-</strong>
-</p>
+ let x={
+ id:id||Date.now(),
+ name:document.getElementById("fn").value,
+ area:+document.getElementById("fa").value,
+ crop:document.getElementById("fc").value,
+ yield:document.getElementById("fy").value,
+ status:document.getElementById("fs").value
+ };
 
-<div class="actions">
+ if(!x.name||x.area<=0){
+  alert("Buuxi xogta.");
+  return;
+ }
 
-<button
-class="edit"
-onclick="editAnimal('${item.id}')"
->
-✏️ Edit
-</button>
+ if(id)
+  db.farms=db.farms.map(a=>a.id===id?x:a);
+ else
+  db.farms.push(x);
 
-<button
-class="delete"
-onclick="deleteAnimal('${item.id}')"
->
-🗑️ Delete
-</button>
+ save();
+ closeModal();
+ renderAll();
+}
 
-</div>
+function delFarm(id){
 
-</div>
+ if(confirm("Tirtir beertan?")){
+  db.farms=db.farms.filter(x=>x.id!==id);
+  save();
+  renderAll();
+ }
+}
 
-`;
+function renderFarms(){
 
-}).join("");
+ document.getElementById("farmTable").innerHTML=
+ db.farms.map(x=>`
 
+ <tr>
+ <td>${x.name}</td>
+ <td>${x.area} ha</td>
+ <td>${x.crop}</td>
+ <td>${x.yield}</td>
+ <td>${x.status}</td>
+
+ <td>
+ <button class="btn btn-blue"
+ onclick="farmModal(${x.id})">
+ ✏️ Edit
+ </button>
+
+ <button class="btn btn-red"
+ onclick="delFarm(${x.id})">
+ 🗑 Delete
+ </button>
+ </td>
+ </tr>
+
+ `).join("");
 }
 
 
-/* ================================
-   SEARCH ANIMALS
-================================ */
+/* =========================
+   DHAQAALAHA
+========================= */
 
-function filterAnimals(){
+function financeModal(id=null,type="Dakhli"){
 
-const search =
-document
-.getElementById("animalSearch")
-.value
-.toLowerCase();
+ let x=db.finances.find(a=>a.id===id)||{};
 
-const filtered =
-animalsData.filter(function(item){
+ openModal(
+ id?"✏️ Edit Dhaqaale":"💵 Ku dar Dhaqaale",
 
-return String(
-item.animal_type || ""
-)
-.toLowerCase()
-.includes(search);
+ `<div class="form-grid">
 
-});
+ <div class="field">
+ <label>Nooca</label>
+ <select id="mt">
+ <option ${x.type==="Dakhli"||(!x.type&&type==="Dakhli")?"selected":""}>
+ Dakhli
+ </option>
+ <option ${x.type==="Kharash"||type==="Kharash"?"selected":""}>
+ Kharash
+ </option>
+ </select>
+ </div>
 
-renderAnimals(filtered);
+ ${field("md","Sharaxaad",x.desc||"")}
+ ${field("ma","Lacag",x.amount||"","number")}
+ ${field("mdate","Taariikh",x.date||today(),"date")}
 
+ </div>
+
+ <div class="form-actions">
+ <button class="btn btn-green"
+ onclick="saveFinance(${id||0})">
+ Kaydi
+ </button>
+ </div>`
+ );
+}
+
+function saveFinance(id){
+
+ let x={
+ id:id||Date.now(),
+ type:document.getElementById("mt").value,
+ desc:document.getElementById("md").value,
+ amount:+document.getElementById("ma").value,
+ date:document.getElementById("mdate").value
+ };
+
+ if(x.amount<=0){
+  alert("Geli lacag sax ah.");
+  return;
+ }
+
+ if(id)
+  db.finances=db.finances.map(a=>a.id===id?x:a);
+ else
+  db.finances.push(x);
+
+ save();
+ closeModal();
+ renderAll();
+}
+
+function delFinance(id){
+
+ if(confirm("Tirtir dhaqdhaqaaqan?")){
+  db.finances=db.finances.filter(x=>x.id!==id);
+  save();
+  renderAll();
+ }
+}
+
+function renderFinance(){
+
+ let q=(document.getElementById("financeSearch")?.value||"")
+ .toLowerCase();
+
+ let list=db.finances.filter(x=>
+ (x.desc||"").toLowerCase().includes(q)
+ );
+
+ document.getElementById("financeTable").innerHTML=
+ list.slice().reverse().map(x=>`
+
+ <tr>
+ <td>${x.type}</td>
+ <td>${x.desc}</td>
+ <td class="${x.type==="Dakhli"?"green":"red"}">
+ ${x.type==="Dakhli"?"+":"-"}${money(x.amount)}
+ </td>
+ <td>${x.date}</td>
+
+ <td>
+ <button class="btn btn-blue"
+ onclick="financeModal(${x.id})">
+ ✏️ Edit
+ </button>
+
+ <button class="btn btn-red"
+ onclick="delFinance(${x.id})">
+ 🗑 Delete
+ </button>
+ </td>
+ </tr>
+
+ `).join("");
 }
 
 
-/* ================================
-   ADD ANIMAL
-================================ */
+/* =========================
+   IIBKA
+========================= */
 
-async function saveAnimal(){
+function saleModal(id=null){
 
-const type =
-document.getElementById("animalType").value;
+ let x=db.sales.find(a=>a.id===id)||{};
 
-const count =
-Number(
-document.getElementById("animalCount").value
-) || 0;
+ openModal(
+ id?"✏️ Edit Iib":"🛒 Ku dar Iib",
 
-const born =
-Number(
-document.getElementById("animalBorn").value
-) || 0;
+ `<div class="form-grid">
 
-const dead =
-Number(
-document.getElementById("animalDead").value
-) || 0;
+ ${field("sn","Waxa la iibiyay",x.name||"")}
+ ${field("sc","Nooca",x.cat||"")}
+ ${field("sq","Tiro",x.qty||"","number")}
+ ${field("sp","Qiime",x.price||"","number")}
+ ${field("sd","Taariikh",x.date||today(),"date")}
 
-const sold =
-Number(
-document.getElementById("animalSold").value
-) || 0;
+ </div>
 
-const price =
-Number(
-document.getElementById("animalPrice").value
-) || 0;
-
-const date =
-document.getElementById("animalDate").value
-|| today;
-
-
-if(!type){
-
-showMessage(
-"animalMessage",
-"❌ Fadlan dooro nooca xoolaha.",
-"error"
-);
-
-return;
-
+ <div class="form-actions">
+ <button class="btn btn-green"
+ onclick="saveSale(${id||0})">
+ Kaydi
+ </button>
+ </div>`
+ );
 }
 
-
-if(count <= 0){
-
-showMessage(
-"animalMessage",
-"❌ Fadlan geli tirada xoolaha.",
-"error"
-);
-
-return;
-
-}
-
-
-/*
-   MUHIIM:
-   LOGIN HADA LOOMA BAHA.
-*/
-
-const result =
-await supabaseClient
-.from("livestock")
-.insert({
-
-animal_type:type,
-
-quantity:count,
-
-price_per_animal:price,
-
-description:"",
-
-purchase_date:date,
-
-born:born,
-
-dead:dead,
-
-sold:sold,
-
-count:count,
-
-price:price,
-
-date:date
-
-});
-
-
-if(result.error){
-
-console.error(result.error);
-
-showMessage(
-"animalMessage",
-"❌ Xogta lama kaydin: " +
-result.error.message,
-"error"
-);
-
-return;
-
-}
-
-
-showMessage(
-"animalMessage",
-"✅ Xogta xoolaha waa la kaydiyey!",
-"success"
-);
-
-
-document.getElementById("animalType").value = "";
-
-document.getElementById("animalCount").value = "";
-
-document.getElementById("animalPrice").value = "";
-
-document.getElementById("animalBorn").value = "0";
-
-document.getElementById("animalDead").value = "0";
-
-document.getElementById("animalSold").value = "0";
-
-await loadAnimals();
-
-}
-
-
-/* ================================
-   EDIT ANIMAL
-================================ */
-
-async function editAnimal(id){
-
-const item =
-animalsData.find(function(x){
-
-return String(x.id) === String(id);
-
-});
-
-
-if(!item) return;
-
-
-const count =
-prompt(
-"Tirada hadda:",
-item.count ??
-item.quantity ??
-0
-);
-
-if(count === null) return;
-
-
-const born =
-prompt(
-"Dhashay:",
-item.born ?? 0
-);
-
-if(born === null) return;
-
-
-const dead =
-prompt(
-"Dhintay:",
-item.dead ?? 0
-);
-
-if(dead === null) return;
-
-
-const sold =
-prompt(
-"La iibiyey:",
-item.sold ?? 0
-);
-
-if(sold === null) return;
-
-
-const price =
-prompt(
-"Qiimaha hal neef:",
-item.price ??
-item.price_per_animal ??
-0
-);
-
-if(price === null) return;
-
-
-const result =
-await supabaseClient
-.from("livestock")
-.update({
-
-count:Number(count) || 0,
-
-quantity:Number(count) || 0,
-
-born:Number(born) || 0,
-
-dead:Number(dead) || 0,
-
-sold:Number(sold) || 0,
-
-price:Number(price) || 0,
-
-price_per_animal:Number(price) || 0
-
-})
-.eq("id",id);
-
-
-if(result.error){
-
-alert(
-"❌ Lama sixi karin: " +
-result.error.message
-);
-
-return;
-
-}
-
-
-await loadAnimals();
-
-}
-
-
-/* ================================
-   DELETE ANIMAL
-================================ */
-
-async function deleteAnimal(id){
-
-if(!confirm(
-"Ma hubtaa inaad rabto inaad tirtirto xogtan?"
-)){
-
-return;
-
-}
-
-
-const result =
-await supabaseClient
-.from("livestock")
-.delete()
-.eq("id",id);
-
-
-if(result.error){
-
-alert(
-"❌ Lama tirtirin: " +
-result.error.message
-);
-
-return;
-
-}
-
-
-await loadAnimals();
-
-}
-
-
-/* ================================
-   LOAD FARMS
-================================ */
-
-async function loadFarms(){
-
-const list =
-document.getElementById("farmsList");
-
-const result =
-await supabaseClient
-.from("farms")
-.select("*")
-.order("date",{
-ascending:false,
-nullsFirst:false
-});
-
-
-if(result.error){
-
-list.innerHTML =
-"❌ " +
-result.error.message;
-
-return;
-
-}
-
-
-farmsData =
-result.data || [];
-
-
-renderFarms(farmsData);
-
-updateDashboard();
-
-}
-
-
-/* ================================
-   RENDER FARMS
-================================ */
-
-function renderFarms(data){
-
-const list =
-document.getElementById("farmsList");
-
-
-if(!data.length){
-
-list.innerHTML =
-'<div class="empty">📭 Weli xog beer ah lama hayo.</div>';
-
-return;
-
-}
-
-
-list.innerHTML =
-data.map(function(item){
-
-return `
-
-<div class="item">
-
-<h3>
-🌾
-${item.crop_type ??
-item.crop ??
-item.name ??
-""}
-</h3>
-
-<p>
-📏 Baaxad:
-<strong>
-${item.area ??
-item.hectares ??
-item.hectare ??
-0}
-</strong>
-hektar
-</p>
-
-<p>
-🌱 La beeray:
-<strong>
-${item.planted ?? 0}
-</strong>
-</p>
-
-<p>
-🌾 La goostay:
-<strong>
-${item.harvested ?? 0}
-</strong>
-</p>
-
-<p>
-🛒 La iibiyey:
-<strong>
-${item.sold ?? 0}
-</strong>
-</p>
-
-<p>
-💵 Qiime:
-<strong>
-$${Number(
-item.price ??
-item.cost ??
-0
-).toFixed(2)}
-</strong>
-</p>
-
-<p>
-📅 Taariikh:
-<strong>
-${item.date ??
-item.farm_date ??
-""}
-</strong>
-</p>
-<div style="display:flex;gap:10px;margin-top:15px;">
-  <button
-    type="button"
-    onclick="editFarm('${item.id}')"
-    style="padding:8px 14px;border:none;border-radius:8px;background:#2563eb;color:white;cursor:pointer;">
-    ✏️ Edit
-  </button>
-
-  <button
-    type="button"
-    onclick="deleteFarm('${item.id}')"
-    style="padding:8px 14px;border:none;border-radius:8px;background:#dc2626;color:white;cursor:pointer;">
-    🗑️ Delete
-  </button>
-</div>
-</div>
-
-`;
-
-}).join("");
-
-}
-
-
-/* ================================
-   ADD FARM
-================================ */
-
-async function saveFarm(){
-
-const crop =
-document.getElementById("cropType").value;
-
-const area =
-Number(
-document.getElementById("farmArea").value
-) || 0;
-
-const planted =
-Number(
-document.getElementById("planted").value
-) || 0;
-
-const harvested =
-Number(
-document.getElementById("harvested").value
-) || 0;
-
-const sold =
-Number(
-document.getElementById("farmSold").value
-) || 0;
-
-const price =
-Number(
-document.getElementById("farmPrice").value
-) || 0;
-
-const date =
-document.getElementById("farmDate").value
-|| today;
-
-
-if(!crop){
-
-showMessage(
-"farmMessage",
-"❌ Fadlan dooro dalagga.",
-"error"
-);
-
-return;
-
-}
-
-
-if(area <= 0){
-
-showMessage(
-"farmMessage",
-"❌ Fadlan geli hektarka.",
-"error"
-);
-
-return;
-
-}
-
-
-const result =
-await supabaseClient
-.from("farms")
-.insert({
-
-crop:crop,
-
-hectares:area,
-
-cost:price,
-
-description:"",
-
-farm_date:date,
-
-hectare:area,
-
-name:crop,
-
-crop_type:crop,
-
-area:area,
-
-planted:planted,
-
-harvested:harvested,
-
-sold:sold,
-
-price:price,
-
-date:date
-
-});
-
-
-if(result.error){
-
-showMessage(
-"farmMessage",
-"❌ " +
-result.error.message,
-"error"
-);
-
-return;
-
-}
-
-
-showMessage(
-"farmMessage",
-"✅ Xogta beerta waa la kaydiyey!",
-"success"
-);
-
-
-await loadFarms();
-
-}
-
-
-/* ================================
-   LOAD FINANCE
-================================ */
-
-async function loadFinance(){
-
-const list =
-document.getElementById("financeList");
-
-const result =
-await supabaseClient
-.from("finances")
-.select("*")
-.order("date",{
-ascending:false
-});
-
-
-if(result.error){
-
-list.innerHTML =
-"❌ " +
-result.error.message;
-
-return;
-
-}
-
-
-financeData =
-result.data || [];
-
-
-renderFinance(financeData);
-
-updateFinance();
-
-updateDashboard();
-
-}
-
-
-/* ================================
-   RENDER FINANCE
-================================ */
-
-function renderFinance(data){
-
-const list =
-document.getElementById("financeList");
-
-
-if(!data.length){
-
-list.innerHTML =
-'<div class="empty">📭 Weli xog dhaqaale ah lama hayo.</div>';
-
-return;
-
-}
-
-
-list.innerHTML =
-data.map(function(item){
-
-return `
-
-<div class="item">
-
-<h3>
-
-${item.type === "Dakhli"
-? "💵"
-: "💸"}
-
-${item.type || ""}
-
-</h3>
-
-<p>
-💰 Lacag:
-<strong>
-$${Number(
-item.amount || 0
-).toFixed(2)}
-</strong>
-</p>
-
-<p>
-📝
-${item.description || ""}
-</p>
-
-<p>
-📅
-${item.date || ""}
-</p>
-
-</div>
-<div style="display:flex;gap:10px;margin-top:15px;">
-  <button
-    type="button"
-    onclick="editFinance('${item.id}')"
-    style="padding:8px 14px;border:none;border-radius:8px;background:#2563eb;color:white;">
-    ✏️ Edit
-  </button>
-
-  <button
-    type="button"
-    onclick="deleteFinance('${item.id}')"
-    style="padding:8px 14px;border:none;border-radius:8px;background:#dc2626;color:white;">
-    🗑️ Delete
-  </button>
-</div>
-`;
-
-}).join("");
-
-}
-// ========================================
-// FINANCE EDIT & DELETE
-// ========================================
-
-async function editFinance(id) {
-  const { data: finance, error } = await supabaseClient
-    .from("finances")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !finance) {
-    alert("❌ Xogta dhaqaalaha lama helin.");
-    return;
-  }
-
-  const type = prompt(
-    "Nooca (income/expense):",
-    finance.type || ""
-  );
-  if (type === null) return;
-
-  const amount = prompt(
-    "💰 Lacagta:",
-    finance.amount || 0
-  );
-  if (amount === null) return;
-
-  const description = prompt(
-    "📝 Faahfaahin:",
-    finance.description || ""
-  );
-  if (description === null) return;
-
-  const date = prompt(
-    "📅 Taariikhda:",
-    finance.date || ""
-  );
-  if (date === null) return;
-
-  const { error: updateError } = await supabaseClient
-    .from("finances")
-    .update({
-      type: type,
-      amount: Number(amount) || 0,
-      description: description,
-      date: date
-    })
-    .eq("id", id);
-
-  if (updateError) {
-    alert("❌ Edit ma shaqayn: " + updateError.message);
-    return;
-  }
-
-  alert("✅ Xogta dhaqaalaha waa la hagaajiyey.");
-
-  if (typeof loadFinance === "function") {
-    await loadFinance();
-  } else {
-    location.reload();
-  }
-}
-
-
-async function deleteFinance(id) {
-  const confirmDelete = confirm(
-    "⚠️ Ma hubtaa inaad tirtirayso xogtan dhaqaalaha?"
+function saveSale(id){
+
+ let x={
+ id:id||Date.now(),
+ name:document.getElementById("sn").value,
+ cat:document.getElementById("sc").value,
+ qty:+document.getElementById("sq").value,
+ price:+document.getElementById("sp").value,
+ date:document.getElementById("sd").value
+ };
+
+ if(!x.name||x.qty<=0||x.price<=0){
+  alert("Buuxi xogta iibka.");
+  return;
+ }
+
+ if(id){
+
+  let old=db.sales.find(a=>a.id===id);
+
+  db.finances=db.finances.filter(a=>
+   !(a.desc==="Iib: "+old.name&&a.date===old.date)
   );
 
-  if (!confirmDelete) return;
+  db.sales=db.sales.map(a=>a.id===id?x:a);
 
-  const { error } = await supabaseClient
-    .from("finances")
-    .delete()
-    .eq("id", id);
+ }else{
 
-  if (error) {
-    alert("❌ Delete ma shaqayn: " + error.message);
-    return;
-  }
+  db.sales.push(x);
 
-  alert("✅ Xogta dhaqaalaha waa la tirtiray.");
+ }
 
-  if (typeof loadFinance === "function") {
-    await loadFinance();
-  } else {
-    location.reload();
-  }
-}// ================================
-// FARM EDIT & DELETE
-// ================================
+ db.finances.push({
+ id:Date.now()+1,
+ type:"Dakhli",
+ desc:"Iib: "+x.name,
+ amount:x.qty*x.price,
+ date:x.date
+ });
 
-async function editFarm(id) {
-  const { data: farm, error } = await supabaseClient
-    .from("farms")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !farm) {
-    alert("❌ Beerta lama helin.");
-    return;
-  }
-
-  const crop = prompt("🌱 Dalagga:", farm.crop || "");
-  if (crop === null) return;
-
-  const area = prompt("📐 Aagga (hectar):", farm.area || 0);
-  if (area === null) return;
-
-  const planted = prompt("🌱 La beeray:", farm.planted || 0);
-  if (planted === null) return;
-
-  const harvested = prompt("🌾 La goostay:", farm.harvested || 0);
-  if (harvested === null) return;
-
-  const sold = prompt("💰 La iibiyey:", farm.sold || 0);
-  if (sold === null) return;
-
-  const { error: updateError } = await supabaseClient
-    .from("farms")
-    .update({
-      crop: crop,
-      area: Number(area) || 0,
-      planted: Number(planted) || 0,
-      harvested: Number(harvested) || 0,
-      sold: Number(sold) || 0
-    })
-    .eq("id", id);
-
-  if (updateError) {
-    alert("❌ Edit ma shaqayn: " + updateError.message);
-    return;
-  }
-
-  alert("✅ Beerta waa la hagaajiyey.");
-
-  if (typeof loadFarm === "function") {
-    await loadFarm();
-  } else if (typeof loadFarms === "function") {
-    await loadFarms();
-  } else {
-    location.reload();
-  }
+ save();
+ closeModal();
+ renderAll();
 }
 
+function delSale(id){
 
-async function deleteFarm(id) {
-  const confirmDelete = confirm(
-    "⚠️ Ma hubtaa inaad tirtirayso beertan?"
+ if(confirm("Tirtir iibkan?")){
+
+  let s=db.sales.find(x=>x.id===id);
+
+  db.sales=db.sales.filter(x=>x.id!==id);
+
+  db.finances=db.finances.filter(x=>
+   x.desc!=="Iib: "+s.name
   );
 
-  if (!confirmDelete) return;
-
-  const { error } = await supabaseClient
-    .from("farms")
-    .delete()
-    .eq("id", id);
-
-  if (error) {
-    alert("❌ Delete ma shaqayn: " + error.message);
-    return;
-  }
-
-  alert("✅ Beerta waa la tirtiray.");
-
-  if (typeof loadFarm === "function") {
-    await loadFarm();
-  } else if (typeof loadFarms === "function") {
-    await loadFarms();
-  } else {
-    location.reload();
-  }
+  save();
+  renderAll();
+ }
 }
 
-/* ================================
-   ADD FINANCE
-================================ */
+function renderSales(){
 
-async function saveFinance(){
+ document.getElementById("saleTable").innerHTML=
+ db.sales.slice().reverse().map(x=>`
 
-const type =
-document.getElementById("financeType").value;
+ <tr>
+ <td>${x.name}</td>
+ <td>${x.cat}</td>
+ <td>${x.qty}</td>
+ <td class="green">${money(x.qty*x.price)}</td>
+ <td>${x.date}</td>
 
-const amount =
-Number(
-document.getElementById("financeAmount").value
-) || 0;
+ <td>
+ <button class="btn btn-blue"
+ onclick="saleModal(${x.id})">
+ ✏️ Edit
+ </button>
 
-const description =
-document
-.getElementById("financeDescription")
-.value
-.trim();
+ <button class="btn btn-red"
+ onclick="delSale(${x.id})">
+ 🗑 Delete
+ </button>
+ </td>
+ </tr>
 
-const date =
-document.getElementById("financeDate").value
-|| today;
-
-
-if(!type){
-
-showMessage(
-"financeMessage",
-"❌ Fadlan dooro Dakhli ama Kharash.",
-"error"
-);
-
-return;
-
+ `).join("");
 }
 
 
-if(amount <= 0){
+/* =========================
+   KHARASH
+========================= */
 
-showMessage(
-"financeMessage",
-"❌ Geli lacag ka weyn 0.",
-"error"
-);
+function expenseModal(){
 
-return;
+ financeModal(null,"Kharash");
+}
 
+function renderExpenses(){
+
+ let list=db.finances.filter(x=>x.type==="Kharash");
+
+ document.getElementById("expenseTable").innerHTML=
+ list.slice().reverse().map(x=>`
+
+ <tr>
+ <td>${x.desc}</td>
+ <td>${x.desc}</td>
+ <td class="red">-${money(x.amount)}</td>
+ <td>${x.date}</td>
+
+ <td>
+ <button class="btn btn-blue"
+ onclick="financeModal(${x.id})">
+ ✏️ Edit
+ </button>
+
+ <button class="btn btn-red"
+ onclick="delFinance(${x.id})">
+ 🗑 Delete
+ </button>
+ </td>
+
+ </tr>
+
+ `).join("");
 }
 
 
-const result =
-await supabaseClient
-.from("finances")
-.insert({
-
-type:type,
-
-category:"Guud",
-
-amount:amount,
-
-description:description,
-
-date:date
-
-});
-
-
-if(result.error){
-
-showMessage(
-"financeMessage",
-"❌ " +
-result.error.message,
-"error"
-);
-
-return;
-
-}
-
-
-showMessage(
-"financeMessage",
-"✅ Dhaqaalaha waa la kaydiyey!",
-"success"
-);
-
-
-await loadFinance();
-
-}
-
-
-/* ================================
-   FINANCE TOTALS
-================================ */
-
-function updateFinance(){
-
-let income = 0;
-
-let expense = 0;
-
-
-financeData.forEach(function(item){
-
-const amount =
-Number(item.amount) || 0;
-
-
-if(item.type === "Dakhli"){
-
-income += amount;
-
-}
-
-
-if(item.type === "Kharash"){
-
-expense += amount;
-
-}
-
-});
-
-
-const profit =
-income - expense;
-
-
-document.getElementById(
-"totalIncome"
-).textContent =
-"$" + income.toFixed(2);
-
-
-document.getElementById(
-"totalExpense"
-).textContent =
-"$" + expense.toFixed(2);
-
-
-document.getElementById(
-"totalProfit"
-).textContent =
-"$" + profit.toFixed(2);
-
-}
-
-
-/* ================================
+/* =========================
    DASHBOARD
-================================ */
+========================= */
 
-function updateDashboard(){
+function renderDashboard(){
 
-const animals =
-animalsData.reduce(
-function(total,item){
+ let income=db.finances
+ .filter(x=>x.type==="Dakhli")
+ .reduce((s,x)=>s+x.amount,0);
 
-return total +
-Number(
-item.count ??
-item.quantity ??
-0
-);
+ let expense=db.finances
+ .filter(x=>x.type==="Kharash")
+ .reduce((s,x)=>s+x.amount,0);
 
-},0);
+ let profit=income-expense;
 
+ let animals=db.animals
+ .reduce((s,x)=>s+x.count,0);
 
-const farms =
-farmsData.reduce(
-function(total,item){
+ let land=db.farms
+ .reduce((s,x)=>s+x.area,0);
 
-return total +
-Number(
-item.area ??
-item.hectares ??
-item.hectare ??
-0
-);
+ document.getElementById("dAnimals").textContent=animals;
+ document.getElementById("dLand").textContent=land+" ha";
+ document.getElementById("dIncome").textContent=money(income);
+ document.getElementById("dExpense").textContent=money(expense);
+ document.getElementById("dProfit").textContent=
+ (profit<0?"-":"")+money(Math.abs(profit));
+ document.getElementById("dSales").textContent=db.sales.length;
 
-},0);
+ document.getElementById("mIncome").textContent=money(income);
+ document.getElementById("mExpense").textContent=money(expense);
+ document.getElementById("mProfit").textContent=
+ (profit<0?"-":"")+money(Math.abs(profit));
 
+ document.getElementById("bigProfit").textContent=
+ (profit<0?"-":"")+money(Math.abs(profit));
 
-const sold =
-animalsData.reduce(
-function(total,item){
+ document.getElementById("profitStatus").textContent=
+ profit>=0?"🟢 Faa'iido":"🔴 Khasaaro";
 
-return total +
-Number(item.sold || 0);
+ document.getElementById("profitDetail").innerHTML=`
+ <p>Dakhli:
+ <b class="green">${money(income)}</b>
+ </p>
 
-},0);
+ <p>Kharash:
+ <b class="red">${money(expense)}</b>
+ </p>
 
+ <p>Faa'iido/Khasaaro:
+ <b class="blue">
+ ${(profit<0?"-":"")+money(Math.abs(profit))}
+ </b>
+ </p>
+ `;
 
-let income = 0;
+ let recent=db.finances
+ .slice()
+ .reverse()
+ .slice(0,5);
 
-let expense = 0;
+ document.getElementById("recentList").innerHTML=
+ recent.map(x=>`
 
+ <div class="activity-row">
 
-financeData.forEach(
-function(item){
+ <div class="left-act">
 
-const amount =
-Number(item.amount) || 0;
+ <span class="act-icon ${x.type==="Dakhli"?"up":"down"}">
+ ${x.type==="Dakhli"?"↑":"↓"}
+ </span>
 
+ <div>
+ <b>${x.desc}</b>
+ <small style="display:block;color:#777">
+ ${x.date}
+ </small>
+ </div>
 
-if(item.type === "Dakhli"){
+ </div>
 
-income += amount;
+ <div>
+ <b class="${x.type==="Dakhli"?"green":"red"}">
+ ${x.type==="Dakhli"?"+":"-"}${money(x.amount)}
+ </b>
+
+ <span class="tag ${x.type==="Dakhli"?"":"tag-red"}">
+ ${x.type}
+ </span>
+
+ </div>
+
+ </div>
+
+ `).join("")||
+ `<div class="empty">Dhaqdhaqaaq ma jiro.</div>`;
+
+ let totals={};
+
+ db.animals.forEach(x=>{
+  totals[x.type]=(totals[x.type]||0)+x.count;
+ });
+
+ document.getElementById("stockList").innerHTML=
+ Object.entries(totals).map(([type,count])=>`
+
+ <div class="stock-row">
+
+ <span>
+ <span class="stock-animal">
+ ${type==="Ari"?"🐑":
+ type==="Lo"?"🐄":
+ type==="Geel"?"🐪":"🐔"}
+ </span>
+
+ ${type}
+
+ </span>
+
+ <b>${count}</b>
+
+ </div>
+
+ `).join("");
+
+ document.getElementById("quickTable").innerHTML=`
+
+ <tr>
+ <td>🐑 Xoolaha</td>
+ <td>${animals}</td>
+ <td class="green">${money(income)}</td>
+ <td class="red">${money(expense)}</td>
+ <td class="blue">
+ ${(profit<0?"-":"")+money(Math.abs(profit))}
+ </td>
+ </tr>
+
+ <tr>
+ <td>🌾 Beeraha</td>
+ <td>${land} ha</td>
+ <td class="green">—</td>
+ <td class="red">—</td>
+ <td class="blue">—</td>
+ </tr>
+
+ <tr>
+ <td>🛒 Iibka</td>
+ <td>${db.sales.length}</td>
+ <td class="green">
+ ${money(db.sales.reduce((s,x)=>s+x.qty*x.price,0))}
+ </td>
+ <td class="red">—</td>
+ <td class="blue">—</td>
+ </tr>
+
+ <tr>
+ <td><b>Wadar</b></td>
+ <td>—</td>
+ <td class="green">${money(income)}</td>
+ <td class="red">${money(expense)}</td>
+ <td class="blue">
+ ${(profit<0?"-":"")+money(Math.abs(profit))}
+ </td>
+ </tr>
+ `;
 
 }
 
 
-if(item.type === "Kharash"){
+/* =========================
+   CALENDAR
+========================= */
 
-expense += amount;
+function taskModal(id=null){
 
+ let x=db.tasks.find(a=>a.id===id)||{};
+
+ openModal(
+ "📅 Hawl Calendar",
+
+ `<div class="form-grid">
+
+ ${field("tt","Hawl",x.title||"")}
+ ${field("td","Taariikh",x.date||today(),"date")}
+ ${field("tn","Faahfaahin",x.note||"")}
+
+ </div>
+
+ <div class="form-actions">
+
+ <button class="btn btn-green"
+ onclick="saveTask(${id||0})">
+ Kaydi
+ </button>
+
+ </div>`
+ );
 }
 
-});
+function saveTask(id){
 
+ let x={
+ id:id||Date.now(),
+ title:document.getElementById("tt").value,
+ date:document.getElementById("td").value,
+ note:document.getElementById("tn").value
+ };
 
-document.getElementById(
-"dashAnimals"
-).textContent = animals;
+ if(id)
+  db.tasks=db.tasks.map(a=>a.id===id?x:a);
+ else
+  db.tasks.push(x);
 
+ save();
+ closeModal();
+ renderTasks();
+}
 
-document.getElementById(
-"dashFarms"
-).textContent =
-farms + " ha";
+function delTask(id){
 
+ db.tasks=db.tasks.filter(x=>x.id!==id);
 
-document.getElementById(
-"dashSold"
-).textContent =
-sold;
+ save();
+ renderTasks();
+}
 
+function renderTasks(){
 
-document.getElementById(
-"dashIncome"
-).textContent =
-"$" + income.toFixed(2);
+ let date=document.getElementById("calendarDate").value||today();
 
+ document.getElementById("taskList").innerHTML=
+ db.tasks.filter(x=>x.date===date).map(x=>`
 
-document.getElementById(
-"dashExpense"
-).textContent =
-"$" + expense.toFixed(2);
+ <div style="
+ background:#edf8f0;
+ padding:12px;
+ border-radius:9px;
+ margin-top:8px;
+ display:flex;
+ justify-content:space-between">
 
+ <span>
+ <b>📌 ${x.title}</b><br>
+ ${x.note||""}
+ </span>
 
-document.getElementById(
-"dashProfit"
-).textContent =
-"$" + (income-expense).toFixed(2);
+ <span>
+ <button class="btn btn-blue"
+ onclick="taskModal(${x.id})">
+ ✏️
+ </button>
 
+ <button class="btn btn-red"
+ onclick="delTask(${x.id})">
+ 🗑
+ </button>
+ </span>
 
-document.getElementById(
-"dashboardAnimals"
-).innerHTML =
-animalsData.length
+ </div>
 
-?
-
-animalsData
-.slice(0,5)
-.map(function(item){
-
-return `
-
-<p>
-${animalIcon(item.animal_type)}
-
-<strong>
-${item.animal_type}
-</strong>
-
-:
-${item.count ??
-item.quantity ??
-0}
-
-</p>
-
-`;
-
-})
-.join("")
-
-:
-
-'<div class="empty">📭 Xog xoolo ah lama hayo.</div>';
-
-
-document.getElementById(
-"dashboardFarms"
-).innerHTML =
-farmsData.length
-
-?
-
-farmsData
-.slice(0,5)
-.map(function(item){
-
-return `
-
-<p>
-🌾
-
-<strong>
-${item.crop_type ??
-item.crop ??
-item.name ??
-""}
-</strong>
-
-:
-${item.area ??
-item.hectares ??
-item.hectare ??
-0}
-
-hektar
-
-</p>
-
-`;
-
-})
-.join("")
-
-:
-
-'<div class="empty">📭 Xog beer ah lama hayo.</div>';
-
+ `).join("")||
+ `<div class="empty">
+ Hawl ma jiro taariikhdan.
+ </div>`;
 }
 
 
-/* ================================
+/* =========================
+   SETTINGS
+========================= */
+
+function saveSettings(){
+
+ db.settings.company=
+ document.getElementById("setCompany").value;
+
+ db.settings.user=
+ document.getElementById("setUser").value;
+
+ db.settings.location=
+ document.getElementById("setLocation").value;
+
+ save();
+
+ document.getElementById("welcome").textContent=
+ `Ku soo dhawoow, ${db.settings.user} 👋`;
+
+ alert("Dejinta waa la kaydiyay.");
+}
+
+function backup(){
+
+ let a=document.createElement("a");
+
+ a.href=URL.createObjectURL(
+ new Blob([JSON.stringify(db,null,2)],{
+ type:"application/json"
+ })
+ );
+
+ a.download="TACBO-backup.json";
+ a.click();
+}
+
+function restore(e){
+
+ let reader=new FileReader();
+
+ reader.onload=()=>{
+
+  try{
+
+   db=JSON.parse(reader.result);
+
+   save();
+
+   location.reload();
+
+  }catch{
+
+   alert("Backup-ku sax ma aha.");
+
+  }
+
+ };
+
+ reader.readAsText(e.target.files[0]);
+}
+
+function resetData(){
+
+ if(confirm(
+ "Dhammaan xogta TACBO waa la tirtirayaa. Ma hubtaa?"
+ )){
+
+  localStorage.removeItem(KEY);
+
+  location.reload();
+ }
+}
+
+
+/* =========================
+   REPORT
+========================= */
+
+function renderReport(){
+
+ let income=db.finances
+ .filter(x=>x.type==="Dakhli")
+ .reduce((s,x)=>s+x.amount,0);
+
+ let expense=db.finances
+ .filter(x=>x.type==="Kharash")
+ .reduce((s,x)=>s+x.amount,0);
+
+ let profit=income-expense;
+
+ document.getElementById("report").innerHTML=`
+
+ <div style="
+ background:#edf8f0;
+ padding:14px;
+ border-radius:9px">
+
+ Warbixinta TACBO — ${today()}
+
+ </div>
+
+ <div class="cards" style="margin-top:15px">
+
+ <div class="card">
+ <h4>Xoolaha</h4>
+ <div class="num">
+ ${db.animals.reduce((s,x)=>s+x.count,0)}
+ </div>
+ </div>
+
+ <div class="card">
+ <h4>Beeraha</h4>
+ <div class="num">
+ ${db.farms.reduce((s,x)=>s+x.area,0)} ha
+ </div>
+ </div>
+
+ <div class="card">
+ <h4>Dakhli</h4>
+ <div class="num green">${money(income)}</div>
+ </div>
+
+ <div class="card">
+ <h4>Kharash</h4>
+ <div class="num red">${money(expense)}</div>
+ </div>
+
+ <div class="card">
+ <h4>Faa'iido/Khasaaro</h4>
+ <div class="num blue">
+ ${(profit<0?"-":"")+money(Math.abs(profit))}
+ </div>
+ </div>
+
+ </div>
+ `;
+}
+
+
+/* =========================
+   ALL RENDER
+========================= */
+
+function renderAll(){
+
+ renderDashboard();
+ renderAnimals();
+ renderFarms();
+ renderFinance();
+ renderSales();
+ renderExpenses();
+ renderReport();
+ renderTasks();
+
+}
+
+
+/* =========================
    START
-================================ */
+========================= */
 
-async function startApp(){
+document.getElementById("calendarDate").value=today();
 
-await loadAnimals();
+document.getElementById("setCompany").value=
+db.settings.company;
 
-await loadFarms();
+document.getElementById("setUser").value=
+db.settings.user;
 
-await loadFinance();
+document.getElementById("setLocation").value=
+db.settings.location;
 
-updateDashboard();
+document.getElementById("welcome").textContent=
+`Ku soo dhawoow, ${db.settings.user} 👋`;
 
-}
-
-startApp();
+renderAll();
 
 </script>
-
-<!-- ================================
-     💊 DAWADA XOOLAHA & 🌱 BEERTA
-================================ -->
-
-<section id="medicineSection" style="
-  margin:30px auto;
-  max-width:900px;
-  padding:25px;
-  background:#ffffff;
-  border-radius:24px;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-">
-
-  <h2 style="
-    text-align:center;
-    margin-bottom:20px;
-    color:#17231b;
-  ">
-    💊 Daawada Xoolaha &nbsp; | &nbsp; 🌱 Daawada Beerta
-  </h2>
-
-  <!-- TABS -->
-  <div style="
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
-  ">
-    <button
-      type="button"
-      id="animalMedicineTab"
-      onclick="showMedicineType('animal')"
-      style="
-        flex:1;
-        padding:14px;
-        border:0;
-        border-radius:14px;
-        background:#387d46;
-        color:white;
-        font-size:17px;
-        font-weight:bold;
-      "
-    >
-      💊 Daawada Xoolaha
-    </button>
-
-    <button
-      type="button"
-      id="farmMedicineTab"
-      onclick="showMedicineType('farm')"
-      style="
-        flex:1;
-        padding:14px;
-        border:0;
-        border-radius:14px;
-        background:#edf2ee;
-        color:#17231b;
-        font-size:17px;
-        font-weight:bold;
-      "
-    >
-      🌱 Daawada Beerta
-    </button>
-  </div>
-
-  <!-- FORM -->
-  <div style="
-    background:#f4f8f5;
-    padding:20px;
-    border-radius:18px;
-    margin-bottom:25px;
-  ">
-
-    <input
-      id="medicineName"
-      type="text"
-      placeholder="💊 Magaca daawada"
-      style="
-        width:100%;
-        box-sizing:border-box;
-        padding:14px;
-        margin-bottom:12px;
-        border:1px solid #d5dfd8;
-        border-radius:12px;
-        font-size:16px;
-      "
-    >
-
-    <input
-      id="medicineQuantity"
-      type="number"
-      placeholder="Tirada / Quantity"
-      style="
-        width:100%;
-        box-sizing:border-box;
-        padding:14px;
-        margin-bottom:12px;
-        border:1px solid #d5dfd8;
-        border-radius:12px;
-        font-size:16px;
-      "
-    >
-
-    <input
-      id="medicinePrice"
-      type="number"
-      step="0.01"
-      placeholder="💰 Qiimaha ($)"
-      style="
-        width:100%;
-        box-sizing:border-box;
-        padding:14px;
-        margin-bottom:12px;
-        border:1px solid #d5dfd8;
-        border-radius:12px;
-        font-size:16px;
-      "
-    >
-
-    <input
-      id="medicineDate"
-      type="date"
-      style="
-        width:100%;
-        box-sizing:border-box;
-        padding:14px;
-        margin-bottom:12px;
-        border:1px solid #d5dfd8;
-        border-radius:12px;
-        font-size:16px;
-      "
-    >
-
-    <textarea
-      id="medicineDescription"
-      placeholder="📝 Faahfaahin"
-      style="
-        width:100%;
-        box-sizing:border-box;
-        min-height:90px;
-        padding:14px;
-        margin-bottom:12px;
-        border:1px solid #d5dfd8;
-        border-radius:12px;
-        font-size:16px;
-        resize:vertical;
-      "
-    ></textarea>
-
-    <button
-      type="button"
-      id="medicineSaveButton"
-      onclick="saveMedicine()"
-      style="
-        width:100%;
-        padding:15px;
-        border:0;
-        border-radius:14px;
-        background:#387d46;
-        color:white;
-        font-size:18px;
-        font-weight:bold;
-      "
-    >
-      ➕ Ku dar Daawo
-    </button>
-
-    <button
-      type="button"
-      id="medicineCancelButton"
-      onclick="cancelMedicineEdit()"
-      style="
-        display:none;
-        width:100%;
-        padding:13px;
-        margin-top:10px;
-        border:0;
-        border-radius:14px;
-        background:#777;
-        color:white;
-        font-size:16px;
-      "
-    >
-      ❌ Jooji Edit
-    </button>
-
-  </div>
-
-  <!-- LIST -->
-  <h3 id="medicineListTitle" style="
-    color:#17231b;
-    margin-bottom:15px;
-  ">
-    💊 Daawooyinka Xoolaha
-  </h3>
-
-  <div id="medicineList"></div>
-
-</section>
-
-
-<script>
-/* =================================
-   💊 MEDICINE SYSTEM
-   LocalStorage - Supabase MA AHAN
-================================= */
-
-let medicineType = "animal";
-let editingMedicineId = null;
-
-let medicines = JSON.parse(
-  localStorage.getItem("tacbo_medicines") || "[]"
-);
-
-
-/* ================================
-   SHOW TYPE
-================================ */
-
-function showMedicineType(type) {
-
-  medicineType = type;
-
-  const animalTab =
-    document.getElementById("animalMedicineTab");
-
-  const farmTab =
-    document.getElementById("farmMedicineTab");
-
-  const title =
-    document.getElementById("medicineListTitle");
-
-  if (type === "animal") {
-
-    animalTab.style.background = "#387d46";
-    animalTab.style.color = "white";
-
-    farmTab.style.background = "#edf2ee";
-    farmTab.style.color = "#17231b";
-
-    title.textContent =
-      "💊 Daawooyinka Xoolaha";
-
-  } else {
-
-    farmTab.style.background = "#387d46";
-    farmTab.style.color = "white";
-
-    animalTab.style.background = "#edf2ee";
-    animalTab.style.color = "#17231b";
-
-    title.textContent =
-      "🌱 Daawooyinka Beerta";
-  }
-
-  renderMedicines();
-}
-
-
-/* ================================
-   SAVE
-================================ */
-
-function saveMedicine() {
-
-  const name =
-    document.getElementById("medicineName").value.trim();
-
-  const quantity =
-    document.getElementById("medicineQuantity").value;
-
-  const price =
-    document.getElementById("medicinePrice").value;
-
-  const date =
-    document.getElementById("medicineDate").value;
-
-  const description =
-    document.getElementById("medicineDescription").value.trim();
-
-
-  if (!name) {
-    alert("❌ Fadlan geli magaca daawada.");
-    return;
-  }
-
-
-  if (editingMedicineId) {
-
-    const index = medicines.findIndex(
-      function(item) {
-        return item.id === editingMedicineId;
-      }
-    );
-
-    if (index !== -1) {
-
-      medicines[index] = {
-        ...medicines[index],
-        type: medicineType,
-        name: name,
-        quantity: Number(quantity) || 0,
-        price: Number(price) || 0,
-        date: date,
-        description: description
-      };
-    }
-
-    editingMedicineId = null;
-
-    document.getElementById(
-      "medicineSaveButton"
-    ).textContent = "➕ Ku dar Daawo";
-
-    document.getElementById(
-      "medicineCancelButton"
-    ).style.display = "none";
-
-  } else {
-
-    medicines.push({
-
-      id:
-        Date.now().toString(),
-
-      type:
-        medicineType,
-
-      name:
-        name,
-
-      quantity:
-        Number(quantity) || 0,
-
-      price:
-        Number(price) || 0,
-
-      date:
-        date,
-
-      description:
-        description
-    });
-  }
-
-
-  localStorage.setItem(
-    "tacbo_medicines",
-    JSON.stringify(medicines)
-  );
-
-
-  clearMedicineForm();
-
-  renderMedicines();
-
-  alert("✅ Daawada waa la kaydiyey.");
-}
-
-
-/* ================================
-   RENDER
-================================ */
-
-function renderMedicines() {
-
-  const list =
-    document.getElementById("medicineList");
-
-
-  const data =
-    medicines.filter(function(item) {
-
-      return item.type === medicineType;
-
-    });
-
-
-  if (!data.length) {
-
-    list.innerHTML = `
-      <div style="
-        text-align:center;
-        padding:30px;
-        background:#f4f8f5;
-        border-radius:16px;
-        color:#68736c;
-        font-size:17px;
-      ">
-        📭 Weli daawo laguma darin.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  list.innerHTML = data.map(function(item) {
-
-    const icon =
-      medicineType === "animal"
-        ? "💊"
-        : "🌱";
-
-
-    return `
-
-      <div style="
-        background:#f8faf8;
-        border:1px solid #dce6df;
-        border-radius:18px;
-        padding:20px;
-        margin-bottom:15px;
-      ">
-
-        <h3 style="
-          margin:0 0 15px 0;
-          color:#17231b;
-        ">
-          ${icon} ${escapeMedicineHTML(item.name)}
-        </h3>
-
-
-        <p>
-          📦 <strong>Tirada:</strong>
-          ${Number(item.quantity || 0)}
-        </p>
-
-
-        <p>
-          💰 <strong>Qiimaha:</strong>
-          $${Number(item.price || 0).toFixed(2)}
-        </p>
-
-
-        <p>
-          📅 <strong>Taariikh:</strong>
-          ${escapeMedicineHTML(item.date || "")}
-        </p>
-
-
-        <p>
-          📝 <strong>Faahfaahin:</strong>
-          ${escapeMedicineHTML(item.description || "")}
-        </p>
-
-
-        <div style="
-          display:flex;
-          gap:10px;
-          margin-top:18px;
-        ">
-
-          <button
-            type="button"
-            onclick="editMedicine('${item.id}')"
-            style="
-              flex:1;
-              padding:12px;
-              border:0;
-              border-radius:12px;
-              background:#3267d6;
-              color:white;
-              font-size:16px;
-              font-weight:bold;
-            "
-          >
-            ✏️ Edit
-          </button>
-
-
-          <button
-            type="button"
-            onclick="deleteMedicine('${item.id}')"
-            style="
-              flex:1;
-              padding:12px;
-              border:0;
-              border-radius:12px;
-              background:#d9362e;
-              color:white;
-              font-size:16px;
-              font-weight:bold;
-            "
-          >
-            🗑️ Delete
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
-}
-
-
-/* ================================
-   EDIT
-================================ */
-
-function editMedicine(id) {
-
-  const item =
-    medicines.find(function(m) {
-
-      return m.id === id;
-
-    });
-
-
-  if (!item) {
-
-    alert("❌ Daawada lama helin.");
-
-    return;
-  }
-
-
-  editingMedicineId = id;
-
-  medicineType = item.type;
-
-
-  document.getElementById(
-    "medicineName"
-  ).value = item.name || "";
-
-
-  document.getElementById(
-    "medicineQuantity"
-  ).value = item.quantity || "";
-
-
-  document.getElementById(
-    "medicinePrice"
-  ).value = item.price || "";
-
-
-  document.getElementById(
-    "medicineDate"
-  ).value = item.date || "";
-
-
-  document.getElementById(
-    "medicineDescription"
-  ).value = item.description || "";
-
-
-  document.getElementById(
-    "medicineSaveButton"
-  ).textContent = "💾 Kaydi Isbeddelka";
-
-
-  document.getElementById(
-    "medicineCancelButton"
-  ).style.display = "block";
-
-
-  showMedicineType(medicineType);
-
-
-  document.getElementById(
-    "medicineSection"
-  ).scrollIntoView({
-    behavior:"smooth"
-  });
-}
-
-
-/* ================================
-   DELETE
-================================ */
-
-function deleteMedicine(id) {
-
-  const ok =
-    confirm(
-      "⚠️ Ma hubtaa inaad tirtirayso daawadan?"
-    );
-
-
-  if (!ok) return;
-
-
-  medicines =
-    medicines.filter(function(item) {
-
-      return item.id !== id;
-
-    });
-
-
-  localStorage.setItem(
-    "tacbo_medicines",
-    JSON.stringify(medicines)
-  );
-
-
-  renderMedicines();
-
-
-  alert("✅ Daawada waa la tirtiray.");
-}
-
-
-/* ================================
-   CANCEL EDIT
-================================ */
-
-function cancelMedicineEdit() {
-
-  editingMedicineId = null;
-
-  clearMedicineForm();
-
-
-  document.getElementById(
-    "medicineSaveButton"
-  ).textContent = "➕ Ku dar Daawo";
-
-
-  document.getElementById(
-    "medicineCancelButton"
-  ).style.display = "none";
-}
-
-
-/* ================================
-   CLEAR FORM
-================================ */
-
-function clearMedicineForm() {
-
-  document.getElementById(
-    "medicineName"
-  ).value = "";
-
-  document.getElementById(
-    "medicineQuantity"
-  ).value = "";
-
-  document.getElementById(
-    "medicinePrice"
-  ).value = "";
-
-  document.getElementById(
-    "medicineDate"
-  ).value = "";
-
-  document.getElementById(
-    "medicineDescription"
-  ).value = "";
-}
-
-
-/* ================================
-   SECURITY / HTML
-================================ */
-
-function escapeMedicineHTML(value) {
-
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-
-/* ================================
-   START
-================================ */
-
-showMedicineType("animal");
-
-</script>
-<div style="max-width:900px;margin:20px auto;padding:20px;background:#f4f8f5;border-radius:20px;">
-
-  <h2 style="text-align:center;color:#17231b;">
-    💊 Daawada Xoolaha & 🌱 Daawada Beerta
-  </h2>
-
-  <!-- TABS -->
-  <div style="display:flex;gap:10px;margin-bottom:20px;">
-    <button
-      type="button"
-      id="tacboVetTab"
-      onclick="tacboShowMedicine('animal')"
-      style="flex:1;padding:14px;border:0;border-radius:14px;background:#387d46;color:white;font-size:16px;font-weight:bold;">
-      💊 Daawada Xoolaha
-    </button>
-
-    <button
-      type="button"
-      id="tacboFarmTab"
-      onclick="tacboShowMedicine('farm')"
-      style="flex:1;padding:14px;border:0;border-radius:14px;background:#edf2ee;color:#17231b;font-size:16px;font-weight:bold;">
-      🌱 Daawada Beerta
-    </button>
-  </div>
-
-  <!-- FORM -->
-  <div style="background:white;padding:18px;border-radius:18px;margin-bottom:20px;">
-
-    <input
-      id="tacboMedicineName"
-      type="text"
-      placeholder="💊 Magaca daawada"
-      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
-
-    <input
-      id="tacboMedicineQuantity"
-      type="number"
-      placeholder="Tirada / Quantity"
-      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
-
-    <input
-      id="tacboMedicinePrice"
-      type="number"
-      step="0.01"
-      placeholder="💰 Qiimaha ($)"
-      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
-
-    <input
-      id="tacboMedicineDate"
-      type="date"
-      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;">
-
-    <textarea
-      id="tacboMedicineDescription"
-      placeholder="📝 Faahfaahin"
-      style="width:100%;box-sizing:border-box;padding:14px;margin-bottom:10px;border:1px solid #d5dfd8;border-radius:12px;font-size:16px;min-height:80px;"></textarea>
-
-    <button
-      type="button"
-      id="tacboMedicineSave"
-      onclick="tacboSaveMedicine()"
-      style="width:100%;padding:15px;border:0;border-radius:14px;background:#387d46;color:white;font-size:17px;font-weight:bold;">
-      ➕ Ku dar Daawo
-    </button>
-
-    <button
-      type="button"
-      id="tacboMedicineCancel"
-      onclick="tacboCancelMedicine()"
-      style="display:none;width:100%;padding:15px;margin-top:8px;border:0;border-radius:14px;background:#777;color:white;font-size:16px;font-weight:bold;">
-      ❌ Jooji Edit
-    </button>
-
-  </div>
-
-  <!-- LIST -->
-  <h3 id="tacboMedicineTitle" style="color:#17231b;">
-    💊 Daawooyinka Xoolaha
-  </h3>
-
-  <div id="tacboMedicineList"></div>
-
-</div>
-
-<script>
-(function(){
-
-  let tacboMedicineType = "animal";
-  let tacboEditingMedicineId = null;
-
-  let tacboMedicines = JSON.parse(
-    localStorage.getItem("tacbo_vet_farm_medicines") || "[]"
-  );
-
-  window.tacboShowMedicine = function(type){
-
-    tacboMedicineType = type;
-
-    const vetTab = document.getElementById("tacboVetTab");
-    const farmTab = document.getElementById("tacboFarmTab");
-    const title = document.getElementById("tacboMedicineTitle");
-
-    if(type === "animal"){
-
-      vetTab.style.background = "#387d46";
-      vetTab.style.color = "white";
-
-      farmTab.style.background = "#edf2ee";
-      farmTab.style.color = "#17231b";
-
-      title.textContent = "💊 Daawooyinka Xoolaha";
-
-    }else{
-
-      farmTab.style.background = "#387d46";
-      farmTab.style.color = "white";
-
-      vetTab.style.background = "#edf2ee";
-      vetTab.style.color = "#17231b";
-
-      title.textContent = "🌱 Daawooyinka Beerta";
-    }
-
-    tacboCancelMedicine();
-    tacboRenderMedicines();
-  };
-
-
-  window.tacboSaveMedicine = function(){
-
-    const name =
-      document.getElementById("tacboMedicineName").value.trim();
-
-    const quantity =
-      document.getElementById("tacboMedicineQuantity").value;
-
-    const price =
-      document.getElementById("tacboMedicinePrice").value;
-
-    const date =
-      document.getElementById("tacboMedicineDate").value;
-
-    const description =
-      document.getElementById("tacboMedicineDescription").value.trim();
-
-
-    if(!name){
-      alert("❌ Fadlan geli magaca daawada.");
-      return;
-    }
-
-    if(!quantity){
-      alert("❌ Fadlan geli tirada.");
-      return;
-    }
-
-
-    if(tacboEditingMedicineId){
-
-      const item = tacboMedicines.find(function(m){
-        return m.id === tacboEditingMedicineId;
-      });
-
-      if(item){
-
-        item.name = name;
-        item.quantity = quantity;
-        item.price = price;
-        item.date = date;
-        item.description = description;
-        item.type = tacboMedicineType;
-      }
-
-      alert("✅ Daawada waa la tafatiray.");
-
-    }else{
-
-      tacboMedicines.push({
-
-        id: Date.now().toString(),
-
-        type: tacboMedicineType,
-
-        name: name,
-
-        quantity: quantity,
-
-        price: price,
-
-        date: date,
-
-        description: description
-
-      });
-
-      alert("✅ Daawada waa la kaydiyey.");
-    }
-
-
-    localStorage.setItem(
-      "tacbo_vet_farm_medicines",
-      JSON.stringify(tacboMedicines)
-    );
-
-    tacboCancelMedicine();
-    tacboRenderMedicines();
-  };
-
-
-  window.tacboEditMedicine = function(id){
-
-    const item = tacboMedicines.find(function(m){
-      return m.id === id;
-    });
-
-    if(!item){
-      alert("❌ Daawada lama helin.");
-      return;
-    }
-
-    tacboEditingMedicineId = id;
-    tacboMedicineType = item.type;
-
-    document.getElementById("tacboMedicineName").value =
-      item.name || "";
-
-    document.getElementById("tacboMedicineQuantity").value =
-      item.quantity || "";
-
-    document.getElementById("tacboMedicinePrice").value =
-      item.price || "";
-
-    document.getElementById("tacboMedicineDate").value =
-      item.date || "";
-
-    document.getElementById("tacboMedicineDescription").value =
-      item.description || "";
-
-
-    document.getElementById("tacboMedicineSave").textContent =
-      "💾 Kaydi Isbeddelka";
-
-    document.getElementById("tacboMedicineCancel").style.display =
-      "block";
-
-    tacboShowMedicine(item.type);
-
-    window.scrollTo({
-      top: document.getElementById("medicineSection").offsetTop,
-      behavior: "smooth"
-    });
-  };
-
-
-  window.tacboDeleteMedicine = function(id){
-
-    const item = tacboMedicines.find(function(m){
-      return m.id === id;
-    });
-
-    if(!item) return;
-
-    const ok = confirm(
-      "Ma hubtaa inaad tirtirayso " + item.name + "?"
-    );
-
-    if(!ok) return;
-
-
-    tacboMedicines =
-      tacboMedicines.filter(function(m){
-        return m.id !== id;
-      });
-
-
-    localStorage.setItem(
-      "tacbo_vet_farm_medicines",
-      JSON.stringify(tacboMedicines)
-    );
-
-    alert("🗑️ Daawada waa la tirtiray.");
-
-    tacboRenderMedicines();
-  };
-
-
-  window.tacboCancelMedicine = function(){
-
-    tacboEditingMedicineId = null;
-
-    document.getElementById("tacboMedicineName").value = "";
-    document.getElementById("tacboMedicineQuantity").value = "";
-    document.getElementById("tacboMedicinePrice").value = "";
-    document.getElementById("tacboMedicineDate").value = "";
-    document.getElementById("tacboMedicineDescription").value = "";
-
-    document.getElementById("tacboMedicineSave").textContent =
-      "➕ Ku dar Daawo";
-
-    document.getElementById("tacboMedicineCancel").style.display =
-      "none";
-  };
-
-
-  function tacboRenderMedicines(){
-
-    const list =
-      document.getElementById("tacboMedicineList");
-
-    const filtered =
-      tacboMedicines.filter(function(item){
-        return item.type === tacboMedicineType;
-      });
-
-
-    if(filtered.length === 0){
-
-      list.innerHTML =
-        '<div style="background:white;padding:25px;text-align:center;border-radius:16px;color:#777;">' +
-        '📦 Xog wali lama hayo.' +
-        '</div>';
-
-      return;
-    }
-
-
-    list.innerHTML = filtered.map(function(item){
-
-      const total =
-        (Number(item.quantity) || 0) *
-        (Number(item.price) || 0);
-
-
-      return `
-        <div style="
-          background:white;
-          padding:16px;
-          margin-bottom:12px;
-          border-radius:16px;
-          border:1px solid #dce5df;
-        ">
-
-          <div style="font-size:18px;font-weight:bold;color:#17231b;">
-            ${item.type === "animal" ? "💊" : "🌱"}
-            ${tacboEscape(item.name)}
-          </div>
-
-          <div style="margin-top:8px;color:#536158;">
-            📦 Tirada: <strong>${tacboEscape(item.quantity)}</strong>
-          </div>
-
-          <div style="color:#536158;">
-            💰 Qiimaha: <strong>$${tacboEscape(item.price || 0)}</strong>
-          </div>
-
-          <div style="color:#536158;">
-            💵 Wadarta: <strong>$${total.toFixed(2)}</strong>
-          </div>
-
-          ${
-            item.date
-            ? `<div style="color:#536158;">📅 Taariikh: ${tacboEscape(item.date)}</div>`
-            : ""
-          }
-
-          ${
-            item.description
-            ? `<div style="margin-top:8px;color:#536158;">📝 ${tacboEscape(item.description)}</div>`
-            : ""
-          }
-
-          <div style="display:flex;gap:8px;margin-top:14px;">
-
-            <button
-              type="button"
-              onclick="tacboEditMedicine('${item.id}')"
-              style="
-                flex:1;
-                padding:11px;
-                border:0;
-                border-radius:10px;
-                background:#edf2ee;
-                color:#17231b;
-                font-weight:bold;
-              ">
-              ✏️ Edit
-            </button>
-
-            <button
-              type="button"
-              onclick="tacboDeleteMedicine('${item.id}')"
-              style="
-                flex:1;
-                padding:11px;
-                border:0;
-                border-radius:10px;
-                background:#ffe5e5;
-                color:#b00020;
-                font-weight:bold;
-              ">
-              🗑️ Delete
-            </button>
-
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
-  }
-
-
-  function tacboEscape(value){
-
-    return String(value ?? "")
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
-  }
-
-
-  tacboShowMedicine("animal");
-
-})();
-</script>
-<!-- 💊 DAAWADA XOOLAHA & 🌱 BEERTA -->
-<section id="medicineSection">
-    <!-- CODE-KA LABADA QAYBOOD HALKAN GALI -->
-</section>
 
 </body>
 </html>
-
