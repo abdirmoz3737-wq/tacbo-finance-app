@@ -10,9 +10,13 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:#f4f7f5;
   color:#17221b;
 }
@@ -20,42 +24,49 @@ body{
 header{
   background:#176b3a;
   color:white;
-  padding:18px;
+  padding:18px 12px;
   text-align:center;
   position:sticky;
   top:0;
-  z-index:5;
+  z-index:100;
 }
 
 header h1{
   margin:0;
-  font-size:24px;
+  font-size:25px;
 }
 
 header p{
-  margin:5px 0 0;
+  margin:6px 0 0;
   opacity:.9;
 }
 
 nav{
   display:flex;
   gap:7px;
-  overflow:auto;
+  overflow-x:auto;
   padding:10px;
   background:white;
   position:sticky;
   top:76px;
-  z-index:4;
+  z-index:99;
   border-bottom:1px solid #ddd;
 }
 
 nav button{
+  flex:0 0 auto;
   border:0;
   background:#eef3ef;
-  padding:10px 13px;
+  color:#17221b;
+  padding:11px 14px;
   border-radius:9px;
   white-space:nowrap;
   cursor:pointer;
+  font-size:14px;
+}
+
+nav button:hover{
+  background:#dfe9e2;
 }
 
 nav button.active{
@@ -64,7 +75,7 @@ nav button.active{
 }
 
 main{
-  max-width:1200px;
+  max-width:1250px;
   margin:auto;
   padding:15px;
 }
@@ -77,9 +88,13 @@ main{
   display:block;
 }
 
+h2{
+  margin-top:8px;
+}
+
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
   gap:12px;
 }
 
@@ -87,7 +102,7 @@ main{
   background:white;
   padding:16px;
   border-radius:14px;
-  box-shadow:0 2px 8px #00000010;
+  box-shadow:0 2px 8px #00000012;
 }
 
 .card h3{
@@ -97,69 +112,107 @@ main{
 }
 
 .amount{
-  font-size:25px;
+  font-size:24px;
   font-weight:bold;
 }
 
-form,.panel{
+form,
+.panel{
   background:white;
   padding:16px;
   border-radius:14px;
   margin:12px 0;
-  box-shadow:0 2px 8px #00000010;
+  box-shadow:0 2px 8px #00000012;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccd5cf;
-  border-radius:8px;
-  margin-top:5px;
-  background:white;
+  gap:12px;
 }
 
 label{
+  display:block;
   font-size:13px;
   font-weight:bold;
 }
 
+input,
+select,
+textarea{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-top:5px;
+  border:1px solid #ccd5cf;
+  border-radius:9px;
+  background:white;
+  color:#17221b;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border:2px solid #176b3a;
+}
+
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
 .btn{
   border:0;
-  padding:10px 14px;
-  border-radius:8px;
+  padding:11px 15px;
+  border-radius:9px;
   cursor:pointer;
   margin-top:10px;
+  font-size:14px;
 }
 
 .primary{
   background:#176b3a;
-  color:#fff;
+  color:white;
 }
 
 .danger{
   background:#b42318;
-  color:#fff;
+  color:white;
 }
 
 .secondary{
   background:#e9eeeb;
+  color:#17221b;
+}
+
+.warning{
+  background:#f2b233;
+  color:#17221b;
+}
+
+.small{
+  padding:7px 9px;
+  font-size:12px;
+  margin:2px;
+}
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  background:white;
+  border-radius:12px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  background:white;
-  margin-top:12px;
-  min-width:650px;
+  min-width:750px;
 }
 
-th,td{
+th,
+td{
   padding:10px;
   border-bottom:1px solid #e5e9e6;
   text-align:left;
@@ -170,16 +223,23 @@ th{
   background:#eef3ef;
 }
 
-.table-wrap{
-  overflow:auto;
+.actions{
+  white-space:nowrap;
 }
 
-.actions button{
-  margin:2px;
-  padding:6px 9px;
-  border:0;
-  border-radius:6px;
-  cursor:pointer;
+.notice{
+  padding:13px;
+  border-radius:9px;
+  background:#fff8df;
+  margin:10px 0;
+}
+
+.success{
+  padding:12px;
+  border-radius:9px;
+  background:#e9f7ee;
+  color:#176b3a;
+  margin:10px 0;
 }
 
 .stat-good{
@@ -190,34 +250,119 @@ th{
   color:#b42318;
 }
 
-.notice{
-  padding:12px;
-  border-radius:9px;
-  background:#fff8df;
+.search-box{
   margin:10px 0;
 }
 
-footer{
+.search-box input{
+  max-width:500px;
+}
+
+.empty{
   text-align:center;
   padding:25px;
   color:#68736c;
 }
 
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#68736c;
+}
+
+.calc{
+  max-width:430px;
+}
+
+.calc-display{
+  width:100%;
+  height:60px;
+  font-size:25px;
+  text-align:right;
+  margin-bottom:10px;
+}
+
+.calc-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.calc-grid button{
+  min-height:55px;
+  font-size:18px;
+  margin:0;
+}
+
+.report-title{
+  text-align:center;
+}
+
+.report-line{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+}
+
 @media(max-width:600px){
+
   header{
-    padding:14px;
+    padding:14px 10px;
+  }
+
+  header h1{
+    font-size:21px;
   }
 
   nav{
-    top:66px;
+    top:67px;
   }
 
   main{
-    padding:10px;
+    padding:9px;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .card{
+    padding:12px;
   }
 
   .amount{
-    font-size:21px;
+    font-size:19px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .btn{
+    width:auto;
+  }
+}
+
+@media print{
+
+  header,
+  nav,
+  .no-print,
+  footer{
+    display:none!important;
+  }
+
+  .page{
+    display:none!important;
+  }
+
+  #reports{
+    display:block!important;
+  }
+
+  body{
+    background:white;
   }
 }
 </style>
@@ -232,7 +377,8 @@ footer{
 
 <nav id="nav">
 
-<button class="active" onclick="showPage('dashboard',this)">
+<button class="active"
+onclick="showPage('dashboard',this)">
 🏠 Dashboard
 </button>
 
@@ -280,7 +426,7 @@ footer{
 
 <section id="dashboard" class="page active">
 
-<h2>Dashboard</h2>
+<h2>🏠 Dashboard</h2>
 
 <div class="cards">
 
@@ -300,8 +446,13 @@ footer{
 </div>
 
 <div class="card">
-<h3>🤝 Deynta</h3>
-<div id="dDebt" class="amount">$0.00</div>
+<h3>🤝 Lagugu leeyahay</h3>
+<div id="dReceivable" class="amount">$0.00</div>
+</div>
+
+<div class="card">
+<h3>🤝 Aad leedahay</h3>
+<div id="dPayable" class="amount">$0.00</div>
 </div>
 
 <div class="card">
@@ -322,12 +473,26 @@ footer{
 
 <p>
 🕳️ <b>Ceel = Hanti</b>
-&nbsp; | &nbsp;
+</p>
+
+<p>
 💧 <b>Waraab = Kharash</b>
 </p>
 
 <p>
-Wax kasta oo aad geliso waxaa lagu kaydinayaa qalabkaaga.
+🐄 <b>Ari, Lo', Geel, Digaag = Xoolo</b>
+</p>
+
+<p>
+☀️ <b>Solar = Hanti</b>
+</p>
+
+<p>
+🚜 <b>Tractor = Hanti</b>
+</p>
+
+<p>
+🌍 <b>Dhul = Hanti</b>
 </p>
 
 </div>
@@ -352,26 +517,49 @@ Taariikh
 
 <label>
 Nooca
-<input id="inType" placeholder="Caano, galley, ari..." required>
+<input
+id="inType"
+type="text"
+placeholder="Caano, galley, ari..."
+autocomplete="off"
+required>
 </label>
 
 <label>
-Qadarka
-<input id="inAmount" type="number" step="0.01" min="0" required>
+Qadarka ($)
+<input
+id="inAmount"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+required>
 </label>
 
 <label>
 Faahfaahin
-<input id="inNote" placeholder="Faahfaahin">
+<input
+id="inNote"
+type="text"
+placeholder="Faahfaahin"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar dakhli
 </button>
 
 </form>
+
+<div class="search-box">
+<input
+id="incomeSearch"
+type="search"
+placeholder="🔎 Raadi dakhli..."
+oninput="renderIncome()">
+</div>
 
 <div id="incomeTable"></div>
 
@@ -414,22 +602,39 @@ Nooca
 </label>
 
 <label>
-Qadarka
-<input id="exAmount" type="number" step="0.01" min="0" required>
+Qadarka ($)
+<input
+id="exAmount"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+required>
 </label>
 
 <label>
 Faahfaahin
-<input id="exNote">
+<input
+id="exNote"
+type="text"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar kharash
 </button>
 
 </form>
+
+<div class="search-box">
+<input
+id="expenseSearch"
+type="search"
+placeholder="🔎 Raadi kharash..."
+oninput="renderExpense()">
+</div>
 
 <div id="expenseTable"></div>
 
@@ -453,7 +658,11 @@ Taariikh
 
 <label>
 Qof/Shirkad
-<input id="dePerson" required>
+<input
+id="dePerson"
+type="text"
+autocomplete="off"
+required>
 </label>
 
 <label>
@@ -469,22 +678,39 @@ Nooca
 </label>
 
 <label>
-Qadarka
-<input id="deAmount" type="number" step="0.01" min="0" required>
+Qadarka ($)
+<input
+id="deAmount"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+required>
 </label>
 
 <label>
 Faahfaahin
-<input id="deNote">
+<input
+id="deNote"
+type="text"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar deyn
 </button>
 
 </form>
+
+<div class="search-box">
+<input
+id="debtSearch"
+type="search"
+placeholder="🔎 Raadi qof/shirkad..."
+oninput="renderDebt()">
+</div>
 
 <div id="debtTable"></div>
 
@@ -501,10 +727,12 @@ Faahfaahin
 
 Waxaad maamuli kartaa:
 
-🐑 Ari |
-🐄 Lo' |
-🐪 Geel |
-🐔 Digaag
+<b>Ari</b>,
+<b>Lo'</b>,
+<b>Geel</b>,
+<b>Digaag</b>.
+
+Dhalasho, dhimasho, iib, iibsasho iyo bilow.
 
 </div>
 
@@ -548,22 +776,36 @@ Dhacdo
 
 <label>
 Tiro
-<input id="lvQty" type="number" min="1" required>
+<input
+id="lvQty"
+type="number"
+inputmode="numeric"
+min="1"
+required>
 </label>
 
 <label>
 Qiime ($)
-<input id="lvValue" type="number" step="0.01" min="0" value="0">
+<input
+id="lvValue"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+value="0">
 </label>
 
 <label>
 Faahfaahin
-<input id="lvNote">
+<input
+id="lvNote"
+type="text"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar xoolo
 </button>
 
@@ -604,22 +846,40 @@ Nooca caanaha
 
 <label>
 Litir
-<input id="mkLiters" type="number" step="0.1" min="0" required>
+<input
+id="mkLiters"
+type="number"
+inputmode="decimal"
+step="0.1"
+min="0"
+required>
 </label>
 
 <label>
 Litirkii ($)
-<input id="mkPrice" type="number" step="0.01" min="0" required>
+<input
+id="mkPrice"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+required>
 </label>
 
 <label>
 La iibiyey (Litir)
-<input id="mkSold" type="number" step="0.1" min="0" value="0">
+<input
+id="mkSold"
+type="number"
+inputmode="decimal"
+step="0.1"
+min="0"
+value="0">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar caano
 </button>
 
@@ -647,32 +907,55 @@ Taariikh
 
 <label>
 Dalag
-<input id="fmCrop" placeholder="Galley, khudaar..." required>
+<input
+id="fmCrop"
+type="text"
+placeholder="Galley, khudaar..."
+autocomplete="off"
+required>
 </label>
 
 <label>
 Hektar
-<input id="fmHa" type="number" step="0.01" min="0">
+<input
+id="fmHa"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0">
 </label>
 
 <label>
 Wax-soo-saar (kg)
-<input id="fmYield" type="number" step="0.1" min="0">
+<input
+id="fmYield"
+type="number"
+inputmode="decimal"
+step="0.1"
+min="0">
 </label>
 
 <label>
 Qiimaha iibka ($)
-<input id="fmSale" type="number" step="0.01" min="0">
+<input
+id="fmSale"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0">
 </label>
 
 <label>
 Faahfaahin
-<input id="fmNote">
+<input
+id="fmNote"
+type="text"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar Farm
 </button>
 
@@ -691,13 +974,13 @@ Faahfaahin
 
 <div class="notice">
 
-🕳️ Ceel |
-☀️ Solar |
-🚜 Tractor |
-🌍 Dhul |
-⚙️ Mashiin |
+🕳️ Ceel,
+☀️ Solar,
+🚜 Tractor,
+🌍 Dhul,
+⚙️ Mashiin,
+🧰 Qalab,
 🏠 Dhismo
-
 dhammaantood hanti ayay noqon karaan.
 
 </div>
@@ -731,22 +1014,35 @@ Nooca
 
 <label>
 Magaca
-<input id="asName" required>
+<input
+id="asName"
+type="text"
+autocomplete="off"
+required>
 </label>
 
 <label>
 Qiimaha ($)
-<input id="asValue" type="number" step="0.01" min="0" required>
+<input
+id="asValue"
+type="number"
+inputmode="decimal"
+step="0.01"
+min="0"
+required>
 </label>
 
 <label>
 Faahfaahin
-<input id="asNote">
+<input
+id="asNote"
+type="text"
+autocomplete="off">
 </label>
 
 </div>
 
-<button class="btn primary">
+<button class="btn primary" type="submit">
 ➕ Ku dar hanti
 </button>
 
@@ -763,48 +1059,45 @@ Faahfaahin
 
 <h2>🧮 Calculator</h2>
 
-<div class="panel" style="max-width:420px">
+<div class="panel calc">
 
 <input
 id="calc"
-readonly
-style="font-size:24px;text-align:right"
->
+class="calc-display"
+type="text"
+readonly>
 
-<div
-class="grid"
-style="grid-template-columns:repeat(4,1fr);margin-top:10px"
->
+<div class="calc-grid">
 
-<button class="btn secondary" onclick="c('7')">7</button>
-<button class="btn secondary" onclick="c('8')">8</button>
-<button class="btn secondary" onclick="c('9')">9</button>
-<button class="btn secondary" onclick="c('/')">÷</button>
+<button class="btn secondary" onclick="calcAdd('7')">7</button>
+<button class="btn secondary" onclick="calcAdd('8')">8</button>
+<button class="btn secondary" onclick="calcAdd('9')">9</button>
+<button class="btn secondary" onclick="calcAdd('/')">÷</button>
 
-<button class="btn secondary" onclick="c('4')">4</button>
-<button class="btn secondary" onclick="c('5')">5</button>
-<button class="btn secondary" onclick="c('6')">6</button>
-<button class="btn secondary" onclick="c('*')">×</button>
+<button class="btn secondary" onclick="calcAdd('4')">4</button>
+<button class="btn secondary" onclick="calcAdd('5')">5</button>
+<button class="btn secondary" onclick="calcAdd('6')">6</button>
+<button class="btn secondary" onclick="calcAdd('*')">×</button>
 
-<button class="btn secondary" onclick="c('1')">1</button>
-<button class="btn secondary" onclick="c('2')">2</button>
-<button class="btn secondary" onclick="c('3')">3</button>
-<button class="btn secondary" onclick="c('-')">−</button>
+<button class="btn secondary" onclick="calcAdd('1')">1</button>
+<button class="btn secondary" onclick="calcAdd('2')">2</button>
+<button class="btn secondary" onclick="calcAdd('3')">3</button>
+<button class="btn secondary" onclick="calcAdd('-')">−</button>
 
-<button class="btn secondary" onclick="c('0')">0</button>
-<button class="btn secondary" onclick="c('.')">.</button>
-<button class="btn primary" onclick="equal()">=</button>
-<button class="btn secondary" onclick="c('+')">+</button>
+<button class="btn secondary" onclick="calcAdd('0')">0</button>
+<button class="btn secondary" onclick="calcAdd('.')">.</button>
+<button class="btn primary" onclick="calculate()">=</button>
+<button class="btn secondary" onclick="calcAdd('+')">+</button>
 
 <button
 class="btn danger"
 style="grid-column:span 4"
-onclick="clr()"
->
+onclick="clearCalc()">
 C
 </button>
 
 </div>
+
 </div>
 
 </section>
@@ -820,39 +1113,84 @@ C
 
 <div class="card">
 <h3>Dakhli guud</h3>
-<div id="rIncome" class="amount">$0</div>
+<div id="rIncome" class="amount">$0.00</div>
 </div>
 
 <div class="card">
 <h3>Kharash guud</h3>
-<div id="rExpense" class="amount">$0</div>
+<div id="rExpense" class="amount">$0.00</div>
 </div>
 
 <div class="card">
 <h3>Faa'iido</h3>
-<div id="rProfit" class="amount">$0</div>
+<div id="rProfit" class="amount">$0.00</div>
 </div>
 
 <div class="card">
 <h3>Qiimaha hantida</h3>
-<div id="rAssets" class="amount">$0</div>
+<div id="rAssets" class="amount">$0.00</div>
 </div>
 
 </div>
 
 <div class="panel">
 
+<h3 class="report-title">
+🌾 TACBO Agro Finance Report
+</h3>
+
+<div class="report-line">
+<span>Dakhli</span>
+<b id="reportIncomeLine">$0.00</b>
+</div>
+
+<div class="report-line">
+<span>Kharash</span>
+<b id="reportExpenseLine">$0.00</b>
+</div>
+
+<div class="report-line">
+<span>Faa'iido</span>
+<b id="reportProfitLine">$0.00</b>
+</div>
+
+<div class="report-line">
+<span>Hanti</span>
+<b id="reportAssetsLine">$0.00</b>
+</div>
+
+</div>
+
+<div class="panel no-print">
+
 <button
 class="btn primary"
-onclick="window.print()"
->
+onclick="window.print()">
 🖨️ Print Report
 </button>
 
 <button
+class="btn secondary"
+onclick="exportData()">
+💾 Backup
+</button>
+
+<button
+class="btn secondary"
+onclick="document.getElementById('restoreFile').click()">
+📥 Restore
+</button>
+
+<input
+id="restoreFile"
+type="file"
+accept=".json"
+style="display:none"
+onchange="restoreData(event)">
+
+<button
 class="btn danger"
-onclick="resetAll()"
->
+onclick="resetAll()">
 🗑️ Tirtir dhammaan xogta
 </button>
 
@@ -864,690 +1202,1792 @@ onclick="resetAll()"
 
 <footer>
 TACBO Agro Agriculture & Livestock Company
+<br>
+Finance App
 </footer>
 
 
 <script>
 
-const KEY='tacbo_agro_v2';
+/* =========================================================
+   TACBO AGRO FINANCE
+   VERSION 3
+   ========================================================= */
 
-let db=JSON.parse(
-localStorage.getItem(KEY) ||
-'{"income":[],"expense":[],"debt":[],"livestock":[],"milk":[],"farm":[],"assets":[]}'
-);
+const KEY = "tacbo_agro_v3";
 
-const today=new Date()
-.toISOString()
-.slice(0,10);
+const emptyDB = {
+
+  income:[],
+  expense:[],
+  debt:[],
+  livestock:[],
+  milk:[],
+  farm:[],
+  assets:[]
+
+};
+
+let db = loadDB();
+
+
+/* =========================================================
+   LOAD DATABASE
+   ========================================================= */
+
+function loadDB(){
+
+  try{
+
+    const current =
+      JSON.parse(
+        localStorage.getItem(KEY) || "null"
+      );
+
+    if(current){
+
+      return Object.assign(
+        {},
+        emptyDB,
+        current
+      );
+
+    }
+
+    const old =
+      JSON.parse(
+        localStorage.getItem(
+          "tacbo_agro_v2"
+        ) || "null"
+      );
+
+    if(old){
+
+      return Object.assign(
+        {},
+        emptyDB,
+        old
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  return JSON.parse(
+    JSON.stringify(emptyDB)
+  );
+
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+const today =
+  new Date()
+  .toISOString()
+  .slice(0,10);
+
 
 document
-.querySelectorAll('input[type=date]')
-.forEach(x=>x.value=today);
+  .querySelectorAll(
+    'input[type="date"]'
+  )
+  .forEach(
+    input => input.value = today
+  );
 
+
+/* =========================================================
+   FORMAT MONEY
+   ========================================================= */
+
+function money(value){
+
+  return "$" +
+    Number(value || 0)
+    .toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      char => {
+
+        const map = {
+
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
+
+        };
+
+        return map[char];
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
 
 function persist(){
 
-localStorage.setItem(
-KEY,
-JSON.stringify(db)
-);
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(db)
+  );
 
-renderAll();
-
-}
-
-
-function money(n){
-
-return '$'+Number(n||0)
-.toLocaleString(
-undefined,
-{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-}
-);
+  renderAll();
 
 }
 
 
-function esc(s){
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
 
-return String(s??'')
-.replace(
-/[&<>"']/g,
-m=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[m])
-);
+function showPage(id,button){
 
-}
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      page =>
+      page.classList.remove("active")
+    );
 
+  const page =
+    document.getElementById(id);
 
-function showPage(id,btn){
+  if(page){
 
-document
-.querySelectorAll('.page')
-.forEach(p=>p.classList.remove('active'));
+    page.classList.add("active");
 
-document
-.getElementById(id)
-.classList.add('active');
+  }
 
-document
-.querySelectorAll('nav button')
-.forEach(b=>b.classList.remove('active'));
+  document
+    .querySelectorAll("nav button")
+    .forEach(
+      btn =>
+      btn.classList.remove("active")
+    );
 
-btn.classList.add('active');
+  if(button){
 
-window.scrollTo(0,0);
+    button.classList.add("active");
 
-}
+  }
 
-
-function add(arr,obj){
-
-obj.id=Date.now()+Math.random();
-
-db[arr].push(obj);
-
-persist();
+  window.scrollTo(0,0);
 
 }
 
 
-function del(arr,id){
+/* =========================================================
+   ADD
+   ========================================================= */
 
-if(
-confirm(
-'Ma hubtaa inaad tirtirayso?'
-)
-){
+function addRecord(type,data){
 
-db[arr]=db[arr].filter(
-x=>String(x.id)!==String(id)
-);
+  data.id =
+    Date.now() +
+    Math.random();
 
-persist();
+  db[type].push(data);
 
-}
+  persist();
 
 }
 
 
-function edit(arr,id){
+/* =========================================================
+   DELETE
+   ========================================================= */
 
-const x=db[arr].find(
-a=>String(a.id)===String(id)
-);
+function deleteRecord(type,id){
 
-if(!x)return;
+  if(
+    !confirm(
+      "Ma hubtaa inaad tirtirayso?"
+    )
+  ){
 
-const fields=Object.keys(x)
-.filter(k=>k!=='id');
+    return;
 
-for(const k of fields){
+  }
 
-const v=prompt(
-'Wax ka beddel '+k,
-x[k]
-);
+  db[type] =
+    db[type].filter(
+      item =>
+      String(item.id) !==
+      String(id)
+    );
 
-if(v!==null){
-
-x[k]=(
-k==='amount' ||
-k==='qty' ||
-k==='value' ||
-k==='liters' ||
-k==='price' ||
-k==='sold' ||
-k==='ha' ||
-k==='yield' ||
-k==='sale'
-)
-?Number(v)
-:v;
-
-}
-
-}
-
-persist();
+  persist();
 
 }
 
 
-function table(arr,headers,rows){
+/* =========================================================
+   EDIT
+   ========================================================= */
 
-if(!db[arr].length){
+function editRecord(type,id){
 
-return `
-<div class="panel">
-Wax xog ah weli laguma darin.
-</div>
-`;
+  const item =
+    db[type].find(
+      x =>
+      String(x.id) ===
+      String(id)
+    );
 
-}
+  if(!item){
 
-return `
-<div class="table-wrap">
+    return;
 
-<table>
+  }
 
-<thead>
+  const numericFields = [
 
-<tr>
+    "amount",
+    "qty",
+    "value",
+    "liters",
+    "price",
+    "sold",
+    "ha",
+    "yield",
+    "sale"
 
-${headers
-.map(h=>'<th>'+h+'</th>')
-.join('')
-}
+  ];
 
-<th>Action</th>
+  Object.keys(item)
+    .filter(key => key !== "id")
+    .forEach(key => {
 
-</tr>
+      const newValue =
+        prompt(
+          "Wax ka beddel " +
+          key,
+          item[key]
+        );
 
-</thead>
+      if(newValue !== null){
 
-<tbody>
+        if(
+          numericFields.includes(key)
+        ){
 
-${rows.join('')}
+          item[key] =
+            Number(newValue) || 0;
 
-</tbody>
+        }else{
 
-</table>
+          item[key] =
+            newValue;
 
-</div>
-`;
+        }
 
-}
+      }
 
+    });
 
-function action(arr,id){
-
-return `
-<td class="actions">
-
-<button
-onclick="edit('${arr}','${id}')"
->
-✏️ Edit
-</button>
-
-<button
-onclick="del('${arr}','${id}')"
-class="danger"
->
-🗑️ Delete
-</button>
-
-</td>
-`;
-
-}
-
-
-function saveIncome(e){
-
-e.preventDefault();
-
-add(
-'income',
-{
-date:inDate.value,
-type:inType.value,
-amount:Number(inAmount.value),
-note:inNote.value
-}
-);
-
-e.target.reset();
-
-inDate.value=today;
+  persist();
 
 }
 
 
-function saveExpense(e){
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
 
-e.preventDefault();
+function actions(type,id){
 
-add(
-'expense',
-{
-date:exDate.value,
-type:exType.value,
-amount:Number(exAmount.value),
-note:exNote.value
-}
-);
+  return `
 
-e.target.reset();
+  <td class="actions">
 
-exDate.value=today;
+    <button
+      class="btn warning small"
+      onclick="editRecord('${type}','${id}')">
 
-}
+      ✏️ Edit
 
+    </button>
 
-function saveDebt(e){
+    <button
+      class="btn danger small"
+      onclick="deleteRecord('${type}','${id}')">
 
-e.preventDefault();
+      🗑️ Delete
 
-add(
-'debt',
-{
-date:deDate.value,
-person:dePerson.value,
-kind:deKind.value,
-amount:Number(deAmount.value),
-note:deNote.value
-}
-);
+    </button>
 
-e.target.reset();
+  </td>
 
-deDate.value=today;
+  `;
 
 }
 
 
-function saveLivestock(e){
+/* =========================================================
+   SAVE INCOME
+   ========================================================= */
 
-e.preventDefault();
+function saveIncome(event){
 
-add(
-'livestock',
-{
-date:lvDate.value,
-type:lvType.value,
-event:lvEvent.value,
-qty:Number(lvQty.value),
-value:Number(lvValue.value),
-note:lvNote.value
-}
-);
+  event.preventDefault();
 
-e.target.reset();
+  addRecord(
+    "income",
+    {
 
-lvDate.value=today;
+      date:
+        document.getElementById(
+          "inDate"
+        ).value,
 
-}
+      type:
+        document.getElementById(
+          "inType"
+        ).value.trim(),
 
+      amount:
+        Number(
+          document.getElementById(
+            "inAmount"
+          ).value
+        ),
 
-function saveMilk(e){
+      note:
+        document.getElementById(
+          "inNote"
+        ).value.trim()
 
-e.preventDefault();
+    }
+  );
 
-add(
-'milk',
-{
-date:mkDate.value,
-type:mkType.value,
-liters:Number(mkLiters.value),
-price:Number(mkPrice.value),
-sold:Number(mkSold.value)
-}
-);
+  event.target.reset();
 
-e.target.reset();
-
-mkDate.value=today;
-
-}
-
-
-function saveFarm(e){
-
-e.preventDefault();
-
-add(
-'farm',
-{
-date:fmDate.value,
-crop:fmCrop.value,
-ha:Number(fmHa.value),
-yield:Number(fmYield.value),
-sale:Number(fmSale.value),
-note:fmNote.value
-}
-);
-
-e.target.reset();
-
-fmDate.value=today;
+  document.getElementById(
+    "inDate"
+  ).value = today;
 
 }
 
 
-function saveAsset(e){
+/* =========================================================
+   SAVE EXPENSE
+   ========================================================= */
 
-e.preventDefault();
+function saveExpense(event){
 
-add(
-'assets',
-{
-date:asDate.value,
-type:asType.value,
-name:asName.value,
-value:Number(asValue.value),
-note:asNote.value
+  event.preventDefault();
+
+  addRecord(
+    "expense",
+    {
+
+      date:
+        document.getElementById(
+          "exDate"
+        ).value,
+
+      type:
+        document.getElementById(
+          "exType"
+        ).value,
+
+      amount:
+        Number(
+          document.getElementById(
+            "exAmount"
+          ).value
+        ),
+
+      note:
+        document.getElementById(
+          "exNote"
+        ).value.trim()
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "exDate"
+  ).value = today;
+
 }
-);
 
-e.target.reset();
 
-asDate.value=today;
+/* =========================================================
+   SAVE DEBT
+   ========================================================= */
+
+function saveDebt(event){
+
+  event.preventDefault();
+
+  addRecord(
+    "debt",
+    {
+
+      date:
+        document.getElementById(
+          "deDate"
+        ).value,
+
+      person:
+        document.getElementById(
+          "dePerson"
+        ).value.trim(),
+
+      kind:
+        document.getElementById(
+          "deKind"
+        ).value,
+
+      amount:
+        Number(
+          document.getElementById(
+            "deAmount"
+          ).value
+        ),
+
+      note:
+        document.getElementById(
+          "deNote"
+        ).value.trim()
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "deDate"
+  ).value = today;
 
 }
 
+
+/* =========================================================
+   SAVE LIVESTOCK
+   ========================================================= */
+
+function saveLivestock(event){
+
+  event.preventDefault();
+
+  addRecord(
+    "livestock",
+    {
+
+      date:
+        document.getElementById(
+          "lvDate"
+        ).value,
+
+      type:
+        document.getElementById(
+          "lvType"
+        ).value,
+
+      event:
+        document.getElementById(
+          "lvEvent"
+        ).value,
+
+      qty:
+        Number(
+          document.getElementById(
+            "lvQty"
+          ).value
+        ),
+
+      value:
+        Number(
+          document.getElementById(
+            "lvValue"
+          ).value
+        ),
+
+      note:
+        document.getElementById(
+          "lvNote"
+        ).value.trim()
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "lvDate"
+  ).value = today;
+
+  document.getElementById(
+    "lvValue"
+  ).value = 0;
+
+}
+
+
+/* =========================================================
+   SAVE MILK
+   ========================================================= */
+
+function saveMilk(event){
+
+  event.preventDefault();
+
+  addRecord(
+    "milk",
+    {
+
+      date:
+        document.getElementById(
+          "mkDate"
+        ).value,
+
+      type:
+        document.getElementById(
+          "mkType"
+        ).value,
+
+      liters:
+        Number(
+          document.getElementById(
+            "mkLiters"
+          ).value
+        ),
+
+      price:
+        Number(
+          document.getElementById(
+            "mkPrice"
+          ).value
+        ),
+
+      sold:
+        Number(
+          document.getElementById(
+            "mkSold"
+          ).value
+        )
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "mkDate"
+  ).value = today;
+
+  document.getElementById(
+    "mkSold"
+  ).value = 0;
+
+}
+
+
+/* =========================================================
+   SAVE FARM
+   ========================================================= */
+
+function saveFarm(event){
+
+  event.preventDefault();
+
+  addRecord(
+    "farm",
+    {
+
+      date:
+        document.getElementById(
+          "fmDate"
+        ).value,
+
+      crop:
+        document.getElementById(
+          "fmCrop"
+        ).value.trim(),
+
+      ha:
+        Number(
+          document.getElementById(
+            "fmHa"
+          ).value || 0
+        ),
+
+      yield:
+        Number(
+          document.getElementById(
+            "fmYield"
+          ).value || 0
+        ),
+
+      sale:
+        Number(
+          document.getElementById(
+            "fmSale"
+          ).value || 0
+        ),
+
+      note:
+        document.getElementById(
+          "fmNote"
+        ).value.trim()
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "fmDate"
+  ).value = today;
+
+}
+
+
+/* =========================================================
+   SAVE ASSET
+   ========================================================= */
+
+function saveAsset(event){
+
+  event.preventDefault();
+
+  addRecord(
+    "assets",
+    {
+
+      date:
+        document.getElementById(
+          "asDate"
+        ).value,
+
+      type:
+        document.getElementById(
+          "asType"
+        ).value,
+
+      name:
+        document.getElementById(
+          "asName"
+        ).value.trim(),
+
+      value:
+        Number(
+          document.getElementById(
+            "asValue"
+          ).value
+        ),
+
+      note:
+        document.getElementById(
+          "asNote"
+        ).value.trim()
+
+    }
+  );
+
+  event.target.reset();
+
+  document.getElementById(
+    "asDate"
+  ).value = today;
+
+}
+
+
+/* =========================================================
+   GENERIC TABLE
+   ========================================================= */
+
+function emptyMessage(){
+
+  return `
+
+  <div class="panel empty">
+
+    Wax xog ah weli laguma darin.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER INCOME
+   ========================================================= */
+
+function renderIncome(){
+
+  const search =
+    (
+      document.getElementById(
+        "incomeSearch"
+      )?.value || ""
+    ).toLowerCase();
+
+  const data =
+    db.income.filter(item =>
+
+      (
+        item.date +
+        " " +
+        item.type +
+        " " +
+        item.note
+      )
+      .toLowerCase()
+      .includes(search)
+
+    );
+
+  if(!data.length){
+
+    document.getElementById(
+      "incomeTable"
+    ).innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  document.getElementById(
+    "incomeTable"
+  ).innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Nooc</th>
+  <th>Qadarka</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    data.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.type)}</td>
+
+      <td>${money(item.amount)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "income",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER EXPENSE
+   ========================================================= */
+
+function renderExpense(){
+
+  const search =
+    (
+      document.getElementById(
+        "expenseSearch"
+      )?.value || ""
+    ).toLowerCase();
+
+  const data =
+    db.expense.filter(item =>
+
+      (
+        item.date +
+        " " +
+        item.type +
+        " " +
+        item.note
+      )
+      .toLowerCase()
+      .includes(search)
+
+    );
+
+  if(!data.length){
+
+    document.getElementById(
+      "expenseTable"
+    ).innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  document.getElementById(
+    "expenseTable"
+  ).innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Nooc</th>
+  <th>Qadarka</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    data.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.type)}</td>
+
+      <td>${money(item.amount)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "expense",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER DEBT
+   ========================================================= */
+
+function renderDebt(){
+
+  const search =
+    (
+      document.getElementById(
+        "debtSearch"
+      )?.value || ""
+    ).toLowerCase();
+
+  const data =
+    db.debt.filter(item =>
+
+      (
+        item.date +
+        " " +
+        item.person +
+        " " +
+        item.kind +
+        " " +
+        item.note
+      )
+      .toLowerCase()
+      .includes(search)
+
+    );
+
+  if(!data.length){
+
+    document.getElementById(
+      "debtTable"
+    ).innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  document.getElementById(
+    "debtTable"
+  ).innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Qof</th>
+  <th>Nooc</th>
+  <th>Qadarka</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    data.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.person)}</td>
+
+      <td>${esc(item.kind)}</td>
+
+      <td>${money(item.amount)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "debt",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER LIVESTOCK
+   ========================================================= */
+
+function renderLivestock(){
+
+  const target =
+    document.getElementById(
+      "livestockTable"
+    );
+
+  if(!db.livestock.length){
+
+    target.innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  target.innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Nooc</th>
+  <th>Dhacdo</th>
+  <th>Tiro</th>
+  <th>Qiime</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    db.livestock.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.type)}</td>
+
+      <td>${esc(item.event)}</td>
+
+      <td>${item.qty}</td>
+
+      <td>${money(item.value)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "livestock",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER MILK
+   ========================================================= */
+
+function renderMilk(){
+
+  const target =
+    document.getElementById(
+      "milkTable"
+    );
+
+  if(!db.milk.length){
+
+    target.innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  target.innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Nooc</th>
+  <th>Litir</th>
+  <th>Qiime/L</th>
+  <th>La iibiyey</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    db.milk.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.type)}</td>
+
+      <td>${item.liters}</td>
+
+      <td>${money(item.price)}</td>
+
+      <td>${item.sold}</td>
+
+      ${actions(
+        "milk",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER FARM
+   ========================================================= */
+
+function renderFarm(){
+
+  const target =
+    document.getElementById(
+      "farmTable"
+    );
+
+  if(!db.farm.length){
+
+    target.innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  target.innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Dalag</th>
+  <th>Hektar</th>
+  <th>Wax-soo-saar kg</th>
+  <th>Iib $</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    db.farm.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.crop)}</td>
+
+      <td>${item.ha}</td>
+
+      <td>${item.yield}</td>
+
+      <td>${money(item.sale)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "farm",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER ASSETS
+   ========================================================= */
+
+function renderAssets(){
+
+  const target =
+    document.getElementById(
+      "assetTable"
+    );
+
+  if(!db.assets.length){
+
+    target.innerHTML =
+      emptyMessage();
+
+    return;
+
+  }
+
+  target.innerHTML = `
+
+  <div class="table-wrap">
+
+  <table>
+
+  <thead>
+
+  <tr>
+
+  <th>Taariikh</th>
+  <th>Nooc</th>
+  <th>Magac</th>
+  <th>Qiime</th>
+  <th>Faahfaahin</th>
+  <th>Action</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  ${
+
+    db.assets.map(item => `
+
+      <tr>
+
+      <td>${esc(item.date)}</td>
+
+      <td>${esc(item.type)}</td>
+
+      <td>${esc(item.name)}</td>
+
+      <td>${money(item.value)}</td>
+
+      <td>${esc(item.note)}</td>
+
+      ${actions(
+        "assets",
+        item.id
+      )}
+
+      </tr>
+
+    `).join("")
+
+  }
+
+  </tbody>
+
+  </table>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+function renderDashboard(){
+
+  const income =
+    db.income.reduce(
+      (sum,item) =>
+      sum + Number(item.amount || 0),
+      0
+    );
+
+  const expense =
+    db.expense.reduce(
+      (sum,item) =>
+      sum + Number(item.amount || 0),
+      0
+    );
+
+  const assets =
+    db.assets.reduce(
+      (sum,item) =>
+      sum + Number(item.value || 0),
+      0
+    );
+
+  let animals = 0;
+
+  db.livestock.forEach(item => {
+
+    const qty =
+      Number(item.qty || 0);
+
+    if(
+      item.event === "Dhimasho" ||
+      item.event === "Iib"
+    ){
+
+      animals -= qty;
+
+    }else{
+
+      animals += qty;
+
+    }
+
+  });
+
+  let receivable = 0;
+  let payable = 0;
+
+  db.debt.forEach(item => {
+
+    const amount =
+      Number(item.amount || 0);
+
+    if(
+      item.kind ===
+      "Lagugu leeyahay"
+    ){
+
+      receivable += amount;
+
+    }else{
+
+      payable += amount;
+
+    }
+
+  });
+
+  document.getElementById(
+    "dIncome"
+  ).textContent =
+    money(income);
+
+  document.getElementById(
+    "dExpense"
+  ).textContent =
+    money(expense);
+
+  document.getElementById(
+    "dProfit"
+  ).textContent =
+    money(income-expense);
+
+  document.getElementById(
+    "dReceivable"
+  ).textContent =
+    money(receivable);
+
+  document.getElementById(
+    "dPayable"
+  ).textContent =
+    money(payable);
+
+  document.getElementById(
+    "dAnimals"
+  ).textContent =
+    animals;
+
+  document.getElementById(
+    "dAssets"
+  ).textContent =
+    money(assets);
+
+}
+
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+
+function renderReports(){
+
+  const income =
+    db.income.reduce(
+      (sum,item) =>
+      sum + Number(item.amount || 0),
+      0
+    );
+
+  const expense =
+    db.expense.reduce(
+      (sum,item) =>
+      sum + Number(item.amount || 0),
+      0
+    );
+
+  const assets =
+    db.assets.reduce(
+      (sum,item) =>
+      sum + Number(item.value || 0),
+      0
+    );
+
+  const profit =
+    income - expense;
+
+  document.getElementById(
+    "rIncome"
+  ).textContent =
+    money(income);
+
+  document.getElementById(
+    "rExpense"
+  ).textContent =
+    money(expense);
+
+  document.getElementById(
+    "rProfit"
+  ).textContent =
+    money(profit);
+
+  document.getElementById(
+    "rAssets"
+  ).textContent =
+    money(assets);
+
+  document.getElementById(
+    "reportIncomeLine"
+  ).textContent =
+    money(income);
+
+  document.getElementById(
+    "reportExpenseLine"
+  ).textContent =
+    money(expense);
+
+  document.getElementById(
+    "reportProfitLine"
+  ).textContent =
+    money(profit);
+
+  document.getElementById(
+    "reportAssetsLine"
+  ).textContent =
+    money(assets);
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+   ========================================================= */
 
 function renderAll(){
 
-const inc=db.income
-.reduce(
-(s,x)=>s+Number(x.amount),
-0
-);
+  renderDashboard();
 
-const exp=db.expense
-.reduce(
-(s,x)=>s+Number(x.amount),
-0
-);
+  renderReports();
 
-const assets=db.assets
-.reduce(
-(s,x)=>s+Number(x.value),
-0
-);
+  renderIncome();
 
-const animals=db.livestock
-.reduce(
-(s,x)=>
-s+
-(
-x.event==='Dhimasho' ||
-x.event==='Iib'
-?
--Number(x.qty)
-:
-Number(x.qty)
-),
-0
-);
+  renderExpense();
 
-const debt=db.debt
-.reduce(
-(s,x)=>s+Number(x.amount),
-0
-);
+  renderDebt();
 
+  renderLivestock();
 
-dIncome.textContent=money(inc);
+  renderMilk();
 
-dExpense.textContent=money(exp);
+  renderFarm();
 
-dProfit.textContent=money(inc-exp);
-
-dDebt.textContent=money(debt);
-
-dAnimals.textContent=animals;
-
-dAssets.textContent=money(assets);
-
-
-rIncome.textContent=money(inc);
-
-rExpense.textContent=money(exp);
-
-rProfit.textContent=money(inc-exp);
-
-rAssets.textContent=money(assets);
-
-
-incomeTable.innerHTML=
-table(
-'income',
-[
-'Taariikh',
-'Nooc',
-'Qadarka',
-'Faahfaahin'
-],
-db.income.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.type)}</td>
-<td>${money(x.amount)}</td>
-<td>${esc(x.note)}</td>
-${action('income',x.id)}
-</tr>
-`
-)
-);
-
-
-expenseTable.innerHTML=
-table(
-'expense',
-[
-'Taariikh',
-'Nooc',
-'Qadarka',
-'Faahfaahin'
-],
-db.expense.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.type)}</td>
-<td>${money(x.amount)}</td>
-<td>${esc(x.note)}</td>
-${action('expense',x.id)}
-</tr>
-`
-)
-);
-
-
-debtTable.innerHTML=
-table(
-'debt',
-[
-'Taariikh',
-'Qof',
-'Nooc',
-'Qadarka',
-'Faahfaahin'
-],
-db.debt.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.person)}</td>
-<td>${esc(x.kind)}</td>
-<td>${money(x.amount)}</td>
-<td>${esc(x.note)}</td>
-${action('debt',x.id)}
-</tr>
-`
-)
-);
-
-
-livestockTable.innerHTML=
-table(
-'livestock',
-[
-'Taariikh',
-'Nooc',
-'Dhacdo',
-'Tiro',
-'Qiime',
-'Faahfaahin'
-],
-db.livestock.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.type)}</td>
-<td>${esc(x.event)}</td>
-<td>${x.qty}</td>
-<td>${money(x.value)}</td>
-<td>${esc(x.note)}</td>
-${action('livestock',x.id)}
-</tr>
-`
-)
-);
-
-
-milkTable.innerHTML=
-table(
-'milk',
-[
-'Taariikh',
-'Nooc',
-'Litir',
-'Qiime/L',
-'La iibiyey'
-],
-db.milk.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.type)}</td>
-<td>${x.liters}</td>
-<td>${money(x.price)}</td>
-<td>${x.sold}</td>
-${action('milk',x.id)}
-</tr>
-`
-)
-);
-
-
-farmTable.innerHTML=
-table(
-'farm',
-[
-'Taariikh',
-'Dalag',
-'Hektar',
-'Wax-soo-saar kg',
-'Iib $',
-'Faahfaahin'
-],
-db.farm.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.crop)}</td>
-<td>${x.ha}</td>
-<td>${x.yield}</td>
-<td>${money(x.sale)}</td>
-<td>${esc(x.note)}</td>
-${action('farm',x.id)}
-</tr>
-`
-)
-);
-
-
-assetTable.innerHTML=
-table(
-'assets',
-[
-'Taariikh',
-'Nooc',
-'Magac',
-'Qiime',
-'Faahfaahin'
-],
-db.assets.map(
-x=>`
-<tr>
-<td>${esc(x.date)}</td>
-<td>${esc(x.type)}</td>
-<td>${esc(x.name)}</td>
-<td>${money(x.value)}</td>
-<td>${esc(x.note)}</td>
-${action('assets',x.id)}
-</tr>
-`
-);
+  renderAssets();
 
 }
 
+
+/* =========================================================
+   CALCULATOR
+   ========================================================= */
+
+const calc =
+  document.getElementById(
+    "calc"
+  );
+
+function calcAdd(value){
+
+  calc.value += value;
+
+}
+
+function clearCalc(){
+
+  calc.value = "";
+
+}
+
+function calculate(){
+
+  try{
+
+    if(
+      !/^[0-9+\-*/.() ]+$/
+      .test(calc.value)
+    ){
+
+      throw new Error();
+
+    }
+
+    const result =
+      Function(
+        "return " +
+        calc.value
+      )();
+
+    if(
+      !Number.isFinite(
+        Number(result)
+      )
+    ){
+
+      throw new Error();
+
+    }
+
+    calc.value =
+      String(result);
+
+  }catch(error){
+
+    calc.value =
+      "Error";
+
+  }
+
+}
+
+
+/* =========================================================
+   BACKUP
+   ========================================================= */
+
+function exportData(){
+
+  const data =
+    JSON.stringify(
+      db,
+      null,
+      2
+    );
+
+  const blob =
+    new Blob(
+      [data],
+      {
+        type:"application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+  link.href = url;
+
+  link.download =
+    "TACBO-Agro-Backup.json";
+
+  document.body.appendChild(
+    link
+  );
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================================
+   RESTORE
+   ========================================================= */
+
+function restoreData(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file){
+
+    return;
+
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(){
+
+      try{
+
+        const imported =
+          JSON.parse(
+            reader.result
+          );
+
+        db =
+          Object.assign(
+            {},
+            emptyDB,
+            imported
+          );
+
+        persist();
+
+        alert(
+          "Xogta waa la soo celiyay."
+        );
+
+      }catch(error){
+
+        alert(
+          "Backup-ku ma saxna."
+        );
+
+      }
+
+    };
+
+  reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
 
 function resetAll(){
 
-if(
-confirm(
-'Dhammaan xogta ma tirtirnaa?'
-)
-){
+  if(
+    !confirm(
+      "Dhammaan xogta ma tirtirnaa?"
+    )
+  ){
 
-localStorage.removeItem(KEY);
+    return;
 
-location.reload();
+  }
 
-}
+  localStorage.removeItem(
+    KEY
+  );
 
-}
+  localStorage.removeItem(
+    "tacbo_agro_v2"
+  );
 
-
-let calcEl=
-document.getElementById('calc');
-
-
-function c(v){
-
-calcEl.value+=v;
+  location.reload();
 
 }
 
 
-function clr(){
-
-calcEl.value='';
-
-}
-
-
-function equal(){
-
-try{
-
-if(
-!/^[0-9+\-*/.() ]+$/
-.test(calcEl.value)
-)
-throw 0;
-
-calcEl.value=
-String(
-Function(
-'return '+calcEl.value
-)()
-);
-
-}
-
-catch(e){
-
-calcEl.value='Error';
-
-}
-
-}
-
+/* =========================================================
+   START
+   ========================================================= */
 
 renderAll();
 
