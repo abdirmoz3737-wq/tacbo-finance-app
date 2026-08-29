@@ -1,301 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="so">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TACBO Agro</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TACBO Agro Full</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f4f7f5;
-  color:#1d2b24;
-}
-
-header{
-  background:#176b3a;
-  color:white;
-  padding:20px;
-  text-align:center;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
-
-header h1{
-  font-size:27px;
-}
-
-header p{
-  margin-top:6px;
-}
-
-nav{
-  display:flex;
-  gap:7px;
-  padding:10px;
-  background:white;
-  overflow-x:auto;
-  border-bottom:1px solid #ddd;
-  position:sticky;
-  top:77px;
-  z-index:15;
-}
-
-nav button{
-  border:0;
-  padding:10px 14px;
-  border-radius:8px;
-  background:#e8f1eb;
-  color:#176b3a;
-  font-weight:bold;
-  white-space:nowrap;
-  cursor:pointer;
-}
-
-nav button.active{
-  background:#176b3a;
-  color:white;
-}
-
-.container{
-  max-width:1250px;
-  margin:auto;
-  padding:20px;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.card{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.card h3{
-  color:#65736b;
-  font-size:14px;
-  margin-bottom:9px;
-}
-
-.number{
-  font-size:25px;
-  font-weight:bold;
-  color:#176b3a;
-}
-
-.panel{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  margin-bottom:20px;
-  box-shadow:0 3px 12px rgba(0,0,0,.07);
-}
-
-.panel h2{
-  color:#176b3a;
-  margin-bottom:15px;
-}
-
-form{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccd5cf;
-  border-radius:8px;
-  outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#176b3a;
-}
-
-button.primary{
-  background:#176b3a;
-  color:white;
-  border:0;
-  padding:11px 16px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-button.edit{
-  background:#e6a817;
-  color:white;
-  border:0;
-  padding:7px 10px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-button.danger{
-  background:#c62828;
-  color:white;
-  border:0;
-  padding:7px 10px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-
-th,
-td{
-  padding:10px;
-  border-bottom:1px solid #e4e8e5;
-  text-align:left;
-}
-
-th{
-  background:#eef5f0;
-  color:#176b3a;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.paid{
-  background:#d8f5df;
-  color:#176b3a;
-}
-
-.remaining{
-  background:#ffe1e1;
-  color:#a71919;
-}
-
-.info{
-  background:#eaf5ed;
-  border-left:5px solid #176b3a;
-  padding:12px;
-  margin-bottom:15px;
-  border-radius:5px;
-}
-
-.calculator{
-  max-width:360px;
-  margin:auto;
-}
-
-.calc-display{
-  width:100%;
-  height:65px;
-  font-size:28px;
-  text-align:right;
-  margin-bottom:10px;
-  padding:10px;
-  background:#f0f4f1;
-}
-
-.calc-buttons{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.calc-buttons button{
-  height:60px;
-  border:0;
-  border-radius:10px;
-  font-size:20px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#e8eee9;
-}
-
-.calc-buttons button.operator{
-  background:#176b3a;
-  color:white;
-}
-
-.calc-buttons button.equal{
-  background:#e6a817;
-  color:white;
-}
-
-.stat-box{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-}
-
-.stat{
-  background:#f5f8f6;
-  padding:15px;
-  border-radius:10px;
-}
-
-.stat strong{
-  display:block;
-  color:#176b3a;
-  font-size:20px;
-  margin-top:5px;
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#66736c;
-}
-
-@media(max-width:600px){
-
-  .container{
-    padding:12px;
-  }
-
-  table{
-    font-size:12px;
-  }
-
-  th,
-  td{
-    padding:7px;
-  }
-
-  header h1{
-    font-size:23px;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7f5;color:#18251d}
+header{background:#126b3a;color:#fff;padding:18px}
+header h1{margin:0 0 5px}
+nav{display:flex;gap:6px;overflow:auto;position:sticky;top:0;background:#fff;padding:9px;z-index:5;border-bottom:1px solid #ddd}
+nav button{border:0;padding:9px 12px;border-radius:8px;white-space:nowrap}
+nav button.active{background:#126b3a;color:#fff}
+main{max-width:1300px;margin:auto;padding:14px}
+.panel,.card{background:#fff;border-radius:13px;padding:15px;margin-bottom:14px;box-shadow:0 2px 8px #0001}
+.grid,.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.card strong{display:block;font-size:23px;margin-top:7px}
+label{display:block;font-size:12px;font-weight:bold;margin-top:7px}
+input,select{width:100%;padding:10px;border:1px solid #ccd5cf;border-radius:8px}
+.primary,.secondary,.danger,.edit{border:0;padding:9px 13px;border-radius:8px;margin-top:10px}
+.primary{background:#126b3a;color:#fff}
+.secondary{background:#e8efea}
+.danger{background:#b42318;color:#fff}
+.edit{background:#a66b00;color:#fff}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{padding:8px;border-bottom:1px solid #eee;text-align:left;font-size:12px}
+th{background:#eef3ef}
+.table{overflow:auto}
+.notice{padding:10px;background:#fff6d9;border-radius:8px;margin:10px 0}
+footer{text-align:center;padding:25px;color:#68736d}
 </style>
 </head>
 
@@ -303,2546 +37,2076 @@ footer{
 
 <header>
 <h1>🌾 TACBO Agro</h1>
-<p>Agriculture & Livestock Company</p>
+<p>Farm • Livestock • Finance Management System</p>
 </header>
 
-<nav>
+<nav id="nav"></nav>
 
-<button class="active" onclick="showSection('dashboard',this)">
-📊 Dashboard
-</button>
+<main id="app"></main>
 
-<button onclick="showSection('income',this)">
-💰 Dakhliga & Iibka
-</button>
+<footer>
+TACBO Agro Agriculture & Livestock Company • Shalaboot, Shabeellaha Hoose
+</footer>
 
-<button onclick="showSection('expenses',this)">
-💸 Kharashyada
-</button>
+<script>
 
-<button onclick="showSection('debts',this)">
-📋 Deynta
-</button>
+const KEY="TACBO_FULL_2026";
 
-<button onclick="showSection('calculator',this)">
-🧮 Calculator
-</button>
+let D=JSON.parse(localStorage.getItem(KEY)||"null")||{
 
-<button onclick="showSection('livestock',this)">
-🐄 Xoolaha
-</button>
+sales:[],
+expenses:[],
+debts:[],
 
-<button onclick="showSection('milk',this)">
-🥛 Caanaha
-</button>
+animals:[
+{type:"Ari",name:"Initial Stock",qty:300,price:0,gender:"Mixed"},
+{type:"Lo'",name:"Initial Stock",qty:50,price:0,gender:"Mixed"},
+{type:"Geel",name:"Initial Stock",qty:10,price:0,gender:"Mixed"},
+{type:"Digaag",name:"Initial Stock",qty:120,price:0,gender:"Mixed"}
+],
 
-<button onclick="showSection('farm',this)">
-🌾 Beeraha
-</button>
+farms:[],
+milk:[],
+feed:[],
+assets:[],
+inventory:[],
+employees:[],
+machines:[],
+calendar:[],
 
-<button onclick="showSection('assets',this)">
-🏗️ Hantida
-</button>
+settings:{
+company:"TACBO Agro",
+phone:"0617089321",
+email:"Abdirmoz3737@gmail.com",
+location:"Shalaboot, Shabeellaha Hoose, Somalia",
+currency:"$ USD"
+}
 
-<button onclick="showSection('reports',this)">
-📈 Reports
-</button>
-
-<button onclick="showSection('contact',this)">
-📍 Contact
-</button>
-
-</nav>
+};
 
 
-<div class="container">
+const sections=[
+
+["dashboard","🏠 Dashboard"],
+["sales","💰 Iib/Dakhli"],
+["expenses","💸 Kharash"],
+["debts","💳 Deyn"],
+["animals","🐄 Xoolaha"],
+["farms","🌾 Farm"],
+["milk","🥛 Caano"],
+["feed","🌽 Feed"],
+["assets","🏗️ Hanti"],
+["inventory","📦 Inventory"],
+["employees","👷 Shaqaale"],
+["machines","🚜 Mashiin"],
+["calc","🧮 Calculator"],
+["reports","📊 Reports"],
+["calendar","📅 Calendar"],
+["settings","⚙️ Settings"]
+
+];
 
 
-<!-- DASHBOARD -->
+nav.innerHTML=sections.map((x,i)=>
+`<button class="${i?'':'active'}"
+onclick="show('${x[0]}',this)">
+${x[1]}
+</button>`
+).join("");
 
-<section id="dashboard" class="section active">
 
-<div class="info">
-<b>🌾 TACBO Agro Dashboard</b><br>
-Xogta Caanaha, Beeraha, Xoolaha, Dakhliga, Kharashyada iyo Hantida si otomaatig ah ayaa loo xisaabinayaa.
+function esc(x){
+return String(x??"").replace(/[&<>"']/g,m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m]));
+}
+
+
+function money(x){
+return Number(x||0).toLocaleString()+" "+D.settings.currency;
+}
+
+
+function save(){
+localStorage.setItem(KEY,JSON.stringify(D));
+render(current);
+}
+
+
+function today(){
+return new Date().toISOString().slice(0,10);
+}
+
+
+let current="dashboard";
+
+
+function show(id,b){
+
+current=id;
+
+document.querySelectorAll("nav button")
+.forEach(x=>x.classList.remove("active"));
+
+b.classList.add("active");
+
+render(id);
+
+}
+
+
+function del(a,i){
+
+if(confirm("Ma hubtaa inaad tirtirayso xogtan?")){
+D[a].splice(i,1);
+save();
+}
+
+}
+
+
+function field(id,label,type="text"){
+
+return `
+<div>
+<label>${label}</label>
+<input id="${id}" type="${type}">
 </div>
+`;
+
+}
+
+
+function head(t){
+return `<h2>${t}</h2>`;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+function dashboard(){
+
+let income=D.sales.reduce((s,x)=>s+x.total,0);
+let expense=D.expenses.reduce((s,x)=>s+x.amount,0);
+let assets=D.assets.reduce((s,x)=>s+x.value,0);
+let debt=D.debts.reduce((s,x)=>s+Math.max(0,x.total-x.paid),0);
+let animals=D.animals.reduce((s,x)=>s+x.qty,0);
+
+let types={};
+
+D.animals.forEach(x=>{
+types[x.type]=(types[x.type]||0)+x.qty;
+});
+
+return head("🏠 Dashboard")+`
 
 <div class="cards">
 
 <div class="card">
-<h3>💰 Dakhliga</h3>
-<div class="number" id="dashIncome">$0.00</div>
+<small>💰 Dakhliga</small>
+<strong>${money(income)}</strong>
 </div>
 
 <div class="card">
-<h3>💸 Kharashyada</h3>
-<div class="number" id="dashExpense">$0.00</div>
+<small>💸 Kharashka</small>
+<strong>${money(expense)}</strong>
 </div>
 
 <div class="card">
-<h3>📈 Faa'iidada</h3>
-<div class="number" id="dashProfit">$0.00</div>
+<small>📈 Faa'iido / Khasaaro</small>
+<strong>${money(income-expense)}</strong>
 </div>
 
 <div class="card">
-<h3>🥛 Dakhliga Caanaha</h3>
-<div class="number" id="dashMilk">$0.00</div>
+<small>🏗️ Hantida</small>
+<strong>${money(assets)}</strong>
 </div>
 
 <div class="card">
-<h3>🌾 Dakhliga Beeraha</h3>
-<div class="number" id="dashFarm">$0.00</div>
+<small>💳 Deynta</small>
+<strong>${money(debt)}</strong>
 </div>
 
 <div class="card">
-<h3>📋 Deyn Lagugu Leeyahay</h3>
-<div class="number" id="dashReceivable">$0.00</div>
-</div>
-
-<div class="card">
-<h3>📋 Deyn Aad Leedahay</h3>
-<div class="number" id="dashPayable">$0.00</div>
-</div>
-
-<div class="card">
-<h3>🐄 Xoolaha</h3>
-<div class="number" id="dashLivestock">0</div>
-</div>
-
-<div class="card">
-<h3>🏗️ Hantida</h3>
-<div class="number" id="dashAssets">$0.00</div>
+<small>🐄 Xoolaha</small>
+<strong>${animals}</strong>
 </div>
 
 </div>
 
 <div class="panel">
-<h2>📌 Warbixin</h2>
-<p id="dashboardMessage"></p>
+
+<h3>🐄 Xoolaha Hadda</h3>
+
+<div class="cards">
+
+<div class="card">
+🐑 Ari
+<strong>${types["Ari"]||0}</strong>
 </div>
 
-</section>
+<div class="card">
+🐄 Lo'
+<strong>${types["Lo'"]||0}</strong>
+</div>
 
+<div class="card">
+🐪 Geel
+<strong>${types["Geel"]||0}</strong>
+</div>
 
-<!-- INCOME -->
+<div class="card">
+🐔 Digaag
+<strong>${types["Digaag"]||0}</strong>
+</div>
 
-<section id="income" class="section">
+</div>
+
+</div>
 
 <div class="panel">
 
-<h2>💰 Dakhliga & Iibka</h2>
+<h3>🌾 TACBO Agro</h3>
 
-<form id="incomeForm">
+<p>🌍 Dhul: <b>20 hectares</b></p>
+<p>📍 Shalaboot, Shabeellaha Hoose, Somalia</p>
+<p>📞 0617089321</p>
+<p>📧 Abdirmoz3737@gmail.com</p>
 
-<input type="hidden" id="incomeEditId">
+</div>
+`;
 
-<input
-id="incomeName"
-placeholder="Magaca iibka"
-required
->
+}
 
-<input
-id="incomeAmount"
-type="number"
-step="0.01"
-placeholder="Lacagta"
-required
->
 
-<input
-id="incomeDate"
-type="date"
-required
->
+/* ================= SALES ================= */
 
-<button class="primary" type="submit">
-Kaydi Dakhliga
+function sales(){
+
+return head("💰 Iib & Dakhliga")+`
+
+<div class="panel">
+
+<div class="grid">
+
+<div>
+<label>Nooca</label>
+<select id="st">
+<option>Caano</option>
+<option>Subag</option>
+<option>Ukun</option>
+<option>Dalag</option>
+<option>Xoolo</option>
+<option>Hilib</option>
+<option>Alaab kale</option>
+</select>
+</div>
+
+${field("sd","Customer / Sharaxaad")}
+
+${field("sq","Quantity","number")}
+
+${field("sp","Qiime halkii","number")}
+
+<div>
+<label>Payment</label>
+<select id="sPay">
+<option>Cash</option>
+<option>Bank</option>
+<option>Mobile</option>
+<option>Credit</option>
+</select>
+</div>
+
+<div>
+<label>Nooca Xoolaha haddii Xoolo</label>
+<select id="sat">
+<option>Ari</option>
+<option>Lo'</option>
+<option>Geel</option>
+<option>Digaag</option>
+</select>
+</div>
+
+</div>
+
+<div class="notice">
+
+🐄 Haddii aad iibinayso xoolo, tirada xoolaha si otomaatig ah ayaa looga dhimayaa.
+
+</div>
+
+<button class="primary" onclick="addSale()">
+➕ Ku dar Iib
 </button>
 
-</form>
-
 </div>
 
-<div class="panel">
-
-<h2>Liiska Dakhliga</h2>
+<div class="panel table">
 
 <table>
 
-<thead>
 <tr>
-<th>Magac</th>
-<th>Lacag</th>
-<th>Taariikh</th>
+<th>Date</th>
+<th>Nooc</th>
+<th>Sharaxaad</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+<th>Payment</th>
 <th>Action</th>
 </tr>
-</thead>
 
-<tbody id="incomeTable"></tbody>
+${D.sales.map((x,i)=>`
+
+<tr>
+
+<td>${x.date}</td>
+<td>${esc(x.type)}</td>
+<td>${esc(x.desc)}</td>
+<td>${x.qty}</td>
+<td>${money(x.price)}</td>
+<td>${money(x.total)}</td>
+<td>${x.pay}</td>
+
+<td>
+<button class="danger"
+onclick="del('sales',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
 
 </table>
 
 </div>
 
-</section>
+`;
+
+}
 
 
-<!-- EXPENSE -->
+function addSale(){
 
-<section id="expenses" class="section">
+let q=+sq.value||0;
+let p=+sp.value||0;
+
+if(!q||!p){
+alert("Quantity iyo Qiime geli");
+return;
+}
+
+let x={
+date:today(),
+type:st.value,
+desc:sd.value,
+qty:q,
+price:p,
+total:q*p,
+pay:sPay.value
+};
+
+
+if(st.value==="Xoolo"){
+
+let type=sat.value;
+
+let available=D.animals
+.filter(a=>a.type===type)
+.reduce((s,a)=>s+a.qty,0);
+
+if(available<q){
+alert("Tirada xoolaha kuma filna");
+return;
+}
+
+let left=q;
+
+D.animals.forEach(a=>{
+
+if(a.type===type&&left>0){
+
+let take=Math.min(a.qty,left);
+
+a.qty-=take;
+
+left-=take;
+
+}
+
+});
+
+x.animal=type;
+
+}
+
+
+D.sales.push(x);
+
+
+if(sPay.value==="Credit"){
+
+D.debts.push({
+
+name:sd.value||"Customer",
+phone:"",
+type:"Lagu leeyahay",
+total:q*p,
+paid:0,
+due:"",
+fromSale:true
+
+});
+
+}
+
+
+save();
+
+}
+
+
+/* ================= EXPENSE ================= */
+
+function expenses(){
+
+return head("💸 Kharashyada")+`
 
 <div class="panel">
 
-<h2>💸 Kharashyada</h2>
+<div class="grid">
 
-<div class="info">
-💧 <b>Waraab = Expense</b>
-</div>
+<div>
+<label>Nooca</label>
 
-<form id="expenseForm">
-
-<input type="hidden" id="expenseEditId">
-
-<select id="expenseCategory" required>
-
-<option value="">Dooro Kharash</option>
+<select id="et">
 
 <option>Waraab</option>
 <option>Shidaal</option>
 <option>Mushahar</option>
-<option>Quudin Xoolaha</option>
-<option>Daawo Xoolaha</option>
-<option>Maintenance</option>
+<option>Cunto xoolaad</option>
+<option>Daawo xoolaad</option>
 <option>Abuur</option>
-<option>Fertilizer</option>
-<option>Kharash Kale</option>
+<option>Bacriminta</option>
+<option>Cayayaan-dil</option>
+<option>Dayactir</option>
+<option>Koronto</option>
+<option>Gaadiid</option>
+<option>Shipping</option>
+<option>Dhismo</option>
+<option>Solar maintenance</option>
+<option>Farm</option>
+<option>Kale</option>
 
 </select>
 
-<input
-id="expenseAmount"
-type="number"
-step="0.01"
-placeholder="Lacagta"
-required
->
+</div>
 
-<input
-id="expenseDate"
-type="date"
-required
->
+${field("ed","Sharaxaad")}
 
-<button class="primary" type="submit">
-Kaydi Kharash
-</button>
-
-</form>
+${field("ea","Lacag","number")}
 
 </div>
 
-<div class="panel">
+<div class="notice">
 
-<h2>Liiska Kharashyada</h2>
+💧 <b>Waraab = Kharash</b><br>
+🕳️ <b>Ceel = Hanti</b>
+
+</div>
+
+<button class="primary" onclick="addExpense()">
+➕ Ku dar Kharash
+</button>
+
+</div>
+
+<div class="panel table">
 
 <table>
 
-<thead>
 <tr>
-<th>Qaybta</th>
+<th>Date</th>
+<th>Nooc</th>
+<th>Sharaxaad</th>
 <th>Lacag</th>
-<th>Taariikh</th>
 <th>Action</th>
 </tr>
-</thead>
 
-<tbody id="expenseTable"></tbody>
+${D.expenses.map((x,i)=>`
+
+<tr>
+
+<td>${x.date}</td>
+<td>${x.type}</td>
+<td>${esc(x.desc)}</td>
+<td>${money(x.amount)}</td>
+
+<td>
+<button class="danger"
+onclick="del('expenses',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
 
 </table>
 
 </div>
 
-</section>
+`;
+
+}
 
 
-<!-- DEBT -->
+function addExpense(){
 
-<section id="debts" class="section">
+let amount=+ea.value||0;
+
+if(!amount){
+alert("Lacag geli");
+return;
+}
+
+D.expenses.push({
+
+date:today(),
+type:et.value,
+desc:ed.value,
+amount
+
+});
+
+save();
+
+}
+
+
+/* ================= DEBT ================= */
+
+function debts(){
+
+return head("💳 Deymaha")+`
 
 <div class="panel">
 
-<h2>📋 Deynta</h2>
+<div class="grid">
 
-<form id="debtForm">
+${field("dn","Magac")}
 
-<input type="hidden" id="debtEditId">
+${field("dp","Phone")}
 
-<input
-id="debtPerson"
-placeholder="Magaca qofka"
-required
->
+<div>
+<label>Nooc</label>
+<select id="dt">
+<option>Lagu leeyahay</option>
+<option>Aan leeyahay</option>
+</select>
+</div>
 
-<select id="debtType" required>
+${field("dtotal","Total","number")}
 
-<option value="">
-Dooro nooca
-</option>
+${field("dpaid","Paid","number")}
 
-<option value="receivable">
-Deyn lagugu leeyahay
-</option>
+${field("ddue","Due Date","date")}
 
-<option value="payable">
-Deyn aad leedahay
-</option>
+</div>
+
+<button class="primary" onclick="addDebt()">
+➕ Ku dar Deyn
+</button>
+
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Magac</th>
+<th>Phone</th>
+<th>Nooc</th>
+<th>Total</th>
+<th>Paid</th>
+<th>Balance</th>
+<th>Due</th>
+<th>Action</th>
+</tr>
+
+${D.debts.map((x,i)=>`
+
+<tr>
+
+<td>${esc(x.name)}</td>
+<td>${esc(x.phone)}</td>
+<td>${x.type}</td>
+<td>${money(x.total)}</td>
+<td>${money(x.paid)}</td>
+<td>${money(x.total-x.paid)}</td>
+<td>${x.due||"-"}</td>
+
+<td>
+<button class="danger"
+onclick="del('debts',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addDebt(){
+
+let total=+dtotal.value||0;
+
+if(!dn.value||!total){
+
+alert("Magac iyo Total geli");
+return;
+
+}
+
+D.debts.push({
+
+name:dn.value,
+phone:dp.value,
+type:dt.value,
+total,
+paid:+dpaid.value||0,
+due:ddue.value
+
+});
+
+save();
+
+}
+
+
+/* ================= LIVESTOCK ================= */
+
+function animals(){
+
+return head("🐄 Xoolaha")+`
+
+<div class="panel">
+
+<div class="grid">
+
+<div>
+<label>Nooc</label>
+<select id="at">
+<option>Ari</option>
+<option>Lo'</option>
+<option>Geel</option>
+<option>Digaag</option>
+</select>
+</div>
+
+${field("an","ID / Magac")}
+
+${field("aq","Quantity","number")}
+
+${field("ap","Qiime halkii","number")}
+
+<div>
+<label>Jinsi</label>
+<select id="ag">
+<option>Lab</option>
+<option>Dhedig</option>
+<option>Mixed</option>
+</select>
+</div>
+
+${field("aa","Da'")}
+
+<div>
+<label>Dhacdo</label>
+<select id="ae">
+<option>Stock</option>
+<option>Dhashay</option>
+<option>Iibsaday</option>
+<option>Dhintay</option>
+<option>Daawo</option>
+<option>Tallaal</option>
+</select>
+</div>
+
+</div>
+
+<button class="primary" onclick="addAnimal()">
+➕ Ku dar Xoolo
+</button>
+
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Nooc</th>
+<th>ID</th>
+<th>Qty</th>
+<th>Jinsi</th>
+<th>Da'</th>
+<th>Event</th>
+<th>Value</th>
+<th>Action</th>
+</tr>
+
+${D.animals.map((x,i)=>`
+
+<tr>
+
+<td>${x.type}</td>
+<td>${esc(x.name||"")}</td>
+<td>${x.qty}</td>
+<td>${x.gender||""}</td>
+<td>${esc(x.age||"")}</td>
+<td>${x.event||"Stock"}</td>
+<td>${money(x.qty*x.price)}</td>
+
+<td>
+<button class="danger"
+onclick="del('animals',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addAnimal(){
+
+let q=+aq.value||0;
+
+if(!q){
+alert("Quantity geli");
+return;
+}
+
+D.animals.push({
+
+type:at.value,
+name:an.value,
+qty:q,
+price:+ap.value||0,
+gender:ag.value,
+age:aa.value,
+event:ae.value
+
+});
+
+save();
+
+}
+
+
+/* ================= FARM ================= */
+
+function farms(){
+
+return head("🌾 Farm & Beeraha")+`
+
+<div class="panel">
+
+<div class="grid">
+
+${field("fn","Qaybta Dhulka")}
+
+${field("fh","Hectares","number")}
+
+${field("fc","Dalagga")}
+
+${field("fs","Abuur")}
+
+${field("fd","Taariikhda Beerista","date")}
+
+${field("fg","Taariikhda Goosashada","date")}
+
+${field("fy","Wax-soo-saar")}
+
+${field("fk","Kharash","number")}
+
+</div>
+
+<button class="primary" onclick="addFarm()">
+➕ Ku dar Farm
+</button>
+
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Qayb</th>
+<th>Ha</th>
+<th>Dalag</th>
+<th>Abuur</th>
+<th>Beeris</th>
+<th>Goosasho</th>
+<th>Yield</th>
+<th>Kharash</th>
+<th>Action</th>
+</tr>
+
+${D.farms.map((x,i)=>`
+
+<tr>
+
+<td>${esc(x.name)}</td>
+<td>${x.ha}</td>
+<td>${esc(x.crop)}</td>
+<td>${esc(x.seed)}</td>
+<td>${x.plant}</td>
+<td>${x.harvest}</td>
+<td>${esc(x.yield)}</td>
+<td>${money(x.cost)}</td>
+
+<td>
+<button class="danger"
+onclick="del('farms',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addFarm(){
+
+let cost=+fk.value||0;
+
+D.farms.push({
+
+name:fn.value,
+ha:+fh.value||0,
+crop:fc.value,
+seed:fs.value,
+plant:fd.value,
+harvest:fg.value,
+yield:fy.value,
+cost
+
+});
+
+if(cost){
+
+D.expenses.push({
+
+date:today(),
+type:"Farm",
+desc:fn.value,
+amount:cost
+
+});
+
+}
+
+save();
+
+}
+
+
+/* ================= MILK ================= */
+
+function milk(){
+
+return head("🥛 Caanaha")+`
+
+<div class="panel">
+
+<div class="grid">
+
+<div>
+<label>Nooc</label>
+<select id="mt">
+<option>Lo'</option>
+<option>Geel</option>
+</select>
+</div>
+
+${field("mm","Subax Liters","number")}
+
+${field("me","Galab Liters","number")}
+
+${field("ms","La iibiyay Liters","number")}
+
+${field("mp","Qiime/Liter","number")}
+
+${field("mw","Waste Liters","number")}
+
+</div>
+
+<button class="primary" onclick="addMilk()">
+➕ Ku dar Caano
+</button>
+
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Date</th>
+<th>Nooc</th>
+<th>Total L</th>
+<th>Sold L</th>
+<th>Waste</th>
+<th>Revenue</th>
+<th>Action</th>
+</tr>
+
+${D.milk.map((x,i)=>`
+
+<tr>
+
+<td>${x.date}</td>
+<td>${x.type}</td>
+<td>${x.morning+x.evening}</td>
+<td>${x.sold}</td>
+<td>${x.waste}</td>
+<td>${money(x.revenue)}</td>
+
+<td>
+<button class="danger"
+onclick="del('milk',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addMilk(){
+
+let sold=+ms.value||0;
+let price=+mp.value||0;
+
+D.milk.push({
+
+date:today(),
+type:mt.value,
+morning:+mm.value||0,
+evening:+me.value||0,
+sold,
+waste:+mw.value||0,
+revenue:sold*price
+
+});
+
+
+if(sold*price){
+
+D.sales.push({
+
+date:today(),
+type:"Caano",
+desc:mt.value+" Caano",
+qty:sold,
+price,
+total:sold*price,
+pay:"Cash"
+
+});
+
+}
+
+save();
+
+}
+
+
+/* ================= FEED ================= */
+
+function feed(){
+
+return head("🌽 Feed & Silage")+`
+
+<div class="panel">
+
+<div class="grid">
+
+<div>
+<label>Feed Type</label>
+
+<select id="ft">
+
+<option>Hay</option>
+<option>Silage</option>
+<option>Mampasa</option>
+<option>Galley</option>
+<option>Sudan Grass</option>
+<option>Concentrate</option>
+<option>Bran</option>
+<option>Molasses</option>
 
 </select>
 
-<input
-id="debtAmount"
-type="number"
-step="0.01"
-placeholder="Lacagta"
-required
->
+</div>
 
-<input
-id="debtPaid"
-type="number"
-step="0.01"
-placeholder="Lacag la bixiyay"
-value="0"
->
+${field("fq","Quantity kg","number")}
 
-<input
-id="debtDate"
-type="date"
-required
->
+${field("fu","Used kg","number")}
 
-<button class="primary" type="submit">
-Kaydi Deyn
+${field("fst","Stock kg","number")}
+
+${field("fp","Qiime","number")}
+
+</div>
+
+<button class="primary" onclick="addFeed()">
+➕ Ku dar Feed
 </button>
 
-</form>
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Feed</th>
+<th>Quantity</th>
+<th>Used</th>
+<th>Stock</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+${D.feed.map((x,i)=>`
+
+<tr>
+
+<td>${x.type}</td>
+<td>${x.qty}</td>
+<td>${x.used}</td>
+<td>${x.stock}</td>
+<td>${money(x.price)}</td>
+
+<td>
+<button class="danger"
+onclick="del('feed',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addFeed(){
+
+D.feed.push({
+
+type:ft.value,
+qty:+fq.value||0,
+used:+fu.value||0,
+stock:+fst.value||0,
+price:+fp.value||0
+
+});
+
+save();
+
+}
+
+
+/* ================= ASSETS ================= */
+
+function assets(){
+
+return head("🏗️ Hantida / Assets")+`
+
+<div class="notice">
+
+🕳️ <b>Ceel = Hanti</b><br>
+💧 <b>Waraab = Kharash</b>
 
 </div>
 
 <div class="panel">
 
-<h2>Liiska Deynta</h2>
+<div class="grid">
+
+<div>
+
+<label>Nooca Hantida</label>
+
+<select id="ast">
+
+<option>Dhul</option>
+<option>Farm/Boos</option>
+<option>Ceel</option>
+<option>Solar</option>
+<option>Tractor</option>
+<option>Mashiin</option>
+<option>Gaadiid</option>
+<option>Qalabka beeraha</option>
+<option>Qalabka waraabka</option>
+<option>Dhisme</option>
+<option>Xoolaha</option>
+<option>Hanti kale</option>
+
+</select>
+
+</div>
+
+${field("asn","Magac")}
+
+${field("asv","Qiime","number")}
+
+${field("asd","Taariikh","date")}
+
+${field("asx","Faahfaahin")}
+
+</div>
+
+<button class="primary" onclick="addAsset()">
+➕ Ku dar Hanti
+</button>
+
+</div>
+
+<div class="panel table">
 
 <table>
 
-<thead>
 <tr>
-<th>Qof</th>
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Remaining</th>
+<th>Nooc</th>
+<th>Magac</th>
+<th>Qiime</th>
+<th>Date</th>
+<th>Faahfaahin</th>
+<th>Action</th>
+</tr>
+
+${D.assets.map((x,i)=>`
+
+<tr>
+
+<td>${x.type}</td>
+<td>${esc(x.name)}</td>
+<td>${money(x.value)}</td>
+<td>${x.date}</td>
+<td>${esc(x.desc)}</td>
+
+<td>
+<button class="danger"
+onclick="del('assets',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+function addAsset(){
+
+let v=+asv.value||0;
+
+if(!asn.value||!v){
+
+alert("Magac iyo Qiime geli");
+return;
+
+}
+
+D.assets.push({
+
+type:ast.value,
+name:asn.value,
+value:v,
+date:asd.value,
+desc:asx.value
+
+});
+
+save();
+
+}
+
+
+/* ================= INVENTORY ================= */
+
+function inventory(){
+
+return head("📦 Inventory")+`
+
+<div class="panel">
+
+<div class="grid">
+
+${field("inm","Alaab")}
+
+${field("inc","Category")}
+
+${field("ini","Stock In","number")}
+
+${field("ino","Stock Out","number")}
+
+${field("inmin","Minimum","number")}
+
+${field("inp","Unit Price","number")}
+
+</div>
+
+<button class="primary" onclick="addInventory()">
+➕ Ku dar Stock
+</button>
+
+</div>
+
+<div class="panel table">
+
+<table>
+
+<tr>
+<th>Alaab</th>
+<th>Category</th>
+<th>In</th>
+<th>Out</th>
+<th>Current</th>
 <th>Status</th>
 <th>Action</th>
 </tr>
-</thead>
 
-<tbody id="debtTable"></tbody>
+${D.inventory.map((x,i)=>{
+
+let current=x.inn-x.out;
+
+return `
+
+<tr>
+
+<td>${esc(x.name)}</td>
+<td>${esc(x.cat)}</td>
+<td>${x.inn}</td>
+<td>${x.out}</td>
+<td>${current}</td>
+
+<td>
+${current<=x.min?"⚠️ Low":"✅ OK"}
+</td>
+
+<td>
+<button class="danger"
+onclick="del('inventory',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`;
+
+}).join("")}
 
 </table>
 
 </div>
 
-</section>
+`;
+
+}
 
 
-<!-- CALCULATOR -->
+function addInventory(){
 
-<section id="calculator" class="section">
+D.inventory.push({
 
-<div class="panel">
+name:inm.value,
+cat:inc.value,
+inn:+ini.value||0,
+out:+ino.value||0,
+min:+inmin.value||0,
+price:+inp.value||0
 
-<h2>🧮 Calculator</h2>
+});
 
-<div class="calculator">
+save();
 
-<input
-id="calcDisplay"
-class="calc-display"
-value="0"
-readonly
->
-
-<div class="calc-buttons">
-
-<button onclick="clearCalc()">C</button>
-<button onclick="calcInput('%')">%</button>
-<button onclick="backspace()">⌫</button>
-<button class="operator" onclick="calcInput('/')">÷</button>
-
-<button onclick="calcInput('7')">7</button>
-<button onclick="calcInput('8')">8</button>
-<button onclick="calcInput('9')">9</button>
-<button class="operator" onclick="calcInput('*')">×</button>
-
-<button onclick="calcInput('4')">4</button>
-<button onclick="calcInput('5')">5</button>
-<button onclick="calcInput('6')">6</button>
-<button class="operator" onclick="calcInput('-')">−</button>
-
-<button onclick="calcInput('1')">1</button>
-<button onclick="calcInput('2')">2</button>
-<button onclick="calcInput('3')">3</button>
-<button class="operator" onclick="calcInput('+')">+</button>
-
-<button onclick="calcInput('0')">0</button>
-<button onclick="calcInput('.')">.</button>
-<button class="equal" onclick="calculate()">=</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
+}
 
 
-<!-- LIVESTOCK -->
+/* ================= EMPLOYEES ================= */
 
-<section id="livestock" class="section">
+function employees(){
+
+return head("👷 Shaqaalaha")+`
 
 <div class="panel">
 
-<h2>🐄 Xoolaha</h2>
+<div class="grid">
 
-<form id="livestockForm">
+${field("en","Magac")}
 
-<input type="hidden" id="livestockEditId">
+${field("ep","Phone")}
 
-<input
-id="livestockType"
-placeholder="Nooca xoolaha (Ari / Lo')"
-required
->
+${field("ej","Shaqo")}
 
-<input
-id="livestockCount"
-type="number"
-placeholder="Tirada"
-required
->
+${field("es","Mushahar","number")}
 
-<input
-id="livestockValue"
-type="number"
-step="0.01"
-placeholder="Qiimaha guud"
-required
->
+${field("ea2","Advance","number")}
 
-<button class="primary" type="submit">
-Kaydi Xoolaha
+</div>
+
+<button class="primary" onclick="addEmployee()">
+➕ Ku dar Shaqaale
 </button>
 
-</form>
-
 </div>
 
-<div class="panel">
-
-<h2>Liiska Xoolaha</h2>
+<div class="panel table">
 
 <table>
 
-<thead>
 <tr>
-<th>Nooca</th>
-<th>Tirada</th>
-<th>Qiimaha</th>
+<th>Magac</th>
+<th>Phone</th>
+<th>Shaqo</th>
+<th>Mushahar</th>
+<th>Advance</th>
+<th>Balance</th>
 <th>Action</th>
 </tr>
-</thead>
 
-<tbody id="livestockTable"></tbody>
+${D.employees.map((x,i)=>`
 
-</table>
+<tr>
 
-</div>
+<td>${esc(x.name)}</td>
+<td>${esc(x.phone)}</td>
+<td>${esc(x.job)}</td>
+<td>${money(x.salary)}</td>
+<td>${money(x.advance)}</td>
+<td>${money(x.salary-x.advance)}</td>
 
-</section>
-
-
-<!-- MILK -->
-
-<section id="milk" class="section">
-
-<div class="panel">
-
-<h2>🥛 Caanaha</h2>
-
-<div class="info">
-Caano kasta geli tirada Litirrada iyo qiimaha halkii Liter. Wadarta waxaa loo xisaabinayaa si otomaatig ah.
-</div>
-
-<form id="milkForm">
-
-<input type="hidden" id="milkEditId">
-
-<input
-id="milkLiters"
-type="number"
-step="0.01"
-placeholder="Tirada Litirrada"
-required
->
-
-<input
-id="milkPrice"
-type="number"
-step="0.01"
-placeholder="Qiimaha 1 Liter"
-required
->
-
-<input
-id="milkDate"
-type="date"
-required
->
-
-<button class="primary" type="submit">
-Kaydi Caano
+<td>
+<button class="danger"
+onclick="del('employees',${i})">
+Delete
 </button>
+</td>
 
-</form>
-
-</div>
-
-<div class="panel">
-
-<h2>📋 Liiska Caanaha</h2>
-
-<div class="stat-box">
-
-<div class="stat">
-Litirrada oo dhan
-<strong id="totalMilkLiters">0 L</strong>
-</div>
-
-<div class="stat">
-Dakhliga Caanaha
-<strong id="totalMilkIncome">$0.00</strong>
-</div>
-
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>Litir</th>
-<th>Qiimaha/L</th>
-<th>Wadarta</th>
-<th>Taariikh</th>
-<th>Action</th>
 </tr>
-</thead>
 
-<tbody id="milkTable"></tbody>
+`).join("")}
 
 </table>
 
 </div>
 
-</section>
+`;
+
+}
 
 
-<!-- FARM -->
+function addEmployee(){
 
-<section id="farm" class="section">
+let salary=+es.value||0;
+let advance=+ea2.value||0;
 
-<div class="panel">
+D.employees.push({
 
-<h2>🌾 Beeraha</h2>
+name:en.value,
+phone:ep.value,
+job:ej.value,
+salary,
+advance
 
-<div class="info">
-Geli dalagga, hektarka, wax-soo-saarka iyo qiimaha iibka. Faa'iidada waxaa lagu xisaabin karaa dakhliga iyo kharashka.
-</div>
+});
 
-<form id="farmForm">
+save();
 
-<input type="hidden" id="farmEditId">
+}
 
-<input
-id="farmCrop"
-placeholder="Dalagga (Galley, Yaanyo...)"
-required
->
 
-<input
-id="farmHectares"
-type="number"
-step="0.01"
-placeholder="Hektar"
-required
->
+/* ================= MACHINES ================= */
 
-<input
-id="farmProduction"
-type="number"
-step="0.01"
-placeholder="Wax-soo-saarka"
-required
->
+function machines(){
 
-<input
-id="farmPrice"
-type="number"
-step="0.01"
-placeholder="Qiimaha iibka"
-required
->
-
-<input
-id="farmCost"
-type="number"
-step="0.01"
-placeholder="Kharashka beeraha"
-value="0"
->
-
-<input
-id="farmDate"
-type="date"
-required
->
-
-<button class="primary" type="submit">
-Kaydi Beer
-</button>
-
-</form>
-
-</div>
+return head("🚜 Mashiinno & Gaadiid")+`
 
 <div class="panel">
 
-<h2>📋 Liiska Beeraha</h2>
+<div class="grid">
 
-<div class="stat-box">
+<div>
+<label>Nooc</label>
 
-<div class="stat">
-Dakhliga Beeraha
-<strong id="totalFarmIncome">$0.00</strong>
-</div>
+<select id="mct">
 
-<div class="stat">
-Kharashka Beeraha
-<strong id="totalFarmCost">$0.00</strong>
-</div>
-
-<div class="stat">
-Faa'iidada Beeraha
-<strong id="totalFarmProfit">$0.00</strong>
-</div>
-
-</div>
-
-<table>
-
-<thead>
-<tr>
-<th>Dalag</th>
-<th>Hektar</th>
-<th>Wax-soo-saar</th>
-<th>Dakhli</th>
-<th>Kharash</th>
-<th>Faa'iido</th>
-<th>Action</th>
-</tr>
-</thead>
-
-<tbody id="farmTable"></tbody>
-
-</table>
-
-</div>
-
-</section>
-
-
-<!-- ASSETS -->
-
-<section id="assets" class="section">
-
-<div class="panel">
-
-<h2>🏗️ Hantida</h2>
-
-<div class="info">
-🕳️ <b>Ceel = Asset</b><br>
-Ceelka waxaa lagu diiwaangelinayaa Hantida, ma aha Kharash.
-</div>
-
-<form id="assetForm">
-
-<input type="hidden" id="assetEditId">
-
-<input
-id="assetName"
-placeholder="Magaca hantida"
-required
->
-
-<input
-id="assetValue"
-type="number"
-step="0.01"
-placeholder="Qiimaha"
-required
->
-
-<select id="assetCategory">
-
-<option>Ceel</option>
 <option>Tractor</option>
-<option>Mashiin</option>
-<option>Qalab</option>
-<option>Hanti Kale</option>
+<option>Pump</option>
+<option>Solar</option>
+<option>Vehicle</option>
+<option>Machine</option>
 
 </select>
 
-<input
-id="assetDate"
-type="date"
-required
->
+</div>
 
-<button class="primary" type="submit">
-Kaydi Hanti
-</button>
+${field("mcn","Magac")}
 
-</form>
+${field("mch","Hours / KM","number")}
+
+${field("mcf","Fuel","number")}
+
+${field("mcm","Maintenance","number")}
+
+${field("mcd","Service Date","date")}
 
 </div>
 
-<div class="panel">
+<button class="primary" onclick="addMachine()">
+➕ Ku dar Mashiin
+</button>
 
-<h2>Liiska Hantida</h2>
+</div>
+
+<div class="panel table">
 
 <table>
 
-<thead>
 <tr>
+<th>Nooc</th>
 <th>Magac</th>
-<th>Nooca</th>
-<th>Qiime</th>
-<th>Taariikh</th>
+<th>Hours/KM</th>
+<th>Fuel</th>
+<th>Maintenance</th>
+<th>Service</th>
 <th>Action</th>
 </tr>
-</thead>
 
-<tbody id="assetTable"></tbody>
+${D.machines.map((x,i)=>`
+
+<tr>
+
+<td>${x.type}</td>
+<td>${esc(x.name)}</td>
+<td>${x.hours}</td>
+<td>${x.fuel}</td>
+<td>${money(x.maintenance)}</td>
+<td>${x.date||"-"}</td>
+
+<td>
+<button class="danger"
+onclick="del('machines',${i})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")}
 
 </table>
 
 </div>
 
-</section>
+`;
+
+}
 
 
-<!-- REPORTS -->
+function addMachine(){
 
-<section id="reports" class="section">
+let maintenance=+mcm.value||0;
+
+D.machines.push({
+
+type:mct.value,
+name:mcn.value,
+hours:+mch.value||0,
+fuel:+mcf.value||0,
+maintenance,
+date:mcd.value
+
+});
+
+
+if(maintenance){
+
+D.expenses.push({
+
+date:today(),
+type:"Dayactir",
+desc:"Maintenance - "+mcn.value,
+amount:maintenance
+
+});
+
+}
+
+save();
+
+}
+
+
+/* ================= CALCULATOR ================= */
+
+function calculator(){
+
+return head("🧮 Calculator")+`
 
 <div class="panel">
 
-<h2>📈 Reports</h2>
+<div class="grid">
+
+${field("cr","Revenue","number")}
+
+${field("cc","Cost","number")}
+
+${field("cq","Quantity","number")}
+
+</div>
+
+<button class="primary" onclick="calculate()">
+Xisaabi
+</button>
+
+<div id="calcOut"></div>
+
+</div>
+
+`;
+
+}
+
+
+function calculate(){
+
+let r=+cr.value||0;
+let c=+cc.value||0;
+let q=+cq.value||0;
+
+let profit=r-c;
+let unit=q?profit/q:0;
+
+calcOut.innerHTML=`
 
 <div class="cards">
 
 <div class="card">
-<h3>Total Income</h3>
-<div class="number" id="reportIncome">$0.00</div>
+Revenue
+<strong>${money(r)}</strong>
 </div>
 
 <div class="card">
-<h3>Total Expenses</h3>
-<div class="number" id="reportExpense">$0.00</div>
+Cost
+<strong>${money(c)}</strong>
 </div>
 
 <div class="card">
-<h3>Net Profit</h3>
-<div class="number" id="reportProfit">$0.00</div>
+Profit/Loss
+<strong>${money(profit)}</strong>
 </div>
 
 <div class="card">
-<h3>Milk Income</h3>
-<div class="number" id="reportMilk">$0.00</div>
+Per Unit
+<strong>${money(unit)}</strong>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ================= REPORTS ================= */
+
+function reports(){
+
+let income=D.sales.reduce((s,x)=>s+x.total,0);
+let expense=D.expenses.reduce((s,x)=>s+x.amount,0);
+let assets=D.assets.reduce((s,x)=>s+x.value,0);
+
+let categories={};
+
+D.sales.forEach(x=>{
+categories["Dakhliga - "+x.type]=
+(categories["Dakhliga - "+x.type]||0)+x.total;
+});
+
+D.expenses.forEach(x=>{
+categories["Kharash - "+x.type]=
+(categories["Kharash - "+x.type]||0)+x.amount;
+});
+
+return head("📊 Reports")+`
+
+<div class="cards">
+
+<div class="card">
+Income
+<strong>${money(income)}</strong>
 </div>
 
 <div class="card">
-<h3>Farm Income</h3>
-<div class="number" id="reportFarm">$0.00</div>
+Expense
+<strong>${money(expense)}</strong>
 </div>
 
 <div class="card">
-<h3>Total Assets</h3>
-<div class="number" id="reportAssets">$0.00</div>
+Profit/Loss
+<strong>${money(income-expense)}</strong>
+</div>
+
+<div class="card">
+Assets
+<strong>${money(assets)}</strong>
 </div>
 
 </div>
-
-</div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section id="contact" class="section">
 
 <div class="panel">
 
-<h2>📍 TACBO Agro Contact</h2>
+<h3>📋 Category Report</h3>
 
-<p><b>🌾 Company:</b> TACBO Agro Agriculture & Livestock Company</p>
+<div class="table">
 
-<p><b>📍 Location:</b> Shalaboot, Shabeellaha Hoose, Somalia</p>
+<table>
 
-<p><b>📞 Phone:</b> 0617089321</p>
+<tr>
+<th>Category</th>
+<th>Amount</th>
+</tr>
 
-<p><b>📧 Email:</b> Abdirmoz3737@gmail.com</p>
+${Object.entries(categories).map(x=>`
+
+<tr>
+<td>${esc(x[0])}</td>
+<td>${money(x[1])}</td>
+</tr>
+
+`).join("")}
+
+</table>
 
 </div>
 
-</section>
+<button class="primary" onclick="backup()">
+📥 Backup
+</button>
+
+<button class="secondary" onclick="exportCSV()">
+📊 Export CSV
+</button>
+
+<button class="secondary" onclick="window.print()">
+🖨️ Print
+</button>
 
 </div>
 
-
-<footer>
-© 2026 TACBO Agro — Agriculture & Livestock Management
-</footer>
-
-
-<script>
-
-/* =========================
-   DATA
-========================= */
-
-let incomes =
-JSON.parse(localStorage.getItem("tacbo_incomes")) || [];
-
-let expenses =
-JSON.parse(localStorage.getItem("tacbo_expenses")) || [];
-
-let debts =
-JSON.parse(localStorage.getItem("tacbo_debts")) || [];
-
-let livestock =
-JSON.parse(localStorage.getItem("tacbo_livestock")) || [];
-
-let assets =
-JSON.parse(localStorage.getItem("tacbo_assets")) || [];
-
-let milk =
-JSON.parse(localStorage.getItem("tacbo_milk")) || [];
-
-let farms =
-JSON.parse(localStorage.getItem("tacbo_farms")) || [];
-
-
-/* =========================
-   HELPERS
-========================= */
-
-function money(value){
-
-return "$" +
-Number(value || 0).toLocaleString(
-undefined,
-{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-}
-);
-
-}
-
-function today(){
-
-return new Date()
-.toISOString()
-.split("T")[0];
-
-}
-
-function saveData(){
-
-localStorage.setItem(
-"tacbo_incomes",
-JSON.stringify(incomes)
-);
-
-localStorage.setItem(
-"tacbo_expenses",
-JSON.stringify(expenses)
-);
-
-localStorage.setItem(
-"tacbo_debts",
-JSON.stringify(debts)
-);
-
-localStorage.setItem(
-"tacbo_livestock",
-JSON.stringify(livestock)
-);
-
-localStorage.setItem(
-"tacbo_assets",
-JSON.stringify(assets)
-);
-
-localStorage.setItem(
-"tacbo_milk",
-JSON.stringify(milk)
-);
-
-localStorage.setItem(
-"tacbo_farms",
-JSON.stringify(farms)
-);
-
-updateAll();
+`;
 
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+/* ================= CALENDAR ================= */
 
-function showSection(id,btn){
+function calendar(){
 
-document
-.querySelectorAll(".section")
-.forEach(
-section=>section.classList.remove("active")
-);
+return head("📅 Calendar")+`
 
-document
-.getElementById(id)
-.classList.add("active");
+<div class="panel">
 
-document
-.querySelectorAll("nav button")
-.forEach(
-button=>button.classList.remove("active")
-);
+<div class="grid">
 
-btn.classList.add("active");
+${field("ct","Hawl")}
 
-}
+${field("cd","Taariikh","date")}
 
+<div>
 
-/* =========================
-   INCOME
-========================= */
+<label>Nooc</label>
 
-document
-.getElementById("incomeForm")
-.addEventListener("submit",function(e){
+<select id="cx">
 
-e.preventDefault();
+<option>Beeris</option>
+<option>Goosasho</option>
+<option>Tallaal</option>
+<option>Daawo</option>
+<option>Dayactir</option>
+<option>Deyn</option>
+<option>Iib</option>
+<option>Kale</option>
 
-let id =
-document.getElementById("incomeEditId").value;
+</select>
 
-let item={
+</div>
 
-id:id || Date.now(),
+</div>
 
-name:
-document.getElementById("incomeName").value,
+<button class="primary" onclick="addCalendar()">
+➕ Ku dar Hawl
+</button>
 
-amount:
-Number(
-document.getElementById("incomeAmount").value
-),
+</div>
 
-date:
-document.getElementById("incomeDate").value
+<div class="panel table">
 
-};
+<table>
 
-if(id){
+<tr>
+<th>Hawl</th>
+<th>Date</th>
+<th>Nooc</th>
+<th>Action</th>
+</tr>
 
-let index=
-incomes.findIndex(x=>x.id==id);
-
-incomes[index]=item;
-
-}else{
-
-incomes.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"incomeEditId"
-).value="";
-
-document.getElementById(
-"incomeDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderIncome(){
-
-let html="";
-
-incomes.forEach(item=>{
-
-html+=`
+${D.calendar.map((x,i)=>`
 
 <tr>
 
-<td>${item.name}</td>
-
-<td>${money(item.amount)}</td>
-
-<td>${item.date}</td>
+<td>${esc(x.task)}</td>
+<td>${x.date}</td>
+<td>${x.type}</td>
 
 <td>
-
-<button
-class="edit"
-onclick="editIncome(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteIncome(${item.id})">
+<button class="danger"
+onclick="del('calendar',${i})">
 Delete
 </button>
-
 </td>
 
 </tr>
 
+`).join("")}
+
+</table>
+
+</div>
+
 `;
+
+}
+
+
+function addCalendar(){
+
+D.calendar.push({
+
+task:ct.value,
+date:cd.value,
+type:cx.value
 
 });
 
-document.getElementById(
-"incomeTable"
-).innerHTML=html;
+save();
 
 }
 
 
-function editIncome(id){
+/* ================= SETTINGS ================= */
 
-let x=incomes.find(
-item=>item.id==id
-);
+function settings(){
 
-document.getElementById(
-"incomeEditId"
-).value=x.id;
+return head("⚙️ Settings")+`
 
-document.getElementById(
-"incomeName"
-).value=x.name;
+<div class="panel">
 
-document.getElementById(
-"incomeAmount"
-).value=x.amount;
+<div class="grid">
 
-document.getElementById(
-"incomeDate"
-).value=x.date;
+${field("co","Company")}
 
-showSection(
-"income",
-document.querySelectorAll("nav button")[1]
-);
+${field("ph","Phone")}
+
+${field("em","Email")}
+
+${field("lo","Location")}
+
+<div>
+
+<label>Currency</label>
+
+<select id="cu">
+
+<option>$ USD</option>
+<option>€ EUR</option>
+<option>Sh.So SOS</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button class="primary" onclick="settingsSave()">
+💾 Save Settings
+</button>
+
+<button class="secondary" onclick="backup()">
+📥 Backup
+</button>
+
+<button class="secondary"
+onclick="document.getElementById('restore').click()">
+📤 Restore
+</button>
+
+<input
+id="restore"
+type="file"
+accept=".json"
+style="display:none"
+onchange="restoreData(event)"
+>
+
+<div class="notice">
+
+📞 ${esc(D.settings.phone)}<br>
+📧 ${esc(D.settings.email)}<br>
+📍 ${esc(D.settings.location)}
+
+</div>
+
+</div>
+
+`;
 
 }
 
 
-function deleteIncome(id){
+function settingsSave(){
 
-if(confirm("Ma hubtaa inaad delete gareyso?")){
+D.settings={
 
-incomes=incomes.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   EXPENSE
-========================= */
-
-document
-.getElementById("expenseForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"expenseEditId"
-).value;
-
-let item={
-
-id:id || Date.now(),
-
-category:
-document.getElementById(
-"expenseCategory"
-).value,
-
-amount:
-Number(
-document.getElementById(
-"expenseAmount"
-).value
-),
-
-date:
-document.getElementById(
-"expenseDate"
-).value
+company:co.value,
+phone:ph.value,
+email:em.value,
+location:lo.value,
+currency:cu.value
 
 };
 
-if(id){
+save();
 
-let index=
-expenses.findIndex(
-x=>x.id==id
-);
-
-expenses[index]=item;
-
-}else{
-
-expenses.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"expenseEditId"
-).value="";
-
-document.getElementById(
-"expenseDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderExpenses(){
-
-let html="";
-
-expenses.forEach(item=>{
-
-html+=`
-
-<tr>
-
-<td>${item.category}</td>
-
-<td>${money(item.amount)}</td>
-
-<td>${item.date}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editExpense(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteExpense(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"expenseTable"
-).innerHTML=html;
+alert("Settings waa la keydiyay ✅");
 
 }
 
 
-function editExpense(id){
+/* ================= BACKUP ================= */
 
-let x=expenses.find(
-item=>item.id==id
+function backup(){
+
+let blob=new Blob(
+
+[JSON.stringify(D,null,2)],
+
+{type:"application/json"}
+
 );
 
-document.getElementById(
-"expenseEditId"
-).value=x.id;
+let a=document.createElement("a");
 
-document.getElementById(
-"expenseCategory"
-).value=x.category;
+a.href=URL.createObjectURL(blob);
 
-document.getElementById(
-"expenseAmount"
-).value=x.amount;
+a.download="TACBO-Agro-Backup.json";
 
-document.getElementById(
-"expenseDate"
-).value=x.date;
-
-showSection(
-"expenses",
-document.querySelectorAll("nav button")[2]
-);
+a.click();
 
 }
 
 
-function deleteExpense(id){
+/* ================= RESTORE ================= */
 
-if(confirm("Ma hubtaa inaad delete gareyso?")){
+function restoreData(e){
 
-expenses=expenses.filter(
-x=>x.id!=id
-);
+let file=e.target.files[0];
 
-saveData();
+if(!file)return;
 
-}
+let reader=new FileReader();
 
-}
-
-
-/* =========================
-   DEBT
-========================= */
-
-document
-.getElementById("debtForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"debtEditId"
-).value;
-
-let item={
-
-id:id || Date.now(),
-
-person:
-document.getElementById(
-"debtPerson"
-).value,
-
-type:
-document.getElementById(
-"debtType"
-).value,
-
-amount:
-Number(
-document.getElementById(
-"debtAmount"
-).value
-),
-
-paid:
-Number(
-document.getElementById(
-"debtPaid"
-).value
-),
-
-date:
-document.getElementById(
-"debtDate"
-).value
-
-};
-
-if(id){
-
-let index=
-debts.findIndex(
-x=>x.id==id
-);
-
-debts[index]=item;
-
-}else{
-
-debts.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"debtEditId"
-).value="";
-
-document.getElementById(
-"debtPaid"
-).value=0;
-
-document.getElementById(
-"debtDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderDebts(){
-
-let html="";
-
-debts.forEach(item=>{
-
-let remaining=
-Math.max(
-0,
-Number(item.amount)-
-Number(item.paid)
-);
-
-let status=
-remaining<=0
-?
-`<span class="badge paid">Paid</span>`
-:
-`<span class="badge remaining">Remaining</span>`;
-
-let type=
-item.type==="receivable"
-?
-"Lagugu leeyahay"
-:
-"Adiga ayaa leh";
-
-html+=`
-
-<tr>
-
-<td>${item.person}</td>
-
-<td>${type}</td>
-
-<td>${money(item.amount)}</td>
-
-<td>${money(remaining)}</td>
-
-<td>${status}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editDebt(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteDebt(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"debtTable"
-).innerHTML=html;
-
-}
-
-
-function editDebt(id){
-
-let x=debts.find(
-item=>item.id==id
-);
-
-document.getElementById(
-"debtEditId"
-).value=x.id;
-
-document.getElementById(
-"debtPerson"
-).value=x.person;
-
-document.getElementById(
-"debtType"
-).value=x.type;
-
-document.getElementById(
-"debtAmount"
-).value=x.amount;
-
-document.getElementById(
-"debtPaid"
-).value=x.paid;
-
-document.getElementById(
-"debtDate"
-).value=x.date;
-
-showSection(
-"debts",
-document.querySelectorAll("nav button")[3]
-);
-
-}
-
-
-function deleteDebt(id){
-
-if(confirm("Ma hubtaa inaad delete gareyso?")){
-
-debts=debts.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   LIVESTOCK
-========================= */
-
-document
-.getElementById("livestockForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"livestockEditId"
-).value;
-
-let item={
-
-id:id || Date.now(),
-
-type:
-document.getElementById(
-"livestockType"
-).value,
-
-count:
-Number(
-document.getElementById(
-"livestockCount"
-).value
-),
-
-value:
-Number(
-document.getElementById(
-"livestockValue"
-).value
-)
-
-};
-
-if(id){
-
-let index=
-livestock.findIndex(
-x=>x.id==id
-);
-
-livestock[index]=item;
-
-}else{
-
-livestock.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"livestockEditId"
-).value="";
-
-saveData();
-
-});
-
-
-function renderLivestock(){
-
-let html="";
-
-livestock.forEach(item=>{
-
-html+=`
-
-<tr>
-
-<td>${item.type}</td>
-
-<td>${item.count}</td>
-
-<td>${money(item.value)}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editLivestock(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteLivestock(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"livestockTable"
-).innerHTML=html;
-
-}
-
-
-function editLivestock(id){
-
-let x=livestock.find(
-item=>item.id==id
-);
-
-document.getElementById(
-"livestockEditId"
-).value=x.id;
-
-document.getElementById(
-"livestockType"
-).value=x.type;
-
-document.getElementById(
-"livestockCount"
-).value=x.count;
-
-document.getElementById(
-"livestockValue"
-).value=x.value;
-
-showSection(
-"livestock",
-document.querySelectorAll("nav button")[5]
-);
-
-}
-
-
-function deleteLivestock(id){
-
-if(confirm("Ma hubtaa inaad delete gareyso?")){
-
-livestock=livestock.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   MILK
-========================= */
-
-document
-.getElementById("milkForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"milkEditId"
-).value;
-
-let liters=
-Number(
-document.getElementById(
-"milkLiters"
-).value
-);
-
-let price=
-Number(
-document.getElementById(
-"milkPrice"
-).value
-);
-
-let item={
-
-id:id || Date.now(),
-
-liters:liters,
-
-price:price,
-
-total:liters*price,
-
-date:
-document.getElementById(
-"milkDate"
-).value
-
-};
-
-if(id){
-
-let index=
-milk.findIndex(
-x=>x.id==id
-);
-
-milk[index]=item;
-
-}else{
-
-milk.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"milkEditId"
-).value="";
-
-document.getElementById(
-"milkDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderMilk(){
-
-let html="";
-
-let totalLiters=0;
-
-let totalIncome=0;
-
-milk.forEach(item=>{
-
-let total=
-Number(item.liters)*
-Number(item.price);
-
-totalLiters+=Number(item.liters);
-
-totalIncome+=total;
-
-html+=`
-
-<tr>
-
-<td>${item.liters} L</td>
-
-<td>${money(item.price)}</td>
-
-<td>${money(total)}</td>
-
-<td>${item.date}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editMilk(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteMilk(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"milkTable"
-).innerHTML=html;
-
-document.getElementById(
-"totalMilkLiters"
-).innerText=
-totalLiters.toLocaleString()+" L";
-
-document.getElementById(
-"totalMilkIncome"
-).innerText=
-money(totalIncome);
-
-}
-
-
-function editMilk(id){
-
-let x=milk.find(
-item=>item.id==id
-);
-
-document.getElementById(
-"milkEditId"
-).value=x.id;
-
-document.getElementById(
-"milkLiters"
-).value=x.liters;
-
-document.getElementById(
-"milkPrice"
-).value=x.price;
-
-document.getElementById(
-"milkDate"
-).value=x.date;
-
-showSection(
-"milk",
-document.querySelectorAll("nav button")[6]
-);
-
-}
-
-
-function deleteMilk(id){
-
-if(confirm("Ma hubtaa inaad delete gareyso?")){
-
-milk=milk.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   FARM
-========================= */
-
-document
-.getElementById("farmForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"farmEditId"
-).value;
-
-let production=
-Number(
-document.getElementById(
-"farmProduction"
-).value
-);
-
-let price=
-Number(
-document.getElementById(
-"farmPrice"
-).value
-);
-
-let cost=
-Number(
-document.getElementById(
-"farmCost"
-).value || 0
-);
-
-let item={
-
-id:id || Date.now(),
-
-crop:
-document.getElementById(
-"farmCrop"
-).value,
-
-hectares:
-Number(
-document.getElementById(
-"farmHectares"
-).value
-),
-
-production:production,
-
-price:price,
-
-income:
-production*price,
-
-cost:cost,
-
-profit:
-(production*price)-cost,
-
-date:
-document.getElementById(
-"farmDate"
-).value
-
-};
-
-if(id){
-
-let index=
-farms.findIndex(
-x=>x.id==id
-);
-
-farms[index]=item;
-
-}else{
-
-farms.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"farmEditId"
-).value="";
-
-document.getElementById(
-"farmCost"
-).value=0;
-
-document.getElementById(
-"farmDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderFarm(){
-
-let html="";
-
-let income=0;
-
-let cost=0;
-
-let profit=0;
-
-farms.forEach(item=>{
-
-let itemIncome=
-Number(item.production)*
-Number(item.price);
-
-let itemCost=
-Number(item.cost || 0);
-
-let itemProfit=
-itemIncome-itemCost;
-
-income+=itemIncome;
-
-cost+=itemCost;
-
-profit+=itemProfit;
-
-html+=`
-
-<tr>
-
-<td>${item.crop}</td>
-
-<td>${item.hectares}</td>
-
-<td>${item.production}</td>
-
-<td>${money(itemIncome)}</td>
-
-<td>${money(itemCost)}</td>
-
-<td>${money(itemProfit)}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editFarm(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteFarm(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"farmTable"
-).innerHTML=html;
-
-document.getElementById(
-"totalFarmIncome"
-).innerText=
-money(income);
-
-document.getElementById(
-"totalFarmCost"
-).innerText=
-money(cost);
-
-document.getElementById(
-"totalFarmProfit"
-).innerText=
-money(profit);
-
-}
-
-
-function editFarm(id){
-
-let x=farms.find(
-item=>item.id==id
-);
-
-document.getElementById(
-"farmEditId"
-).value=x.id;
-
-document.getElementById(
-"farmCrop"
-).value=x.crop;
-
-document.getElementById(
-"farmHectares"
-).value=x.hectares;
-
-document.getElementById(
-"farmProduction"
-).value=x.production;
-
-document.getElementById(
-"farmPrice"
-).value=x.price;
-
-document.getElementById(
-"farmCost"
-).value=x.cost;
-
-document.getElementById(
-"farmDate"
-).value=x.date;
-
-showSection(
-"farm",
-document.querySelectorAll("nav button")[7]
-);
-
-}
-
-
-function deleteFarm(id){
-
-if(confirm("Ma hubtaa inaad delete gareyso?")){
-
-farms=farms.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   ASSETS
-========================= */
-
-document
-.getElementById("assetForm")
-.addEventListener("submit",function(e){
-
-e.preventDefault();
-
-let id=
-document.getElementById(
-"assetEditId"
-).value;
-
-let item={
-
-id:id || Date.now(),
-
-name:
-document.getElementById(
-"assetName"
-).value,
-
-value:
-Number(
-document.getElementById(
-"assetValue"
-).value
-),
-
-category:
-document.getElementById(
-"assetCategory"
-).value,
-
-date:
-document.getElementById(
-"assetDate"
-).value
-
-};
-
-if(id){
-
-let index=
-assets.findIndex(
-x=>x.id==id
-);
-
-assets[index]=item;
-
-}else{
-
-assets.push(item);
-
-}
-
-this.reset();
-
-document.getElementById(
-"assetEditId"
-).value="";
-
-document.getElementById(
-"assetDate"
-).value=today();
-
-saveData();
-
-});
-
-
-function renderAssets(){
-
-let html="";
-
-assets.forEach(item=>{
-
-html+=`
-
-<tr>
-
-<td>${item.name}</td>
-
-<td>${item.category}</td>
-
-<td>${money(item.value)}</td>
-
-<td>${item.date}</td>
-
-<td>
-
-<button
-class="edit"
-onclick="editAsset(${item.id})">
-Edit
-</button>
-
-<button
-class="danger"
-onclick="deleteAsset(${item.id})">
-Delete
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"assetTable"
-).innerHTML=html;
-
-}
-
-
-function editAsset(id){
-
-let x=assets.find(
-item=>item.id==id
-);
-
-document.getElementById(
-"assetEditId"
-).value=x.id;
-
-document.getElementById(
-"assetName"
-).value=x.name;
-
-document.getElementById(
-"assetValue"
-).value=x.value;
-
-document.getElementById(
-"assetCategory"
-).value=x.category;
-
-document.getElementById(
-"assetDate"
-).value=x.date;
-
-showSection(
-"assets",
-document.querySelectorAll("nav button")[8]
-);
-
-}
-
-
-function deleteAsset(id){
-
-if(confirm("Ma hubtaa inaad delete gareyso?")){
-
-assets=assets.filter(
-x=>x.id!=id
-);
-
-saveData();
-
-}
-
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-function updateDashboard(){
-
-let income=
-incomes.reduce(
-(sum,x)=>sum+Number(x.amount),
-0
-);
-
-let expense=
-expenses.reduce(
-(sum,x)=>sum+Number(x.amount),
-0
-);
-
-let milkIncome=
-milk.reduce(
-(sum,x)=>
-sum+
-(Number(x.liters)*Number(x.price)),
-0
-);
-
-let farmIncome=
-farms.reduce(
-(sum,x)=>
-sum+
-(Number(x.production)*Number(x.price)),
-0
-);
-
-let farmCost=
-farms.reduce(
-(sum,x)=>
-sum+
-Number(x.cost || 0),
-0
-);
-
-let totalBusinessIncome=
-income+
-milkIncome+
-farmIncome;
-
-let totalBusinessExpense=
-expense+
-farmCost;
-
-let profit=
-totalBusinessIncome-
-totalBusinessExpense;
-
-let receivable=
-debts
-.filter(x=>x.type==="receivable")
-.reduce(
-(sum,x)=>
-sum+
-Math.max(
-0,
-Number(x.amount)-Number(x.paid)
-),
-0
-);
-
-let payable=
-debts
-.filter(x=>x.type==="payable")
-.reduce(
-(sum,x)=>
-sum+
-Math.max(
-0,
-Number(x.amount)-Number(x.paid)
-),
-0
-);
-
-let animals=
-livestock.reduce(
-(sum,x)=>sum+Number(x.count),
-0
-);
-
-let totalAssets=
-assets.reduce(
-(sum,x)=>sum+Number(x.value),
-0
-);
-
-
-document.getElementById(
-"dashIncome"
-).innerText=
-money(totalBusinessIncome);
-
-document.getElementById(
-"dashExpense"
-).innerText=
-money(totalBusinessExpense);
-
-document.getElementById(
-"dashProfit"
-).innerText=
-money(profit);
-
-document.getElementById(
-"dashMilk"
-).innerText=
-money(milkIncome);
-
-document.getElementById(
-"dashFarm"
-).innerText=
-money(farmIncome);
-
-document.getElementById(
-"dashReceivable"
-).innerText=
-money(receivable);
-
-document.getElementById(
-"dashPayable"
-).innerText=
-money(payable);
-
-document.getElementById(
-"dashLivestock"
-).innerText=
-animals;
-
-document.getElementById(
-"dashAssets"
-).innerText=
-money(totalAssets);
-
-
-document.getElementById(
-"reportIncome"
-).innerText=
-money(totalBusinessIncome);
-
-document.getElementById(
-"reportExpense"
-).innerText=
-money(totalBusinessExpense);
-
-document.getElementById(
-"reportProfit"
-).innerText=
-money(profit);
-
-document.getElementById(
-"reportMilk"
-).innerText=
-money(milkIncome);
-
-document.getElementById(
-"reportFarm"
-).innerText=
-money(farmIncome);
-
-document.getElementById(
-"reportAssets"
-).innerText=
-money(totalAssets);
-
-
-document.getElementById(
-"dashboardMessage"
-).innerHTML=
-`
-Dakhliga guud waa <b>${money(totalBusinessIncome)}</b>,
-kharashka guud waa <b>${money(totalBusinessExpense)}</b>,
-faa'iidada hadda waa <b>${money(profit)}</b>.
-`;
-
-}
-
-
-/* =========================
-   CALCULATOR
-========================= */
-
-let calc="";
-
-function calcInput(value){
-
-if(calc==="Error"){
-calc="";
-}
-
-calc+=value;
-
-document.getElementById(
-"calcDisplay"
-).value=calc;
-
-}
-
-function clearCalc(){
-
-calc="";
-
-document.getElementById(
-"calcDisplay"
-).value="0";
-
-}
-
-function backspace(){
-
-calc=calc.slice(0,-1);
-
-document.getElementById(
-"calcDisplay"
-).value=
-calc || "0";
-
-}
-
-function calculate(){
+reader.onload=()=>{
 
 try{
 
-let expression=
-calc.replace(/%/g,"/100");
+D=JSON.parse(reader.result);
 
-let result=
-Function(
-'"use strict";return ('+
-expression+
-')'
-)();
+save();
 
-calc=String(result);
+alert("Backup waa la soo celiyay ✅");
 
-document.getElementById(
-"calcDisplay"
-).value=calc;
+}catch(error){
 
-}catch(e){
-
-calc="Error";
-
-document.getElementById(
-"calcDisplay"
-).value="Error";
+alert("Backup-ka ma saxna ❌");
 
 }
+
+};
+
+reader.readAsText(file);
 
 }
 
 
-/* =========================
-   UPDATE ALL
-========================= */
+/* ================= CSV ================= */
 
-function updateAll(){
+function exportCSV(){
 
-renderIncome();
+let rows=[
+["Date","Type","Description","Quantity","Price","Total","Payment"]
+];
 
-renderExpenses();
+D.sales.forEach(x=>{
 
-renderDebts();
+rows.push([
+x.date,
+x.type,
+x.desc,
+x.qty,
+x.price,
+x.total,
+x.pay
+]);
 
-renderLivestock();
+});
 
-renderMilk();
+let csv=rows.map(row=>
 
-renderFarm();
+row.map(value=>
+`"${String(value??"").replace(/"/g,'""')}"`
+).join(",")
 
-renderAssets();
+).join("\n");
 
-updateDashboard();
+let blob=new Blob([csv],{type:"text/csv"});
+
+let a=document.createElement("a");
+
+a.href=URL.createObjectURL(blob);
+
+a.download="TACBO-Sales.csv";
+
+a.click();
 
 }
 
 
-/* =========================
-   DEFAULT DATES
-========================= */
+/* ================= MAIN RENDER ================= */
 
-document.getElementById(
-"incomeDate"
-).value=today();
+function render(id){
 
-document.getElementById(
-"expenseDate"
-).value=today();
+let html="";
 
-document.getElementById(
-"debtDate"
-).value=today();
+if(id==="dashboard")html=dashboard();
 
-document.getElementById(
-"milkDate"
-).value=today();
+if(id==="sales")html=sales();
 
-document.getElementById(
-"farmDate"
-).value=today();
+if(id==="expenses")html=expenses();
 
-document.getElementById(
-"assetDate"
-).value=today();
+if(id==="debts")html=debts();
+
+if(id==="animals")html=animals();
+
+if(id==="farms")html=farms();
+
+if(id==="milk")html=milk();
+
+if(id==="feed")html=feed();
+
+if(id==="assets")html=assets();
+
+if(id==="inventory")html=inventory();
+
+if(id==="employees")html=employees();
+
+if(id==="machines")html=machines();
+
+if(id==="calc")html=calculator();
+
+if(id==="reports")html=reports();
+
+if(id==="calendar")html=calendar();
+
+if(id==="settings")html=settings();
+
+app.innerHTML=html;
+
+}
 
 
-/* =========================
-   START
-========================= */
+/* START */
 
-updateAll();
+render("dashboard");
 
 </script>
 
