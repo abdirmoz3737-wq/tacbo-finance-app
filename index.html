@@ -1206,9 +1206,12 @@ TACBO Agro Agriculture & Livestock Company
 Finance App
 </footer>
 
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-
+const tacboSupabase = window.supabase.createClient(
+  "https://ujkjdxytceqfcngdzlqt.supabase.co",
+  "sb_publishable_[KEY-GA OO DHAN]"
+);
 /* =========================================================
    TACBO AGRO FINANCE
    VERSION 3
