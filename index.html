@@ -1228,8 +1228,9 @@ const emptyDB = {
 
 };
 
-let db = loadDB();
-
+let db = JSON.parse(
+  JSON.stringify(emptyDB)
+);
 
 /* =========================================================
    LOAD DATABASE
@@ -1355,12 +1356,67 @@ function esc(value){
    SAVE
    ========================================================= */
 
-function persist(){
+ 
+
+  async function persist(){
 
   localStorage.setItem(
     KEY,
     JSON.stringify(db)
   );
+
+  try{
+
+    const { error } =
+      await tacboSupabase
+        .from("tacbo_app_data")
+        .upsert(
+          {
+            id: "tacbo_agro_v3",
+            data: db,
+            updated_at:
+              new Date().toISOString()
+          },
+          {
+            onConflict: "id"
+          }
+        );
+
+    if(error){
+
+      console.error(
+        "Supabase Save Error:",
+        error
+      );
+
+      alert(
+        "Supabase error: " +
+        error.message
+      );
+
+      renderAll();
+      return;
+
+    }
+
+    console.log(
+      "✅ TACBO → Supabase"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Supabase error: " +
+      error.message
+    );
+
+  }
+
+  renderAll();
+
+}
 
   renderAll();
 
