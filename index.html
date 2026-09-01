@@ -3,2766 +3,3112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#2f7d3b">
-<title>TACBO Agro — Agriculture & Livestock</title>
+<meta name="theme-color" content="#347d43">
+<meta name="description" content="TACBO Agro Agriculture & Livestock Company Management System">
+<title>TACBO Agro Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
 }
 
 :root{
-  --green:#347d43;
-  --green2:#286b35;
-  --light:#f4f8f4;
-  --card:#ffffff;
-  --text:#17251b;
-  --muted:#708075;
-  --danger:#c94b3d;
-  --warning:#d99020;
-  --border:#e2e9e3;
-  --shadow:0 8px 28px rgba(30,60,38,.08);
+    --green:#347d43;
+    --dark:#18351f;
+    --light:#f3f7f3;
+    --line:#dce6de;
+    --red:#c62828;
+    --gold:#b8860b;
+    --blue:#2563eb;
+    --orange:#ea580c;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--light);
-  color:var(--text);
-  padding-bottom:95px;
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:var(--light);
+    color:var(--dark);
 }
 
-button,input,select,textarea{
-  font:inherit;
+header{
+    background:linear-gradient(135deg,#2d713b,#39894a);
+    color:#fff;
+    padding:24px 16px;
+    text-align:center;
 }
 
-button{
-  cursor:pointer;
+header h1{
+    margin:0;
+    font-size:28px;
 }
 
-.header{
-  background:linear-gradient(135deg,#347d43,#286b35);
-  color:white;
-  padding:24px 18px 28px;
-  border-radius:0 0 28px 28px;
-  box-shadow:var(--shadow);
+header p{
+    margin:6px 0 0;
 }
 
-.header-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+nav{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
+    padding:10px;
+    background:#fff;
+    position:sticky;
+    top:0;
+    z-index:50;
+    border-bottom:1px solid var(--line);
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+nav button{
+    border:0;
+    background:#eaf3eb;
+    color:#275d32;
+    padding:11px 14px;
+    border-radius:11px;
+    font-weight:700;
+    white-space:nowrap;
+    cursor:pointer;
 }
 
-.logo{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
+nav button.active{
+    background:var(--green);
+    color:#fff;
 }
 
-.brand h1{
-  font-size:25px;
-  line-height:1.1;
+main{
+    max-width:1250px;
+    margin:auto;
+    padding:16px;
 }
 
-.brand p{
-  margin-top:4px;
-  opacity:.88;
-  font-size:13px;
+section{
+    display:none;
 }
 
-.lang{
-  border:0;
-  background:rgba(255,255,255,.16);
-  color:white;
-  border-radius:14px;
-  padding:10px 12px;
+section.active{
+    display:block;
 }
 
-.hero{
-  margin-top:22px;
+h2{
+    color:#276436;
+    margin:5px 0 16px;
 }
 
-.hero h2{
-  font-size:27px;
-  margin-bottom:6px;
+h3{
+    margin-top:0;
 }
 
-.hero p{
-  opacity:.9;
-  line-height:1.5;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:13px;
 }
 
-.container{
-  width:min(1100px,100%);
-  margin:auto;
-  padding:18px;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-top:-8px;
-}
-
-.stat{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:18px;
-  box-shadow:var(--shadow);
-}
-
-.stat-icon{
-  font-size:25px;
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:8px;
-}
-
-.stat-value{
-  font-size:23px;
-  font-weight:800;
-  margin-top:4px;
-}
-
-.nav-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin:22px 0;
-}
-
-.nav-btn{
-  border:1px solid var(--border);
-  background:white;
-  color:var(--text);
-  border-radius:18px;
-  min-height:82px;
-  padding:12px;
-  font-weight:700;
-  box-shadow:0 5px 18px rgba(30,60,38,.05);
-  transition:.2s;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-  background:var(--green);
-  color:white;
-  transform:translateY(-2px);
-}
-
-.nav-icon{
-  display:block;
-  font-size:25px;
-  margin-bottom:6px;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
+.card,
+form,
+.table-wrap{
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 2px 12px #0000000d;
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:20px;
-  box-shadow:var(--shadow);
-  margin-bottom:18px;
+    padding:17px;
 }
 
-.card-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:17px;
+.card h3{
+    margin:0 0 8px;
 }
 
-.card-title h2{
-  font-size:21px;
+.number{
+    font-size:25px;
+    font-weight:800;
+    color:var(--green);
 }
 
-.card-title span{
-  color:var(--muted);
-  font-size:13px;
+.money{
+    font-weight:800;
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+form{
+    padding:17px;
+    margin-bottom:18px;
 }
 
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+label{
+    display:block;
+    margin:10px 0 5px;
+    font-weight:700;
+    color:#536057;
 }
 
-.field.full{
-  grid-column:1/-1;
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd9ce;
+    border-radius:10px;
+    font-size:15px;
+    background:#fff;
 }
 
-.field label{
-  font-size:13px;
-  font-weight:700;
-  color:#526158;
+textarea{
+    min-height:80px;
+    resize:vertical;
 }
 
-.field input,
-.field select,
-.field textarea{
-  width:100%;
-  border:1px solid #d9e3db;
-  background:#fbfdfb;
-  border-radius:14px;
-  padding:13px 14px;
-  color:var(--text);
-  outline:none;
+button{
+    cursor:pointer;
 }
 
-.field textarea{
-  min-height:90px;
-  resize:vertical;
+button.primary{
+    border:0;
+    background:var(--green);
+    color:#fff;
+    padding:13px 18px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:15px;
+    margin-top:13px;
 }
 
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:var(--green);
-  box-shadow:0 0 0 3px rgba(52,125,67,.10);
+button.secondary{
+    border:0;
+    background:#e8f2e9;
+    color:#276436;
+    padding:10px 13px;
+    border-radius:9px;
+    font-weight:700;
 }
 
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
-  flex-wrap:wrap;
+button.danger{
+    border:0;
+    background:var(--red);
+    color:#fff;
+    padding:8px 11px;
+    border-radius:8px;
+    font-weight:700;
 }
 
-.btn{
-  border:0;
-  border-radius:14px;
-  padding:12px 18px;
-  font-weight:750;
+button.blue{
+    border:0;
+    background:var(--blue);
+    color:#fff;
+    padding:10px 13px;
+    border-radius:9px;
+    font-weight:700;
 }
 
-.btn-primary{
-  background:var(--green);
-  color:white;
-}
-
-.btn-secondary{
-  background:#edf4ee;
-  color:var(--green2);
-}
-
-.btn-danger{
-  background:#fdebea;
-  color:#a9382e;
-}
-
-.btn-small{
-  padding:8px 11px;
-  border-radius:10px;
-  font-size:12px;
-}
-
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-  border:1px solid var(--border);
-  border-radius:17px;
+button.orange{
+    border:0;
+    background:var(--orange);
+    color:#fff;
+    padding:10px 13px;
+    border-radius:9px;
+    font-weight:700;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:680px;
+    width:100%;
+    min-width:850px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:11px;
+    border-bottom:1px solid #edf1ed;
+    text-align:left;
+    vertical-align:top;
 }
 
 th{
-  text-align:left;
-  background:#f4f8f4;
-  color:#607066;
-  font-size:12px;
-  padding:13px;
-  white-space:nowrap;
+    background:#eaf3eb;
+    color:#285e34;
+    font-size:14px;
 }
 
-td{
-  padding:13px;
-  border-top:1px solid var(--border);
-  font-size:14px;
+.table-wrap{
+    overflow-x:auto;
 }
 
-.amount-income{
-  color:#25813a;
-  font-weight:800;
+.profit{
+    color:#198038;
+    font-weight:800;
 }
 
-.amount-expense{
-  color:#c64b40;
-  font-weight:800;
+.loss{
+    color:var(--red);
+    font-weight:800;
+}
+
+.total{
+    margin-top:12px;
+    padding:12px;
+    background:#edf7ef;
+    border-radius:10px;
+    font-weight:700;
+}
+
+.small{
+    font-size:12px;
+    color:#718078;
 }
 
 .empty{
-  padding:35px 15px;
-  text-align:center;
-  color:var(--muted);
+    text-align:center;
+    padding:25px;
+    color:#77837a;
+}
+
+.status{
+    position:fixed;
+    left:15px;
+    right:15px;
+    bottom:15px;
+    background:#18351f;
+    color:#fff;
+    padding:13px 15px;
+    border-radius:11px;
+    display:none;
+    z-index:100;
+}
+
+.status.show{
+    display:block;
+}
+
+.toolbar{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+
+.toolbar input{
+    max-width:300px;
 }
 
 .badge{
-  display:inline-flex;
-  padding:5px 9px;
-  border-radius:9px;
-  background:#edf5ee;
-  color:var(--green2);
-  font-size:12px;
-  font-weight:700;
-}
-
-.report-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.report-box{
-  border-radius:20px;
-  padding:20px;
-  background:#f6faf6;
-  border:1px solid var(--border);
-}
-
-.report-box h3{
-  font-size:14px;
-  color:var(--muted);
-}
-
-.report-box strong{
-  display:block;
-  margin-top:7px;
-  font-size:25px;
-}
-
-.balance-positive{
-  color:#27833c;
-}
-
-.balance-negative{
-  color:#c6483d;
-}
-
-.bottom-nav{
-  position:fixed;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(700px,calc(100% - 24px));
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(14px);
-  border:1px solid #dce5de;
-  border-radius:23px;
-  box-shadow:0 12px 35px rgba(20,50,27,.18);
-  display:flex;
-  justify-content:space-around;
-  padding:8px;
-  z-index:50;
-}
-
-.bottom-btn{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#6b776e;
-  padding:8px 4px;
-  border-radius:15px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.bottom-btn span{
-  display:block;
-  font-size:20px;
-  margin-bottom:2px;
-}
-
-.bottom-btn.active{
-  background:var(--green);
-  color:white;
-}
-
-.toast{
-  position:fixed;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%) translateY(-120px);
-  background:#17251b;
-  color:white;
-  padding:13px 18px;
-  border-radius:13px;
-  z-index:100;
-  transition:.3s;
-  box-shadow:var(--shadow);
-  max-width:90%;
-  text-align:center;
-}
-
-.toast.show{
-  transform:translateX(-50%) translateY(0);
-}
-
-.loading{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(4px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:90;
-}
-
-.loading.show{
-  display:flex;
-}
-
-.loader-box{
-  background:white;
-  border-radius:20px;
-  padding:22px 30px;
-  box-shadow:var(--shadow);
-  font-weight:700;
-}
-
-.footer{
-  text-align:center;
-  color:var(--muted);
-  padding:25px 10px;
-  font-size:12px;
-}
-
-@media(max-width:800px){
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .nav-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .report-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:560px){
-  .header{
-    padding:18px 15px 24px;
-  }
-
-  .brand h1{
-    font-size:21px;
-  }
-
-  .logo{
-    width:45px;
-    height:45px;
-    font-size:24px;
-  }
-
-  .hero h2{
-    font-size:23px;
-  }
-
-  .container{
-    padding:13px;
-  }
-
-  .stats{
-    gap:9px;
-  }
-
-  .stat{
-    padding:14px;
-    border-radius:17px;
-  }
-
-  .stat-value{
-    font-size:19px;
-  }
-
-  .nav-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
-  }
-
-  .nav-btn{
-    min-height:74px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .card{
-    padding:15px;
+    display:inline-block;
+    padding:4px 8px;
     border-radius:20px;
-  }
+    background:#eaf3eb;
+    color:#276436;
+    font-size:12px;
+    font-weight:700;
+}
 
-  .card-title h2{
-    font-size:19px;
-  }
+.stat-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid #edf1ed;
+    padding:10px 0;
+}
 
-  .bottom-nav{
-    bottom:8px;
-  }
+.quick{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+    margin-top:15px;
+}
+
+.quick button{
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    background:#fff;
+    box-shadow:0 2px 10px #0000000c;
+    font-weight:800;
+    color:#285e34;
+}
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+@media(max-width:700px){
+    .two{
+        grid-template-columns:1fr;
+    }
+
+    header h1{
+        font-size:23px;
+    }
+
+    main{
+        padding:10px;
+    }
+
+    .card{
+        padding:14px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="toast" class="toast"></div>
-
-<div id="loading" class="loading">
-  <div class="loader-box">⏳ Fadlan sug...</div>
-</div>
-
-<header class="header">
-  <div class="header-top">
-    <div class="brand">
-      <div class="logo">🌾</div>
-      <div>
-        <h1>TACBO Agro</h1>
-        <p>Agriculture & Livestock Company</p>
-      </div>
-    </div>
-
-    <button class="lang" onclick="showToast('🇸🇴 Af-Soomaali')">
-      🇸🇴 Soomaali
-    </button>
-  </div>
-
-  <div class="hero">
-    <h2>TACBO Agro Dashboard</h2>
+<header>
+    <h1>🌾 TACBO Agro</h1>
+    <p>Agriculture & Livestock Company</p>
     <p>Shalaboot, Shabeellaha Hoose, Somalia</p>
-  </div>
 </header>
 
-<main class="container">
+<nav id="mainNav">
 
-<section id="dashboard" class="section active">
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-icon">💰</div>
-      <div class="stat-label">Dakhliga</div>
-      <div id="totalIncome" class="stat-value">$0</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">💸</div>
-      <div class="stat-label">Kharashka</div>
-      <div id="totalExpense" class="stat-value">$0</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">📈</div>
-      <div class="stat-label">Faa'iido</div>
-      <div id="totalProfit" class="stat-value">$0</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-icon">🐄</div>
-      <div class="stat-label">Xoolaha</div>
-      <div id="totalLivestock" class="stat-value">0</div>
-    </div>
-  </div>
-
-  <div class="nav-grid">
-    <button class="nav-btn active" onclick="openSection('dashboard',this)">
-      <span class="nav-icon">🏠</span>Dashboard
+    <button class="active"
+            onclick="showSection('dashboard',this)">
+        🏠 Home
     </button>
 
-    <button class="nav-btn" onclick="openSection('finance',this)">
-      <span class="nav-icon">💰</span>Finance
+    <button onclick="showSection('farms',this)">
+        🌾 Beeraha
     </button>
 
-    <button class="nav-btn" onclick="openSection('livestock',this)">
-      <span class="nav-icon">🐄</span>Xoolaha
+    <button onclick="showSection('livestock',this)">
+        🐄 Xoolaha
     </button>
 
-    <button class="nav-btn" onclick="openSection('farm',this)">
-      <span class="nav-icon">🌽</span>Galley
+    <button onclick="showSection('milk',this)">
+        🥛 Caanaha
     </button>
 
-    <button class="nav-btn" onclick="openSection('milk',this)">
-      <span class="nav-icon">🥛</span>Caano
+    <button onclick="showSection('feed',this)">
+        🌿 Calaf
     </button>
 
-    <button class="nav-btn" onclick="openSection('assets',this)">
-      <span class="nav-icon">🚜</span>Hanti
+    <button onclick="showSection('finance',this)">
+        💰 Finance
     </button>
 
-    <button class="nav-btn" onclick="openSection('debt',this)">
-      <span class="nav-icon">🤝</span>Deyn
+    <button onclick="showSection('assets',this)">
+        🏗️ Hanti
     </button>
 
-    <button class="nav-btn" onclick="openSection('calculator',this)">
-      <span class="nav-icon">🧮</span>Xisaabiye
+    <button onclick="showSection('employees',this)">
+        👷 Shaqaale
     </button>
 
-    <button class="nav-btn" onclick="openSection('reports',this)">
-      <span class="nav-icon">📊</span>Reports
+    <button onclick="showSection('debts',this)">
+        🤝 Deyn
     </button>
-  </div>
 
-  <div class="card">
-    <div class="card-title">
-      <h2>🌾 TACBO Agro</h2>
-      <span>Overview</span>
-    </div>
-
-    <p style="line-height:1.7;color:#617067">
-      Galley + Xoolo + Caano + Maaliyad + Hanti.
-      Dhammaan xogta muhiimka ah waxaa lagu kaydinayaa Supabase.
-    </p>
-  </div>
-
-</section>
-
-<section id="finance" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>💰 Finance</h2>
-      <span id="financeMode">Transaction cusub</span>
-    </div>
-
-    <input type="hidden" id="financeEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="financeDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca</label>
-        <select id="financeType">
-          <option value="Income">Dakhliga</option>
-          <option value="Calaf">Calaf</option>
-          <option value="Mushahar">Mushahar</option>
-          <option value="Waraab">Waraab</option>
-          <option value="Fuel">Fuel</option>
-          <option value="Daawo">Daawo</option>
-          <option value="Maintenance">Maintenance</option>
-          <option value="Other">Kale</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Lacagta ($)</label>
-        <input type="number" id="financeAmount" min="0" step="0.01" placeholder="0.00">
-      </div>
-
-      <div class="field">
-        <label>Sharaxaad</label>
-        <input type="text" id="financeNote" placeholder="Faahfaahin...">
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveFinance()">💾 Save Transaction</button>
-      <button class="btn btn-secondary" onclick="resetFinance()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🧾 Transactions</h2>
-      <span id="financeCount">0</span>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Nooc</th>
-            <th>Lacag</th>
-            <th>Sharaxaad</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="financeTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="livestock" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🐄 Xoolaha</h2>
-      <span>Lo & Ari</span>
-    </div>
-
-    <input type="hidden" id="livestockEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="livestockDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca</label>
-        <select id="livestockType">
-          <option value="Lo">Lo</option>
-          <option value="Ari">Ari</option>
-          <option value="Ido">Ido</option>
-          <option value="Dibi">Dibi</option>
-          <option value="Wan">Wan</option>
-          <option value="Riyo">Riyo</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Tirada</label>
-        <input type="number" id="livestockCount" min="0" placeholder="0">
-      </div>
-
-      <div class="field">
-        <label>Qiimaha guud ($)</label>
-        <input type="number" id="livestockValue" min="0" step="0.01" placeholder="0.00">
-      </div>
-
-      <div class="field full">
-        <label>Faahfaahin</label>
-        <input type="text" id="livestockNote" placeholder="Tusaale: 2 Lo ayaa la iibsaday">
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveLivestock()">💾 Save Xoolo</button>
-      <button class="btn btn-secondary" onclick="resetLivestock()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>📋 Diiwaanka Xoolaha</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Nooc</th>
-            <th>Tiro</th>
-            <th>Qiime</th>
-            <th>Faahfaahin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="livestockTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="farm" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🌽 Galley / Beer</h2>
-      <span>Farm</span>
-    </div>
-
-    <input type="hidden" id="farmEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="farmDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca</label>
-        <select id="farmType">
-          <option value="Galley">Galley</option>
-          <option value="Cows">Cows</option>
-          <option value="Sorghum">Sorghum</option>
-          <option value="Sudan Grass">Sudan Grass</option>
-          <option value="Other">Kale</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Hektar</label>
-        <input type="number" id="farmHectare" min="0" step="0.01">
-      </div>
-
-      <div class="field">
-        <label>Wax-soo-saar KG</label>
-        <input type="number" id="farmKg" min="0" step="0.01">
-      </div>
-
-      <div class="field">
-        <label>Kharash ($)</label>
-        <input type="number" id="farmCost" min="0" step="0.01">
-      </div>
-
-      <div class="field">
-        <label>Qiimaha iibka ($)</label>
-        <input type="number" id="farmRevenue" min="0" step="0.01">
-      </div>
-
-      <div class="field full">
-        <label>Faahfaahin</label>
-        <input type="text" id="farmNote">
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveFarm()">💾 Save Farm</button>
-      <button class="btn btn-secondary" onclick="resetFarm()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🌾 Diiwaanka Beeraha</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Nooc</th>
-            <th>Hektar</th>
-            <th>KG</th>
-            <th>Kharash</th>
-            <th>Iib</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="farmTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="milk" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🥛 Caano</h2>
-      <span>Milk records</span>
-    </div>
-
-    <input type="hidden" id="milkEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="milkDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca Xoolaha</label>
-        <select id="milkType">
-          <option value="Lo">Lo</option>
-          <option value="Ari">Ari</option>
-          <option value="Geel">Geel</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Litir</label>
-        <input type="number" id="milkLiters" min="0" step="0.01">
-      </div>
-
-      <div class="field">
-        <label>Qiimaha ($)</label>
-        <input type="number" id="milkRevenue" min="0" step="0.01">
-      </div>
-
-      <div class="field full">
-        <label>Faahfaahin</label>
-        <input type="text" id="milkNote">
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveMilk()">💾 Save Caano</button>
-      <button class="btn btn-secondary" onclick="resetMilk()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🥛 Diiwaanka Caanaha</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Nooc</th>
-            <th>Litir</th>
-            <th>Qiime</th>
-            <th>Faahfaahin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="milkTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="assets" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🚜 Hanti</h2>
-      <span>Assets</span>
-    </div>
-
-    <input type="hidden" id="assetEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="assetDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca Hantida</label>
-        <select id="assetType">
-          <option value="Tractor">Tractor</option>
-          <option value="Pump">Pump</option>
-          <option value="Machine">Machine</option>
-          <option value="Equipment">Equipment</option>
-          <option value="Ceel">Ceel</option>
-          <option value="Vehicle">Gaari</option>
-          <option value="Other">Kale</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Magaca</label>
-        <input type="text" id="assetName" placeholder="Tusaale: Case IH">
-      </div>
-
-      <div class="field">
-        <label>Qiimaha ($)</label>
-        <input type="number" id="assetValue" min="0" step="0.01">
-      </div>
-
-      <div class="field full">
-        <label>Faahfaahin</label>
-        <input type="text" id="assetNote">
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveAsset()">💾 Save Hanti</button>
-      <button class="btn btn-secondary" onclick="resetAsset()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🚜 Diiwaanka Hantida</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Nooc</th>
-            <th>Magac</th>
-            <th>Qiime</th>
-            <th>Faahfaahin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="assetTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="debt" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🤝 Deyn</h2>
-      <span>Debt management</span>
-    </div>
-
-    <input type="hidden" id="debtEditId">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Taariikh</label>
-        <input type="date" id="debtDate">
-      </div>
-
-      <div class="field">
-        <label>Nooca</label>
-        <select id="debtType">
-          <option value="Lagu leeyahay">Lagu leeyahay</option>
-          <option value="Lagu leeyahay TACBO">TACBO ayaa lagu leeyahay</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Qof / Shirkad</label>
-        <input type="text" id="debtPerson" placeholder="Magaca">
-      </div>
-
-      <div class="field">
-        <label>Lacagta ($)</label>
-        <input type="number" id="debtAmount" min="0" step="0.01">
-      </div>
-
-      <div class="field">
-        <label>Xaaladda</label>
-        <select id="debtStatus">
-          <option value="Furan">Furan</option>
-          <option value="La bixiyay">La bixiyay</option>
-          <option value="Qayb la bixiyay">Qayb la bixiyay</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Lacagta la bixiyay ($)</label>
-        <input type="number" id="debtPaid" min="0" step="0.01" value="0">
-      </div>
-
-      <div class="field full">
-        <label>Faahfaahin</label>
-        <textarea id="debtNote" placeholder="Faahfaahin deynta..."></textarea>
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn btn-primary" onclick="saveDebt()">💾 Save Deyn</button>
-      <button class="btn btn-secondary" onclick="resetDebt()">Cancel</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <h2>📋 Deymaha</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Taariikh</th>
-            <th>Qof/Shirkad</th>
-            <th>Nooc</th>
-            <th>Lacag</th>
-            <th>La bixiyay</th>
-            <th>Hadhay</th>
-            <th>Xaalad</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="debtTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-</section>
-
-<section id="calculator" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>🧮 Xisaabiye</h2>
-      <span>Faa'iido / khasaaro</span>
-    </div>
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label>Dakhli ($)</label>
-        <input type="number" id="calcIncome" value="0" oninput="calculate()">
-      </div>
-
-      <div class="field">
-        <label>Kharash ($)</label>
-        <input type="number" id="calcExpense" value="0" oninput="calculate()">
-      </div>
-
-      <div class="field">
-        <label>Maalgelin ($)</label>
-        <input type="number" id="calcInvestment" value="0" oninput="calculate()">
-      </div>
-
-      <div class="field">
-        <label>Muddada (bil)</label>
-        <input type="number" id="calcMonths" value="1" min="1" oninput="calculate()">
-      </div>
-
-    </div>
-
-    <div class="report-grid" style="margin-top:18px">
-
-      <div class="report-box">
-        <h3>Faa'iido</h3>
-        <strong id="calcProfit">$0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>Faa'iidada %</h3>
-        <strong id="calcPercent">0%</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>Celcelis bil kasta</h3>
-        <strong id="calcMonthly">$0</strong>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-
-<section id="reports" class="section">
-
-  <div class="card">
-    <div class="card-title">
-      <h2>📊 Reports</h2>
-      <span>TACBO Agro</span>
-    </div>
-
-    <div class="report-grid">
-
-      <div class="report-box">
-        <h3>💰 Dakhliga guud</h3>
-        <strong id="reportIncome">$0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>💸 Kharashka guud</h3>
-        <strong id="reportExpense">$0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>📈 Faa'iido</h3>
-        <strong id="reportProfit">$0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>🐄 Xoolaha</h3>
-        <strong id="reportLivestock">0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>🥛 Caano</h3>
-        <strong id="reportMilk">0 L</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>🚜 Hanti</h3>
-        <strong id="reportAssets">$0</strong>
-      </div>
-
-      <div class="report-box">
-        <h3>🤝 Deyn furan</h3>
-        <strong id="reportDebt">$0</strong>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-
-<div class="footer">
-  🌾 TACBO Agro Agriculture & Livestock Company<br>
-  Shalaboot, Shabeellaha Hoose, Somalia
-</div>
-
-</main>
-
-<nav class="bottom-nav">
-
-  <button class="bottom-btn active" onclick="bottomOpen('dashboard',this)">
-    <span>🏠</span>Home
-  </button>
-
-  <button class="bottom-btn" onclick="bottomOpen('finance',this)">
-    <span>💰</span>Finance
-  </button>
-
-  <button class="bottom-btn" onclick="bottomOpen('livestock',this)">
-    <span>🐄</span>Xoolo
-  </button>
-
-  <button class="bottom-btn" onclick="bottomOpen('debt',this)">
-    <span>🤝</span>Deyn
-  </button>
-
-  <button class="bottom-btn" onclick="bottomOpen('reports',this)">
-    <span>📊</span>Reports
-  </button>
+    <button onclick="showSection('reports',this)">
+        📊 Reports
+    </button>
 
 </nav>
 
+<main>
+
+<!-- ========================= -->
+<!-- DASHBOARD -->
+<!-- ========================= -->
+
+<section id="dashboard" class="active">
+
+    <h2>🏠 TACBO Agro Dashboard</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>🌾 Beeraha</h3>
+            <div class="number" id="dashFarms">0</div>
+            <div class="small">Farms</div>
+        </div>
+
+        <div class="card">
+            <h3>🌱 Dalagyada</h3>
+            <div class="number" id="dashCrops">0</div>
+            <div class="small">Crops</div>
+        </div>
+
+        <div class="card">
+            <h3>🐄 Xoolaha</h3>
+            <div class="number" id="dashLivestock">0</div>
+            <div class="small">Animals</div>
+        </div>
+
+        <div class="card">
+            <h3>🥛 Caano</h3>
+            <div class="number" id="dashMilk">0</div>
+            <div class="small">Liters</div>
+        </div>
+
+        <div class="card">
+            <h3>💰 Dakhli</h3>
+            <div class="number" id="dashIncome">$0</div>
+            <div class="small">Total Income</div>
+        </div>
+
+        <div class="card">
+            <h3>💸 Kharash</h3>
+            <div class="number" id="dashExpenses">$0</div>
+            <div class="small">Total Expenses</div>
+        </div>
+
+        <div class="card">
+            <h3>📈 Faa'iido</h3>
+            <div class="number" id="dashProfit">$0</div>
+            <div class="small">Net Profit</div>
+        </div>
+
+        <div class="card">
+            <h3>🏗️ Hanti</h3>
+            <div class="number" id="dashAssets">$0</div>
+            <div class="small">Asset Value</div>
+        </div>
+
+    </div>
+
+    <div class="quick">
+
+        <button onclick="quickOpen('finance')">
+            ➕ Dakhli/Kharash
+        </button>
+
+        <button onclick="quickOpen('livestock')">
+            ➕ Xoolo
+        </button>
+
+        <button onclick="quickOpen('milk')">
+            ➕ Caano
+        </button>
+
+        <button onclick="quickOpen('feed')">
+            ➕ Calaf
+        </button>
+
+        <button onclick="quickOpen('assets')">
+            ➕ Hanti
+        </button>
+
+        <button onclick="quickOpen('employees')">
+            ➕ Shaqaale
+        </button>
+
+    </div>
+
+    <br>
+
+    <div class="two">
+
+        <div class="card">
+            <h3>📌 Xogta Maanta</h3>
+
+            <div class="stat-row">
+                <span>Dakhli</span>
+                <strong id="todayIncome">$0</strong>
+            </div>
+
+            <div class="stat-row">
+                <span>Kharash</span>
+                <strong id="todayExpense">$0</strong>
+            </div>
+
+            <div class="stat-row">
+                <span>Faa'iido</span>
+                <strong id="todayProfit">$0</strong>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>☁️ Supabase</h3>
+
+            <div id="connectionStatus">
+                <span class="badge">Checking...</span>
+            </div>
+
+            <p class="small">
+                Xogta TACBO Agro waxaa lagu kaydinayaa Supabase.
+            </p>
+
+            <button class="secondary"
+                    onclick="loadAll()">
+                🔄 Refresh Data
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- FARMS -->
+<!-- ========================= -->
+
+<section id="farms">
+
+    <h2>🌾 Beeraha & Dalagyada</h2>
+
+    <form onsubmit="addFarm(event)">
+
+        <h3>➕ Ku dar Beer</h3>
+
+        <label>Magaca Beerta</label>
+        <input id="farmName"
+               required
+               placeholder="Tusaale: TACBO Farm">
+
+        <label>Goobta</label>
+        <input id="farmLocation"
+               placeholder="Tusaale: Shalaboot">
+
+        <label>Hektar</label>
+        <input id="farmHectares"
+               type="number"
+               step="0.01"
+               min="0"
+               placeholder="20">
+
+        <label>Faahfaahin</label>
+        <textarea id="farmNotes"
+                  placeholder="Faahfaahin dheeraad ah"></textarea>
+
+        <button class="primary" type="submit">
+            💾 Kaydi Beerta
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>🌾 Liiska Beeraha</h3>
+
+        <div class="toolbar">
+
+            <input id="farmSearch"
+                   oninput="renderFarms()"
+                   placeholder="🔎 Raadi beer...">
+
+            <button class="secondary"
+                    onclick="loadAll()">
+                🔄 Refresh
+            </button>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Magac</th>
+                        <th>Goob</th>
+                        <th>Hektar</th>
+                        <th>Faahfaahin</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="farmsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <form onsubmit="addCrop(event)">
+
+        <h3>🌱 Ku dar Dalag</h3>
+
+        <label>Beerta</label>
+
+        <select id="cropFarm"
+                required>
+            <option value="">
+                -- Dooro Beer --
+            </option>
+        </select>
+
+
+        <label>Magaca Dalagga</label>
+
+        <input id="cropName"
+               required
+               placeholder="Galley, Basal, Yaanyo...">
+
+
+        <label>Aagga Hektar</label>
+
+        <input id="cropArea"
+               type="number"
+               step="0.01"
+               min="0">
+
+
+        <label>Taariikhda Beerista</label>
+
+        <input id="cropPlanting"
+               type="date">
+
+
+        <label>Taariikhda Goynta</label>
+
+        <input id="cropHarvest"
+               type="date">
+
+
+        <label>Wax-soo-saarka KG</label>
+
+        <input id="cropYield"
+               type="number"
+               step="0.01"
+               min="0">
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="cropNote"></textarea>
+
+
+        <button class="primary" type="submit">
+            💾 Kaydi Dalagga
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>🌱 Liiska Dalagyada</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Beer</th>
+                        <th>Dalag</th>
+                        <th>Hektar</th>
+                        <th>Beerista</th>
+                        <th>Goynta</th>
+                        <th>KG</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="cropsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- LIVESTOCK -->
+<!-- ========================= -->
+
+<section id="livestock">
+
+    <h2>🐄 Xoolaha</h2>
+
+    <form onsubmit="addLivestock(event)">
+
+        <h3>➕ Ku dar Xoolo</h3>
+
+        <label>Beerta</label>
+
+        <select id="livestockFarm">
+            <option value="">
+                -- Dooro Beer --
+            </option>
+        </select>
+
+
+        <label>Nooca Xoolaha</label>
+
+        <select id="animalType" required>
+
+            <option value="">
+                -- Dooro --
+            </option>
+
+            <option value="Lo">
+                🐄 Lo
+            </option>
+
+            <option value="Ari">
+                🐑 Ari
+            </option>
+
+            <option value="Geel">
+                🐪 Geel
+            </option>
+
+            <option value="Digaag">
+                🐔 Digaag
+            </option>
+
+            <option value="Riyo">
+                🐐 Riyo
+            </option>
+
+            <option value="Other">
+                Xoolo kale
+            </option>
+
+        </select>
+
+
+        <label>Tirada</label>
+
+        <input id="animalCount"
+               type="number"
+               min="0"
+               required>
+
+
+        <label>Qiimaha Guud ($)</label>
+
+        <input id="animalValue"
+               type="number"
+               step="0.01"
+               min="0">
+
+
+        <label>Taariikhda</label>
+
+        <input id="animalDate"
+               type="date">
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="animalNote"></textarea>
+
+
+        <button class="primary" type="submit">
+            💾 Kaydi Xoolaha
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>🐄 Liiska Xoolaha</h3>
+
+        <div class="toolbar">
+
+            <input id="livestockSearch"
+                   oninput="renderLivestock()"
+                   placeholder="🔎 Raadi...">
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Beer</th>
+                        <th>Nooc</th>
+                        <th>Tiro</th>
+                        <th>Qiime</th>
+                        <th>Taariikh</th>
+                        <th>Faahfaahin</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="livestockTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- MILK -->
+<!-- ========================= -->
+
+<section id="milk">
+
+    <h2>🥛 Caanaha</h2>
+
+    <form onsubmit="addMilk(event)">
+
+        <h3>➕ Diiwaangeli Caano</h3>
+
+        <label>Beerta</label>
+
+        <select id="milkFarm">
+
+            <option value="">
+                -- Dooro Beer --
+            </option>
+
+        </select>
+
+
+        <label>Nooca Xoolaha</label>
+
+        <select id="milkAnimalType">
+
+            <option value="Lo">
+                Lo
+            </option>
+
+            <option value="Geel">
+                Geel
+            </option>
+
+            <option value="Riyo">
+                Riyo
+            </option>
+
+            <option value="Ari">
+                Ari
+            </option>
+
+        </select>
+
+
+        <label>Litir</label>
+
+        <input id="milkQuantity"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Qiimaha Litirka ($)</label>
+
+        <input id="milkPrice"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Taariikhda</label>
+
+        <input id="milkDate"
+               type="date">
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="milkNote"></textarea>
+
+
+        <button class="primary" type="submit">
+            💾 Kaydi Caanaha
+        </button>
+
+    </form>
+
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>🥛 Litir Guud</h3>
+            <div class="number" id="milkTotalLiters">
+                0
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💰 Lacagta Caanaha</h3>
+            <div class="number" id="milkTotalMoney">
+                $0
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <h3>🥛 Diiwaanka Caanaha</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Beer</th>
+                        <th>Xoolo</th>
+                        <th>Litir</th>
+                        <th>$/Litir</th>
+                        <th>Total</th>
+                        <th>Taariikh</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="milkTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- FEED -->
+<!-- ========================= -->
+
+<section id="feed">
+
+    <h2>🌿 Calaf & Quud</h2>
+
+    <form onsubmit="addFeed(event)">
+
+        <h3>➕ Ku dar Calaf</h3>
+
+        <label>Beerta</label>
+
+        <select id="feedFarm">
+
+            <option value="">
+                -- Dooro Beer --
+            </option>
+
+        </select>
+
+
+        <label>Nooca Calafka</label>
+
+        <select id="feedType">
+
+            <option value="Galley">
+                🌽 Galley
+            </option>
+
+            <option value="Jirid">
+                Jirid
+            </option>
+
+            <option value="Caws">
+                Caws
+            </option>
+
+            <option value="Silage">
+                Silage
+            </option>
+
+            <option value="Mampasa">
+                Mampasa
+            </option>
+
+            <option value="Sudan Grass">
+                Sudan Grass
+            </option>
+
+            <option value="Other">
+                Kale
+            </option>
+
+        </select>
+
+
+        <label>KG</label>
+
+        <input id="feedQuantity"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Kharashka ($)</label>
+
+        <input id="feedCost"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Taariikhda</label>
+
+        <input id="feedDate"
+               type="date">
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="feedNote"></textarea>
+
+
+        <button class="primary" type="submit">
+            💾 Kaydi Calafka
+        </button>
+
+    </form>
+
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h3>🌿 Calaf Guud</h3>
+
+            <div class="number"
+                 id="feedTotalKg">
+                0 KG
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>💸 Kharash Calaf</h3>
+
+            <div class="number"
+                 id="feedTotalCost">
+                $0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h3>🌿 Diiwaanka Calafka</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Beer</th>
+                        <th>Calaf</th>
+                        <th>KG</th>
+                        <th>Kharash</th>
+                        <th>Taariikh</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="feedTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- FINANCE -->
+<!-- ========================= -->
+
+<section id="finance">
+
+    <h2>💰 Maaliyadda</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>💵 Dakhli</h3>
+            <div class="number" id="financeIncome">
+                $0
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💸 Kharash</h3>
+            <div class="number" id="financeExpense">
+                $0
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📈 Faa'iido</h3>
+            <div class="number" id="financeProfit">
+                $0
+            </div>
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="two">
+
+        <form onsubmit="addIncome(event)">
+
+            <h3>➕ Dakhli Cusub</h3>
+
+            <label>Beerta</label>
+
+            <select id="incomeFarm">
+
+                <option value="">
+                    -- Dooro Beer --
+                </option>
+
+            </select>
+
+
+            <label>Nooca Dakhliga</label>
+
+            <select id="incomeType">
+
+                <option value="Iibka Dalagga">
+                    Iibka Dalagga
+                </option>
+
+                <option value="Iibka Xoolaha">
+                    Iibka Xoolaha
+                </option>
+
+                <option value="Iibka Caanaha">
+                    Iibka Caanaha
+                </option>
+
+                <option value="Iib kale">
+                    Iib kale
+                </option>
+
+                <option value="Investment">
+                    Investment
+                </option>
+
+                <option value="Other">
+                    Kale
+                </option>
+
+            </select>
+
+
+            <label>Lacagta ($)</label>
+
+            <input id="incomeAmount"
+                   type="number"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>Taariikhda</label>
+
+            <input id="incomeDate"
+                   type="date">
+
+
+            <label>Faahfaahin</label>
+
+            <textarea id="incomeNote"></textarea>
+
+
+            <button class="primary"
+                    type="submit">
+                💾 Kaydi Dakhliga
+            </button>
+
+        </form>
+
+
+        <form onsubmit="addExpense(event)">
+
+            <h3>➕ Kharash Cusub</h3>
+
+            <label>Beerta</label>
+
+            <select id="expenseFarm">
+
+                <option value="">
+                    -- Dooro Beer --
+                </option>
+
+            </select>
+
+
+            <label>Nooca Kharashka</label>
+
+            <select id="expenseType">
+
+                <option value="Seed">
+                    🌱 Abuur
+                </option>
+
+                <option value="Irrigation">
+                    💧 Waraab
+                </option>
+
+                <option value="Fuel">
+                    ⛽ Fuel
+                </option>
+
+                <option value="Fertilizer">
+                    🧪 Bacrimin
+                </option>
+
+                <option value="Wage">
+                    👷 Mushahar
+                </option>
+
+                <option value="Medicine">
+                    💊 Daawo Xoolo
+                </option>
+
+                <option value="Feed">
+                    🌿 Calaf
+                </option>
+
+                <option value="Maintenance">
+                    🔧 Maintenance
+                </option>
+
+                <option value="Transport">
+                    🚚 Gaadiid
+                </option>
+
+                <option value="Electricity">
+                    ⚡ Koronto
+                </option>
+
+                <option value="Other">
+                    Kale
+                </option>
+
+            </select>
+
+
+            <label>Lacagta ($)</label>
+
+            <input id="expenseAmount"
+                   type="number"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>Taariikhda</label>
+
+            <input id="expenseDate"
+                   type="date">
+
+
+            <label>Faahfaahin</label>
+
+            <textarea id="expenseNote"></textarea>
+
+
+            <button class="primary"
+                    type="submit">
+                💾 Kaydi Kharashka
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h3>💰 Diiwaanka Maaliyadda</h3>
+
+        <div class="toolbar">
+
+            <select id="financeFilter"
+                    onchange="renderFinance()"
+                    style="max-width:220px">
+
+                <option value="all">
+                    Dhammaan
+                </option>
+
+                <option value="income">
+                    Dakhli
+                </option>
+
+                <option value="expense">
+                    Kharash
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Nooc</th>
+                        <th>Qayb</th>
+                        <th>Lacag</th>
+                        <th>Taariikh</th>
+                        <th>Faahfaahin</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="financeTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- ASSETS -->
+<!-- ========================= -->
+
+<section id="assets">
+
+    <h2>🏗️ Hantida TACBO Agro</h2>
+
+    <div class="card">
+
+        <p>
+            <strong>Hanti</strong> waxaa ka mid ah:
+            Xoolaha, Tractors, Machines, Equipment,
+            Ceel iyo qalab kale.
+        </p>
+
+        <p class="small">
+            Waraabku waa Kharash Hawlgal, halka Ceelku yahay Hanti.
+        </p>
+
+    </div>
+
+    <br>
+
+    <form onsubmit="addAsset(event)">
+
+        <h3>➕ Ku dar Hanti</h3>
+
+        <label>Beerta</label>
+
+        <select id="assetFarm">
+
+            <option value="">
+                -- Dooro Beer --
+            </option>
+
+        </select>
+
+
+        <label>Magaca Hantida</label>
+
+        <input id="assetName"
+               required
+               placeholder="Tusaale: Ceel, Tractor...">
+
+
+        <label>Qaybta</label>
+
+        <select id="assetCategory">
+
+            <option value="Ceel">
+                💧 Ceel
+            </option>
+
+            <option value="Tractor">
+                🚜 Tractor
+            </option>
+
+            <option value="Machine">
+                ⚙️ Machine
+            </option>
+
+            <option value="Equipment">
+                🛠️ Equipment
+            </option>
+
+            <option value="Livestock">
+                🐄 Xoolo
+            </option>
+
+            <option value="Building">
+                🏠 Dhisme
+            </option>
+
+            <option value="Vehicle">
+                🚚 Gaari
+            </option>
+
+            <option value="Other">
+                Kale
+            </option>
+
+        </select>
+
+
+        <label>Tirada</label>
+
+        <input id="assetQuantity"
+               type="number"
+               min="1"
+               value="1">
+
+
+        <label>Qiimaha Hantida ($)</label>
+
+        <input id="assetValue"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Taariikhda Iibsiga</label>
+
+        <input id="assetDate"
+               type="date">
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="assetNote"></textarea>
+
+
+        <button class="primary"
+                type="submit">
+            💾 Kaydi Hantida
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>🏗️ Liiska Hantida</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Magac</th>
+                        <th>Qayb</th>
+                        <th>Tiro</th>
+                        <th>Qiime</th>
+                        <th>Taariikh</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="assetsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- EMPLOYEES -->
+<!-- ========================= -->
+
+<section id="employees">
+
+    <h2>👷 Shaqaale & Mushahar</h2>
+
+    <form onsubmit="addEmployee(event)">
+
+        <h3>➕ Ku dar Shaqaale</h3>
+
+        <label>Beerta</label>
+
+        <select id="employeeFarm">
+
+            <option value="">
+                -- Dooro Beer --
+            </option>
+
+        </select>
+
+
+        <label>Magaca Shaqaalaha</label>
+
+        <input id="employeeName"
+               required>
+
+
+        <label>Shaqada</label>
+
+        <input id="employeeRole"
+               placeholder="Tusaale: Waraabiye, Maamule...">
+
+
+        <label>Mushahar ($)</label>
+
+        <input id="employeeSalary"
+               type="number"
+               step="0.01"
+               min="0">
+
+
+        <label>Telefoon</label>
+
+        <input id="employeePhone"
+               type="tel">
+
+
+        <label>Taariikhda Bilaabashada</label>
+
+        <input id="employeeStart"
+               type="date">
+
+
+        <label>
+            <input id="employeeActive"
+                   type="checkbox"
+                   checked
+                   style="width:auto">
+            Shaqaale Firfircoon
+        </label>
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="employeeNote"></textarea>
+
+
+        <button class="primary"
+                type="submit">
+            💾 Kaydi Shaqaalaha
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>👷 Liiska Shaqaalaha</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Magac</th>
+                        <th>Shaqo</th>
+                        <th>Mushahar</th>
+                        <th>Phone</th>
+                        <th>Bilaabasho</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="employeesTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- DEBTS -->
+<!-- ========================= -->
+
+<section id="debts">
+
+    <h2>🤝 Deyn</h2>
+
+    <form onsubmit="addDebt(event)">
+
+        <h3>➕ Ku dar Deyn</h3>
+
+        <label>Beerta</label>
+
+        <select id="debtFarm">
+
+            <option value="">
+                -- Dooro Beer --
+            </option>
+
+        </select>
+
+
+        <label>Magaca Qofka/Shirkadda</label>
+
+        <input id="debtParty"
+               required>
+
+
+        <label>Nooca Deynta</label>
+
+        <select id="debtType">
+
+            <option value="Lagu leeyahay">
+                Lacag nalagu leeyahay
+            </option>
+
+            <option value="Lagu leeyahay">
+                Lacag nalagu leeyahay
+            </option>
+
+            <option value="Aan leenahay">
+                Lacag aan leenahay
+            </option>
+
+        </select>
+
+
+        <label>Lacagta ($)</label>
+
+        <input id="debtAmount"
+               type="number"
+               step="0.01"
+               min="0"
+               required>
+
+
+        <label>Taariikhda La Bixinayo</label>
+
+        <input id="debtDue"
+               type="date">
+
+
+        <label>Status</label>
+
+        <select id="debtStatus">
+
+            <option value="Pending">
+                Pending
+            </option>
+
+            <option value="Paid">
+                Paid
+            </option>
+
+            <option value="Partial">
+                Partial
+            </option>
+
+        </select>
+
+
+        <label>Faahfaahin</label>
+
+        <textarea id="debtNote"></textarea>
+
+
+        <button class="primary"
+                type="submit">
+            💾 Kaydi Deynta
+        </button>
+
+    </form>
+
+
+    <div class="card">
+
+        <h3>🤝 Liiska Deymaha</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Qof/Shirkad</th>
+                        <th>Nooc</th>
+                        <th>Lacag</th>
+                        <th>Due</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="debtsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- REPORTS -->
+<!-- ========================= -->
+
+<section id="reports">
+
+    <h2>📊 Reports</h2>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h3>💰 Dakhli</h3>
+
+            <div class="number"
+                 id="reportIncome">
+                $0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>💸 Kharash</h3>
+
+            <div class="number"
+                 id="reportExpense">
+                $0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>📈 Faa'iido</h3>
+
+            <div class="number"
+                 id="reportProfit">
+                $0
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🏗️ Hanti</h3>
+
+            <div class="number"
+                 id="reportAssets">
+                $0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h3>📋 Warbixin Kooban</h3>
+
+        <div class="stat-row">
+            <span>Beeraha</span>
+            <strong id="reportFarms">0</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Dalagyada</span>
+            <strong id="reportCrops">0</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Xoolaha</span>
+            <strong id="reportAnimals">0</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Caanaha</span>
+            <strong id="reportMilk">0 L</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Calafka</span>
+            <strong id="reportFeed">0 KG</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Shaqaalaha</span>
+            <strong id="reportEmployees">0</strong>
+        </div>
+
+        <div class="stat-row">
+            <span>Deymaha</span>
+            <strong id="reportDebts">0</strong>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<div id="status"
+     class="status">
+</div>
+
+
 <script>
-/* =========================================================
-   SUPABASE
-========================================================= */
+
+/* ==========================================
+   SUPABASE CONFIGURATION
+========================================== */
 
 const SUPABASE_URL =
-  "https://ooytyzumwdrnrhureqmf.supabase.co";
+"https://ooytyzumwdrnrhureqmf.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
+"sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
 
-const supabaseClient =
-  window.supabase.createClient(
+const db =
+supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
-  );
-
-const TABLE = "tacbo_app_data";
-const RECORD_ID = "tacbo_agro_v3";
+);
 
 
-/* =========================================================
-   APP DATA
-========================================================= */
+/* ==========================================
+   GLOBAL DATA
+========================================== */
 
-let appData = {
-  debt: [],
-  farm: [],
-  milk: [],
-  assets: [],
-  income: [],
-  expense: [],
-  livestock: []
-};
+let farms = [];
+let crops = [];
+let livestock = [];
+let milkRecords = [];
+let feedRecords = [];
+let incomeRecords = [];
+let expenseRecords = [];
+let assets = [];
+let employees = [];
+let debts = [];
 
 
-/* =========================================================
+/* ==========================================
    HELPERS
-========================================================= */
-
-function today(){
-  return new Date().toISOString().slice(0,10);
-}
+========================================== */
 
 function money(value){
-  return "$" + Number(value || 0).toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    }
-  );
-}
 
-function num(value){
-  return Number(value || 0);
-}
+    const number =
+        Number(value || 0);
 
-function id(){
-  return Date.now() + Math.random().toString(36).slice(2,8);
-}
-
-function esc(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function showLoading(show){
-  document.getElementById("loading")
-    .classList.toggle("show",show);
-}
-
-function showToast(message){
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  setTimeout(()=>{
-    toast.classList.remove("show");
-  },2500);
+    return "$" +
+        number.toLocaleString(
+            "en-US",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
 }
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+function number(value){
 
-function openSection(section,button){
-
-  document.querySelectorAll(".section")
-    .forEach(x=>x.classList.remove("active"));
-
-  const target =
-    document.getElementById(section);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn")
-    .forEach(x=>x.classList.remove("active"));
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-function bottomOpen(section,button){
-
-  openSection(section,null);
-
-  document.querySelectorAll(".bottom-btn")
-    .forEach(x=>x.classList.remove("active"));
-
-  button.classList.add("active");
-
-  const topButton =
-    [...document.querySelectorAll(".nav-btn")]
-    .find(x=>x.textContent.toLowerCase()
-      .includes(
-        section==="dashboard"
-        ?"dashboard"
-        :section
-      ));
-
-  if(topButton){
-    document.querySelectorAll(".nav-btn")
-      .forEach(x=>x.classList.remove("active"));
-    topButton.classList.add("active");
-  }
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "en-US",
+        {
+            maximumFractionDigits:2
+        }
+    );
 }
 
 
-/* =========================================================
-   SUPABASE LOAD
-========================================================= */
+function today(){
 
-async function loadData(){
+    return new Date()
+        .toISOString()
+        .slice(0,10);
 
-  showLoading(true);
-
-  try{
-
-    const {data,error} =
-      await supabaseClient
-        .from(TABLE)
-        .select("data")
-        .eq("id",RECORD_ID)
-        .maybeSingle();
-
-    if(error){
-      console.error(error);
-      showToast("⚠️ Xogta Supabase lama akhrin");
-      return;
-    }
-
-    if(data && data.data){
-
-      appData = {
-        debt:Array.isArray(data.data.debt)
-          ?data.data.debt:[],
-
-        farm:Array.isArray(data.data.farm)
-          ?data.data.farm:[],
-
-        milk:Array.isArray(data.data.milk)
-          ?data.data.milk:[],
-
-        assets:Array.isArray(data.data.assets)
-          ?data.data.assets:[],
-
-        income:Array.isArray(data.data.income)
-          ?data.data.income:[],
-
-        expense:Array.isArray(data.data.expense)
-          ?data.data.expense:[],
-
-        livestock:Array.isArray(data.data.livestock)
-          ?data.data.livestock:[]
-      };
-
-    }
-
-    renderAll();
-
-  }catch(error){
-
-    console.error(error);
-    showToast("⚠️ Cilad ayaa dhacday");
-
-  }finally{
-
-    showLoading(false);
-
-  }
 }
 
 
-/* =========================================================
-   SUPABASE SAVE
-========================================================= */
+function escapeHtml(value){
 
-async function saveData(){
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-  try{
+}
 
-    const {error} =
-      await supabaseClient
-        .from(TABLE)
-        .upsert(
-          {
-            id:RECORD_ID,
-            data:appData,
-            updated_at:new Date().toISOString()
-          },
-          {
-            onConflict:"id"
-          }
+
+function showStatus(message){
+
+    const el =
+        document.getElementById("status");
+
+    el.textContent =
+        message;
+
+    el.classList.add("show");
+
+    setTimeout(
+        ()=>{
+            el.classList.remove("show");
+        },
+        3000
+    );
+
+}
+
+
+function showSection(id,button){
+
+    document
+        .querySelectorAll("main section")
+        .forEach(
+            section=>{
+                section.classList.remove("active");
+            }
         );
 
-    if(error){
+    const section =
+        document.getElementById(id);
 
-      console.error(error);
-
-      showToast(
-        "⚠️ Lama kaydin Supabase. Hubi RLS policies."
-      );
-
-      return false;
+    if(section){
+        section.classList.add("active");
     }
 
-    return true;
+    document
+        .querySelectorAll("#mainNav button")
+        .forEach(
+            btn=>{
+                btn.classList.remove("active");
+            }
+        );
 
-  }catch(error){
-
-    console.error(error);
-    showToast("⚠️ Database error");
-    return false;
-
-  }
-}
-
-
-/* =========================================================
-   FINANCE
-========================================================= */
-
-function saveFinance(){
-
-  const date =
-    document.getElementById("financeDate").value ||
-    today();
-
-  const type =
-    document.getElementById("financeType").value;
-
-  const amount =
-    num(document.getElementById("financeAmount").value);
-
-  const note =
-    document.getElementById("financeNote").value.trim();
-
-  const editId =
-    document.getElementById("financeEditId").value;
-
-  if(amount<=0){
-    showToast("⚠️ Geli lacagta");
-    return;
-  }
-
-  const isIncome =
-    type==="Income";
-
-  const target =
-    isIncome
-      ?appData.income
-      :appData.expense;
-
-  const item = {
-    id:editId || id(),
-    date,
-    note,
-    type:isIncome ? "Income" : type,
-    amount
-  };
-
-  if(editId){
-
-    const index =
-      target.findIndex(x=>String(x.id)===String(editId));
-
-    if(index>=0){
-      target[index]=item;
+    if(button){
+        button.classList.add("active");
     }
 
-  }else{
-
-    target.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-
-      resetFinance();
-      renderAll();
-      showToast(
-        editId
-        ?"✅ Transaction waa la saxay"
-        :"✅ Transaction waa la kaydiyay"
-      );
-
-    }
-
-  });
-}
-
-function editFinance(type,itemId){
-
-  const list =
-    type==="income"
-      ?appData.income
-      :appData.expense;
-
-  const item =
-    list.find(x=>String(x.id)===String(itemId));
-
-  if(!item)return;
-
-  document.getElementById("financeEditId").value=item.id;
-  document.getElementById("financeDate").value=item.date || today();
-
-  document.getElementById("financeType").value =
-    type==="income"
-      ?"Income"
-      :(item.type || "Other");
-
-  document.getElementById("financeAmount").value=
-    item.amount || 0;
-
-  document.getElementById("financeNote").value=
-    item.note || "";
-
-  document.getElementById("financeMode").textContent=
-    "✏️ Editing";
-
-  openSection("finance",null);
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-function deleteFinance(type,itemId){
-
-  if(!confirm("Ma hubtaa inaad tirtirayso transaction-kan?"))
-    return;
-
-  if(type==="income"){
-
-    appData.income =
-      appData.income.filter(
-        x=>String(x.id)!==String(itemId)
-      );
-
-  }else{
-
-    appData.expense =
-      appData.expense.filter(
-        x=>String(x.id)!==String(itemId)
-      );
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Waa la tirtiray");
-    }
-
-  });
-}
-
-function resetFinance(){
-
-  document.getElementById("financeEditId").value="";
-  document.getElementById("financeDate").value=today();
-  document.getElementById("financeType").value="Income";
-  document.getElementById("financeAmount").value="";
-  document.getElementById("financeNote").value="";
-  document.getElementById("financeMode").textContent=
-    "Transaction cusub";
 }
 
 
-/* =========================================================
-   LIVESTOCK
-========================================================= */
-
-function saveLivestock(){
-
-  const editId =
-    document.getElementById("livestockEditId").value;
-
-  const item={
-    id:editId || id(),
-
-    date:
-      document.getElementById("livestockDate").value ||
-      today(),
-
-    type:
-      document.getElementById("livestockType").value,
-
-    count:
-      num(document.getElementById("livestockCount").value),
-
-    value:
-      num(document.getElementById("livestockValue").value),
-
-    note:
-      document.getElementById("livestockNote").value.trim()
-  };
-
-  if(item.count<=0){
-    showToast("⚠️ Geli tirada xoolaha");
-    return;
-  }
-
-  if(editId){
-
-    const i =
-      appData.livestock.findIndex(
-        x=>String(x.id)===String(editId)
-      );
-
-    if(i>=0)appData.livestock[i]=item;
-
-  }else{
-
-    appData.livestock.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-
-      resetLivestock();
-      renderAll();
-
-      showToast(
-        editId
-        ?"✅ Xogta xoolaha waa la saxay"
-        :"✅ Xoolaha waa la kaydiyay"
-      );
-
-    }
-
-  });
-}
-
-function editLivestock(itemId){
-
-  const item =
-    appData.livestock.find(
-      x=>String(x.id)===String(itemId)
-    );
-
-  if(!item)return;
-
-  document.getElementById("livestockEditId").value=item.id;
-  document.getElementById("livestockDate").value=item.date||today();
-  document.getElementById("livestockType").value=item.type||"Lo";
-  document.getElementById("livestockCount").value=item.count||0;
-  document.getElementById("livestockValue").value=item.value||0;
-  document.getElementById("livestockNote").value=item.note||"";
-
-  openSection("livestock",null);
-
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteLivestock(itemId){
-
-  if(!confirm("Ma tirtirtaa xogtan xoolaha?"))return;
-
-  appData.livestock =
-    appData.livestock.filter(
-      x=>String(x.id)!==String(itemId)
-    );
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Xogta waa la tirtiray");
-    }
-
-  });
-}
-
-function resetLivestock(){
-
-  document.getElementById("livestockEditId").value="";
-  document.getElementById("livestockDate").value=today();
-  document.getElementById("livestockType").value="Lo";
-  document.getElementById("livestockCount").value="";
-  document.getElementById("livestockValue").value="";
-  document.getElementById("livestockNote").value="";
-}
-
-
-/* =========================================================
-   FARM
-========================================================= */
-
-function saveFarm(){
-
-  const editId =
-    document.getElementById("farmEditId").value;
-
-  const item={
-    id:editId||id(),
-    date:document.getElementById("farmDate").value||today(),
-    type:document.getElementById("farmType").value,
-    hectare:num(document.getElementById("farmHectare").value),
-    kg:num(document.getElementById("farmKg").value),
-    cost:num(document.getElementById("farmCost").value),
-    revenue:num(document.getElementById("farmRevenue").value),
-    note:document.getElementById("farmNote").value.trim()
-  };
-
-  if(editId){
-
-    const i =
-      appData.farm.findIndex(
-        x=>String(x.id)===String(editId)
-      );
-
-    if(i>=0)appData.farm[i]=item;
-
-  }else{
-
-    appData.farm.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-      resetFarm();
-      renderAll();
-      showToast("✅ Beer xogteeda waa la kaydiyay");
-    }
-
-  });
-}
-
-function editFarm(itemId){
-
-  const item =
-    appData.farm.find(
-      x=>String(x.id)===String(itemId)
-    );
-
-  if(!item)return;
-
-  document.getElementById("farmEditId").value=item.id;
-  document.getElementById("farmDate").value=item.date||today();
-  document.getElementById("farmType").value=item.type||"Galley";
-  document.getElementById("farmHectare").value=item.hectare||0;
-  document.getElementById("farmKg").value=item.kg||0;
-  document.getElementById("farmCost").value=item.cost||0;
-  document.getElementById("farmRevenue").value=item.revenue||0;
-  document.getElementById("farmNote").value=item.note||"";
-
-  openSection("farm",null);
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteFarm(itemId){
-
-  if(!confirm("Ma tirtirtaa xogtan beeraha?"))return;
-
-  appData.farm =
-    appData.farm.filter(
-      x=>String(x.id)!==String(itemId)
-    );
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Waa la tirtiray");
-    }
-
-  });
-}
-
-function resetFarm(){
-
-  document.getElementById("farmEditId").value="";
-  document.getElementById("farmDate").value=today();
-  document.getElementById("farmType").value="Galley";
-  document.getElementById("farmHectare").value="";
-  document.getElementById("farmKg").value="";
-  document.getElementById("farmCost").value="";
-  document.getElementById("farmRevenue").value="";
-  document.getElementById("farmNote").value="";
-}
-
-
-/* =========================================================
-   MILK
-========================================================= */
-
-function saveMilk(){
-
-  const editId =
-    document.getElementById("milkEditId").value;
-
-  const item={
-    id:editId||id(),
-    date:document.getElementById("milkDate").value||today(),
-    type:document.getElementById("milkType").value,
-    liters:num(document.getElementById("milkLiters").value),
-    revenue:num(document.getElementById("milkRevenue").value),
-    note:document.getElementById("milkNote").value.trim()
-  };
-
-  if(editId){
-
-    const i =
-      appData.milk.findIndex(
-        x=>String(x.id)===String(editId)
-      );
-
-    if(i>=0)appData.milk[i]=item;
-
-  }else{
-
-    appData.milk.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-      resetMilk();
-      renderAll();
-      showToast("🥛 Caanaha waa la kaydiyay");
-    }
-
-  });
-}
-
-function editMilk(itemId){
-
-  const item =
-    appData.milk.find(
-      x=>String(x.id)===String(itemId)
-    );
-
-  if(!item)return;
-
-  document.getElementById("milkEditId").value=item.id;
-  document.getElementById("milkDate").value=item.date||today();
-  document.getElementById("milkType").value=item.type||"Lo";
-  document.getElementById("milkLiters").value=item.liters||0;
-  document.getElementById("milkRevenue").value=item.revenue||0;
-  document.getElementById("milkNote").value=item.note||"";
-
-  openSection("milk",null);
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteMilk(itemId){
-
-  if(!confirm("Ma tirtirtaa xogta caanaha?"))return;
-
-  appData.milk =
-    appData.milk.filter(
-      x=>String(x.id)!==String(itemId)
-    );
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Waa la tirtiray");
-    }
-
-  });
-}
-
-function resetMilk(){
-
-  document.getElementById("milkEditId").value="";
-  document.getElementById("milkDate").value=today();
-  document.getElementById("milkType").value="Lo";
-  document.getElementById("milkLiters").value="";
-  document.getElementById("milkRevenue").value="";
-  document.getElementById("milkNote").value="";
-}
-
-
-/* =========================================================
-   ASSETS
-========================================================= */
-
-function saveAsset(){
-
-  const editId =
-    document.getElementById("assetEditId").value;
-
-  const item={
-    id:editId||id(),
-    date:document.getElementById("assetDate").value||today(),
-    type:document.getElementById("assetType").value,
-    name:document.getElementById("assetName").value.trim(),
-    value:num(document.getElementById("assetValue").value),
-    note:document.getElementById("assetNote").value.trim()
-  };
-
-  if(editId){
-
-    const i =
-      appData.assets.findIndex(
-        x=>String(x.id)===String(editId)
-      );
-
-    if(i>=0)appData.assets[i]=item;
-
-  }else{
-
-    appData.assets.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-      resetAsset();
-      renderAll();
-      showToast("🚜 Hantida waa la kaydiyay");
-    }
-
-  });
-}
-
-function editAsset(itemId){
-
-  const item =
-    appData.assets.find(
-      x=>String(x.id)===String(itemId)
-    );
-
-  if(!item)return;
-
-  document.getElementById("assetEditId").value=item.id;
-  document.getElementById("assetDate").value=item.date||today();
-  document.getElementById("assetType").value=item.type||"Other";
-  document.getElementById("assetName").value=item.name||"";
-  document.getElementById("assetValue").value=item.value||0;
-  document.getElementById("assetNote").value=item.note||"";
-
-  openSection("assets",null);
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteAsset(itemId){
-
-  if(!confirm("Ma tirtirtaa hantidan?"))return;
-
-  appData.assets =
-    appData.assets.filter(
-      x=>String(x.id)!==String(itemId)
-    );
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Hantida waa la tirtiray");
-    }
-
-  });
-}
-
-function resetAsset(){
-
-  document.getElementById("assetEditId").value="";
-  document.getElementById("assetDate").value=today();
-  document.getElementById("assetType").value="Tractor";
-  document.getElementById("assetName").value="";
-  document.getElementById("assetValue").value="";
-  document.getElementById("assetNote").value="";
-}
-
-
-/* =========================================================
-   DEBT
-========================================================= */
-
-function saveDebt(){
-
-  const editId =
-    document.getElementById("debtEditId").value;
-
-  const amount =
-    num(document.getElementById("debtAmount").value);
-
-  const paid =
-    num(document.getElementById("debtPaid").value);
-
-  if(amount<=0){
-    showToast("⚠️ Geli lacagta deynta");
-    return;
-  }
-
-  const item={
-    id:editId||id(),
-
-    date:
-      document.getElementById("debtDate").value||today(),
-
-    type:
-      document.getElementById("debtType").value,
-
-    person:
-      document.getElementById("debtPerson").value.trim(),
-
-    amount,
-
-    paid,
-
-    status:
-      document.getElementById("debtStatus").value,
-
-    note:
-      document.getElementById("debtNote").value.trim()
-  };
-
-  if(editId){
-
-    const i =
-      appData.debt.findIndex(
-        x=>String(x.id)===String(editId)
-      );
-
-    if(i>=0)appData.debt[i]=item;
-
-  }else{
-
-    appData.debt.push(item);
-
-  }
-
-  saveData().then(ok=>{
-
-    if(ok){
-
-      resetDebt();
-      renderAll();
-
-      showToast(
-        editId
-        ?"✅ Deynta waa la saxay"
-        :"✅ Deyn waa la kaydiyay"
-      );
-
-    }
-
-  });
-}
-
-function editDebt(itemId){
-
-  const item =
-    appData.debt.find(
-      x=>String(x.id)===String(itemId)
-    );
-
-  if(!item)return;
-
-  document.getElementById("debtEditId").value=item.id;
-  document.getElementById("debtDate").value=item.date||today();
-  document.getElementById("debtType").value=item.type||"Lagu leeyahay";
-  document.getElementById("debtPerson").value=item.person||"";
-  document.getElementById("debtAmount").value=item.amount||0;
-  document.getElementById("debtPaid").value=item.paid||0;
-  document.getElementById("debtStatus").value=item.status||"Furan";
-  document.getElementById("debtNote").value=item.note||"";
-
-  openSection("debt",null);
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteDebt(itemId){
-
-  if(!confirm("Ma tirtirtaa deyntan?"))return;
-
-  appData.debt =
-    appData.debt.filter(
-      x=>String(x.id)!==String(itemId)
-    );
-
-  saveData().then(ok=>{
-
-    if(ok){
-      renderAll();
-      showToast("🗑️ Deynta waa la tirtiray");
-    }
-
-  });
-}
-
-function resetDebt(){
-
-  document.getElementById("debtEditId").value="";
-  document.getElementById("debtDate").value=today();
-  document.getElementById("debtType").value="Lagu leeyahay";
-  document.getElementById("debtPerson").value="";
-  document.getElementById("debtAmount").value="";
-  document.getElementById("debtPaid").value="0";
-  document.getElementById("debtStatus").value="Furan";
-  document.getElementById("debtNote").value="";
-}
-
-
-/* =========================================================
-   RENDER FINANCE
-========================================================= */
-
-function renderFinance(){
-
-  const tbody =
-    document.getElementById("financeTable");
-
-  const rows=[];
-
-  appData.income.forEach(item=>{
-
-    rows.push({
-      ...item,
-      kind:"income"
+function quickOpen(id){
+
+    showSection(id);
+
+    document
+        .querySelectorAll("#mainNav button")
+        .forEach(btn=>{
+
+            if(
+                btn.getAttribute("onclick") &&
+                btn.getAttribute("onclick")
+                    .includes("'" + id + "'")
+            ){
+                btn.classList.add("active");
+            }
+
+        });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
     });
 
-  });
-
-  appData.expense.forEach(item=>{
-
-    rows.push({
-      ...item,
-      kind:"expense"
-    });
-
-  });
-
-  rows.sort(
-    (a,b)=>
-      String(b.date||"")
-      .localeCompare(String(a.date||""))
-  );
-
-  document.getElementById("financeCount")
-    .textContent=rows.length+" records";
-
-  if(!rows.length){
-
-    tbody.innerHTML=
-      `<tr><td colspan="5">
-        <div class="empty">📭 Wax transaction ah ma jiro</div>
-      </td></tr>`;
-
-    return;
-  }
-
-  tbody.innerHTML=rows.map(item=>`
-
-    <tr>
-
-      <td>${esc(item.date)}</td>
-
-      <td>
-        <span class="badge">
-          ${item.kind==="income"
-            ?"💰 Income"
-            :"💸 "+esc(item.type)}
-        </span>
-      </td>
-
-      <td class="${
-        item.kind==="income"
-        ?"amount-income"
-        :"amount-expense"
-      }">
-        ${money(item.amount)}
-      </td>
-
-      <td>${esc(item.note)}</td>
-
-      <td>
-        <button class="btn btn-secondary btn-small"
-          onclick="editFinance('${item.kind}','${item.id}')">
-          ✏️ Edit
-        </button>
-
-        <button class="btn btn-danger btn-small"
-          onclick="deleteFinance('${item.kind}','${item.id}')">
-          🗑️
-        </button>
-      </td>
-
-    </tr>
-
-  `).join("");
 }
 
 
-/* =========================================================
-   RENDER LIVESTOCK
-========================================================= */
+/* ==========================================
+   CONNECTION
+========================================== */
 
-function renderLivestock(){
+async function testConnection(){
 
-  const tbody =
-    document.getElementById("livestockTable");
+    const status =
+        document.getElementById(
+            "connectionStatus"
+        );
 
-  if(!appData.livestock.length){
+    try{
 
-    tbody.innerHTML=
-      `<tr><td colspan="6">
-        <div class="empty">🐄 Xog xoolo ah ma jiro</div>
-      </td></tr>`;
+        const result =
+            await db
+                .from("tacbo_farms")
+                .select("id")
+                .limit(1);
 
-    return;
-  }
+        if(result.error){
 
-  tbody.innerHTML =
-    appData.livestock
-      .slice()
-      .reverse()
-      .map(item=>`
+            status.innerHTML =
+                '<span class="badge">❌ Connection Error</span>';
 
-      <tr>
+            console.error(
+                result.error
+            );
 
-        <td>${esc(item.date)}</td>
+            return false;
+        }
 
-        <td>
-          <span class="badge">${esc(item.type)}</span>
-        </td>
+        status.innerHTML =
+            '<span class="badge">✅ Supabase Connected</span>';
 
-        <td>${num(item.count)}</td>
+        return true;
 
-        <td>${money(item.value)}</td>
+    }catch(error){
 
-        <td>${esc(item.note)}</td>
+        status.innerHTML =
+            '<span class="badge">❌ Connection Error</span>';
 
-        <td>
-          <button class="btn btn-secondary btn-small"
-            onclick="editLivestock('${item.id}')">
-            ✏️ Edit
-          </button>
+        console.error(error);
 
-          <button class="btn btn-danger btn-small"
-            onclick="deleteLivestock('${item.id}')">
-            🗑️
-          </button>
-        </td>
+        return false;
+    }
 
-      </tr>
-
-      `).join("");
 }
 
 
-/* =========================================================
-   RENDER FARM
-========================================================= */
+/* ==========================================
+   LOAD ALL DATA
+========================================== */
 
-function renderFarm(){
+async function loadAll(){
 
-  const tbody =
-    document.getElementById("farmTable");
-
-  if(!appData.farm.length){
-
-    tbody.innerHTML=
-      `<tr><td colspan="7">
-        <div class="empty">🌽 Xog beer ah ma jiro</div>
-      </td></tr>`;
-
-    return;
-  }
-
-  tbody.innerHTML =
-    appData.farm
-      .slice()
-      .reverse()
-      .map(item=>`
-
-      <tr>
-
-        <td>${esc(item.date)}</td>
-        <td>${esc(item.type)}</td>
-        <td>${num(item.hectare)} ha</td>
-        <td>${num(item.kg).toLocaleString()} KG</td>
-        <td>${money(item.cost)}</td>
-        <td>${money(item.revenue)}</td>
-
-        <td>
-          <button class="btn btn-secondary btn-small"
-            onclick="editFarm('${item.id}')">
-            ✏️ Edit
-          </button>
-
-          <button class="btn btn-danger btn-small"
-            onclick="deleteFarm('${item.id}')">
-            🗑️
-          </button>
-        </td>
-
-      </tr>
-
-      `).join("");
-}
-
-
-/* =========================================================
-   RENDER MILK
-========================================================= */
-
-function renderMilk(){
-
-  const tbody =
-    document.getElementById("milkTable");
-
-  if(!appData.milk.length){
-
-    tbody.innerHTML=
-      `<tr><td colspan="6">
-        <div class="empty">🥛 Xog caano ah ma jiro</div>
-      </td></tr>`;
-
-    return;
-  }
-
-  tbody.innerHTML =
-    appData.milk
-      .slice()
-      .reverse()
-      .map(item=>`
-
-      <tr>
-
-        <td>${esc(item.date)}</td>
-        <td>${esc(item.type)}</td>
-        <td>${num(item.liters)} L</td>
-        <td>${money(item.revenue)}</td>
-        <td>${esc(item.note)}</td>
-
-        <td>
-          <button class="btn btn-secondary btn-small"
-            onclick="editMilk('${item.id}')">
-            ✏️ Edit
-          </button>
-
-          <button class="btn btn-danger btn-small"
-            onclick="deleteMilk('${item.id}')">
-            🗑️
-          </button>
-        </td>
-
-      </tr>
-
-      `).join("");
-}
-
-
-/* =========================================================
-   RENDER ASSETS
-========================================================= */
-
-function renderAssets(){
-
-  const tbody =
-    document.getElementById("assetTable");
-
-  if(!appData.assets.length){
-
-    tbody.innerHTML=
-      `<tr><td colspan="6">
-        <div class="empty">🚜 Hanti lama diiwaangelin</div>
-      </td></tr>`;
-
-    return;
-  }
-
-  tbody.innerHTML =
-    appData.assets
-      .slice()
-      .reverse()
-      .map(item=>`
-
-      <tr>
-
-        <td>${esc(item.date)}</td>
-
-        <td>
-          <span class="badge">${esc(item.type)}</span>
-        </td>
-
-        <td>${esc(item.name)}</td>
-
-        <td>${money(item.value)}</td>
-
-        <td>${esc(item.note)}</td>
-
-        <td>
-          <button class="btn btn-secondary btn-small"
-            onclick="editAsset('${item.id}')">
-            ✏️ Edit
-          </button>
-
-          <button class="btn btn-danger btn-small"
-            onclick="deleteAsset('${item.id}')">
-            🗑️
-          </button>
-        </td>
-
-      </tr>
-
-      `).join("");
-}
-
-
-/* =========================================================
-   RENDER DEBT
-========================================================= */
-
-function renderDebt(){
-
-  const tbody =
-    document.getElementById("debtTable");
-
-  if(!appData.debt.length){
-
-    tbody.innerHTML=
-      `<tr><td colspan="8">
-        <div class="empty">🤝 Deyn lama diiwaangelin</div>
-      </td></tr>`;
-
-    return;
-  }
-
-  tbody.innerHTML =
-    appData.debt
-      .slice()
-      .reverse()
-      .map(item=>{
-
-        const remaining =
-          Math.max(
-            0,
-            num(item.amount)-num(item.paid)
-          );
-
-        return `
-
-        <tr>
-
-          <td>${esc(item.date)}</td>
-
-          <td>${esc(item.person)}</td>
-
-          <td>${esc(item.type)}</td>
-
-          <td>${money(item.amount)}</td>
-
-          <td>${money(item.paid)}</td>
-
-          <td class="amount-expense">
-            ${money(remaining)}
-          </td>
-
-          <td>
-            <span class="badge">
-              ${esc(item.status)}
-            </span>
-          </td>
-
-          <td>
-
-            <button class="btn btn-secondary btn-small"
-              onclick="editDebt('${item.id}')">
-              ✏️ Edit
-            </button>
-
-            <button class="btn btn-danger btn-small"
-              onclick="deleteDebt('${item.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-        `;
-
-      }).join("");
-}
-
-
-/* =========================================================
-   DASHBOARD + REPORTS
-========================================================= */
-
-function renderDashboard(){
-
-  const income =
-    appData.income.reduce(
-      (sum,x)=>sum+num(x.amount),0
+    showStatus(
+        "⏳ Xogta ayaa la soo dejinayaa..."
     );
 
-  const expense =
-    appData.expense.reduce(
-      (sum,x)=>sum+num(x.amount),0
-    );
+    try{
 
-  const profit=income-expense;
+        const results =
+            await Promise.all([
 
-  const livestock =
-    appData.livestock.reduce(
-      (sum,x)=>sum+num(x.count),0
-    );
+                db
+                    .from("tacbo_farms")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {ascending:false}
+                    ),
 
-  const milk =
-    appData.milk.reduce(
-      (sum,x)=>sum+num(x.liters),0
-    );
+                db
+                    .from("tacbo_crops")
+                    .select("*")
+                    .order(
+                        "planting_date",
+                        {ascending:false}
+                    ),
 
-  const assets =
-    appData.assets.reduce(
-      (sum,x)=>sum+num(x.value),0
-    );
+                db
+                    .from("tacbo_livestock")
+                    .select("*")
+                    .order(
+                        "record_date",
+                        {ascending:false}
+                    ),
 
-  const debt =
-    appData.debt.reduce(
-      (sum,x)=>
-        sum+
-        Math.max(
-          0,
-          num(x.amount)-num(x.paid)
-        ),
-      0
-    );
+                db
+                    .from("tacbo_milk_records")
+                    .select("*")
+                    .order(
+                        "record_date",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("totalIncome")
-    .textContent=money(income);
+                db
+                    .from("tacbo_feed")
+                    .select("*")
+                    .order(
+                        "feed_date",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("totalExpense")
-    .textContent=money(expense);
+                db
+                    .from("tacbo_income")
+                    .select("*")
+                    .order(
+                        "income_date",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("totalProfit")
-    .textContent=money(profit);
+                db
+                    .from("tacbo_expenses")
+                    .select("*")
+                    .order(
+                        "expense_date",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("totalLivestock")
-    .textContent=livestock.toLocaleString();
+                db
+                    .from("tacbo_assets")
+                    .select("*")
+                    .order(
+                        "purchase_date",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("reportIncome")
-    .textContent=money(income);
+                db
+                    .from("tacbo_employees")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {ascending:false}
+                    ),
 
-  document.getElementById("reportExpense")
-    .textContent=money(expense);
+                db
+                    .from("tacbo_debts")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {ascending:false}
+                    )
 
-  document.getElementById("reportProfit")
-    .textContent=money(profit);
+            ]);
 
-  document.getElementById("reportLivestock")
-    .textContent=livestock.toLocaleString();
 
-  document.getElementById("reportMilk")
-    .textContent=milk.toLocaleString()+" L";
+        farms =
+            results[0].data || [];
 
-  document.getElementById("reportAssets")
-    .textContent=money(assets);
+        crops =
+            results[1].data || [];
 
-  document.getElementById("reportDebt")
-    .textContent=money(debt);
+        livestock =
+            results[2].data || [];
 
-  document.getElementById("totalProfit")
-    .className =
-      "stat-value "+
-      (profit>=0
-        ?"balance-positive"
-        :"balance-negative");
+        milkRecords =
+            results[3].data || [];
+
+        feedRecords =
+            results[4].data || [];
+
+        incomeRecords =
+            results[5].data || [];
+
+        expenseRecords =
+            results[6].data || [];
+
+        assets =
+            results[7].data || [];
+
+        employees =
+            results[8].data || [];
+
+        debts =
+            results[9].data || [];
+
+
+        renderAll();
+
+        await testConnection();
+
+        showStatus(
+            "✅ Xogta waa la cusboonaysiiyay"
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Cilad ayaa dhacday marka xogta la soo dejinayay."
+        );
+
+    }
+
 }
 
 
-/* =========================================================
-   CALCULATOR
-========================================================= */
-
-function calculate(){
-
-  const income =
-    num(document.getElementById("calcIncome").value);
-
-  const expense =
-    num(document.getElementById("calcExpense").value);
-
-  const investment =
-    num(document.getElementById("calcInvestment").value);
-
-  const months =
-    Math.max(
-      1,
-      num(document.getElementById("calcMonths").value)
-    );
-
-  const profit =
-    income-expense-investment;
-
-  const percent =
-    income>0
-      ?(profit/income)*100
-      :0;
-
-  const monthly =
-    profit/months;
-
-  document.getElementById("calcProfit")
-    .textContent=money(profit);
-
-  document.getElementById("calcPercent")
-    .textContent=percent.toFixed(2)+"%";
-
-  document.getElementById("calcMonthly")
-    .textContent=money(monthly);
-}
-
-
-/* =========================================================
+/* ==========================================
    RENDER ALL
-========================================================= */
+========================================== */
 
 function renderAll(){
 
-  renderFinance();
-  renderLivestock();
-  renderFarm();
-  renderMilk();
-  renderAssets();
-  renderDebt();
-  renderDashboard();
-  calculate();
+    renderFarms();
+
+    renderCrops();
+
+    renderLivestock();
+
+    renderMilk();
+
+    renderFeed();
+
+    renderFinance();
+
+    renderAssets();
+
+    renderEmployees();
+
+    renderDebts();
+
+    updateDashboard();
+
+    updateReports();
+
+    populateFarmSelects();
+
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* ==========================================
+   FARM SELECTS
+========================================== */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  ()=>{
+function populateFarmSelects(){
 
-    document.getElementById("financeDate").value=today();
-    document.getElementById("livestockDate").value=today();
-    document.getElementById("farmDate").value=today();
-    document.getElementById("milkDate").value=today();
-    document.getElementById("assetDate").value=today();
-    document.getElementById("debtDate").value=today();
+    const selects = [
+
+        "cropFarm",
+        "livestockFarm",
+        "milkFarm",
+        "feedFarm",
+        "incomeFarm",
+        "expenseFarm",
+        "assetFarm",
+        "employeeFarm",
+        "debtFarm"
+
+    ];
+
+    selects.forEach(id=>{
+
+        const select =
+            document.getElementById(id);
+
+        if(!select){
+            return;
+        }
+
+        const current =
+            select.value;
+
+        select.innerHTML =
+            '<option value="">-- Dooro Beer --</option>';
+
+        farms.forEach(farm=>{
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                farm.id;
+
+            option.textContent =
+                farm.name || "Beer";
+
+            select.appendChild(option);
+
+        });
+
+        if(current){
+            select.value =
+                current;
+        }
+
+    });
+
+}
+
+
+/* ==========================================
+   FARM NAME
+========================================== */
+
+function farmName(id){
+
+    const farm =
+        farms.find(
+            f=>String(f.id) === String(id)
+        );
+
+    return farm
+        ? farm.name
+        : "-";
+
+}
+
+
+/* ==========================================
+   ADD FARM
+========================================== */
+
+async function addFarm(event){
+
+    event.preventDefault();
+
+    const data = {
+
+        name:
+            document
+                .getElementById("farmName")
+                .value
+                .trim(),
+
+        location:
+            document
+                .getElementById("farmLocation")
+                .value
+                .trim(),
+
+        hectares:
+            Number(
+                document
+                    .getElementById("farmHectares")
+                    .value || 0
+            ),
+
+        notes:
+            document
+                .getElementById("farmNotes")
+                .value
+                .trim()
+
+    };
+
+
+    const {data:inserted,error} =
+        await db
+            .from("tacbo_farms")
+            .insert(data)
+            .select()
+            .single();
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Beerta lama kaydin."
+        );
+
+        return;
+    }
+
+
+    farms.unshift(
+        inserted
+    );
+
+
+    event.target.reset();
 
     renderAll();
 
-    loadData();
+    showStatus(
+        "✅ Beerta waa la kaydiyay."
+    );
 
-  }
-);
+}
+
+
+/* ==========================================
+   RENDER FARMS
+========================================== */
+
+function renderFarms(){
+
+    const tbody =
+        document.getElementById(
+            "farmsTable"
+        );
+
+    if(!tbody){
+        return;
+    }
+
+
+    const search =
+        (
+            document
+                .getElementById("farmSearch")
+                ?.value || ""
+        )
+        .toLowerCase();
+
+
+    const list =
+        farms.filter(farm=>{
+
+            return (
+                String(
+                    farm.name || ""
+                )
+                .toLowerCase()
+                .includes(search)
+                ||
+                String(
+                    farm.location || ""
+                )
+                .toLowerCase()
+                .includes(search)
+            );
+
+        });
+
+
+    if(!list.length){
+
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="6"
+                    class="empty">
+                    Wax beer ah lama helin.
+                </td>
+             </tr>`;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        list
+        .map(
+            (farm,index)=>`
+
+            <tr>
+
+                <td>${index+1}</td>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(farm.name)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(farm.location || "-")}
+                </td>
+
+                <td>
+                    ${number(farm.hectares)} ha
+                </td>
+
+                <td>
+                    ${escapeHtml(farm.notes || "-")}
+                </td>
+
+                <td>
+
+                    <button
+                        class="danger"
+                        onclick="deleteFarm('${farm.id}')">
+                        🗑️
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* ==========================================
+   DELETE FARM
+========================================== */
+
+async function deleteFarm(id){
+
+    if(
+        !confirm(
+            "Ma hubtaa inaad tirtirayso beertan?"
+        )
+    ){
+        return;
+    }
+
+
+    const {error} =
+        await db
+            .from("tacbo_farms")
+            .delete()
+            .eq("id",id);
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Beerta lama tirtiri karin."
+        );
+
+        return;
+    }
+
+
+    farms =
+        farms.filter(
+            f=>String(f.id)!==String(id)
+        );
+
+
+    renderAll();
+
+    showStatus(
+        "🗑️ Beerta waa la tirtiray."
+    );
+
+}
+
+
+/* ==========================================
+   ADD CROP
+========================================== */
+
+async function addCrop(event){
+
+    event.preventDefault();
+
+
+    const data = {
+
+        farm_id:
+            document
+                .getElementById("cropFarm")
+                .value || null,
+
+        crop_name:
+            document
+                .getElementById("cropName")
+                .value
+                .trim(),
+
+        area_hectares:
+            Number(
+                document
+                    .getElementById("cropArea")
+                    .value || 0
+            ),
+
+        planting_date:
+            document
+                .getElementById("cropPlanting")
+                .value || null,
+
+        harvest_date:
+            document
+                .getElementById("cropHarvest")
+                .value || null,
+
+        yield_kg:
+            Number(
+                document
+                    .getElementById("cropYield")
+                    .value || 0
+            ),
+
+        note:
+            document
+                .getElementById("cropNote")
+                .value
+                .trim()
+
+    };
+
+
+    const {data:inserted,error} =
+        await db
+            .from("tacbo_crops")
+            .insert(data)
+            .select()
+            .single();
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Dalagga lama kaydin."
+        );
+
+        return;
+    }
+
+
+    crops.unshift(
+        inserted
+    );
+
+
+    event.target.reset();
+
+    renderAll();
+
+    showStatus(
+        "✅ Dalagga waa la kaydiyay."
+    );
+
+}
+
+
+/* ==========================================
+   RENDER CROPS
+========================================== */
+
+function renderCrops(){
+
+    const tbody =
+        document.getElementById(
+            "cropsTable"
+        );
+
+    if(!tbody){
+        return;
+    }
+
+
+    if(!crops.length){
+
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="8"
+                    class="empty">
+                    Dalag lama diiwaangelin.
+                </td>
+             </tr>`;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        crops
+        .map(
+            (crop,index)=>`
+
+            <tr>
+
+                <td>${index+1}</td>
+
+                <td>
+                    ${escapeHtml(
+                        farmName(crop.farm_id)
+                    )}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            crop.crop_name
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${number(
+                        crop.area_hectares
+                    )} ha
+                </td>
+
+                <td>
+                    ${crop.planting_date || "-"}
+                </td>
+
+                <td>
+                    ${crop.harvest_date || "-"}
+                </td>
+
+                <td>
+                    ${number(
+                        crop.yield_kg
+                    )} KG
+                </td>
+
+                <td>
+
+                    <button
+                        class="danger"
+                        onclick="deleteCrop('${crop.id}')">
+                        🗑️
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* ==========================================
+   DELETE CROP
+========================================== */
+
+async function deleteCrop(id){
+
+    if(
+        !confirm(
+            "Ma hubtaa inaad tirtirayso dalaggan?"
+        )
+    ){
+        return;
+    }
+
+
+    const {error} =
+        await db
+            .from("tacbo_crops")
+            .delete()
+            .eq("id",id);
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Dalagga lama tirtiri karin."
+        );
+
+        return;
+    }
+
+
+    crops =
+        crops.filter(
+            c=>String(c.id)!==String(id)
+        );
+
+
+    renderAll();
+
+    showStatus(
+        "🗑️ Dalagga waa la tirtiray."
+    );
+
+}
+
+
+/* ==========================================
+   ADD LIVESTOCK
+========================================== */
+
+async function addLivestock(event){
+
+    event.preventDefault();
+
+
+    const data = {
+
+        farm_id:
+            document
+                .getElementById("livestockFarm")
+                .value || null,
+
+        animal_type:
+            document
+                .getElementById("animalType")
+                .value,
+
+        count:
+            Number(
+                document
+                    .getElementById("animalCount")
+                    .value || 0
+            ),
+
+        value:
+            Number(
+                document
+                    .getElementById("animalValue")
+                    .value || 0
+            ),
+
+        record_date:
+            document
+                .getElementById("animalDate")
+                .value ||
+            today(),
+
+        note:
+            document
+                .getElementById("animalNote")
+                .value
+                .trim()
+
+    };
+
+
+    const {data:inserted,error} =
+        await db
+            .from("tacbo_livestock")
+            .insert(data)
+            .select()
+            .single();
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Xoolaha lama kaydin."
+        );
+
+        return;
+    }
+
+
+    livestock.unshift(
+        inserted
+    );
+
+
+    event.target.reset();
+
+    renderAll();
+
+    showStatus(
+        "✅ Xoolaha waa la kaydiyay."
+    );
+
+}
+
+
+/* ==========================================
+   RENDER LIVESTOCK
+========================================== */
+
+function renderLivestock(){
+
+    const tbody =
+        document.getElementById(
+            "livestockTable"
+        );
+
+    if(!tbody){
+        return;
+    }
+
+
+    const search =
+        (
+            document
+                .getElementById(
+                    "livestockSearch"
+                )
+                ?.value || ""
+        )
+        .toLowerCase();
+
+
+    const list =
+        livestock.filter(item=>{
+
+            return (
+                String(
+                    item.animal_type || ""
+                )
+                .toLowerCase()
+                .includes(search)
+                ||
+                farmName(item.farm_id)
+                    .toLowerCase()
+                    .includes(search)
+            );
+
+        });
+
+
+    if(!list.length){
+
+        tbody.innerHTML =
+            `<tr>
+                <td colspan="8"
+                    class="empty">
+                    Xog xoolo ah lama helin.
+                </td>
+             </tr>`;
+
+        return;
+    }
+
+
+    tbody.innerHTML =
+        list
+        .map(
+            (item,index)=>`
+
+            <tr>
+
+                <td>${index+1}</td>
+
+                <td>
+                    ${escapeHtml(
+                        farmName(
+                            item.farm_id
+                        )
+                    )}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            item.animal_type
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${number(item.count)}
+                </td>
+
+                <td>
+                    ${money(item.value)}
+                </td>
+
+                <td>
+                    ${item.record_date || "-"}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        item.note || "-"
+                    )}
+                </td>
+
+                <td>
+
+                    <button
+                        class="danger"
+                        onclick="deleteLivestock('${item.id}')">
+                        🗑️
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        )
+        .join("");
+
+}
+
+
+/* ==========================================
+   DELETE LIVESTOCK
+========================================== */
+
+async function deleteLivestock(id){
+
+    if(
+        !confirm(
+            "Ma hubtaa inaad tirtirayso xogtan?"
+        )
+    ){
+        return;
+    }
+
+
+    const {error} =
+        await db
+            .from("tacbo_livestock")
+            .delete()
+            .eq("id",id);
+
+
+    if(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Xogta lama tirtiri karin."
+        );
+
+        return;
+    }
+
+
+    livestock =
+        livestock.filter(
+            x=>String(x.id)!==String(id)
+        );
+
+
+    renderAll();
+
+    showStatus(
+        "🗑️ Xogta waa la tirtiray."
+    );
+
+}
+
 </script>
 
 </body>
