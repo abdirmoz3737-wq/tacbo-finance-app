@@ -1387,6 +1387,7 @@ good?"#155b31":"#8b1e1e";
 
 async function signup(){
 
+
 const email=
 $("authEmail")
 .value
@@ -1479,7 +1480,9 @@ data.user
 );
 
 }
-
+function sameAccount(){
+  signup();
+}
 
 async function logout(){
 
