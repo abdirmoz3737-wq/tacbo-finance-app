@@ -10,16 +10,29 @@
 
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+html{
+scroll-behavior:smooth
+}
+
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
 background:#f3f7f4;
 color:#17251d
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+
+button,input,select,textarea{
+font:inherit
+}
+
+button{
+cursor:pointer
+}
+
+.hidden{
+display:none!important
+}
 
 header{
 background:#347d43;
@@ -27,14 +40,17 @@ color:#fff;
 padding:22px 18px;
 box-shadow:0 3px 15px #0002
 }
+
 .header-inner{
 max-width:1250px;
 margin:auto
 }
+
 .logo{
 font-size:34px;
 font-weight:800
 }
+
 .subtitle{
 font-size:18px;
 margin-top:7px
@@ -59,8 +75,13 @@ max-width:650px;
 margin:65px auto
 }
 
-h1,h2,h3{margin-top:0}
-h2{margin-bottom:18px}
+h1,h2,h3{
+margin-top:0
+}
+
+h2{
+margin-bottom:18px
+}
 
 label{
 display:block;
@@ -95,11 +116,31 @@ padding:13px 18px;
 font-weight:700;
 margin:5px 4px 5px 0
 }
-.primary{background:#347d43;color:white}
-.secondary{background:#e7f1ea;color:#286437}
-.danger{background:#fee8e5;color:#a52b23}
-.gray{background:#eef2ef;color:#46544c}
-.small-btn{padding:8px 11px;font-size:13px}
+
+.primary{
+background:#347d43;
+color:white
+}
+
+.secondary{
+background:#e7f1ea;
+color:#286437
+}
+
+.danger{
+background:#fee8e5;
+color:#a52b23
+}
+
+.gray{
+background:#eef2ef;
+color:#46544c
+}
+
+.small-btn{
+padding:8px 11px;
+font-size:13px
+}
 
 .message{
 display:none;
@@ -107,9 +148,21 @@ padding:14px;
 border-radius:12px;
 margin:12px 0
 }
-.success{background:#e5f5e9;color:#206c34}
-.error{background:#fde9e7;color:#a52b23}
-.info{background:#eaf3ed;color:#286437}
+
+.success{
+background:#e5f5e9;
+color:#206c34
+}
+
+.error{
+background:#fde9e7;
+color:#a52b23
+}
+
+.info{
+background:#eaf3ed;
+color:#286437
+}
 
 .login-title{
 font-size:40px
@@ -157,6 +210,7 @@ color:#245b32;
 font-weight:700;
 box-shadow:0 2px 10px #0000000a
 }
+
 nav button.active{
 background:#347d43;
 color:#fff
@@ -245,10 +299,12 @@ font-weight:700
 background:#e4f5e8;
 color:#217037
 }
+
 .badge-expense{
 background:#fde8e5;
 color:#a12620
 }
+
 .badge-asset{
 background:#e9eefb;
 color:#31538d
@@ -301,28 +357,75 @@ color:#718078;
 padding:30px
 }
 
-.danger-text{color:#a52b23}
-.green-text{color:#24703a}
+.hero{
+background:linear-gradient(135deg,#347d43,#246433);
+color:white;
+border-radius:22px;
+padding:25px;
+margin-bottom:20px
+}
+
+.hero h2{
+font-size:28px;
+margin-bottom:8px
+}
+
+.hero p{
+margin:5px 0;
+opacity:.92
+}
+
+.big-number{
+font-size:34px;
+font-weight:800
+}
 
 @media(max-width:900px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.grid3{grid-template-columns:repeat(2,1fr)}
+.grid{
+grid-template-columns:repeat(2,1fr)
+}
+
+.grid3{
+grid-template-columns:repeat(2,1fr)
+}
 }
 
 @media(max-width:650px){
-.container{padding:14px 10px 50px}
-.card{padding:17px;border-radius:18px}
-.logo{font-size:28px}
-.subtitle{font-size:15px}
-.login-title{font-size:32px}
+.container{
+padding:14px 10px 50px
+}
+
+.card{
+padding:17px;
+border-radius:18px
+}
+
+.logo{
+font-size:28px
+}
+
+.subtitle{
+font-size:15px
+}
+
+.login-title{
+font-size:32px
+}
+
 .grid,.grid2,.grid3,.form-grid{
 grid-template-columns:1fr
 }
+
 nav{
 position:static
 }
+
 nav button{
 flex:1 1 auto
+}
+
+.hero h2{
+font-size:23px
 }
 }
 </style>
@@ -339,7 +442,7 @@ Agriculture & Livestock Company — Finance App
 </div>
 </header>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <section id="loginPage" class="container">
 
@@ -348,7 +451,7 @@ Agriculture & Livestock Company — Finance App
 <h1 class="login-title">🔐 TACBO Login</h1>
 
 <div class="login-help">
-Geli email-ka iyo password-ka.
+Geli email-ka iyo password-kaaga.
 </div>
 
 <div id="loginMessage" class="message"></div>
@@ -356,6 +459,7 @@ Geli email-ka iyo password-ka.
 <form id="loginForm">
 
 <label>Email</label>
+
 <input
 id="loginEmail"
 type="email"
@@ -365,6 +469,7 @@ required
 >
 
 <label>Password</label>
+
 <input
 id="loginPassword"
 type="password"
@@ -393,14 +498,15 @@ Forgot Password?
 </form>
 
 <p style="color:#6c7871">
-Account-ka cusub waxaa loo sameeyaa Staff.
+Account-ka Staff waxaa laga sameeyaa Supabase Authentication.
 </p>
 
 </div>
+
 </section>
 
 
-<!-- ================= APP ================= -->
+<!-- APP -->
 
 <section id="app" class="hidden">
 
@@ -435,11 +541,11 @@ Logout
 </button>
 
 <button onclick="showPage('livestock',this)">
-🐄 Livestock
+🐄 Xoolaha
 </button>
 
 <button onclick="showPage('crops',this)">
-🌽 Crops
+🌽 Galley
 </button>
 
 <button onclick="showPage('milk',this)">
@@ -447,11 +553,11 @@ Logout
 </button>
 
 <button onclick="showPage('assets',this)">
-🚜 Assets
+🚜 Hanti
 </button>
 
 <button onclick="showPage('calculator',this)">
-🧮 Calculator
+🧮 Xisaabiye
 </button>
 
 <button onclick="showPage('reports',this)">
@@ -463,9 +569,23 @@ Logout
 <div id="appMessage" class="message"></div>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <div id="dashboardPage">
+
+<div class="hero">
+
+<h2>🌾 TACBO Agro Agriculture & Livestock</h2>
+
+<p>
+Shalaboot, Shabeellaha Hoose, Somalia
+</p>
+
+<p>
+Galley + Xoolo + Caano + Maaliyad
+</p>
+
+</div>
 
 <div class="grid">
 
@@ -496,17 +616,17 @@ Logout
 <div class="grid">
 
 <div class="stat">
-<small>🐄 Livestock</small>
+<small>🐄 Xoolaha</small>
 <strong id="dashAnimals">0</strong>
 </div>
 
 <div class="stat">
-<small>🌽 Crop Records</small>
+<small>🌽 Galley Records</small>
 <strong id="dashCrops">0</strong>
 </div>
 
 <div class="stat">
-<small>🚜 Assets</small>
+<small>🚜 Hanti</small>
 <strong id="dashAssets">0</strong>
 </div>
 
@@ -519,7 +639,57 @@ Logout
 
 <div class="card" style="margin-top:20px">
 
-<h2>📋 TACBO Agro Summary</h2>
+<h2>🐄 Xoolaha TACBO</h2>
+
+<div class="grid3">
+
+<div class="kpi">
+Sac
+<b id="dashCows">0</b>
+</div>
+
+<div class="kpi">
+Ari
+<b id="dashSheep">0</b>
+</div>
+
+<div class="kpi">
+Caano Maalinle
+<b id="dashMilk">0 L</b>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🥛 Qorshaha Caanaha</h2>
+
+<div class="grid3">
+
+<div class="kpi">
+Sac Caano Leh
+<b>24</b>
+</div>
+
+<div class="kpi">
+Caano / Sac
+<b>6 L</b>
+</div>
+
+<div class="kpi">
+Wadarta Maalintii
+<b>144 L</b>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📋 TACBO Summary</h2>
 
 <div class="grid3">
 
@@ -545,7 +715,7 @@ Net Profit
 </div>
 
 
-<!-- ================= FINANCE ================= -->
+<!-- FINANCE -->
 
 <div id="financePage" class="hidden">
 
@@ -558,15 +728,27 @@ Net Profit
 <div class="form-grid">
 
 <div>
+
 <label>Type</label>
+
 <select id="financeType">
-<option value="income">Income / Dakhli</option>
-<option value="expense">Expense / Kharash</option>
+
+<option value="income">
+Income / Dakhli
+</option>
+
+<option value="expense">
+Expense / Kharash
+</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Amount ($)</label>
+
 <input
 id="financeAmount"
 type="number"
@@ -574,15 +756,19 @@ min="0"
 step="0.01"
 required
 >
+
 </div>
 
 <div>
+
 <label>Category</label>
+
 <select id="financeCategory">
-<option>Sales</option>
+
+<option>Sales / Iib</option>
 <option>Milk / Caano</option>
 <option>Livestock / Xoolo</option>
-<option>Crop / Dalag</option>
+<option>Crop / Galley</option>
 <option>Feed / Calaf</option>
 <option>Medicine / Daawo</option>
 <option>Irrigation / Waraab</option>
@@ -594,23 +780,36 @@ required
 <option>Fertilizer / Bacrimin</option>
 <option>Water / Biyo</option>
 <option>Other / Kale</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Date</label>
-<input id="financeDate" type="date" required>
+
+<input
+id="financeDate"
+type="date"
+required
+>
+
 </div>
 
 </div>
 
 <label>Description</label>
+
 <textarea
 id="financeDescription"
 placeholder="Faahfaahin..."
 ></textarea>
 
-<button class="btn primary" type="submit">
+<button
+class="btn primary"
+type="submit"
+>
 ➕ Save Transaction
 </button>
 
@@ -622,10 +821,16 @@ placeholder="Faahfaahin..."
 <div class="card">
 
 <div class="section-title">
+
 <h2>🧾 Transactions</h2>
-<button class="btn gray small-btn" onclick="clearTransactions()">
-Clear Local Records
+
+<button
+class="btn gray small-btn"
+onclick="clearTransactions()"
+>
+Clear Records
 </button>
+
 </div>
 
 <div class="table-wrap">
@@ -633,6 +838,7 @@ Clear Local Records
 <table>
 
 <thead>
+
 <tr>
 <th>Date</th>
 <th>Type</th>
@@ -641,6 +847,7 @@ Clear Local Records
 <th>Description</th>
 <th>Action</th>
 </tr>
+
 </thead>
 
 <tbody id="financeTable"></tbody>
@@ -654,7 +861,7 @@ Clear Local Records
 </div>
 
 
-<!-- ================= LIVESTOCK ================= -->
+<!-- LIVESTOCK -->
 
 <div id="livestockPage" class="hidden">
 
@@ -662,42 +869,82 @@ Clear Local Records
 
 <h2>🐄 Livestock Management</h2>
 
+<div class="login-help">
+Tusaale: <b>50 sac + 300 ari</b>
+</div>
+
 <form id="livestockForm">
 
 <div class="form-grid">
 
 <div>
+
 <label>Animal</label>
+
 <select id="animalType">
+
 <option>Lo / Cattle</option>
 <option>Ari / Sheep</option>
 <option>Ri' / Goat</option>
 <option>Geel / Camel</option>
 <option>Digaag / Chicken</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Quantity</label>
-<input id="animalQty" type="number" min="1" required>
+
+<input
+id="animalQty"
+type="number"
+min="1"
+required
+>
+
 </div>
 
 <div>
+
 <label>Male</label>
-<input id="animalMale" type="number" min="0" value="0">
+
+<input
+id="animalMale"
+type="number"
+min="0"
+value="0"
+>
+
 </div>
 
 <div>
+
 <label>Female</label>
-<input id="animalFemale" type="number" min="0" value="0">
+
+<input
+id="animalFemale"
+type="number"
+min="0"
+value="0"
+>
+
 </div>
 
 </div>
 
 <label>Notes</label>
-<textarea id="animalNotes"></textarea>
 
-<button class="btn primary" type="submit">
+<textarea
+id="animalNotes"
+placeholder="Tusaale: 50 sac, 24 waa irmaan..."
+></textarea>
+
+<button
+class="btn primary"
+type="submit"
+>
 ➕ Save Livestock
 </button>
 
@@ -715,6 +962,7 @@ Clear Local Records
 <table>
 
 <thead>
+
 <tr>
 <th>Animal</th>
 <th>Quantity</th>
@@ -723,6 +971,7 @@ Clear Local Records
 <th>Notes</th>
 <th>Action</th>
 </tr>
+
 </thead>
 
 <tbody id="livestockTable"></tbody>
@@ -736,55 +985,85 @@ Clear Local Records
 </div>
 
 
-<!-- ================= CROPS ================= -->
+<!-- CROPS -->
 
 <div id="cropsPage" class="hidden">
 
 <div class="card">
 
-<h2>🌽 Farm & Crops</h2>
+<h2>🌽 Galley / Maize</h2>
+
+<div class="login-help">
+TACBO Agro: dalagga ugu weyn waa <b>Galley</b>.
+</div>
 
 <form id="cropForm">
 
 <div class="form-grid">
 
 <div>
+
 <label>Crop</label>
+
 <select id="cropName">
+
 <option>Galley / Maize</option>
-<option>Sorghum</option>
-<option>Sudan Grass</option>
-<option>Mampasa Grass</option>
-<option>Sunflower</option>
-<option>Tomato</option>
-<option>Onion</option>
-<option>Garlic</option>
-<option>Other</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Area — Hectare</label>
-<input id="cropArea" type="number" min="0" step="0.01">
+
+<input
+id="cropArea"
+type="number"
+min="0"
+step="0.01"
+>
+
 </div>
 
 <div>
+
 <label>Expected Yield — KG</label>
-<input id="cropYield" type="number" min="0" step="0.01">
+
+<input
+id="cropYield"
+type="number"
+min="0"
+step="0.01"
+>
+
 </div>
 
 <div>
+
 <label>Date</label>
-<input id="cropDate" type="date">
+
+<input
+id="cropDate"
+type="date"
+>
+
 </div>
 
 </div>
 
 <label>Notes</label>
-<textarea id="cropNotes"></textarea>
 
-<button class="btn primary" type="submit">
-➕ Save Crop
+<textarea
+id="cropNotes"
+placeholder="Tusaale: Galley cad, abuur hybrid..."
+></textarea>
+
+<button
+class="btn primary"
+type="submit"
+>
+➕ Save Galley
 </button>
 
 </form>
@@ -794,13 +1073,14 @@ Clear Local Records
 
 <div class="card">
 
-<h2>🌾 Crop Records</h2>
+<h2>🌽 Galley Records</h2>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
 <th>Crop</th>
 <th>Hectare</th>
@@ -809,6 +1089,7 @@ Clear Local Records
 <th>Notes</th>
 <th>Action</th>
 </tr>
+
 </thead>
 
 <tbody id="cropsTable"></tbody>
@@ -822,7 +1103,7 @@ Clear Local Records
 </div>
 
 
-<!-- ================= MILK ================= -->
+<!-- MILK -->
 
 <div id="milkPage" class="hidden">
 
@@ -830,45 +1111,95 @@ Clear Local Records
 
 <h2>🥛 Caano Management</h2>
 
+<div class="login-help">
+
+<b>Qorshaha hadda:</b><br>
+24 sac × 6 L = <b>144 L maalintii</b>
+
+</div>
+
 <form id="milkForm">
 
 <div class="form-grid">
 
 <div>
+
 <label>Animal Type</label>
+
 <select id="milkAnimal">
+
 <option>Lo / Cattle</option>
 <option>Geel / Camel</option>
 <option>Ari / Sheep</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Number of Animals</label>
-<input id="milkAnimals" type="number" min="0">
+
+<input
+id="milkAnimals"
+type="number"
+min="0"
+value="24"
+>
+
 </div>
 
 <div>
+
 <label>Liters per Day</label>
-<input id="milkLiters" type="number" min="0" step="0.1">
+
+<input
+id="milkLiters"
+type="number"
+min="0"
+step="0.1"
+value="144"
+>
+
 </div>
 
 <div>
+
 <label>Price per Liter ($)</label>
-<input id="milkPrice" type="number" min="0" step="0.01">
+
+<input
+id="milkPrice"
+type="number"
+min="0"
+step="0.01"
+>
+
 </div>
 
 <div>
+
 <label>Date</label>
-<input id="milkDate" type="date">
+
+<input
+id="milkDate"
+type="date"
+>
+
 </div>
 
 </div>
 
 <label>Notes</label>
-<textarea id="milkNotes"></textarea>
 
-<button class="btn primary" type="submit">
+<textarea
+id="milkNotes"
+placeholder="Tusaale: 24 sac oo irmaan..."
+></textarea>
+
+<button
+class="btn primary"
+type="submit"
+>
 ➕ Save Milk Record
 </button>
 
@@ -886,6 +1217,7 @@ Clear Local Records
 <table>
 
 <thead>
+
 <tr>
 <th>Date</th>
 <th>Animal</th>
@@ -895,6 +1227,7 @@ Clear Local Records
 <th>Daily Value</th>
 <th>Action</th>
 </tr>
+
 </thead>
 
 <tbody id="milkTable"></tbody>
@@ -908,7 +1241,7 @@ Clear Local Records
 </div>
 
 
-<!-- ================= ASSETS ================= -->
+<!-- ASSETS -->
 
 <div id="assetsPage" class="hidden">
 
@@ -917,8 +1250,11 @@ Clear Local Records
 <h2>🚜 Assets / Hanti</h2>
 
 <p style="color:#65736b">
-Ceel, tractor, machinery, equipment, land iyo livestock
-waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
+
+<b>Ceel = Asset / Hanti</b><br>
+Tractor, machinery, equipment, land, livestock iyo solar system
+waxaa loo diiwaangelin karaa Hanti.
+
 </p>
 
 <form id="assetForm">
@@ -926,18 +1262,35 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 <div class="form-grid">
 
 <div>
+
 <label>Asset Name</label>
-<input id="assetName" placeholder="Tusaale: Ceel">
+
+<input
+id="assetName"
+placeholder="Tusaale: Ceelka TACBO"
+>
+
 </div>
 
 <div>
+
 <label>Value ($)</label>
-<input id="assetValue" type="number" min="0" step="0.01">
+
+<input
+id="assetValue"
+type="number"
+min="0"
+step="0.01"
+>
+
 </div>
 
 <div>
+
 <label>Asset Type</label>
+
 <select id="assetType">
+
 <option>Ceel / Well</option>
 <option>Tractor</option>
 <option>Machinery</option>
@@ -947,20 +1300,35 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 <option>Solar System</option>
 <option>Building</option>
 <option>Other</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Date</label>
-<input id="assetDate" type="date">
+
+<input
+id="assetDate"
+type="date"
+>
+
 </div>
 
 </div>
 
 <label>Notes</label>
-<textarea id="assetNotes"></textarea>
 
-<button class="btn primary" type="submit">
+<textarea
+id="assetNotes"
+placeholder="Faahfaahin..."
+></textarea>
+
+<button
+class="btn primary"
+type="submit"
+>
 ➕ Save Asset
 </button>
 
@@ -978,6 +1346,7 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 <table>
 
 <thead>
+
 <tr>
 <th>Name</th>
 <th>Type</th>
@@ -986,6 +1355,7 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 <th>Notes</th>
 <th>Action</th>
 </tr>
+
 </thead>
 
 <tbody id="assetsTable"></tbody>
@@ -999,7 +1369,7 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 </div>
 
 
-<!-- ================= CALCULATOR ================= -->
+<!-- CALCULATOR -->
 
 <div id="calculatorPage" class="hidden">
 
@@ -1010,28 +1380,67 @@ waxaa loo diiwaangelin karaa <b>Asset / Hanti</b>.
 <div class="form-grid">
 
 <div>
+
 <label>Area — Hectare</label>
-<input id="calcArea" type="number" min="0" step="0.01" value="1">
+
+<input
+id="calcArea"
+type="number"
+min="0"
+step="0.01"
+value="1"
+>
+
 </div>
 
 <div>
+
 <label>Yield per Hectare — KG</label>
-<input id="calcYield" type="number" min="0" step="0.01" value="4000">
+
+<input
+id="calcYield"
+type="number"
+min="0"
+step="0.01"
+value="4000"
+>
+
 </div>
 
 <div>
+
 <label>Price per KG ($)</label>
-<input id="calcPrice" type="number" min="0" step="0.01" value="0.30">
+
+<input
+id="calcPrice"
+type="number"
+min="0"
+step="0.01"
+value="0.30"
+>
+
 </div>
 
 <div>
+
 <label>Total Farm Cost ($)</label>
-<input id="calcCost" type="number" min="0" step="0.01" value="0">
-</div>
+
+<input
+id="calcCost"
+type="number"
+min="0"
+step="0.01"
+value="0"
+>
 
 </div>
 
-<button class="btn primary" onclick="calculateFarm()">
+</div>
+
+<button
+class="btn primary"
+onclick="calculateFarm()"
+>
 🧮 Calculate
 </button>
 
@@ -1064,32 +1473,65 @@ Profit
 
 <div class="card">
 
-<h2>🐄 Livestock Feed Calculator</h2>
+<h2>🐄 Feed Calculator</h2>
+
+<div class="login-help">
+Waxaad ku xisaabin kartaa calafka xoolaha maalintii iyo bishiiba.
+</div>
 
 <div class="form-grid">
 
 <div>
+
 <label>Number of Animals</label>
-<input id="feedAnimals" type="number" min="0" value="50">
+
+<input
+id="feedAnimals"
+type="number"
+min="0"
+value="50"
+>
+
 </div>
 
 <div>
+
 <label>Feed per Animal / Day — KG</label>
-<input id="feedPerAnimal" type="number" min="0" step="0.1" value="5">
+
+<input
+id="feedPerAnimal"
+type="number"
+min="0"
+step="0.1"
+value="5"
+>
+
 </div>
 
 <div>
+
 <label>Number of Days</label>
-<input id="feedDays" type="number" min="1" value="30">
-</div>
+
+<input
+id="feedDays"
+type="number"
+min="1"
+value="30"
+>
 
 </div>
 
-<button class="btn primary" onclick="calculateFeed()">
+</div>
+
+<button
+class="btn primary"
+onclick="calculateFeed()"
+>
 🧮 Calculate Feed
 </button>
 
-div id="feedResult"
+<div
+id="feedResult"
 class="kpi"
 style="margin-top:15px"
 >
@@ -1098,10 +1540,62 @@ Total Feed: <b>0 KG</b>
 
 </div>
 
+
+<div class="card">
+
+<h2>🌽 Galley + Jirrid + Caleen</h2>
+
+<div class="form-grid">
+
+<div>
+
+<label>Jirrid & Caleen — KG</label>
+
+<input
+id="mixStem"
+type="number"
+min="0"
+value="400"
+>
+
+</div>
+
+<div>
+
+<label>Galley — KG</label>
+
+<input
+id="mixCorn"
+type="number"
+min="0"
+value="100"
+>
+
+</div>
+
+</div>
+
+<button
+class="btn primary"
+onclick="calculateMix()"
+>
+🧮 Isku dar
+</button>
+
+<div
+id="mixResult"
+class="kpi"
+style="margin-top:15px"
+>
+Wadarta: <b>500 KG</b>
+</div>
+
+</div>
+
 </div>
 
 
-<!-- ================= REPORTS ================= -->
+<!-- REPORTS -->
 
 <div id="reportsPage" class="hidden">
 
@@ -1157,7 +1651,7 @@ Livestock
 </div>
 
 <div class="kpi">
-Crops
+Galley Records
 <b id="reportCrops">0</b>
 </div>
 
@@ -1172,22 +1666,24 @@ Milk Records
 
 </div>
 
-
 </div>
+
 </section>
 
 
 <footer>
+
 🌾 TACBO Agro Agriculture & Livestock Company
 <br>
 Shalaboot, Shabeellaha Hoose, Somalia
+
 </footer>
 
 
 <script>
 
 /* =========================================================
-   SUPABASE
+SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1204,7 +1700,7 @@ SUPABASE_KEY
 
 
 /* =========================================================
-   DATA
+DATA
 ========================================================= */
 
 let transactions=[];
@@ -1217,7 +1713,7 @@ let currentUser=null;
 
 
 /* =========================================================
-   HELPERS
+HELPERS
 ========================================================= */
 
 function $(id){
@@ -1225,88 +1721,146 @@ return document.getElementById(id);
 }
 
 function money(value){
-return "$"+Number(value||0).toLocaleString(
+
+return "$"+
+Number(value||0).toLocaleString(
 "en-US",
 {
 minimumFractionDigits:2,
 maximumFractionDigits:2
 }
 );
+
 }
 
 function today(){
-return new Date().toISOString().slice(0,10);
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
 }
 
 function makeId(){
+
 return Date.now().toString(36)+
-Math.random().toString(36).slice(2);
+Math.random()
+.toString(36)
+.slice(2);
+
 }
 
 function storageKey(name){
+
 return "tacbo_"+name;
+
 }
 
 function saveData(name,data){
+
 localStorage.setItem(
 storageKey(name),
 JSON.stringify(data)
 );
+
 }
 
 function loadData(name){
+
 try{
+
 return JSON.parse(
-localStorage.getItem(storageKey(name))||"[]"
+localStorage.getItem(
+storageKey(name)
+)||"[]"
 );
+
 }catch(e){
+
 return [];
-}
+
 }
 
-function showAppMessage(text,type="success"){
+}
+
+function showAppMessage(
+text,
+type="success"
+){
 
 const box=$("appMessage");
 
-box.className="message "+type;
+box.className=
+"message "+type;
+
 box.textContent=text;
+
 box.style.display="block";
 
 setTimeout(()=>{
+
 box.style.display="none";
+
 },3500);
+
 }
 
-function showLoginMessage(text,type="error"){
+function showLoginMessage(
+text,
+type="error"
+){
 
 const box=$("loginMessage");
 
-box.className="message "+type;
+box.className=
+"message "+type;
+
 box.textContent=text;
+
 box.style.display="block";
+
 }
 
 
 /* =========================================================
-   AUTH
+AUTH
 ========================================================= */
 
 async function checkSession(){
 
-const result=await sb.auth.getSession();
+try{
 
-if(result.error){
-console.log(result.error);
+const {
+data,
+error
+}=await sb.auth.getSession();
+
+if(error){
+
+console.log(error);
+
 openLogin();
+
 return;
+
 }
 
-if(result.data.session){
+if(data.session){
 
-currentUser=result.data.session.user;
+currentUser=
+data.session.user;
+
 openApp();
 
 }else{
+
+openLogin();
+
+}
+
+}catch(error){
+
+console.log(error);
 
 openLogin();
 
@@ -1317,21 +1871,33 @@ openLogin();
 
 function openLogin(){
 
-$("loginPage").classList.remove("hidden");
-$("app").classList.add("hidden");
+$("loginPage")
+.classList
+.remove("hidden");
+
+$("app")
+.classList
+.add("hidden");
 
 }
 
 
 function openApp(){
 
-$("loginPage").classList.add("hidden");
-$("app").classList.remove("hidden");
+$("loginPage")
+.classList
+.add("hidden");
 
-$("currentUserEmail").textContent=
+$("app")
+.classList
+.remove("hidden");
+
+$("currentUserEmail")
+.textContent=
 currentUser?.email||"";
 
 loadLocalData();
+
 updateAll();
 
 }
@@ -1340,10 +1906,13 @@ updateAll();
 async function login(){
 
 const email=
-$("loginEmail").value.trim();
+$("loginEmail")
+.value
+.trim();
 
 const password=
-$("loginPassword").value;
+$("loginPassword")
+.value;
 
 if(!email||!password){
 
@@ -1353,6 +1922,7 @@ showLoginMessage(
 );
 
 return;
+
 }
 
 showLoginMessage(
@@ -1360,10 +1930,18 @@ showLoginMessage(
 "info"
 );
 
-const {data,error}=
+try{
+
+const {
+data,
+error
+}=
 await sb.auth.signInWithPassword({
+
 email:email,
+
 password:password
+
 });
 
 if(error){
@@ -1374,6 +1952,7 @@ error.message,
 );
 
 return;
+
 }
 
 currentUser=data.user;
@@ -1385,12 +1964,31 @@ showLoginMessage(
 
 openApp();
 
+}catch(error){
+
+showLoginMessage(
+"Internet ama Supabase lama xiriiri karo. Hubi internet-ka.",
+"error"
+);
+
+console.log(error);
+
+}
+
 }
 
 
 async function logout(){
 
+try{
+
 await sb.auth.signOut();
+
+}catch(e){
+
+console.log(e);
+
+}
 
 currentUser=null;
 
@@ -1402,7 +2000,9 @@ openLogin();
 async function forgotPassword(){
 
 const email=
-$("loginEmail").value.trim();
+$("loginEmail")
+.value
+.trim();
 
 if(!email){
 
@@ -1412,6 +2012,7 @@ showLoginMessage(
 );
 
 return;
+
 }
 
 showLoginMessage(
@@ -1419,11 +2020,21 @@ showLoginMessage(
 "info"
 );
 
-const redirectTo=
+try{
+
+/*
+IMPORTANT:
+Isticmaal URL-ka app-ka hadda jooga.
+Ha isticmaalin auth.supabase.io.
+*/
+
+const redirectTo =
 window.location.origin+
 window.location.pathname;
 
-const {error}=
+const {
+error
+}=
 await sb.auth.resetPasswordForEmail(
 email,
 {
@@ -1439,17 +2050,30 @@ error.message,
 );
 
 return;
+
 }
 
 showLoginMessage(
-"✅ Password reset link ayaa email-kaaga loo diray.",
+"✅ Reset link ayaa email-kaaga loo diray.",
 "success"
 );
+
+}catch(error){
+
+showLoginMessage(
+"Reset password lama diri karin. Hubi internet-ka.",
+"error"
+);
+
+console.log(error);
+
+}
 
 }
 
 
-$("loginForm").addEventListener(
+$("loginForm")
+.addEventListener(
 "submit",
 async function(e){
 
@@ -1462,22 +2086,30 @@ await login();
 
 
 /* =========================================================
-   AUTH STATE
+AUTH STATE
 ========================================================= */
 
 sb.auth.onAuthStateChange(
 function(event,session){
 
-if(event==="SIGNED_IN"&&session){
+if(
+event==="SIGNED_IN"&&
+session
+){
 
-currentUser=session.user;
+currentUser=
+session.user;
+
 openApp();
 
 }
 
-if(event==="SIGNED_OUT"){
+if(
+event==="SIGNED_OUT"
+){
 
 currentUser=null;
+
 openLogin();
 
 }
@@ -1487,7 +2119,7 @@ openLogin();
 
 
 /* =========================================================
-   LOCAL DATA
+LOCAL DATA
 ========================================================= */
 
 function loadLocalData(){
@@ -1509,22 +2141,15 @@ loadData("assets");
 
 }
 
-function saveAll(){
-
-saveData("transactions",transactions);
-saveData("livestock",livestock);
-saveData("crops",crops);
-saveData("milk",milkRecords);
-saveData("assets",assets);
-
-}
-
 
 /* =========================================================
-   NAVIGATION
+NAVIGATION
 ========================================================= */
 
-function showPage(page,button){
+function showPage(
+page,
+button
+){
 
 const pages=[
 "dashboard",
@@ -1539,24 +2164,38 @@ const pages=[
 
 pages.forEach(name=>{
 
-const el=$(name+"Page");
+const el=
+$(name+"Page");
 
 if(el){
-el.classList.add("hidden");
+
+el.classList
+.add("hidden");
+
 }
 
 });
 
-$(page+"Page").classList.remove("hidden");
+$(page+"Page")
+.classList
+.remove("hidden");
 
 document
-.querySelectorAll("#mainNav button")
+.querySelectorAll(
+"#mainNav button"
+)
 .forEach(btn=>{
-btn.classList.remove("active");
+
+btn.classList
+.remove("active");
+
 });
 
 if(button){
-button.classList.add("active");
+
+button.classList
+.add("active");
+
 }
 
 updateAll();
@@ -1570,38 +2209,66 @@ behavior:"smooth"
 
 
 /* =========================================================
-   FINANCE
+FINANCE
 ========================================================= */
 
-$("financeDate").value=today();
+$("financeDate")
+.value=today();
 
-$("financeForm").addEventListener(
+$("financeForm")
+.addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
 const item={
+
 id:makeId(),
-user_id:currentUser?.id||null,
-type:$("financeType").value,
-amount:Number($("financeAmount").value),
-category:$("financeCategory").value,
-date:$("financeDate").value,
-description:$("financeDescription").value.trim(),
-created_at:new Date().toISOString()
+
+user_id:
+currentUser?.id||null,
+
+type:
+$("financeType").value,
+
+amount:
+Number(
+$("financeAmount").value
+),
+
+category:
+$("financeCategory").value,
+
+date:
+$("financeDate").value,
+
+description:
+$("financeDescription")
+.value
+.trim(),
+
+created_at:
+new Date()
+.toISOString()
+
 };
 
 transactions.unshift(item);
 
-saveData("transactions",transactions);
+saveData(
+"transactions",
+transactions
+);
 
 showAppMessage(
 "✅ Transaction waa la kaydiyey."
 );
 
 $("financeForm").reset();
-$("financeDate").value=today();
+
+$("financeDate")
+.value=today();
 
 updateAll();
 
@@ -1611,53 +2278,75 @@ updateAll();
 
 function renderFinance(){
 
-const tbody=$("financeTable");
+const tbody=
+$("financeTable");
 
 tbody.innerHTML="";
 
 if(!transactions.length){
 
 tbody.innerHTML=
-`<tr>
-<td colspan="6" class="empty">
+`
+<tr>
+<td colspan="6"
+class="empty">
 Wax transaction ah ma jiro.
 </td>
-</tr>`;
+</tr>
+`;
 
 return;
+
 }
 
 transactions.forEach(t=>{
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
 const typeBadge=
 t.type==="income"
 ?
-`<span class="badge badge-income">Income</span>`
+`<span class="badge badge-income">
+Income
+</span>`
 :
-`<span class="badge badge-expense">Expense</span>`;
+`<span class="badge badge-expense">
+Expense
+</span>`;
 
-tr.innerHTML=`
-
-<td>${escapeHtml(t.date||"")}</td>
-
-<td>${typeBadge}</td>
-
-<td>${escapeHtml(t.category||"")}</td>
-
-<td>${money(t.amount)}</td>
-
-<td>${escapeHtml(t.description||"")}</td>
-
+tr.innerHTML=
+`
 <td>
-<button
-class="btn danger small-btn"
-onclick="deleteTransaction('${t.id}')">
-Delete
-</button>
+${escapeHtml(t.date||"")}
 </td>
 
+<td>
+${typeBadge}
+</td>
+
+<td>
+${escapeHtml(t.category||"")}
+</td>
+
+<td>
+${money(t.amount)}
+</td>
+
+<td>
+${escapeHtml(t.description||"")}
+</td>
+
+<td>
+
+<button
+class="btn danger small-btn"
+onclick="deleteTransaction('${t.id}')"
+>
+Delete
+</button>
+
+</td>
 `;
 
 tbody.appendChild(tr);
@@ -1669,16 +2358,27 @@ tbody.appendChild(tr);
 
 function deleteTransaction(id){
 
-if(!confirm("Ma tirtirtaa transaction-kan?")){
+if(!confirm(
+"Ma tirtirtaa transaction-kan?"
+)){
+
 return;
+
 }
 
 transactions=
-transactions.filter(x=>x.id!==id);
+transactions.filter(
+x=>x.id!==id
+);
 
-saveData("transactions",transactions);
+saveData(
+"transactions",
+transactions
+);
 
-showAppMessage("Transaction waa la tirtiray.");
+showAppMessage(
+"Transaction waa la tirtiray."
+);
 
 updateAll();
 
@@ -1688,18 +2388,25 @@ updateAll();
 function clearTransactions(){
 
 if(!transactions.length){
+
 return;
+
 }
 
 if(!confirm(
 "Ma hubtaa inaad tirtirayso dhammaan transactions-ka?"
 )){
+
 return;
+
 }
 
 transactions=[];
 
-saveData("transactions",transactions);
+saveData(
+"transactions",
+transactions
+);
 
 updateAll();
 
@@ -1711,34 +2418,62 @@ showAppMessage(
 
 
 /* =========================================================
-   LIVESTOCK
+LIVESTOCK
 ========================================================= */
 
-$("livestockForm").addEventListener(
+$("livestockForm")
+.addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
 const item={
+
 id:makeId(),
-animal:$("animalType").value,
-quantity:Number($("animalQty").value),
-male:Number($("animalMale").value||0),
-female:Number($("animalFemale").value||0),
-notes:$("animalNotes").value.trim(),
-created_at:new Date().toISOString()
+
+animal:
+$("animalType").value,
+
+quantity:
+Number(
+$("animalQty").value
+),
+
+male:
+Number(
+$("animalMale").value||0
+),
+
+female:
+Number(
+$("animalFemale").value||0
+),
+
+notes:
+$("animalNotes")
+.value
+.trim(),
+
+created_at:
+new Date()
+.toISOString()
+
 };
 
 livestock.unshift(item);
 
-saveData("livestock",livestock);
+saveData(
+"livestock",
+livestock
+);
 
 showAppMessage(
 "✅ Livestock waa la kaydiyey."
 );
 
-$("livestockForm").reset();
+$("livestockForm")
+.reset();
 
 updateAll();
 
@@ -1748,46 +2483,64 @@ updateAll();
 
 function renderLivestock(){
 
-const tbody=$("livestockTable");
+const tbody=
+$("livestockTable");
 
 tbody.innerHTML="";
 
 if(!livestock.length){
 
 tbody.innerHTML=
-`<tr>
-<td colspan="6" class="empty">
+`
+<tr>
+<td colspan="6"
+class="empty">
 Livestock record ma jiro.
 </td>
-</tr>`;
+</tr>
+`;
 
 return;
+
 }
 
 livestock.forEach(a=>{
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
-tr.innerHTML=`
-
-<td>${escapeHtml(a.animal)}</td>
-
-<td>${a.quantity||0}</td>
-
-<td>${a.male||0}</td>
-
-<td>${a.female||0}</td>
-
-<td>${escapeHtml(a.notes||"")}</td>
-
+tr.innerHTML=
+`
 <td>
-<button
-class="btn danger small-btn"
-onclick="deleteLivestock('${a.id}')">
-Delete
-</button>
+${escapeHtml(a.animal)}
 </td>
 
+<td>
+${a.quantity||0}
+</td>
+
+<td>
+${a.male||0}
+</td>
+
+<td>
+${a.female||0}
+</td>
+
+<td>
+${escapeHtml(a.notes||"")}
+</td>
+
+<td>
+
+<button
+class="btn danger small-btn"
+onclick="deleteLivestock('${a.id}')"
+>
+Delete
+</button>
+
+</td>
 `;
 
 tbody.appendChild(tr);
@@ -1799,14 +2552,23 @@ tbody.appendChild(tr);
 
 function deleteLivestock(id){
 
-if(!confirm("Ma tirtirtaa record-kan?")){
+if(!confirm(
+"Ma tirtirtaa record-kan?"
+)){
+
 return;
+
 }
 
 livestock=
-livestock.filter(x=>x.id!==id);
+livestock.filter(
+x=>x.id!==id
+);
 
-saveData("livestock",livestock);
+saveData(
+"livestock",
+livestock
+);
 
 updateAll();
 
@@ -1814,38 +2576,65 @@ updateAll();
 
 
 /* =========================================================
-   CROPS
+CROPS
 ========================================================= */
 
-$("cropDate").value=today();
+$("cropDate")
+.value=today();
 
-$("cropForm").addEventListener(
+$("cropForm")
+.addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
 const item={
+
 id:makeId(),
-crop:$("cropName").value,
-area:Number($("cropArea").value||0),
-yieldKg:Number($("cropYield").value||0),
-date:$("cropDate").value,
-notes:$("cropNotes").value.trim(),
-created_at:new Date().toISOString()
+
+crop:
+"Galley / Maize",
+
+area:
+Number(
+$("cropArea").value||0
+),
+
+yieldKg:
+Number(
+$("cropYield").value||0
+),
+
+date:
+$("cropDate").value,
+
+notes:
+$("cropNotes")
+.value
+.trim(),
+
+created_at:
+new Date()
+.toISOString()
+
 };
 
 crops.unshift(item);
 
-saveData("crops",crops);
+saveData(
+"crops",
+crops
+);
 
 showAppMessage(
-"✅ Crop waa la kaydiyey."
+"✅ Galley waa la kaydiyey."
 );
 
 $("cropForm").reset();
 
-$("cropDate").value=today();
+$("cropDate")
+.value=today();
 
 updateAll();
 
@@ -1855,46 +2644,66 @@ updateAll();
 
 function renderCrops(){
 
-const tbody=$("cropsTable");
+const tbody=
+$("cropsTable");
 
 tbody.innerHTML="";
 
 if(!crops.length){
 
 tbody.innerHTML=
-`<tr>
-<td colspan="6" class="empty">
-Crop record ma jiro.
+`
+<tr>
+<td colspan="6"
+class="empty">
+Galley record ma jiro.
 </td>
-</tr>`;
+</tr>
+`;
 
 return;
+
 }
 
 crops.forEach(c=>{
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
-tr.innerHTML=`
-
-<td>${escapeHtml(c.crop)}</td>
-
-<td>${c.area||0}</td>
-
-<td>${Number(c.yieldKg||0).toLocaleString()} KG</td>
-
-<td>${escapeHtml(c.date||"")}</td>
-
-<td>${escapeHtml(c.notes||"")}</td>
-
+tr.innerHTML=
+`
 <td>
-<button
-class="btn danger small-btn"
-onclick="deleteCrop('${c.id}')">
-Delete
-</button>
+🌽 Galley
 </td>
 
+<td>
+${c.area||0}
+</td>
+
+<td>
+${Number(
+c.yieldKg||0
+).toLocaleString()} KG
+</td>
+
+<td>
+${escapeHtml(c.date||"")}
+</td>
+
+<td>
+${escapeHtml(c.notes||"")}
+</td>
+
+<td>
+
+<button
+class="btn danger small-btn"
+onclick="deleteCrop('${c.id}')"
+>
+Delete
+</button>
+
+</td>
 `;
 
 tbody.appendChild(tr);
@@ -1906,14 +2715,23 @@ tbody.appendChild(tr);
 
 function deleteCrop(id){
 
-if(!confirm("Ma tirtirtaa crop-kan?")){
+if(!confirm(
+"Ma tirtirtaa galley-kan?"
+)){
+
 return;
+
 }
 
 crops=
-crops.filter(x=>x.id!==id);
+crops.filter(
+x=>x.id!==id
+);
 
-saveData("crops",crops);
+saveData(
+"crops",
+crops
+);
 
 updateAll();
 
@@ -1921,38 +2739,112 @@ updateAll();
 
 
 /* =========================================================
-   MILK
+MILK
 ========================================================= */
 
-$("milkDate").value=today();
+$("milkDate")
+.value=today();
 
-$("milkForm").addEventListener(
+
+function updateMilkFromAnimals(){
+
+const animals=
+Number(
+$("milkAnimals").value||0
+);
+
+const perAnimal=6;
+
+if(
+animals>0&&
+$("milkLiters").value===""
+){
+
+$("milkLiters")
+.value=
+animals*perAnimal;
+
+}
+
+}
+
+
+$("milkAnimals")
+.addEventListener(
+"input",
+function(){
+
+const animals=
+Number(
+this.value||0
+);
+
+$("milkLiters")
+.value=
+animals*6;
+
+}
+);
+
+
+$("milkForm")
+.addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
 const liters=
-Number($("milkLiters").value||0);
+Number(
+$("milkLiters").value||0
+);
 
 const price=
-Number($("milkPrice").value||0);
+Number(
+$("milkPrice").value||0
+);
 
 const item={
+
 id:makeId(),
-animal:$("milkAnimal").value,
-animals:Number($("milkAnimals").value||0),
-liters:liters,
-price:price,
-value:liters*price,
-date:$("milkDate").value,
-notes:$("milkNotes").value.trim(),
-created_at:new Date().toISOString()
+
+animal:
+$("milkAnimal").value,
+
+animals:
+Number(
+$("milkAnimals").value||0
+),
+
+liters:
+liters,
+
+price:
+price,
+
+value:
+liters*price,
+
+date:
+$("milkDate").value,
+
+notes:
+$("milkNotes")
+.value
+.trim(),
+
+created_at:
+new Date()
+.toISOString()
+
 };
 
 milkRecords.unshift(item);
 
-saveData("milk",milkRecords);
+saveData(
+"milk",
+milkRecords
+);
 
 showAppMessage(
 "✅ Caano record waa la kaydiyey."
@@ -1960,7 +2852,14 @@ showAppMessage(
 
 $("milkForm").reset();
 
-$("milkDate").value=today();
+$("milkAnimals")
+.value=24;
+
+$("milkLiters")
+.value=144;
+
+$("milkDate")
+.value=today();
 
 updateAll();
 
@@ -1970,48 +2869,70 @@ updateAll();
 
 function renderMilk(){
 
-const tbody=$("milkTable");
+const tbody=
+$("milkTable");
 
 tbody.innerHTML="";
 
 if(!milkRecords.length){
 
 tbody.innerHTML=
-`<tr>
-<td colspan="7" class="empty">
+`
+<tr>
+<td colspan="7"
+class="empty">
 Milk record ma jiro.
 </td>
-</tr>`;
+</tr>
+`;
 
 return;
+
 }
 
 milkRecords.forEach(m=>{
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
-tr.innerHTML=`
-
-<td>${escapeHtml(m.date||"")}</td>
-
-<td>${escapeHtml(m.animal||"")}</td>
-
-<td>${m.animals||0}</td>
-
-<td>${Number(m.liters||0).toLocaleString()} L</td>
-
-<td>${money(m.price)}</td>
-
-<td>${money(m.value)}</td>
-
+tr.innerHTML=
+`
 <td>
-<button
-class="btn danger small-btn"
-onclick="deleteMilk('${m.id}')">
-Delete
-</button>
+${escapeHtml(m.date||"")}
 </td>
 
+<td>
+${escapeHtml(m.animal||"")}
+</td>
+
+<td>
+${m.animals||0}
+</td>
+
+<td>
+${Number(
+m.liters||0
+).toLocaleString()} L
+</td>
+
+<td>
+${money(m.price)}
+</td>
+
+<td>
+${money(m.value)}
+</td>
+
+<td>
+
+<button
+class="btn danger small-btn"
+onclick="deleteMilk('${m.id}')"
+>
+Delete
+</button>
+
+</td>
 `;
 
 tbody.appendChild(tr);
@@ -2023,14 +2944,23 @@ tbody.appendChild(tr);
 
 function deleteMilk(id){
 
-if(!confirm("Ma tirtirtaa milk record-kan?")){
+if(!confirm(
+"Ma tirtirtaa milk record-kan?"
+)){
+
 return;
+
 }
 
 milkRecords=
-milkRecords.filter(x=>x.id!==id);
+milkRecords.filter(
+x=>x.id!==id
+);
 
-saveData("milk",milkRecords);
+saveData(
+"milk",
+milkRecords
+);
 
 updateAll();
 
@@ -2038,25 +2968,50 @@ updateAll();
 
 
 /* =========================================================
-   ASSETS
+ASSETS
 ========================================================= */
 
-$("assetDate").value=today();
+$("assetDate")
+.value=today();
 
-$("assetForm").addEventListener(
+
+$("assetForm")
+.addEventListener(
 "submit",
 function(e){
 
 e.preventDefault();
 
 const item={
+
 id:makeId(),
-name:$("assetName").value.trim(),
-value:Number($("assetValue").value||0),
-type:$("assetType").value,
-date:$("assetDate").value,
-notes:$("assetNotes").value.trim(),
-created_at:new Date().toISOString()
+
+name:
+$("assetName")
+.value
+.trim(),
+
+value:
+Number(
+$("assetValue")
+.value||0
+),
+
+type:
+$("assetType").value,
+
+date:
+$("assetDate").value,
+
+notes:
+$("assetNotes")
+.value
+.trim(),
+
+created_at:
+new Date()
+.toISOString()
+
 };
 
 if(!item.name){
@@ -2067,19 +3022,25 @@ showAppMessage(
 );
 
 return;
+
 }
 
 assets.unshift(item);
 
-saveData("assets",assets);
-
-showAppMessage(
-"✅ Asset waa la kaydiyey."
+saveData(
+"assets",
+assets
 );
 
-$("assetForm").reset();
+showAppMessage(
+"✅ Asset / Hanti waa la kaydiyey."
+);
 
-$("assetDate").value=today();
+$("assetForm")
+.reset();
+
+$("assetDate")
+.value=today();
 
 updateAll();
 
@@ -2089,50 +3050,68 @@ updateAll();
 
 function renderAssets(){
 
-const tbody=$("assetsTable");
+const tbody=
+$("assetsTable");
 
 tbody.innerHTML="";
 
 if(!assets.length){
 
 tbody.innerHTML=
-`<tr>
-<td colspan="6" class="empty">
+`
+<tr>
+<td colspan="6"
+class="empty">
 Asset ma jiro.
 </td>
-</tr>`;
+</tr>
+`;
 
 return;
+
 }
 
 assets.forEach(a=>{
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
-tr.innerHTML=`
-
-<td>${escapeHtml(a.name)}</td>
+tr.innerHTML=
+`
+<td>
+${escapeHtml(a.name)}
+</td>
 
 <td>
+
 <span class="badge badge-asset">
 ${escapeHtml(a.type)}
 </span>
+
 </td>
-
-<td>${money(a.value)}</td>
-
-<td>${escapeHtml(a.date||"")}</td>
-
-<td>${escapeHtml(a.notes||"")}</td>
 
 <td>
-<button
-class="btn danger small-btn"
-onclick="deleteAsset('${a.id}')">
-Delete
-</button>
+${money(a.value)}
 </td>
 
+<td>
+${escapeHtml(a.date||"")}
+</td>
+
+<td>
+${escapeHtml(a.notes||"")}
+</td>
+
+<td>
+
+<button
+class="btn danger small-btn"
+onclick="deleteAsset('${a.id}')"
+>
+Delete
+</button>
+
+</td>
 `;
 
 tbody.appendChild(tr);
@@ -2144,14 +3123,23 @@ tbody.appendChild(tr);
 
 function deleteAsset(id){
 
-if(!confirm("Ma tirtirtaa asset-kan?")){
+if(!confirm(
+"Ma tirtirtaa asset-kan?"
+)){
+
 return;
+
 }
 
 assets=
-assets.filter(x=>x.id!==id);
+assets.filter(
+x=>x.id!==id
+);
 
-saveData("assets",assets);
+saveData(
+"assets",
+assets
+);
 
 updateAll();
 
@@ -2159,22 +3147,30 @@ updateAll();
 
 
 /* =========================================================
-   CALCULATORS
+FARM CALCULATOR
 ========================================================= */
 
 function calculateFarm(){
 
 const area=
-Number($("calcArea").value||0);
+Number(
+$("calcArea").value||0
+);
 
 const yieldPerHa=
-Number($("calcYield").value||0);
+Number(
+$("calcYield").value||0
+);
 
 const price=
-Number($("calcPrice").value||0);
+Number(
+$("calcPrice").value||0
+);
 
 const cost=
-Number($("calcCost").value||0);
+Number(
+$("calcCost").value||0
+);
 
 const totalYield=
 area*yieldPerHa;
@@ -2185,50 +3181,127 @@ totalYield*price;
 const profit=
 revenue-cost;
 
-$("calcTotalYield").textContent=
-totalYield.toLocaleString()+" KG";
+$("calcTotalYield")
+.textContent=
+totalYield.toLocaleString()+
+" KG";
 
-$("calcRevenue").textContent=
+$("calcRevenue")
+.textContent=
 money(revenue);
 
-$("calcTotalCost").textContent=
+$("calcTotalCost")
+.textContent=
 money(cost);
 
-$("calcProfit").textContent=
+$("calcProfit")
+.textContent=
 money(profit);
 
 }
 
 
+/* =========================================================
+FEED CALCULATOR
+========================================================= */
+
 function calculateFeed(){
 
 const animals=
-Number($("feedAnimals").value||0);
+Number(
+$("feedAnimals").value||0
+);
 
 const perAnimal=
-Number($("feedPerAnimal").value||0);
+Number(
+$("feedPerAnimal").value||0
+);
 
 const days=
-Number($("feedDays").value||0);
+Number(
+$("feedDays").value||0
+);
 
 const total=
-animals*perAnimal*days;
+animals*
+perAnimal*
+days;
 
-$("feedResult").innerHTML=
-"Total Feed: <b>"+
-total.toLocaleString()+
-" KG</b>";
+$("feedResult")
+.innerHTML=
+`
+Total Feed:
+<b>
+${total.toLocaleString()} KG
+</b>
+`;
 
 }
 
 
 /* =========================================================
-   DASHBOARD
+MIX CALCULATOR
+========================================================= */
+
+function calculateMix(){
+
+const stem=
+Number(
+$("mixStem").value||0
+);
+
+const corn=
+Number(
+$("mixCorn").value||0
+);
+
+const total=
+stem+corn;
+
+const cornPercent=
+total?
+(corn/total)*100:
+0;
+
+const stemPercent=
+total?
+(stem/total)*100:
+0;
+
+$("mixResult")
+.innerHTML=
+`
+Wadarta:
+<b>
+${total.toLocaleString()} KG
+</b>
+
+<br><br>
+
+Galley:
+<b>
+${cornPercent.toFixed(1)}%
+</b>
+
+<br>
+
+Jirrid + Caleen:
+<b>
+${stemPercent.toFixed(1)}%
+</b>
+`;
+
+}
+
+
+/* =========================================================
+FINANCE CALCULATION
 ========================================================= */
 
 function calculateFinance(){
 
 let income=0;
+
 let expense=0;
 
 transactions.forEach(t=>{
@@ -2237,71 +3310,164 @@ const amount=
 Number(t.amount||0);
 
 if(t.type==="income"){
+
 income+=amount;
+
 }
 
 if(t.type==="expense"){
+
 expense+=amount;
+
 }
 
 });
 
 return{
+
 income,
+
 expense,
-profit:income-expense,
-balance:income-expense
+
+profit:
+income-expense,
+
+balance:
+income-expense
+
 };
 
 }
 
+
+/* =========================================================
+DASHBOARD
+========================================================= */
 
 function updateDashboard(){
 
 const f=
 calculateFinance();
 
-$("dashIncome").textContent=
+$("dashIncome")
+.textContent=
 money(f.income);
 
-$("dashExpense").textContent=
+$("dashExpense")
+.textContent=
 money(f.expense);
 
-$("dashProfit").textContent=
+$("dashProfit")
+.textContent=
 money(f.profit);
 
-$("dashBalance").textContent=
+$("dashBalance")
+.textContent=
 money(f.balance);
 
-$("summaryIncome").textContent=
+$("summaryIncome")
+.textContent=
 money(f.income);
 
-$("summaryExpense").textContent=
+$("summaryExpense")
+.textContent=
 money(f.expense);
 
-$("summaryProfit").textContent=
+$("summaryProfit")
+.textContent=
 money(f.profit);
 
-$("dashAnimals").textContent=
-livestock.reduce(
-(sum,a)=>sum+Number(a.quantity||0),
-0
-).toLocaleString();
 
-$("dashCrops").textContent=
+const totalAnimals=
+livestock.reduce(
+(sum,a)=>
+sum+
+Number(
+a.quantity||0
+),
+0
+);
+
+$("dashAnimals")
+.textContent=
+totalAnimals
+.toLocaleString();
+
+
+const cows=
+livestock
+.filter(
+a=>
+a.animal===
+"Lo / Cattle"
+)
+.reduce(
+(sum,a)=>
+sum+
+Number(
+a.quantity||0
+),
+0
+);
+
+const sheep=
+livestock
+.filter(
+a=>
+a.animal===
+"Ari / Sheep"
+)
+.reduce(
+(sum,a)=>
+sum+
+Number(
+a.quantity||0
+),
+0
+);
+
+$("dashCows")
+.textContent=
+cows;
+
+$("dashSheep")
+.textContent=
+sheep;
+
+
+let dailyMilk=0;
+
+milkRecords.forEach(m=>{
+
+dailyMilk+=
+Number(
+m.liters||0
+);
+
+});
+
+$("dashMilk")
+.textContent=
+dailyMilk.toLocaleString()+
+" L";
+
+$("dashCrops")
+.textContent=
 crops.length;
 
-$("dashAssets").textContent=
+$("dashAssets")
+.textContent=
 assets.length;
 
-$("dashTransactions").textContent=
+$("dashTransactions")
+.textContent=
 transactions.length;
 
 }
 
 
 /* =========================================================
-   REPORTS
+REPORTS
 ========================================================= */
 
 function updateReports(){
@@ -2311,32 +3477,48 @@ calculateFinance();
 
 const assetValue=
 assets.reduce(
-(sum,a)=>sum+Number(a.value||0),
+(sum,a)=>
+sum+
+Number(
+a.value||0
+),
 0
 );
 
-$("reportIncome").textContent=
+$("reportIncome")
+.textContent=
 money(f.income);
 
-$("reportExpense").textContent=
+$("reportExpense")
+.textContent=
 money(f.expense);
 
-$("reportProfit").textContent=
+$("reportProfit")
+.textContent=
 money(f.profit);
 
-$("reportAssets").textContent=
+$("reportAssets")
+.textContent=
 money(assetValue);
 
-$("reportAnimals").textContent=
+$("reportAnimals")
+.textContent=
 livestock.reduce(
-(sum,a)=>sum+Number(a.quantity||0),
+(sum,a)=>
+sum+
+Number(
+a.quantity||0
+),
 0
-).toLocaleString();
+)
+.toLocaleString();
 
-$("reportCrops").textContent=
+$("reportCrops")
+.textContent=
 crops.length;
 
-$("reportMilk").textContent=
+$("reportMilk")
+.textContent=
 milkRecords.length;
 
 
@@ -2344,16 +3526,25 @@ const categories={};
 
 transactions.forEach(t=>{
 
-if(t.type!=="expense"){
+if(
+t.type!=="expense"
+){
+
 return;
+
 }
 
 const cat=
-t.category||"Other";
+t.category||
+"Other";
 
 categories[cat]=
-(categories[cat]||0)+
-Number(t.amount||0);
+(
+categories[cat]||0
+)+
+Number(
+t.amount||0
+);
 
 });
 
@@ -2364,25 +3555,33 @@ box.innerHTML="";
 
 const entries=
 Object.entries(categories)
-.sort((a,b)=>b[1]-a[1]);
+.sort(
+(a,b)=>
+b[1]-a[1]
+);
 
 if(!entries.length){
 
 box.innerHTML=
-`<div class="empty">
+`
+<div class="empty">
 Expense report ma jiro.
-</div>`;
+</div>
+`;
 
 return;
+
 }
 
 const total=
 entries.reduce(
-(sum,x)=>sum+x[1],
+(sum,x)=>
+sum+x[1],
 0
 );
 
-entries.forEach(([name,value])=>{
+entries.forEach(
+([name,value])=>{
 
 const percentage=
 total?
@@ -2392,25 +3591,34 @@ total?
 const div=
 document.createElement("div");
 
-div.className="list-item";
+div.className=
+"list-item";
 
-div.innerHTML=`
-
+div.innerHTML=
+`
 <div>
-<b>${escapeHtml(name)}</b>
+
+<b>
+${escapeHtml(name)}
+</b>
+
 <span style="float:right">
 ${money(value)}
 </span>
+
 </div>
 
 <div class="progress">
-<span style="width:${percentage}%"></span>
+
+<span
+style="width:${percentage}%">
+</span>
+
 </div>
 
 <small style="color:#718078">
 ${percentage.toFixed(1)}%
 </small>
-
 `;
 
 box.appendChild(div);
@@ -2421,178 +3629,330 @@ box.appendChild(div);
 
 
 /* =========================================================
-   UPDATE EVERYTHING
+UPDATE ALL
 ========================================================= */
 
 function updateAll(){
 
 renderFinance();
+
 renderLivestock();
+
 renderCrops();
+
 renderMilk();
+
 renderAssets();
 
 updateDashboard();
+
 updateReports();
 
 }
 
 
 /* =========================================================
-   SECURITY FOR DISPLAYED TEXT
+SECURITY
 ========================================================= */
 
 function escapeHtml(value){
 
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+return String(
+value??""
+)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
 /* =========================================================
-   START
+START
 ========================================================= */
 
 checkSession();
 
 </script>
-<!-- 🌐 TACBO Language Switcher -->
-<div id="languageBox" style="
-  position:fixed;
-  top:15px;
-  right:15px;
-  z-index:9999;
-  background:white;
-  padding:8px 12px;
-  border-radius:12px;
-  box-shadow:0 4px 15px rgba(0,0,0,.15);
-  font-family:Arial,sans-serif;
-">
-  <span style="font-size:18px;">🌐</span>
-  <select id="languageSelect" style="
-    border:0;
-    outline:0;
-    background:white;
-    font-size:15px;
-    font-weight:600;
-  ">
-    <option value="so">🇸🇴 Soomaali</option>
-    <option value="en">🇬🇧 English</option>
-    <option value="de">🇩🇪 Deutsch</option>
-  </select>
+
+
+<!-- LANGUAGE SWITCHER -->
+
+<div
+id="languageBox"
+style="
+position:fixed;
+top:15px;
+right:15px;
+z-index:9999;
+background:white;
+padding:8px 12px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,.15);
+font-family:Arial,sans-serif;
+"
+>
+
+<span style="font-size:18px;">
+🌐
+</span>
+
+<select
+id="languageSelect"
+style="
+border:0;
+outline:0;
+background:white;
+font-size:15px;
+font-weight:600;
+"
+>
+
+<option value="so">
+🇸🇴 Soomaali
+</option>
+
+<option value="en">
+🇬🇧 English
+</option>
+
+<option value="de">
+🇩🇪 Deutsch
+</option>
+
+</select>
+
 </div>
 
+
 <script>
-const translations = {
-  so: {
-    "TACBO Agro": "TACBO Agro",
-    "Agriculture & Livestock Company — Finance App":
-      "Shirkadda Beeraha & Xoolaha — App Maaliyadeed",
-    "TACBO Agro Dashboard": "Dashboard-ka TACBO Agro",
-    "Dashboard": "Dashboard",
-    "Finance": "Maaliyad",
-    "Livestock": "Xoolaha",
-    "Crops": "Dalagyada",
-    "Caano": "Caano",
-    "Assets": "Hantida",
-    "Calculator": "Xisaabiye",
-    "Reports": "Warbixinno",
-    "Logout": "Ka bax",
-    "Total Income": "Dakhliga Guud",
-    "Total Expenses": "Kharashka Guud",
-    "Profit": "Faa'iido"
-  },
 
-  en: {
-    "TACBO Agro": "TACBO Agro",
-    "Agriculture & Livestock Company — Finance App":
-      "Agriculture & Livestock Company — Finance App",
-    "TACBO Agro Dashboard": "TACBO Agro Dashboard",
-    "Dashboard": "Dashboard",
-    "Finance": "Finance",
-    "Livestock": "Livestock",
-    "Crops": "Crops",
-    "Caano": "Milk",
-    "Assets": "Assets",
-    "Calculator": "Calculator",
-    "Reports": "Reports",
-    "Logout": "Logout",
-    "Total Income": "Total Income",
-    "Total Expenses": "Total Expenses",
-    "Profit": "Profit"
-  },
+const translations={
 
-  de: {
-    "TACBO Agro": "TACBO Agro",
-    "Agriculture & Livestock Company — Finance App":
-      "Landwirtschaft & Viehzucht — Finanz-App",
-    "TACBO Agro Dashboard": "TACBO Agro Dashboard",
-    "Dashboard": "Dashboard",
-    "Finance": "Finanzen",
-    "Livestock": "Viehbestand",
-    "Crops": "Feldfrüchte",
-    "Caano": "Milch",
-    "Assets": "Vermögen",
-    "Calculator": "Rechner",
-    "Reports": "Berichte",
-    "Logout": "Abmelden",
-    "Total Income": "Gesamteinnahmen",
-    "Total Expenses": "Gesamtausgaben",
-    "Profit": "Gewinn"
-  }
+so:{
+
+"🌾 TACBO Agro Dashboard":
+"🌾 TACBO Agro Dashboard",
+
+"Finance":
+"Maaliyad",
+
+"Xoolaha":
+"Xoolaha",
+
+"Galley":
+"Galley",
+
+"Caano":
+"Caano",
+
+"Hanti":
+"Hanti",
+
+"Xisaabiye":
+"Xisaabiye",
+
+"Reports":
+"Warbixinno",
+
+"Logout":
+"Ka bax"
+
+},
+
+en:{
+
+"🌾 TACBO Agro Dashboard":
+"🌾 TACBO Agro Dashboard",
+
+"Finance":
+"Finance",
+
+"Xoolaha":
+"Livestock",
+
+"Galley":
+"Maize",
+
+"Caano":
+"Milk",
+
+"Hanti":
+"Assets",
+
+"Xisaabiye":
+"Calculator",
+
+"Reports":
+"Reports",
+
+"Logout":
+"Logout"
+
+},
+
+de:{
+
+"🌾 TACBO Agro Dashboard":
+"🌾 TACBO Agro Dashboard",
+
+"Finance":
+"Finanzen",
+
+"Xoolaha":
+"Viehbestand",
+
+"Galley":
+"Mais",
+
+"Caano":
+"Milch",
+
+"Hanti":
+"Vermögen",
+
+"Xisaabiye":
+"Rechner",
+
+"Reports":
+"Berichte",
+
+"Logout":
+"Abmelden"
+
+}
+
 };
 
-const originalTexts = new Map();
 
-function saveOriginalText(node) {
-  if (!originalTexts.has(node)) {
-    originalTexts.set(node, node.nodeValue);
-  }
+const originalTexts=
+new Map();
+
+
+function saveOriginalText(node){
+
+if(
+!originalTexts.has(node)
+){
+
+originalTexts.set(
+node,
+node.nodeValue
+);
+
 }
 
-function translatePage(lang) {
-  const dict = translations[lang];
-
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT
-  );
-
-  let node;
-
-  while (node = walker.nextNode()) {
-    if (!node.nodeValue.trim()) continue;
-
-    saveOriginalText(node);
-
-    const original = originalTexts.get(node);
-    const clean = original.trim();
-
-    if (dict[clean]) {
-      node.nodeValue = original.replace(clean, dict[clean]);
-    }
-  }
-
-  localStorage.setItem("tacboLanguage", lang);
 }
 
-document.getElementById("languageSelect").addEventListener("change", function() {
-  translatePage(this.value);
-});
 
-const savedLanguage =
-  localStorage.getItem("tacboLanguage") || "so";
+function translatePage(lang){
 
-document.getElementById("languageSelect").value = savedLanguage;
+const dict=
+translations[lang];
 
-setTimeout(() => {
-  translatePage(savedLanguage);
-}, 300);
+const walker=
+document.createTreeWalker(
+document.body,
+NodeFilter.SHOW_TEXT
+);
+
+let node;
+
+while(
+node=walker.nextNode()
+){
+
+if(
+!node.nodeValue.trim()
+){
+
+continue;
+
+}
+
+saveOriginalText(node);
+
+const original=
+originalTexts.get(node);
+
+const clean=
+original.trim();
+
+if(dict[clean]){
+
+node.nodeValue=
+original.replace(
+clean,
+dict[clean]
+);
+
+}
+
+}
+
+localStorage.setItem(
+"tacboLanguage",
+lang
+);
+
+}
+
+
+$("languageSelect")
+.addEventListener(
+"change",
+function(){
+
+translatePage(
+this.value
+);
+
+}
+);
+
+
+const savedLanguage=
+localStorage.getItem(
+"tacboLanguage"
+)||
+"so";
+
+$("languageSelect")
+.value=
+savedLanguage;
+
+setTimeout(
+()=>{
+translatePage(
+savedLanguage
+);
+},
+300
+);
+
 </script>
+
 </body>
 </html>
