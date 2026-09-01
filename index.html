@@ -3,251 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TACBO Agro Finance</title>
+<title>TACBO Agro — Finance App</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f3f7f4;
-color:#17251d
+ margin:0;
+ font-family:Arial,Helvetica,sans-serif;
+ background:#f3f7f4;
+ color:#17251d;
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.hidden{display:none!important}
 
 header{
-background:#347d43;
-color:white;
-padding:20px;
-box-shadow:0 3px 15px #0002
+ background:#347d43;
+ color:white;
+ padding:22px 18px;
 }
 .head{
-max-width:1200px;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px
+ max-width:1200px;
+ margin:auto;
 }
 .logo{
-display:flex;
-align-items:center;
-gap:10px
+ font-size:34px;
+ font-weight:800;
 }
-.logo span{font-size:42px}
-.logo h1{margin:0;font-size:30px}
-.logo p{margin:4px 0 0}
+.sub{
+ font-size:18px;
+ margin-top:7px;
+}
 
 .container{
-max-width:1200px;
-margin:auto;
-padding:20px 15px 60px
+ max-width:1200px;
+ margin:auto;
+ padding:25px 16px 60px;
 }
 
-.login{
-min-height:calc(100vh - 100px);
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px
-}
-.loginbox{
-background:white;
-width:100%;
-max-width:500px;
-padding:32px;
-border-radius:25px;
-box-shadow:0 10px 35px #0001
-}
-.loginbox h2{font-size:32px;margin-top:0}
-
-.notice{
-background:#edf6ef;
-color:#286337;
-padding:15px;
-border-radius:12px;
-margin:15px 0
+.card{
+ background:white;
+ border-radius:22px;
+ padding:22px;
+ margin-bottom:20px;
+ box-shadow:0 5px 25px #0000000d;
 }
 
-.msg{
-padding:13px;
-border-radius:10px;
-margin:10px 0
+.login-card{
+ max-width:650px;
+ margin:70px auto;
 }
-.ok{background:#e8f7eb;color:#267039}
-.error{background:#fdeceb;color:#a32e27}
+
+h1,h2,h3{margin-top:0}
 
 label{
-display:block;
-font-weight:bold;
-margin:15px 0 7px
+ display:block;
+ font-weight:700;
+ margin:14px 0 7px;
 }
+
 input,select,textarea{
-width:100%;
-padding:13px;
-border:1px solid #ccd8d0;
-border-radius:10px;
-background:white
+ width:100%;
+ border:1px solid #ccd8d0;
+ border-radius:12px;
+ padding:13px;
+ background:white;
+ color:#17251d;
 }
-textarea{min-height:90px}
+
+textarea{min-height:100px}
 
 .btn{
-border:0;
-border-radius:10px;
-padding:12px 16px;
-font-weight:bold
+ border:0;
+ border-radius:12px;
+ padding:13px 18px;
+ font-weight:700;
+ margin:5px 3px 5px 0;
 }
-.primary{
-background:#347d43;
-color:white
+.primary{background:#347d43;color:white}
+.secondary{background:#e8f1eb;color:#286437}
+.danger{background:#fee9e7;color:#a32620}
+.gray{background:#eef1ef;color:#46534c}
+
+.message{
+ padding:14px;
+ border-radius:12px;
+ margin:12px 0;
+ display:none;
 }
-.secondary{
-background:#e9f3eb;
-color:#286337
+.success{background:#e7f5ea;color:#216936}
+.error{background:#fdebea;color:#a32922}
+.info{background:#eaf3ed;color:#286437}
+
+.hidden{display:none!important}
+
+nav{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-bottom:20px;
 }
-.danger{
-background:#fdeceb;
-color:#a32e27
-}
-.fullbtn{
-width:100%;
-margin-top:15px
-}
-.link{
-border:0;
-background:none;
-color:#347d43;
-font-weight:bold;
-margin-top:15px
+nav button{
+ border:0;
+ padding:11px 15px;
+ border-radius:12px;
+ background:white;
+ color:#245b32;
+ font-weight:700;
 }
 
-.nav{
-display:flex;
-gap:8px;
-overflow:auto;
-padding:5px 0 18px
-}
-.nav button{
-white-space:nowrap;
-background:white;
-border:1px solid #d7e2da;
-border-radius:10px;
-padding:11px 14px;
-color:#31523a
-}
-.nav button.active{
-background:#347d43;
-color:white
+nav button.active{
+ background:#347d43;
+ color:white;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;
 }
-.card{
-background:white;
-padding:20px;
-border-radius:18px;
-box-shadow:0 6px 22px #17351d0b;
-margin-bottom:18px
+
+.stat{
+ background:white;
+ padding:20px;
+ border-radius:18px;
+ box-shadow:0 3px 18px #0000000a;
 }
-.stat .icon{font-size:30px}
-.stat small{color:#68756d}
+.stat small{
+ color:#6c7871;
+ display:block;
+ margin-bottom:8px;
+}
 .stat strong{
-display:block;
-font-size:25px;
-margin-top:7px
+ font-size:25px;
 }
 
-.formgrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px
+.form-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:15px;
 }
-.full{grid-column:1/-1}
 
-.table{
-overflow:auto
-}
 table{
-width:100%;
-border-collapse:collapse;
-min-width:700px
+ width:100%;
+ border-collapse:collapse;
+ margin-top:15px;
 }
 th,td{
-padding:12px;
-border-bottom:1px solid #dbe5de;
-text-align:left
+ padding:12px 9px;
+ border-bottom:1px solid #e5ebe7;
+ text-align:left;
 }
 th{background:#f3f7f4}
 
 .badge{
-padding:5px 9px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold
+ padding:5px 9px;
+ border-radius:20px;
+ font-size:12px;
+ font-weight:bold;
 }
-.income{
-background:#e5f6e9;
-color:#247039
-}
-.expense{
-background:#fdeceb;
-color:#a32e27
-}
-.asset{
-background:#e9effb;
-color:#315e9c
+.income{background:#e4f5e8;color:#217037}
+.expense{background:#fde8e5;color:#a12620}
+.asset{background:#e9eefb;color:#31538d}
+
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ flex-wrap:wrap;
 }
 
-.total{
-display:flex;
-justify-content:space-between;
-padding:13px 0;
-border-bottom:1px solid #dbe5de
-}
-.total:last-child{border:0}
-
-.reports{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px
-}
-.report{
-border:1px solid #dbe5de;
-border-radius:14px;
-padding:15px
-}
-.report b{
-display:block;
-font-size:23px;
-margin-top:6px
+footer{
+ text-align:center;
+ color:#718078;
+ padding:30px;
 }
 
-.empty{
-text-align:center;
-color:#68756d;
-padding:25px
+@media(max-width:800px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .form-grid{grid-template-columns:1fr}
 }
-
-@media(max-width:850px){
-.grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-.logo h1{font-size:23px}
-.logo span{font-size:30px}
-.logo p{font-size:11px}
-.grid{grid-template-columns:1fr 1fr;gap:9px}
-.card{padding:15px}
-.stat strong{font-size:19px}
-.formgrid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.loginbox{padding:24px 18px}
+@media(max-width:500px){
+ .grid{grid-template-columns:1fr}
+ .logo{font-size:27px}
+ .container{padding:15px 10px}
+ .card{padding:17px}
+ table{font-size:13px}
 }
 </style>
 </head>
@@ -256,307 +199,204 @@ padding:25px
 
 <header>
 <div class="head">
-
-<div class="logo">
-<span>🌾</span>
-<div>
-<h1>TACBO Agro</h1>
-<p>Agriculture & Livestock Company — Finance App</p>
-</div>
-</div>
-
-<div>
-<button id="refresh" class="btn secondary hidden">↻</button>
-<button id="logout" class="btn secondary hidden">🚪 Logout</button>
-</div>
-
+<div class="logo">🌾 TACBO Agro</div>
+<div class="sub">Agriculture & Livestock Company — Finance App</div>
 </div>
 </header>
 
-
 <!-- LOGIN -->
+<section id="loginPage" class="container">
+<div class="card login-card">
+<h1>🔐 TACBO Login</h1>
 
-<section id="loginScreen" class="login">
-
-<div class="loginbox">
-
-<h2>🔐 TACBO Login</h2>
-
-<div class="notice">
-Geli email-ka iyo password-ka.
-</div>
-
-<div id="loginMsg"></div>
+<div class="info message" id="loginInfo"></div>
+<div class="error message" id="loginError"></div>
 
 <form id="loginForm">
 
 <label>Email</label>
 <input
-id="email"
-type="email"
-placeholder="email@example.com"
-required
+ id="email"
+ type="email"
+ autocomplete="email"
+ placeholder="email@example.com"
+ required
 >
 
 <label>Password</label>
 <input
-id="password"
-type="password"
-placeholder="Password"
-required
+ id="password"
+ type="password"
+ autocomplete="current-password"
+ placeholder="Geli password-ka"
+ required
 >
 
-<button class="btn primary fullbtn">
+<button class="btn primary" type="submit">
 🔑 Login
+</button>
+
+<button
+ class="btn secondary"
+ type="button"
+ onclick="forgotPassword()">
+Forgot Password?
 </button>
 
 </form>
 
-<button id="forgot" class="link">
-Forgot Password?
-</button>
-
-<div id="forgotBox" class="hidden">
-
-<label>Email</label>
-<input
-id="resetEmail"
-type="email"
-placeholder="Email-kaaga"
->
-
-<button id="sendReset" class="btn secondary fullbtn">
-📧 Dir Password Reset
-</button>
-
-</div>
+<p style="color:#69766f">
+Account-ka cusub waxaa loo sameeyaa Staff.
+</p>
 
 </div>
 </section>
-
 
 <!-- APP -->
+<section id="app" class="hidden">
 
-<main id="app" class="container hidden">
+<div class="container">
 
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-
+<div class="card">
+<div class="topbar">
 <div>
-<h2>📊 TACBO Agro Dashboard</h2>
-<p id="welcome"></p>
+<h2>🌾 TACBO Agro Dashboard</h2>
+<div id="userEmail"></div>
 </div>
 
-<button id="export" class="btn secondary">
-📥 Export Finance
-</button>
-
+<button class="btn danger" onclick="logout()">Logout</button>
+</div>
 </div>
 
-
-<nav class="nav">
-
-<button class="navbtn active" data-page="dashboard">📊 Dashboard</button>
-<button class="navbtn" data-page="finance">💰 Finance</button>
-<button class="navbtn" data-page="livestock">🐄 Xoolo</button>
-<button class="navbtn" data-page="farm">🌾 Farm</button>
-<button class="navbtn" data-page="milk">🥛 Caano</button>
-<button class="navbtn" data-page="assets">🏗️ Hanti</button>
-<button class="navbtn" data-page="reports">📈 Reports</button>
-
+<nav>
+<button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
+<button onclick="showPage('transactions',this)">💰 Finance</button>
+<button onclick="showPage('livestock',this)">🐄 Livestock</button>
+<button onclick="showPage('crops',this)">🌽 Crops</button>
+<button onclick="showPage('assets',this)">🚜 Assets</button>
+<button onclick="showPage('reports',this)">📊 Reports</button>
 </nav>
 
+<div id="globalMessage" class="message"></div>
 
 <!-- DASHBOARD -->
-
-<section id="dashboard">
-
-<div class="grid">
-
-<div class="card stat">
-<div class="icon">💵</div>
-<small>Income</small>
-<strong id="income">$0.00</strong>
-</div>
-
-<div class="card stat">
-<div class="icon">💸</div>
-<small>Expenses</small>
-<strong id="expense">$0.00</strong>
-</div>
-
-<div class="card stat">
-<div class="icon">📈</div>
-<small>Profit</small>
-<strong id="profit">$0.00</strong>
-</div>
-
-<div class="card stat">
-<div class="icon">🏗️</div>
-<small>Assets</small>
-<strong id="assetTotal">$0.00</strong>
-</div>
-
-</div>
+<div id="dashboardPage">
 
 <div class="grid">
 
-<div class="card stat">
-<div class="icon">🐑</div>
-<small>Ari</small>
-<strong id="sheep">0</strong>
+<div class="stat">
+<small>💰 Income</small>
+<strong id="totalIncome">$0</strong>
 </div>
 
-<div class="card stat">
-<div class="icon">🐄</div>
-<small>Lo</small>
-<strong id="cattle">0</strong>
+<div class="stat">
+<small>💸 Expenses</small>
+<strong id="totalExpense">$0</strong>
 </div>
 
-<div class="card stat">
-<div class="icon">🌾</div>
-<small>Farm Records</small>
-<strong id="farmCount">0</strong>
+<div class="stat">
+<small>📈 Profit</small>
+<strong id="totalProfit">$0</strong>
 </div>
 
-<div class="card stat">
-<div class="icon">🥛</div>
-<small>Caano Maanta</small>
-<strong id="milkToday">0 L</strong>
+<div class="stat">
+<small>🐄 Livestock</small>
+<strong id="totalAnimals">0</strong>
 </div>
 
 </div>
 
 <div class="card">
+<h2>📋 Quick Summary</h2>
+<p>Halkan waxaad ka maamuli kartaa dhaqaalaha TACBO Agro.</p>
 
-<h3>📌 TACBO Accounting</h3>
-
-<div class="total">
-<span>🕳️ Ceel</span>
-<b>ASSET</b>
+<div class="grid">
+<div class="stat">
+<small>🚜 Assets</small>
+<strong id="assetCount">0</strong>
 </div>
 
-<div class="total">
-<span>💧 Waraab</span>
-<b>EXPENSE</b>
+<div class="stat">
+<small>🌽 Crops</small>
+<strong id="cropCount">0</strong>
 </div>
 
-<div class="total">
-<span>🚜 Tractor</span>
-<b>ASSET</b>
+<div class="stat">
+<small>💵 Balance</small>
+<strong id="balance">$0</strong>
 </div>
 
-<div class="total">
-<span>⚙️ Machinery</span>
-<b>ASSET</b>
+<div class="stat">
+<small>🧾 Transactions</small>
+<strong id="transactionCount">0</strong>
 </div>
-
-<div class="total">
-<span>🌾 Seeds / Fertilizer</span>
-<b>EXPENSE</b>
+</div>
 </div>
 
 </div>
+
+<!-- TRANSACTIONS -->
+<div id="transactionsPage" class="hidden">
 
 <div class="card">
+<h2>💰 Finance</h2>
 
-<h3>🕒 Recent Transactions</h3>
+<form id="transactionForm">
 
-<div class="table">
-
-<table>
-<thead>
-<tr>
-<th>Date</th>
-<th>Type</th>
-<th>Category</th>
-<th>Amount</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody id="recent"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FINANCE -->
-
-<section id="finance" class="hidden">
-
-<div class="card">
-
-<h3>💰 Finance</h3>
-
-<form id="financeForm" class="formgrid">
+<div class="form-grid">
 
 <div>
 <label>Type</label>
-<select id="fType">
-<option value="income">Income</option>
-<option value="expense">Expense</option>
-</select>
-</div>
-
-<div>
-<label>Category</label>
-<select id="fCategory">
-<option>Crop Sales</option>
-<option>Livestock Sales</option>
-<option>Milk Sales</option>
-<option>Other Income</option>
-<option>Waraab</option>
-<option>Fuel</option>
-<option>Wages</option>
-<option>Feed</option>
-<option>Medicine</option>
-<option>Maintenance</option>
-<option>Seeds</option>
-<option>Fertilizer</option>
-<option>Transport</option>
-<option>Other Expense</option>
+<select id="txType" required>
+<option value="income">Income / Dakhli</option>
+<option value="expense">Expense / Kharash</option>
 </select>
 </div>
 
 <div>
 <label>Amount ($)</label>
-<input id="fAmount" type="number" step="0.01" min="0" required>
+<input id="txAmount" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label>Category</label>
+<select id="txCategory">
+<option>Sales</option>
+<option>Milk</option>
+<option>Livestock</option>
+<option>Crop</option>
+<option>Feed</option>
+<option>Medicine</option>
+<option>Irrigation</option>
+<option>Fuel</option>
+<option>Wages</option>
+<option>Maintenance</option>
+<option>Transport</option>
+<option>Other</option>
+</select>
 </div>
 
 <div>
 <label>Date</label>
-<input id="fDate" type="date" required>
+<input id="txDate" type="date" required>
 </div>
 
-<div class="full">
+</div>
+
 <label>Description</label>
-<textarea id="fDescription"></textarea>
-</div>
+<textarea id="txDescription" placeholder="Faahfaahin..."></textarea>
 
-<div class="full">
-<button class="btn primary">💾 Save Finance</button>
-</div>
+<button class="btn primary" type="submit">
+➕ Save Transaction
+</button>
 
 </form>
-
-<div id="financeMsg"></div>
-
 </div>
 
-
 <div class="card">
-
-<h3>📒 Finance Records</h3>
-
-<div class="table">
-
+<h2>🧾 Transactions</h2>
+<div style="overflow:auto">
 <table>
-
 <thead>
 <tr>
 <th>Date</th>
@@ -564,1600 +404,1068 @@ placeholder="Email-kaaga"
 <th>Category</th>
 <th>Amount</th>
 <th>Description</th>
-<th>Delete</th>
 </tr>
 </thead>
-
-<tbody id="financeTable"></tbody>
-
+<tbody id="transactionsTable"></tbody>
 </table>
-
+</div>
 </div>
 
 </div>
-
-</section>
-
 
 <!-- LIVESTOCK -->
-
-<section id="livestock" class="hidden">
+<div id="livestockPage" class="hidden">
 
 <div class="card">
+<h2>🐄 Livestock</h2>
 
-<h3>🐄🐑 Xoolaha</h3>
+<form id="livestockForm">
 
-<form id="animalForm" class="formgrid">
+<div class="form-grid">
 
 <div>
-<label>Nooca</label>
+<label>Animal</label>
 <select id="animalType">
-<option value="sheep">🐑 Ari</option>
-<option value="cattle">🐄 Lo</option>
-<option value="goat">🐐 Ri'</option>
-<option value="camel">🐪 Geel</option>
+<option>Cattle / Lo</option>
+<option>Sheep / Ari</option>
+<option>Goat / Ri'</option>
+<option>Camel / Geel</option>
+<option>Chicken / Digaag</option>
 </select>
 </div>
 
 <div>
-<label>Tirada</label>
+<label>Quantity</label>
 <input id="animalQty" type="number" min="1" required>
 </div>
 
 <div>
-<label>Qiimaha halkii ($)</label>
-<input id="animalPrice" type="number" step="0.01">
+<label>Male</label>
+<input id="animalMale" type="number" min="0" value="0">
 </div>
 
 <div>
-<label>Date</label>
-<input id="animalDate" type="date" required>
+<label>Female</label>
+<input id="animalFemale" type="number" min="0" value="0">
 </div>
 
-<div>
-<label>Dhashay</label>
-<input id="born" type="number" min="0" value="0">
 </div>
 
-<div>
-<label>Dhintay</label>
-<input id="dead" type="number" min="0" value="0">
-</div>
+<label>Notes</label>
+<textarea id="animalNotes"></textarea>
 
-<div>
-<label>Iibiyey</label>
-<input id="sold" type="number" min="0" value="0">
-</div>
-
-<div>
-<label>Faahfaahin</label>
-<input id="animalDesc">
-</div>
-
-<div class="full">
-<button class="btn primary">💾 Save Xoolo</button>
-</div>
+<button class="btn primary" type="submit">
+➕ Save Livestock
+</button>
 
 </form>
-
-<div id="animalMsg"></div>
-
 </div>
 
-
 <div class="card">
-
-<h3>📋 Xoolaha</h3>
-
-<div class="table">
-
+<h2>🐄 Livestock Records</h2>
+<div style="overflow:auto">
 <table>
-
 <thead>
 <tr>
-<th>Nooc</th>
-<th>Tiro</th>
-<th>Price</th>
-<th>Dhashay</th>
-<th>Dhintay</th>
-<th>Iibiyey</th>
-<th>Date</th>
-<th>Delete</th>
+<th>Animal</th>
+<th>Quantity</th>
+<th>Male</th>
+<th>Female</th>
+<th>Notes</th>
 </tr>
 </thead>
-
-<tbody id="animalTable"></tbody>
-
+<tbody id="livestockTable"></tbody>
 </table>
-
+</div>
 </div>
 
 </div>
 
-</section>
-
-
-<!-- FARM -->
-
-<section id="farm" class="hidden">
+<!-- CROPS -->
+<div id="cropsPage" class="hidden">
 
 <div class="card">
+<h2>🌽 Crops</h2>
 
-<h3>🌾 Farm / Dalag</h3>
+<form id="cropForm">
 
-<form id="farmForm" class="formgrid">
+<div class="form-grid">
 
 <div>
-<label>Dalagga</label>
-<select id="crop">
-<option>Galley</option>
-<option>Masaggo</option>
+<label>Crop</label>
+<select id="cropName">
+<option>Maize / Galley</option>
+<option>Sorghum</option>
 <option>Sudan Grass</option>
-<option>Mampasa</option>
+<option>Mampasa Grass</option>
 <option>Sunflower</option>
-<option>Yaanyo</option>
-<option>Basal</option>
-<option>Toon</option>
+<option>Tomato</option>
+<option>Onion</option>
+<option>Garlic</option>
+<option>Other</option>
 </select>
 </div>
 
 <div>
-<label>Hectares</label>
-<input id="hectares" type="number" step="0.01">
+<label>Area (Hectare)</label>
+<input id="cropArea" type="number" min="0" step="0.01">
 </div>
 
 <div>
-<label>Production KG</label>
-<input id="production" type="number" step="0.01">
-</div>
-
-<div>
-<label>Value ($)</label>
-<input id="cropValue" type="number" step="0.01">
+<label>Expected Yield (KG)</label>
+<input id="cropYield" type="number" min="0" step="0.01">
 </div>
 
 <div>
 <label>Date</label>
-<input id="cropDate" type="date" required>
+<input id="cropDate" type="date">
 </div>
 
-<div>
-<label>Faahfaahin</label>
-<input id="cropDesc">
 </div>
 
-<div class="full">
-<button class="btn primary">💾 Save Farm</button>
-</div>
+<label>Notes</label>
+<textarea id="cropNotes"></textarea>
+
+<button class="btn primary" type="submit">
+➕ Save Crop
+</button>
 
 </form>
-
-<div id="farmMsg"></div>
-
 </div>
 
-
 <div class="card">
-
-<h3>📋 Farm Records</h3>
-
-<div class="table">
-
+<h2>🌾 Crop Records</h2>
+<div style="overflow:auto">
 <table>
-
 <thead>
 <tr>
-<th>Dalag</th>
-<th>Ha</th>
-<th>KG</th>
-<th>Value</th>
+<th>Crop</th>
+<th>Hectare</th>
+<th>Yield KG</th>
 <th>Date</th>
-<th>Delete</th>
+<th>Notes</th>
 </tr>
 </thead>
-
-<tbody id="farmTable"></tbody>
-
+<tbody id="cropsTable"></tbody>
 </table>
-
+</div>
 </div>
 
 </div>
-
-</section>
-
-
-<!-- MILK -->
-
-<section id="milk" class="hidden">
-
-<div class="card">
-
-<h3>🥛 Caano</h3>
-
-<form id="milkForm" class="formgrid">
-
-<div>
-<label>Nooca</label>
-<select id="milkAnimal">
-<option>Lo</option>
-<option>Geel</option>
-<option>Ari</option>
-</select>
-</div>
-
-<div>
-<label>Tirada Xoolaha</label>
-<input id="milkAnimals" type="number">
-</div>
-
-<div>
-<label>Subax Liter</label>
-<input id="morning" type="number" step="0.01">
-</div>
-
-<div>
-<label>Galab Liter</label>
-<input id="evening" type="number" step="0.01">
-</div>
-
-<div>
-<label>Qiimaha Liter ($)</label>
-<input id="milkPrice" type="number" step="0.01">
-</div>
-
-<div>
-<label>Date</label>
-<input id="milkDate" type="date" required>
-</div>
-
-<div class="full">
-<button class="btn primary">💾 Save Caano</button>
-</div>
-
-</form>
-
-<div id="milkMsg"></div>
-
-</div>
-
-
-<div class="card">
-
-<h3>📋 Caano Records</h3>
-
-<div class="table">
-
-<table>
-
-<thead>
-<tr>
-<th>Date</th>
-<th>Nooc</th>
-<th>Xoolo</th>
-<th>Subax</th>
-<th>Galab</th>
-<th>Total</th>
-<th>Value</th>
-<th>Delete</th>
-</tr>
-</thead>
-
-<tbody id="milkTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
 
 <!-- ASSETS -->
-
-<section id="assets" class="hidden">
+<div id="assetsPage" class="hidden">
 
 <div class="card">
+<h2>🚜 Assets / Hanti</h2>
 
-<h3>🏗️ Hanti / Assets</h3>
+<p>
+Ceel, tractors, machines, equipment iyo xoolaha la maalgeliyey
+waxaa loo diiwaangelin karaa hanti.
+</p>
 
-<div class="notice">
-🕳️ Ceel = Asset<br>
-🚜 Tractor = Asset<br>
-⚙️ Machinery = Asset<br>
-🛠️ Equipment = Asset
-</div>
+<form id="assetForm">
 
-<form id="assetForm" class="formgrid">
-
-<div>
-<label>Magaca</label>
-<input id="assetName" placeholder="Tusaale: Ceel TACBO" required>
-</div>
+<div class="form-grid">
 
 <div>
-<label>Category</label>
-<select id="assetCategory">
-<option>Ceel</option>
-<option>Tractor</option>
-<option>Machinery</option>
-<option>Equipment</option>
-<option>Building</option>
-<option>Vehicle</option>
-</select>
+<label>Asset Name</label>
+<input id="assetName" placeholder="Tusaale: Ceel">
 </div>
 
 <div>
 <label>Value ($)</label>
-<input id="assetValue" type="number" step="0.01" required>
+<input id="assetValue" type="number" min="0" step="0.01">
+</div>
+
+<div>
+<label>Asset Type</label>
+<select id="assetType">
+<option>Well / Ceel</option>
+<option>Tractor</option>
+<option>Machine</option>
+<option>Equipment</option>
+<option>Livestock</option>
+<option>Land</option>
+<option>Other</option>
+</select>
 </div>
 
 <div>
 <label>Date</label>
-<input id="assetDate" type="date" required>
+<input id="assetDate" type="date">
 </div>
 
-<div class="full">
-<label>Description</label>
-<textarea id="assetDesc"></textarea>
 </div>
 
-<div class="full">
-<button class="btn primary">💾 Save Asset</button>
-</div>
+<label>Notes</label>
+<textarea id="assetNotes"></textarea>
+
+<button class="btn primary" type="submit">
+➕ Save Asset
+</button>
 
 </form>
-
-<div id="assetMsg"></div>
-
 </div>
 
-
 <div class="card">
+<h2>🚜 Assets</h2>
 
-<h3>📋 Asset Register</h3>
-
-<div class="table">
-
+<div style="overflow:auto">
 <table>
-
 <thead>
 <tr>
 <th>Name</th>
-<th>Category</th>
+<th>Type</th>
 <th>Value</th>
 <th>Date</th>
-<th>Description</th>
-<th>Delete</th>
+<th>Notes</th>
 </tr>
 </thead>
-
-<tbody id="assetTable"></tbody>
-
+<tbody id="assetsTable"></tbody>
 </table>
-
 </div>
 
 </div>
 
-</section>
-
+</div>
 
 <!-- REPORTS -->
-
-<section id="reports" class="hidden">
-
-<div class="card">
-
-<h3>📈 TACBO Financial Report</h3>
-
-<div class="reports">
-
-<div class="report">
-Income
-<b id="rIncome">$0.00</b>
-</div>
-
-<div class="report">
-Expenses
-<b id="rExpense">$0.00</b>
-</div>
-
-<div class="report">
-Profit
-<b id="rProfit">$0.00</b>
-</div>
-
-<div class="report">
-Assets
-<b id="rAssets">$0.00</b>
-</div>
-
-</div>
-
-</div>
-
+<div id="reportsPage" class="hidden">
 
 <div class="card">
+<h2>📊 Financial Report</h2>
 
-<h3>💸 Expense Breakdown</h3>
+<div class="grid">
 
-<div id="breakdown"></div>
+<div class="stat">
+<small>Total Income</small>
+<strong id="reportIncome">$0</strong>
+</div>
+
+<div class="stat">
+<small>Total Expenses</small>
+<strong id="reportExpense">$0</strong>
+</div>
+
+<div class="stat">
+<small>Net Profit</small>
+<strong id="reportProfit">$0</strong>
+</div>
+
+<div class="stat">
+<small>Assets Value</small>
+<strong id="reportAssets">$0</strong>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>📋 Expense Categories</h2>
+<div id="expenseReport"></div>
+</div>
+
+</div>
 
 </div>
 
 </section>
 
-</main>
-
+<footer>
+🌾 TACBO Agro Agriculture & Livestock Company
+</footer>
 
 <script>
 
 /* =====================================================
-   SUPABASE CONNECTION
-   ===================================================== */
+   SUPABASE CONFIGURATION
+===================================================== */
 
 const SUPABASE_URL =
 "https://ujkjdxytceqfcngdzlqt.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
+"sb_publishable_sxq-3X1EoOx2zbINhQoNeQ__0tANMn5";
 
 const sb =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+ SUPABASE_URL,
+ SUPABASE_KEY
 );
 
 
 /* =====================================================
-   DATA
-   ===================================================== */
+   STATE
+===================================================== */
 
-let user=null;
+let currentUser = null;
 
-let transactions=[];
-let livestock=[];
-let crops=[];
-let milk=[];
-let assets=[];
+let transactions = [];
+let livestock = [];
+let crops = [];
+let assets = [];
 
 
-const $=id=>document.getElementById(id);
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function $(id){
+ return document.getElementById(id);
+}
+
+function money(n){
+ return "$" + Number(n || 0).toLocaleString(
+  "en-US",
+  {minimumFractionDigits:2,maximumFractionDigits:2}
+ );
+}
 
 function today(){
-return new Date().toISOString().slice(0,10);
+ return new Date().toISOString().slice(0,10);
 }
 
-function money(x){
-return "$"+Number(x||0).toLocaleString(
-"en-US",
-{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-});
+function showMessage(text,type="success"){
+ const box=$("globalMessage");
+ box.className="message "+type;
+ box.textContent=text;
+ box.style.display="block";
+
+ setTimeout(()=>{
+  box.style.display="none";
+ },4000);
 }
 
-function esc(x){
-return String(x??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;");
-}
+function loginMessage(text,type="error"){
+ const error=$("loginError");
+ const info=$("loginInfo");
 
-function message(id,text,type="ok"){
-$(id).innerHTML=
-`<div class="msg ${type}">
-${esc(text)}
-</div>`;
+ error.style.display="none";
+ info.style.display="none";
 
-setTimeout(()=>{
-$(id).innerHTML="";
-},5000);
+ const box=type==="error"?error:info;
+
+ box.textContent=text;
+ box.style.display="block";
 }
 
 
 /* =====================================================
    AUTH
-   ===================================================== */
+===================================================== */
 
-async function start(){
+async function checkSession(){
 
-const {
-data:{session}
-}=await sb.auth.getSession();
+ const {data,error}=await sb.auth.getSession();
 
-if(session){
-user=session.user;
-openApp();
-}else{
-openLogin();
+ if(error){
+  console.error(error);
+  return;
+ }
+
+ if(data.session){
+  currentUser=data.session.user;
+  openApp();
+ }else{
+  openLogin();
+ }
 }
 
+
+async function login(){
+
+ const email=$("email").value.trim();
+ const password=$("password").value;
+
+ loginMessage("Logging in...","info");
+
+ const {data,error}=await sb.auth.signInWithPassword({
+  email,
+  password
+ });
+
+ if(error){
+  loginMessage(error.message,"error");
+  return;
+ }
+
+ currentUser=data.user;
+
+ loginMessage("Login successful.","info");
+
+ openApp();
 }
+
+
+async function logout(){
+
+ await sb.auth.signOut();
+
+ currentUser=null;
+
+ openLogin();
+}
+
+
+async function forgotPassword(){
+
+ const email=$("email").value.trim();
+
+ if(!email){
+  loginMessage(
+   "Marka hore geli email-kaaga.",
+   "error"
+  );
+  return;
+ }
+
+ const redirect=
+ window.location.origin+
+ window.location.pathname;
+
+ const {error}=await sb.auth.resetPasswordForEmail(
+  email,
+  {
+   redirectTo:redirect
+  }
+ );
+
+ if(error){
+  loginMessage(error.message,"error");
+  return;
+ }
+
+ loginMessage(
+  "Password reset link ayaa email-ka laguu diray.",
+  "info"
+ );
+}
+
+
+$("loginForm").addEventListener(
+ "submit",
+ async function(e){
+  e.preventDefault();
+  await login();
+ }
+);
+
+
+/* =====================================================
+   PAGE CONTROL
+===================================================== */
 
 function openLogin(){
 
-$("loginScreen").classList.remove("hidden");
-$("app").classList.add("hidden");
-$("logout").classList.add("hidden");
-$("refresh").classList.add("hidden");
+ $("loginPage").classList.remove("hidden");
+ $("app").classList.add("hidden");
 
 }
 
 function openApp(){
 
-$("loginScreen").classList.add("hidden");
-$("app").classList.remove("hidden");
-$("logout").classList.remove("hidden");
-$("refresh").classList.remove("hidden");
+ $("loginPage").classList.add("hidden");
+ $("app").classList.remove("hidden");
 
-$("welcome").textContent=
-"User: "+(user.email||"Staff");
+ $("userEmail").textContent=
+ currentUser?.email || "";
 
-loadEverything();
+ loadAll();
 
 }
-
-
-/* =====================================================
-   LOGIN
-   ===================================================== */
-
-$("loginForm").addEventListener(
-"submit",
-async e=>{
-
-e.preventDefault();
-
-const email=
-$("email").value.trim();
-
-const password=
-$("password").value;
-
-const {data,error}=
-await sb.auth.signInWithPassword({
-email,
-password
-});
-
-if(error){
-
-message(
-"loginMsg",
-error.message,
-"error"
-);
-
-return;
-}
-
-user=data.user;
-openApp();
-
-}
-);
-
-
-/* =====================================================
-   FORGOT PASSWORD
-   ===================================================== */
-
-$("forgot").onclick=()=>{
-
-$("forgotBox").classList.toggle("hidden");
-
-$("resetEmail").value=
-$("email").value;
-
-};
-
-
-$("sendReset").onclick=async()=>{
-
-const email=
-$("resetEmail").value.trim();
-
-if(!email){
-
-message(
-"loginMsg",
-"Geli email-ka.",
-"error"
-);
-
-return;
-}
-
-const {error}=
-await sb.auth.resetPasswordForEmail(
-email,
-{
-redirectTo:
-window.location.origin+
-window.location.pathname
-}
-);
-
-if(error){
-
-message(
-"loginMsg",
-error.message,
-"error"
-);
-
-}else{
-
-message(
-"loginMsg",
-"Password reset link ayaa email-kaaga loo diray."
-);
-
-}
-
-};
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
-
-$("logout").onclick=async()=>{
-
-await sb.auth.signOut();
-user=null;
-openLogin();
-
-};
 
 
 /* =====================================================
    NAVIGATION
-   ===================================================== */
+===================================================== */
 
-document.querySelectorAll(".navbtn")
-.forEach(btn=>{
+function showPage(page,button){
 
-btn.onclick=()=>{
+ const pages=[
+  "dashboard",
+  "transactions",
+  "livestock",
+  "crops",
+  "assets",
+  "reports"
+ ];
 
-const page=btn.dataset.page;
+ pages.forEach(p=>{
+  const el=$(p+"Page");
+  if(el) el.classList.add("hidden");
+ });
 
-document.querySelectorAll(
-"#dashboard,#finance,#livestock,#farm,#milk,#assets,#reports"
-)
-.forEach(x=>x.classList.add("hidden"));
+ $(page+"Page").classList.remove("hidden");
 
-$(page).classList.remove("hidden");
+ document.querySelectorAll("nav button")
+ .forEach(b=>b.classList.remove("active"));
 
-document.querySelectorAll(".navbtn")
-.forEach(x=>x.classList.remove("active"));
+ if(button){
+  button.classList.add("active");
+ }
 
-btn.classList.add("active");
+ if(page==="dashboard"){
+  updateDashboard();
+ }
 
-if(page==="reports"){
-renderReports();
+ if(page==="reports"){
+  updateReports();
+ }
 }
-
-};
-
-});
 
 
 /* =====================================================
-   FINANCE
-   ===================================================== */
+   DATABASE LOAD
+===================================================== */
 
-$("fDate").value=today();
+async function loadAll(){
 
-$("financeForm").onsubmit=async e=>{
+ await loadTransactions();
+ await loadLivestock();
+ await loadCrops();
+ await loadAssets();
 
-e.preventDefault();
+ updateDashboard();
+ updateReports();
 
-const row={
-user_id:user.id,
-type:$("fType").value,
-category:$("fCategory").value,
-amount:Number($("fAmount").value),
-transaction_date:$("fDate").value,
-description:$("fDescription").value
-};
-
-const {error}=
-await sb.from("transactions").insert(row);
-
-if(error){
-
-message(
-"financeMsg",
-error.message,
-"error"
-);
-
-return;
 }
-
-e.target.reset();
-$("fDate").value=today();
-
-message(
-"financeMsg",
-"Finance record waa la kaydiyay."
-);
-
-await loadTransactions();
-
-};
 
 
 async function loadTransactions(){
 
-const {data,error}=
-await sb
-.from("transactions")
-.select("*")
-.eq("user_id",user.id)
-.order("transaction_date",{ascending:false});
+ const {data,error}=await sb
+ .from("transactions")
+ .select("*")
+ .order("date",{ascending:false});
 
-if(error){
+ if(error){
+  console.warn("transactions:",error.message);
+  transactions=[];
+  renderTransactions();
+  return;
+ }
 
-console.log(error);
-transactions=[];
-return;
-
-}
-
-transactions=data||[];
-
-renderFinance();
-updateDashboard();
-
+ transactions=data||[];
+ renderTransactions();
 }
 
 
-function renderFinance(){
+async function loadLivestock(){
 
-const table=$("financeTable");
+ const {data,error}=await sb
+ .from("livestock")
+ .select("*")
+ .order("created_at",{ascending:false});
 
-if(!transactions.length){
+ if(error){
+  console.warn("livestock:",error.message);
+  livestock=[];
+  renderLivestock();
+  return;
+ }
 
-table.innerHTML=
-`<tr><td colspan="6" class="empty">
-Finance record ma jiro.
-</td></tr>`;
-
-return;
-}
-
-table.innerHTML=
-transactions.map(r=>`
-
-<tr>
-
-<td>${esc(r.transaction_date)}</td>
-
-<td>
-<span class="badge ${
-r.type==="income"?"income":"expense"
-}">
-${esc(r.type)}
-</span>
-</td>
-
-<td>${esc(r.category)}</td>
-
-<td>${money(r.amount)}</td>
-
-<td>${esc(r.description||"")}</td>
-
-<td>
-<button
-class="btn danger"
-onclick="deleteTransaction('${r.id}')">
-Delete
-</button>
-</td>
-
-</tr>
-
-`).join("");
-
+ livestock=data||[];
+ renderLivestock();
 }
 
 
-async function deleteTransaction(id){
+async function loadCrops(){
 
-if(!confirm("Transaction ma tirtirtaa?"))return;
+ const {data,error}=await sb
+ .from("crops")
+ .select("*")
+ .order("created_at",{ascending:false});
 
-const {error}=
-await sb
-.from("transactions")
-.delete()
-.eq("id",id)
-.eq("user_id",user.id);
+ if(error){
+  console.warn("crops:",error.message);
+  crops=[];
+  renderCrops();
+  return;
+ }
 
-if(error){
-
-alert(error.message);
-return;
+ crops=data||[];
+ renderCrops();
 }
 
-await loadTransactions();
 
+async function loadAssets(){
+
+ const {data,error}=await sb
+ .from("assets")
+ .select("*")
+ .order("created_at",{ascending:false});
+
+ if(error){
+  console.warn("assets:",error.message);
+  assets=[];
+  renderAssets();
+  return;
+ }
+
+ assets=data||[];
+ renderAssets();
+}
+
+
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
+$("txDate").value=today();
+
+$("transactionForm").addEventListener(
+ "submit",
+ async function(e){
+
+ e.preventDefault();
+
+ if(!currentUser)return;
+
+ const row={
+  user_id:currentUser.id,
+  type:$("txType").value,
+  amount:Number($("txAmount").value),
+  category:$("txCategory").value,
+  date:$("txDate").value,
+  description:$("txDescription").value.trim()
+ };
+
+ const {error}=await sb
+ .from("transactions")
+ .insert(row);
+
+ if(error){
+  showMessage(error.message,"error");
+  return;
+ }
+
+ showMessage("Transaction waa la kaydiyey.");
+
+ $("transactionForm").reset();
+ $("txDate").value=today();
+
+ await loadTransactions();
+ updateDashboard();
+ updateReports();
+ }
+);
+
+
+function renderTransactions(){
+
+ const tbody=$("transactionsTable");
+
+ tbody.innerHTML="";
+
+ if(!transactions.length){
+  tbody.innerHTML=
+  `<tr><td colspan="5">Wax transaction ah ma jiro.</td></tr>`;
+  return;
+ }
+
+ transactions.forEach(t=>{
+
+  const tr=document.createElement("tr");
+
+  tr.innerHTML=`
+  <td>${t.date||""}</td>
+  <td>
+   <span class="badge ${t.type}">
+   ${t.type==="income"?"Income":"Expense"}
+   </span>
+  </td>
+  <td>${t.category||""}</td>
+  <td>${money(t.amount)}</td>
+  <td>${t.description||""}</td>
+  `;
+
+  tbody.appendChild(tr);
+ });
 }
 
 
 /* =====================================================
    LIVESTOCK
-   ===================================================== */
+===================================================== */
 
-$("animalDate").value=today();
+$("livestockForm").addEventListener(
+ "submit",
+ async function(e){
 
-$("animalForm").onsubmit=async e=>{
+ e.preventDefault();
 
-e.preventDefault();
+ if(!currentUser)return;
 
-const row={
-user_id:user.id,
-animal_type:$("animalType").value,
-quantity:Number($("animalQty").value),
-unit_price:Number($("animalPrice").value||0),
-purchase_date:$("animalDate").value,
-born:Number($("born").value||0),
-dead:Number($("dead").value||0),
-sold:Number($("sold").value||0),
-description:$("animalDesc").value
-};
+ const row={
+  user_id:currentUser.id,
+  animal_type:$("animalType").value,
+  quantity:Number($("animalQty").value),
+  male:Number($("animalMale").value||0),
+  female:Number($("animalFemale").value||0),
+  notes:$("animalNotes").value.trim()
+ };
 
-const {error}=
-await sb.from("livestock").insert(row);
+ const {error}=await sb
+ .from("livestock")
+ .insert(row);
 
-if(error){
+ if(error){
+  showMessage(error.message,"error");
+  return;
+ }
 
-message(
-"animalMsg",
-error.message,
-"error"
+ showMessage("Livestock waa la kaydiyey.");
+
+ $("livestockForm").reset();
+
+ await loadLivestock();
+ updateDashboard();
+ }
 );
-
-return;
-}
-
-e.target.reset();
-$("animalDate").value=today();
-
-message(
-"animalMsg",
-"Xoolaha waa la kaydiyay."
-);
-
-await loadLivestock();
-
-};
-
-
-async function loadLivestock(){
-
-const {data,error}=
-await sb
-.from("livestock")
-.select("*")
-.eq("user_id",user.id)
-.order("purchase_date",{ascending:false});
-
-if(error){
-
-console.log(error);
-livestock=[];
-return;
-}
-
-livestock=data||[];
-
-renderLivestock();
-updateDashboard();
-
-}
-
-
-function animalName(t){
-
-return {
-sheep:"🐑 Ari",
-cattle:"🐄 Lo",
-goat:"🐐 Ri'",
-camel:"🐪 Geel"
-}[t]||t;
-
-}
 
 
 function renderLivestock(){
 
-if(!livestock.length){
+ const tbody=$("livestockTable");
 
-$("animalTable").innerHTML=
-`<tr><td colspan="8" class="empty">
-Xoolo lama diiwaangelin.
-</td></tr>`;
+ tbody.innerHTML="";
 
-return;
-}
+ if(!livestock.length){
+  tbody.innerHTML=
+  `<tr><td colspan="5">Livestock ma jiro.</td></tr>`;
+  return;
+ }
 
-$("animalTable").innerHTML=
-livestock.map(r=>`
+ livestock.forEach(a=>{
 
-<tr>
+  const tr=document.createElement("tr");
 
-<td>${animalName(r.animal_type)}</td>
-<td>${r.quantity||0}</td>
-<td>${money(r.unit_price)}</td>
-<td>${r.born||0}</td>
-<td>${r.dead||0}</td>
-<td>${r.sold||0}</td>
-<td>${esc(r.purchase_date||"")}</td>
+  tr.innerHTML=`
+  <td>${a.animal_type||""}</td>
+  <td>${a.quantity||0}</td>
+  <td>${a.male||0}</td>
+  <td>${a.female||0}</td>
+  <td>${a.notes||""}</td>
+  `;
 
-<td>
-<button
-class="btn danger"
-onclick="deleteAnimal('${r.id}')">
-Delete
-</button>
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-
-async function deleteAnimal(id){
-
-if(!confirm("Xoolahan ma tirtirtaa?"))return;
-
-await sb
-.from("livestock")
-.delete()
-.eq("id",id)
-.eq("user_id",user.id);
-
-await loadLivestock();
-
+  tbody.appendChild(tr);
+ });
 }
 
 
 /* =====================================================
-   FARM
-   ===================================================== */
+   CROPS
+===================================================== */
 
 $("cropDate").value=today();
 
-$("farmForm").onsubmit=async e=>{
+$("cropForm").addEventListener(
+ "submit",
+ async function(e){
 
-e.preventDefault();
+ e.preventDefault();
 
-const row={
-user_id:user.id,
-crop_name:$("crop").value,
-hectares:Number($("hectares").value||0),
-production_kg:Number($("production").value||0),
-value:Number($("cropValue").value||0),
-date:$("cropDate").value
-};
+ if(!currentUser)return;
 
-const {error}=
-await sb.from("crops").insert(row);
+ const row={
+  user_id:currentUser.id,
+  crop_name:$("cropName").value,
+  area_ha:Number($("cropArea").value||0),
+  expected_yield_kg:Number(
+   $("cropYield").value||0
+  ),
+  date:$("cropDate").value,
+  notes:$("cropNotes").value.trim()
+ };
 
-if(error){
+ const {error}=await sb
+ .from("crops")
+ .insert(row);
 
-message(
-"farmMsg",
-error.message,
-"error"
+ if(error){
+  showMessage(error.message,"error");
+  return;
+ }
+
+ showMessage("Crop waa la kaydiyey.");
+
+ $("cropForm").reset();
+ $("cropDate").value=today();
+
+ await loadCrops();
+ updateDashboard();
+ }
 );
-
-return;
-}
-
-e.target.reset();
-$("cropDate").value=today();
-
-message(
-"farmMsg",
-"Farm record waa la kaydiyay."
-);
-
-await loadCrops();
-
-};
-
-
-async function loadCrops(){
-
-const {data,error}=
-await sb
-.from("crops")
-.select("*")
-.eq("user_id",user.id)
-.order("date",{ascending:false});
-
-if(error){
-
-console.log(error);
-crops=[];
-return;
-}
-
-crops=data||[];
-
-renderCrops();
-updateDashboard();
-
-}
 
 
 function renderCrops(){
 
-if(!crops.length){
+ const tbody=$("cropsTable");
 
-$("farmTable").innerHTML=
-`<tr><td colspan="6" class="empty">
-Farm record ma jiro.
-</td></tr>`;
+ tbody.innerHTML="";
 
-return;
-}
+ if(!crops.length){
+  tbody.innerHTML=
+  `<tr><td colspan="5">Crop record ma jiro.</td></tr>`;
+  return;
+ }
 
-$("farmTable").innerHTML=
-crops.map(r=>`
+ crops.forEach(c=>{
 
-<tr>
+  const tr=document.createElement("tr");
 
-<td>${esc(r.crop_name)}</td>
-<td>${r.hectares||0}</td>
-<td>${Number(r.production_kg||0).toLocaleString()}</td>
-<td>${money(r.value)}</td>
-<td>${esc(r.date||"")}</td>
+  tr.innerHTML=`
+  <td>${c.crop_name||""}</td>
+  <td>${c.area_ha||0}</td>
+  <td>${c.expected_yield_kg||0}</td>
+  <td>${c.date||""}</td>
+  <td>${c.notes||""}</td>
+  `;
 
-<td>
-<button
-class="btn danger"
-onclick="deleteCrop('${r.id}')">
-Delete
-</button>
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-
-async function deleteCrop(id){
-
-if(!confirm("Farm record ma tirtirtaa?"))return;
-
-await sb
-.from("crops")
-.delete()
-.eq("id",id)
-.eq("user_id",user.id);
-
-await loadCrops();
-
-}
-
-
-/* =====================================================
-   MILK
-   ===================================================== */
-
-$("milkDate").value=today();
-
-$("milkForm").onsubmit=async e=>{
-
-e.preventDefault();
-
-const row={
-user_id:user.id,
-date:$("milkDate").value,
-animal:$("milkAnimal").value,
-animals:Number($("milkAnimals").value||0),
-morning:Number($("morning").value||0),
-evening:Number($("evening").value||0),
-price:Number($("milkPrice").value||0),
-total:
-Number($("morning").value||0)+
-Number($("evening").value||0)
-};
-
-const {error}=
-await sb.from("milk").insert(row);
-
-if(error){
-
-message(
-"milkMsg",
-error.message,
-"error"
-);
-
-return;
-}
-
-e.target.reset();
-$("milkDate").value=today();
-
-message(
-"milkMsg",
-"Caanaha waa la kaydiyay."
-);
-
-await loadMilk();
-
-};
-
-
-async function loadMilk(){
-
-const {data,error}=
-await sb
-.from("milk")
-.select("*")
-.eq("user_id",user.id)
-.order("date",{ascending:false});
-
-if(error){
-
-console.log(error);
-milk=[];
-return;
-}
-
-milk=data||[];
-
-renderMilk();
-updateDashboard();
-
-}
-
-
-function renderMilk(){
-
-if(!milk.length){
-
-$("milkTable").innerHTML=
-`<tr><td colspan="8" class="empty">
-Caano lama diiwaangelin.
-</td></tr>`;
-
-return;
-}
-
-$("milkTable").innerHTML=
-milk.map(r=>{
-
-const total=
-Number(r.total||0)||
-Number(r.morning||0)+
-Number(r.evening||0);
-
-return`
-
-<tr>
-
-<td>${esc(r.date)}</td>
-<td>${esc(r.animal)}</td>
-<td>${r.animals||0}</td>
-<td>${r.morning||0}</td>
-<td>${r.evening||0}</td>
-<td>${total.toFixed(2)} L</td>
-<td>${money(total*Number(r.price||0))}</td>
-
-<td>
-<button
-class="btn danger"
-onclick="deleteMilk('${r.id}')">
-Delete
-</button>
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-}
-
-
-async function deleteMilk(id){
-
-if(!confirm("Caanahan ma tirtirtaa?"))return;
-
-await sb
-.from("milk")
-.delete()
-.eq("id",id)
-.eq("user_id",user.id);
-
-await loadMilk();
-
+  tbody.appendChild(tr);
+ });
 }
 
 
 /* =====================================================
    ASSETS
-   ===================================================== */
+===================================================== */
 
 $("assetDate").value=today();
 
-$("assetForm").onsubmit=async e=>{
+$("assetForm").addEventListener(
+ "submit",
+ async function(e){
 
-e.preventDefault();
+ e.preventDefault();
 
-const row={
-user_id:user.id,
-name:$("assetName").value,
-category:$("assetCategory").value,
-value:Number($("assetValue").value),
-date:$("assetDate").value,
-description:$("assetDesc").value
-};
+ if(!currentUser)return;
 
-const {error}=
-await sb.from("assets").insert(row);
+ const row={
+  user_id:currentUser.id,
+  name:$("assetName").value.trim(),
+  value:Number($("assetValue").value||0),
+  type:$("assetType").value,
+  date:$("assetDate").value,
+  notes:$("assetNotes").value.trim()
+ };
 
-if(error){
+ const {error}=await sb
+ .from("assets")
+ .insert(row);
 
-message(
-"assetMsg",
-error.message,
-"error"
+ if(error){
+  showMessage(error.message,"error");
+  return;
+ }
+
+ showMessage("Asset waa la kaydiyey.");
+
+ $("assetForm").reset();
+ $("assetDate").value=today();
+
+ await loadAssets();
+ updateDashboard();
+ updateReports();
+ }
 );
-
-return;
-}
-
-e.target.reset();
-$("assetDate").value=today();
-
-message(
-"assetMsg",
-"Asset waa la kaydiyay."
-);
-
-await loadAssets();
-
-};
-
-
-async function loadAssets(){
-
-const {data,error}=
-await sb
-.from("assets")
-.select("*")
-.eq("user_id",user.id)
-.order("date",{ascending:false});
-
-if(error){
-
-console.log(error);
-assets=[];
-return;
-}
-
-assets=data||[];
-
-renderAssets();
-updateDashboard();
-
-}
 
 
 function renderAssets(){
 
-if(!assets.length){
+ const tbody=$("assetsTable");
 
-$("assetTable").innerHTML=
-`<tr><td colspan="6" class="empty">
-Asset lama diiwaangelin.
-</td></tr>`;
+ tbody.innerHTML="";
 
-return;
-}
+ if(!assets.length){
+  tbody.innerHTML=
+  `<tr><td colspan="5">Asset ma jiro.</td></tr>`;
+  return;
+ }
 
-$("assetTable").innerHTML=
-assets.map(r=>`
+ assets.forEach(a=>{
 
-<tr>
+  const tr=document.createElement("tr");
 
-<td>${esc(r.name)}</td>
+  tr.innerHTML=`
+  <td>${a.name||""}</td>
+  <td>
+   <span class="badge asset">
+   ${a.type||""}
+   </span>
+  </td>
+  <td>${money(a.value)}</td>
+  <td>${a.date||""}</td>
+  <td>${a.notes||""}</td>
+  `;
 
-<td>
-<span class="badge asset">
-${esc(r.category)}
-</span>
-</td>
-
-<td>${money(r.value)}</td>
-<td>${esc(r.date)}</td>
-<td>${esc(r.description||"")}</td>
-
-<td>
-<button
-class="btn danger"
-onclick="deleteAsset('${r.id}')">
-Delete
-</button>
-</td>
-
-</tr>
-
-`).join("");
-
-}
-
-
-async function deleteAsset(id){
-
-if(!confirm("Asset-kan ma tirtirtaa?"))return;
-
-await sb
-.from("assets")
-.delete()
-.eq("id",id)
-.eq("user_id",user.id);
-
-await loadAssets();
-
+  tbody.appendChild(tr);
+ });
 }
 
 
 /* =====================================================
    DASHBOARD
-   ===================================================== */
+===================================================== */
 
 function updateDashboard(){
 
-const inc=
-transactions
-.filter(x=>x.type==="income")
-.reduce((a,x)=>a+Number(x.amount||0),0);
+ let income=0;
+ let expense=0;
 
-const exp=
-transactions
-.filter(x=>x.type==="expense")
-.reduce((a,x)=>a+Number(x.amount||0),0);
+ transactions.forEach(t=>{
 
-const ast=
-assets
-.reduce((a,x)=>a+Number(x.value||0),0);
+  if(t.type==="income"){
+   income+=Number(t.amount||0);
+  }
 
-const sh=
-livestock
-.filter(x=>x.animal_type==="sheep")
-.reduce((a,x)=>a+Number(x.quantity||0),0);
+  if(t.type==="expense"){
+   expense+=Number(t.amount||0);
+  }
 
-const lo=
-livestock
-.filter(x=>x.animal_type==="cattle")
-.reduce((a,x)=>a+Number(x.quantity||0),0);
+ });
 
-const ml=
-milk
-.filter(x=>x.date===today())
-.reduce(
-(a,x)=>
-a+
-(Number(x.total||0)||
-Number(x.morning||0)+
-Number(x.evening||0)),
-0
-);
+ const profit=income-expense;
 
-$("income").textContent=money(inc);
-$("expense").textContent=money(exp);
-$("profit").textContent=money(inc-exp);
-$("assetTotal").textContent=money(ast);
+ $("totalIncome").textContent=money(income);
+ $("totalExpense").textContent=money(expense);
+ $("totalProfit").textContent=money(profit);
+ $("balance").textContent=money(profit);
 
-$("sheep").textContent=
-sh.toLocaleString();
+ $("transactionCount").textContent=
+ transactions.length;
 
-$("cattle").textContent=
-lo.toLocaleString();
+ $("cropCount").textContent=
+ crops.length;
 
-$("farmCount").textContent=
-crops.length;
+ $("assetCount").textContent=
+ assets.length;
 
-$("milkToday").textContent=
-ml.toFixed(2)+" L";
+ const animalTotal=
+ livestock.reduce(
+  (sum,a)=>sum+Number(a.quantity||0),
+  0
+ );
 
-
-$("recent").innerHTML=
-transactions.length?
-
-transactions.slice(0,10).map(r=>`
-
-<tr>
-<td>${esc(r.transaction_date)}</td>
-<td>${esc(r.type)}</td>
-<td>${esc(r.category)}</td>
-<td>${money(r.amount)}</td>
-<td>${esc(r.description||"")}</td>
-</tr>
-
-`).join("")
-
-:
-
-`<tr>
-<td colspan="5" class="empty">
-Weli transaction ma jiro.
-</td>
-</tr>`;
-
+ $("totalAnimals").textContent=
+ animalTotal.toLocaleString();
 }
 
 
 /* =====================================================
    REPORTS
-   ===================================================== */
+===================================================== */
 
-function renderReports(){
+function updateReports(){
 
-const inc=
-transactions
-.filter(x=>x.type==="income")
-.reduce((a,x)=>a+Number(x.amount||0),0);
+ let income=0;
+ let expense=0;
+ let assetValue=0;
 
-const exp=
-transactions
-.filter(x=>x.type==="expense")
-.reduce((a,x)=>a+Number(x.amount||0),0);
+ const categories={};
 
-const ast=
-assets
-.reduce((a,x)=>a+Number(x.value||0),0);
+ transactions.forEach(t=>{
 
-$("rIncome").textContent=money(inc);
-$("rExpense").textContent=money(exp);
-$("rProfit").textContent=money(inc-exp);
-$("rAssets").textContent=money(ast);
+  const amount=Number(t.amount||0);
 
+  if(t.type==="income"){
+   income+=amount;
+  }
 
-const groups={};
+  if(t.type==="expense"){
 
-transactions
-.filter(x=>x.type==="expense")
-.forEach(x=>{
+   expense+=amount;
 
-groups[x.category]=
-(groups[x.category]||0)+
-Number(x.amount||0);
+   const cat=t.category||"Other";
 
-});
+   categories[cat]=
+    (categories[cat]||0)+amount;
+  }
 
+ });
 
-$("breakdown").innerHTML=
-Object.keys(groups).length?
+ assets.forEach(a=>{
+  assetValue+=Number(a.value||0);
+ });
 
-Object.entries(groups)
-.sort((a,b)=>b[1]-a[1])
-.map(([name,value])=>`
+ $("reportIncome").textContent=
+ money(income);
 
-<div class="total">
-<span>${esc(name)}</span>
-<b>${money(value)}</b>
-</div>
+ $("reportExpense").textContent=
+ money(expense);
 
-`).join("")
+ $("reportProfit").textContent=
+ money(income-expense);
 
-:
+ $("reportAssets").textContent=
+ money(assetValue);
 
-`<div class="empty">
-Kharash ma jiro.
-</div>`;
+ const box=$("expenseReport");
 
+ box.innerHTML="";
+
+ const entries=
+ Object.entries(categories)
+ .sort((a,b)=>b[1]-a[1]);
+
+ if(!entries.length){
+  box.innerHTML=
+  "<p>Expense report ma jiro.</p>";
+  return;
+ }
+
+ entries.forEach(([name,value])=>{
+
+  const div=document.createElement("div");
+
+  div.className="card";
+
+  div.style.margin="8px 0";
+  div.style.padding="14px";
+
+  div.innerHTML=`
+   <strong>${name}</strong>
+   <span style="float:right">
+   ${money(value)}
+   </span>
+  `;
+
+  box.appendChild(div);
+ });
 }
 
 
 /* =====================================================
-   EXPORT
-   ===================================================== */
-
-$("export").onclick=()=>{
-
-let csv=
-"Date,Type,Category,Amount,Description\n";
-
-transactions.forEach(r=>{
-
-csv+=
-`"${r.transaction_date}","${r.type}","${r.category}","${r.amount}","${String(r.description||"").replaceAll('"','""')}"\n`;
-
-});
-
-const blob=
-new Blob([csv],{
-type:"text/csv;charset=utf-8"
-});
-
-const url=
-URL.createObjectURL(blob);
-
-const a=document.createElement("a");
-
-a.href=url;
-a.download="TACBO-Finance.csv";
-a.click();
-
-URL.revokeObjectURL(url);
-
-};
-
-
-/* =====================================================
-   LOAD EVERYTHING
-   ===================================================== */
-
-async function loadEverything(){
-
-if(!user)return;
-
-await Promise.all([
-loadTransactions(),
-loadLivestock(),
-loadCrops(),
-loadMilk(),
-loadAssets()
-]);
-
-updateDashboard();
-renderReports();
-
-}
-
-
-$("refresh").onclick=
-()=>loadEverything();
-
-
-/* =====================================================
-   SESSION
-   ===================================================== */
+   PASSWORD RECOVERY
+===================================================== */
 
 sb.auth.onAuthStateChange(
-(event,session)=>{
+ async function(event,session){
 
-if(session){
+  if(event==="SIGNED_IN" && session){
 
-user=session.user;
+   currentUser=session.user;
+   openApp();
 
-setTimeout(
-()=>openApp(),
-100
+  }
+
+  if(event==="SIGNED_OUT"){
+
+   currentUser=null;
+   openLogin();
+
+  }
+
+ }
 );
 
-}else{
 
-user=null;
-openLogin();
+/* =====================================================
+   START APP
+===================================================== */
 
-}
-
-});
-
-
-/* START */
-
-start();
+checkSession();
 
 </script>
 
