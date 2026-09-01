@@ -2461,6 +2461,138 @@ return String(value??"")
 checkSession();
 
 </script>
+<!-- 🌐 TACBO Language Switcher -->
+<div id="languageBox" style="
+  position:fixed;
+  top:15px;
+  right:15px;
+  z-index:9999;
+  background:white;
+  padding:8px 12px;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.15);
+  font-family:Arial,sans-serif;
+">
+  <span style="font-size:18px;">🌐</span>
+  <select id="languageSelect" style="
+    border:0;
+    outline:0;
+    background:white;
+    font-size:15px;
+    font-weight:600;
+  ">
+    <option value="so">🇸🇴 Soomaali</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="de">🇩🇪 Deutsch</option>
+  </select>
+</div>
 
+<script>
+const translations = {
+  so: {
+    "TACBO Agro": "TACBO Agro",
+    "Agriculture & Livestock Company — Finance App":
+      "Shirkadda Beeraha & Xoolaha — App Maaliyadeed",
+    "TACBO Agro Dashboard": "Dashboard-ka TACBO Agro",
+    "Dashboard": "Dashboard",
+    "Finance": "Maaliyad",
+    "Livestock": "Xoolaha",
+    "Crops": "Dalagyada",
+    "Caano": "Caano",
+    "Assets": "Hantida",
+    "Calculator": "Xisaabiye",
+    "Reports": "Warbixinno",
+    "Logout": "Ka bax",
+    "Total Income": "Dakhliga Guud",
+    "Total Expenses": "Kharashka Guud",
+    "Profit": "Faa'iido"
+  },
+
+  en: {
+    "TACBO Agro": "TACBO Agro",
+    "Agriculture & Livestock Company — Finance App":
+      "Agriculture & Livestock Company — Finance App",
+    "TACBO Agro Dashboard": "TACBO Agro Dashboard",
+    "Dashboard": "Dashboard",
+    "Finance": "Finance",
+    "Livestock": "Livestock",
+    "Crops": "Crops",
+    "Caano": "Milk",
+    "Assets": "Assets",
+    "Calculator": "Calculator",
+    "Reports": "Reports",
+    "Logout": "Logout",
+    "Total Income": "Total Income",
+    "Total Expenses": "Total Expenses",
+    "Profit": "Profit"
+  },
+
+  de: {
+    "TACBO Agro": "TACBO Agro",
+    "Agriculture & Livestock Company — Finance App":
+      "Landwirtschaft & Viehzucht — Finanz-App",
+    "TACBO Agro Dashboard": "TACBO Agro Dashboard",
+    "Dashboard": "Dashboard",
+    "Finance": "Finanzen",
+    "Livestock": "Viehbestand",
+    "Crops": "Feldfrüchte",
+    "Caano": "Milch",
+    "Assets": "Vermögen",
+    "Calculator": "Rechner",
+    "Reports": "Berichte",
+    "Logout": "Abmelden",
+    "Total Income": "Gesamteinnahmen",
+    "Total Expenses": "Gesamtausgaben",
+    "Profit": "Gewinn"
+  }
+};
+
+const originalTexts = new Map();
+
+function saveOriginalText(node) {
+  if (!originalTexts.has(node)) {
+    originalTexts.set(node, node.nodeValue);
+  }
+}
+
+function translatePage(lang) {
+  const dict = translations[lang];
+
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT
+  );
+
+  let node;
+
+  while (node = walker.nextNode()) {
+    if (!node.nodeValue.trim()) continue;
+
+    saveOriginalText(node);
+
+    const original = originalTexts.get(node);
+    const clean = original.trim();
+
+    if (dict[clean]) {
+      node.nodeValue = original.replace(clean, dict[clean]);
+    }
+  }
+
+  localStorage.setItem("tacboLanguage", lang);
+}
+
+document.getElementById("languageSelect").addEventListener("change", function() {
+  translatePage(this.value);
+});
+
+const savedLanguage =
+  localStorage.getItem("tacboLanguage") || "so";
+
+document.getElementById("languageSelect").value = savedLanguage;
+
+setTimeout(() => {
+  translatePage(savedLanguage);
+}, 300);
+</script>
 </body>
 </html>
