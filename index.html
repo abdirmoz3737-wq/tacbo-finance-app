@@ -4,5409 +4,2087 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#347d43">
+
 <title>TACBO Agro — Agriculture & Livestock Company</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f8f4;
-color:#17301d;
+*{
+  box-sizing:border-box;
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+
+html,body{
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f8f4;
+  color:#17301d;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
 
 :root{
---green:#347d43;
---green-dark:#256b35;
---green-light:#e8f4ea;
---bg:#f4f8f4;
---white:#fff;
---text:#17301d;
---muted:#68756c;
---border:#dce7de;
---danger:#c62828;
---warning:#d98c00;
---blue:#1769aa;
---shadow:0 5px 20px rgba(0,0,0,.08);
+  --green:#347d43;
+  --dark:#17301d;
+  --light:#e8f4ea;
+  --bg:#f4f8f4;
+  --white:#fff;
+  --text:#17301d;
+  --muted:#68756c;
+  --border:#dce7de;
+  --red:#c62828;
+  --orange:#d98c00;
+  --blue:#1769aa;
+  --shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
+
 #loginScreen{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:linear-gradient(135deg,#347d43,#17301d);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#347d43,#17301d);
 }
 
 .loginBox{
-width:100%;
-max-width:430px;
-background:#fff;
-border-radius:20px;
-padding:35px 25px;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border-radius:22px;
+  padding:35px 25px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.logo{text-align:center;margin-bottom:25px}
-.logoIcon{font-size:60px}
+.logo{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.logoIcon{
+  font-size:60px;
+}
+
 .logo h1{
-margin:5px 0;
-color:var(--green);
-font-size:30px;
-}
-.logo p{
-margin:5px 0;
-color:var(--muted);
+  margin:5px 0;
+  color:var(--green);
+  font-size:30px;
 }
 
-.formGroup{margin-bottom:15px}
-.formGroup label{
-display:block;
-font-weight:bold;
-font-size:14px;
-margin-bottom:7px;
+.logo p{
+  margin:5px 0;
+  color:var(--muted);
 }
+
+.formGroup{
+  margin-bottom:15px;
+}
+
+.formGroup label{
+  display:block;
+  font-weight:bold;
+  font-size:14px;
+  margin-bottom:7px;
+}
+
 .formGroup input,
 .formGroup select,
 .formGroup textarea{
-width:100%;
-padding:12px;
-border:1px solid var(--border);
-border-radius:9px;
-background:#fff;
-outline:none;
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:#fff;
+  outline:none;
 }
-.formGroup textarea{
-min-height:90px;
-resize:vertical;
-}
+
 .formGroup input:focus,
 .formGroup select:focus,
 .formGroup textarea:focus{
-border-color:var(--green);
-box-shadow:0 0 0 3px rgba(52,125,67,.12);
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(52,125,67,.12);
+}
+
+.formGroup textarea{
+  min-height:90px;
+  resize:vertical;
 }
 
 .btn{
-border:0;
-border-radius:9px;
-padding:11px 16px;
-font-weight:bold;
+  border:0;
+  border-radius:9px;
+  padding:11px 16px;
+  font-weight:bold;
 }
-.btn:hover{opacity:.92}
-.btnPrimary{background:var(--green);color:#fff}
-.btnDanger{background:var(--danger);color:#fff}
-.btnWarning{background:var(--warning);color:#fff}
-.btnBlue{background:var(--blue);color:#fff}
-.btnLight{background:#e9f3ea;color:var(--text)}
-.fullWidth{width:100%}
+
+.btnPrimary{
+  background:var(--green);
+  color:#fff;
+}
+
+.btnBlue{
+  background:var(--blue);
+  color:#fff;
+}
+
+.btnDanger{
+  background:var(--red);
+  color:#fff;
+}
+
+.btnWarning{
+  background:var(--orange);
+  color:#fff;
+}
+
+.btnLight{
+  background:#e9f3ea;
+  color:var(--text);
+}
+
+.fullWidth{
+  width:100%;
+}
 
 .loginError{
-background:#ffe3e3;
-color:#a00000;
-padding:10px;
-border-radius:8px;
-margin-bottom:15px;
-font-size:13px;
+  background:#ffe3e3;
+  color:#a00000;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:15px;
+  font-size:13px;
 }
 
-/* TOP BAR */
+.loginForgot{
+  display:block;
+  text-align:center;
+  margin-top:15px;
+  color:var(--green);
+  font-weight:bold;
+  text-decoration:none;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
 .topbar{
-height:65px;
-background:var(--green);
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 18px;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 2px 10px rgba(0,0,0,.15);
+  height:65px;
+  background:var(--green);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
 .topBrand{
-display:flex;
-align-items:center;
-gap:9px;
-font-size:20px;
-font-weight:bold;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:20px;
+  font-weight:bold;
 }
-.topBrandIcon{font-size:28px}
+
+.topBrandIcon{
+  font-size:28px;
+}
 
 .userArea{
-display:flex;
-align-items:center;
-gap:10px;
-}
-.userEmail{
-font-size:13px;
-opacity:.9;
-}
-.logoutBtn{
-background:rgba(255,255,255,.15);
-border:1px solid rgba(255,255,255,.35);
-color:#fff;
-padding:8px 12px;
-border-radius:8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* LAYOUT */
+.userEmail{
+  font-size:13px;
+  opacity:.9;
+}
+
+.logoutBtn{
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.mobileMenu{
+  display:none;
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-size:26px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
 .layout{
-display:flex;
-min-height:calc(100vh - 65px);
+  display:flex;
+  min-height:calc(100vh - 65px);
 }
 
 .sidebar{
-width:245px;
-background:#fff;
-border-right:1px solid var(--border);
-padding:12px 10px;
-position:sticky;
-top:65px;
-height:calc(100vh - 65px);
-overflow-y:auto;
+  width:245px;
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:12px 10px;
+  position:sticky;
+  top:65px;
+  height:calc(100vh - 65px);
+  overflow-y:auto;
 }
 
 .navTitle{
-font-size:11px;
-font-weight:bold;
-color:#87928b;
-text-transform:uppercase;
-padding:12px 10px 6px;
+  font-size:11px;
+  font-weight:bold;
+  color:#87928b;
+  text-transform:uppercase;
+  padding:12px 10px 6px;
 }
 
 .navBtn{
-width:100%;
-border:0;
-background:transparent;
-text-align:left;
-padding:11px;
-border-radius:8px;
-color:#34423a;
-margin:2px 0;
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:11px;
+  border-radius:8px;
+  color:#34423a;
+  margin:2px 0;
 }
-.navBtn:hover{background:#edf6ee}
+
+.navBtn:hover{
+  background:#edf6ee;
+}
+
 .navBtn.active{
-background:#dcefdF;
-color:var(--green-dark);
-font-weight:bold;
+  background:#dcefdF;
+  color:var(--green);
+  font-weight:bold;
 }
 
 .main{
-flex:1;
-padding:22px;
-min-width:0;
+  flex:1;
+  padding:22px;
+  min-width:0;
 }
 
-/* PAGES */
-.page{display:none}
-.page.active{display:block}
+/* =========================
+   PAGES
+========================= */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
 
 .pageHeader{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-flex-wrap:wrap;
-margin-bottom:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
 
 .pageHeader h2{
-margin:0;
-font-size:25px;
+  margin:0;
+  font-size:25px;
 }
+
 .pageHeader p{
-margin:5px 0 0;
-color:var(--muted);
+  margin:5px 0 0;
+  color:var(--muted);
 }
 
 .actions{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-/* CARDS */
+/* =========================
+   CARDS
+========================= */
+
 .cards{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:15px;
-margin-bottom:20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
 }
 
 .card{
-background:#fff;
-border:1px solid var(--border);
-border-radius:14px;
-padding:18px;
-box-shadow:var(--shadow);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:var(--shadow);
 }
 
 .statCard{
-display:flex;
-align-items:center;
-gap:14px;
+  display:flex;
+  align-items:center;
+  gap:14px;
 }
 
 .statIcon{
-width:48px;
-height:48px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#edf7ef;
-border-radius:12px;
-font-size:25px;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#edf7ef;
+  border-radius:12px;
+  font-size:25px;
 }
 
 .statInfo small{
-display:block;
-color:var(--muted);
-margin-bottom:5px;
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
 }
-.statInfo strong{font-size:22px}
 
-/* PANELS */
+.statInfo strong{
+  font-size:22px;
+}
+
+/* =========================
+   PANELS
+========================= */
+
 .grid2{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:18px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
 }
 
 .grid3{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
 
 .panel{
-background:#fff;
-border:1px solid var(--border);
-border-radius:14px;
-box-shadow:var(--shadow);
-overflow:hidden;
-margin-bottom:18px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin-bottom:18px;
 }
 
 .panelHeader{
-padding:15px 18px;
-border-bottom:1px solid var(--border);
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-flex-wrap:wrap;
+  padding:15px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 .panelHeader h3{
-margin:0;
-font-size:17px;
+  margin:0;
+  font-size:17px;
 }
 
-.panelBody{padding:18px}
+.panelBody{
+  padding:18px;
+}
 
-/* FORMS */
+/* =========================
+   FORMS
+========================= */
+
 .formGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
-.fullCol{grid-column:1/-1}
+.fullCol{
+  grid-column:1/-1;
+}
 
 .formActions{
-display:flex;
-justify-content:flex-end;
-gap:8px;
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+========================= */
+
 .tableWrap{
-width:100%;
-overflow-x:auto;
+  width:100%;
+  overflow-x:auto;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-min-width:700px;
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
 }
 
-th,td{
-padding:11px 10px;
-border-bottom:1px solid #edf1ee;
-font-size:13px;
-text-align:left;
+th,
+td{
+  padding:11px 10px;
+  border-bottom:1px solid #edf1ee;
+  font-size:13px;
+  text-align:left;
 }
 
 th{
-background:#f5f8f5;
-color:#405047;
-font-weight:bold;
+  background:#f5f8f5;
+  color:#405047;
+  font-weight:bold;
 }
 
-tr:hover td{background:#fafcfb}
+tr:hover td{
+  background:#fafcfb;
+}
 
 .badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-font-weight:bold;
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
 }
 
 .badgeGreen{
-background:#dff3e2;
-color:#217332;
+  background:#dff3e2;
+  color:#217332;
 }
 
 .badgeRed{
-background:#ffe0e0;
-color:#a30000;
+  background:#ffe0e0;
+  color:#a30000;
 }
 
 .badgeOrange{
-background:#fff0cf;
-color:#986100;
+  background:#fff0cf;
+  color:#986100;
 }
 
 .badgeBlue{
-background:#dceeff;
-color:#155b91;
+  background:#dceeff;
+  color:#155b91;
 }
 
 .empty{
-text-align:center;
-padding:35px 15px;
-color:#7b867f;
+  text-align:center;
+  padding:35px 15px;
+  color:#7b867f;
 }
 
 .emptyIcon{
-font-size:40px;
-margin-bottom:10px;
+  font-size:40px;
+  margin-bottom:10px;
 }
 
-/* MOBILE */
-.mobileMenu{
-display:none;
-background:transparent;
-border:0;
-color:#fff;
-font-size:26px;
-}
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:1000px){
-.cards{grid-template-columns:repeat(2,1fr)}
-.grid3{grid-template-columns:repeat(2,1fr)}
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid3{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media(max-width:700px){
 
-.mobileMenu{display:block}
+  .mobileMenu{
+    display:block;
+  }
 
-.userEmail{display:none}
+  .userEmail{
+    display:none;
+  }
 
-.sidebar{
-position:fixed;
-left:-260px;
-top:65px;
-width:250px;
-height:calc(100vh - 65px);
-z-index:900;
-transition:.25s;
-box-shadow:5px 0 20px rgba(0,0,0,.15);
-}
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:65px;
+    width:250px;
+    height:calc(100vh - 65px);
+    z-index:900;
+    transition:.25s;
+    box-shadow:5px 0 20px rgba(0,0,0,.15);
+  }
 
-.sidebar.open{left:0}
+  .sidebar.open{
+    left:0;
+  }
 
-.main{
-padding:14px;
-width:100%;
-}
+  .main{
+    padding:14px;
+    width:100%;
+  }
 
-.cards{
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
+  .cards{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
 
-.grid2,
-.grid3,
-.formGrid{
-grid-template-columns:1fr;
-}
+  .grid2,
+  .grid3,
+  .formGrid{
+    grid-template-columns:1fr;
+  }
 
-.fullCol{grid-column:auto}
+  .fullCol{
+    grid-column:auto;
+  }
 
-.card{padding:13px}
+  .card{
+    padding:13px;
+  }
 
-.statInfo strong{font-size:18px}
+  .statInfo strong{
+    font-size:18px;
+  }
 
-.pageHeader h2{font-size:21px}
+  .pageHeader h2{
+    font-size:21px;
+  }
 }
 
 @media(max-width:430px){
-.cards{grid-template-columns:1fr}
-.loginBox{padding:25px 18px}
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .loginBox{
+    padding:25px 18px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
 <div id="loginScreen">
 
-<div class="loginBox">
+  <div class="loginBox">
 
-<div class="logo">
-<div class="logoIcon">🌾</div>
-<h1>TACBO Agro</h1>
-<p>Agriculture & Livestock Company</p>
+    <div class="logo">
+      <div class="logoIcon">🌾</div>
+      <h1>TACBO Agro</h1>
+      <p>Agriculture & Livestock Company</p>
+    </div>
+
+    <div id="loginError" class="loginError hidden"></div>
+
+    <form id="loginForm">
+
+      <div class="formGroup">
+        <label>Email</label>
+
+        <input
+          id="loginEmail"
+          type="email"
+          value="abdirmoz3737@gmail.com"
+          placeholder="Geli email-kaaga"
+          required
+        >
+      </div>
+
+      <div class="formGroup">
+
+        <label>Password</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Geli password-kaaga"
+          required
+        >
+
+      </div>
+
+      <button
+        type="submit"
+        id="loginBtn"
+        class="btn btnPrimary fullWidth"
+      >
+        🔐 Gal TACBO Agro
+      </button>
+
+    </form>
+
+    <a
+      href="forgot-password.html"
+      class="loginForgot"
+    >
+      🔑 Password-ka waan ilaaway
+    </a>
+
+    <div style="
+      text-align:center;
+      margin-top:18px;
+      color:#78837c;
+      font-size:12px;
+    ">
+      TACBO Agro Management System
+    </div>
+
+  </div>
+
 </div>
 
-<div id="loginError" class="loginError hidden"></div>
 
-<form id="loginForm">
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
 
-<div class="formGroup">
-<label>Email</label>
-<input
-id="loginEmail"
-type="email"
-placeholder="Geli email-kaaga"
-required
->
-</div>
-
-<div class="formGroup">
-<label>Password</label>
-<input
-id="loginPassword"
-type="password"
-placeholder="Geli password-kaaga"
-required
->
-</div>
-
-<button
-type="submit"
-id="loginBtn"
-class="btn btnPrimary fullWidth"
->
-🔐 Gal TACBO Agro
-</button>
-
-</form>
-
-<div style="text-align:center;margin-top:18px;color:#78837c;font-size:12px">
-TACBO Agro Management System
-</div>
-
-</div>
-</div>
-
-
-<!-- APP -->
 <div id="app" class="hidden">
 
 <header class="topbar">
 
-<div style="display:flex;align-items:center;gap:10px">
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+  ">
 
-<button
-class="mobileMenu"
-onclick="toggleSidebar()"
->
-☰
-</button>
+    <button
+      class="mobileMenu"
+      onclick="toggleSidebar()"
+    >
+      ☰
+    </button>
 
-<div class="topBrand">
-<span class="topBrandIcon">🌾</span>
-<span>TACBO Agro</span>
-</div>
+    <div class="topBrand">
+      <span class="topBrandIcon">🌾</span>
+      <span>TACBO Agro</span>
+    </div>
 
-</div>
+  </div>
 
-<div class="userArea">
+  <div class="userArea">
 
-<span
-class="userEmail"
-id="currentUserEmail"
-></span>
+    <span
+      class="userEmail"
+      id="currentUserEmail"
+    ></span>
 
-<button
-class="logoutBtn"
-onclick="logout()"
->
-Ka bax
-</button>
+    <button
+      class="logoutBtn"
+      onclick="logout()"
+    >
+      Ka bax
+    </button>
 
-</div>
+  </div>
 
 </header>
 
 
 <div class="layout">
 
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
 <aside
-class="sidebar"
-id="sidebar"
+  class="sidebar"
+  id="sidebar"
 >
 
-<div class="navTitle">
-Main
-</div>
+  <div class="navTitle">
+    Main
+  </div>
 
-<button
-class="navBtn active"
-data-page="dashboard"
-onclick="showPage('dashboard',this)"
->
-🏠 Dashboard
-</button>
-
-
-<div class="navTitle">
-Xoolaha
-</div>
-
-<button
-class="navBtn"
-data-page="animals"
-onclick="showPage('animals',this)"
->
-🐄 Lo & 🐐 Ari
-</button>
-
-<button
-class="navBtn"
-data-page="milk"
-onclick="showPage('milk',this)"
->
-🥛 Caano
-</button>
-
-<button
-class="navBtn"
-data-page="milkproducts"
-onclick="showPage('milkproducts',this)"
->
-🧈 Subag / 🥣 Yogurt / 🧀 Jiis
-</button>
+  <button
+    class="navBtn active"
+    data-page="dashboard"
+    onclick="showPage('dashboard',this)"
+  >
+    🏠 Dashboard
+  </button>
 
 
-<div class="navTitle">
-Beeraha
-</div>
+  <div class="navTitle">
+    Xoolaha
+  </div>
 
-<button
-class="navBtn"
-data-page="crops"
-onclick="showPage('crops',this)"
->
-🌱 Beer & Dalag
-</button>
+  <button
+    class="navBtn"
+    data-page="animals"
+    onclick="showPage('animals',this)"
+  >
+    🐄 Lo & 🐐 Ari
+  </button>
 
+  <button
+    class="navBtn"
+    data-page="milk"
+    onclick="showPage('milk',this)"
+  >
+    🥛 Caano
+  </button>
 
-<div class="navTitle">
-Maaliyadda
-</div>
-
-<button
-class="navBtn"
-data-page="accounting"
-onclick="showPage('accounting',this)"
->
-💰 Accounting
-</button>
-
-<button
-class="navBtn"
-data-page="assets"
-onclick="showPage('assets',this)"
->
-🏗️ Hanti
-</button>
-
-<button
-class="navBtn"
-data-page="debts"
-onclick="showPage('debts',this)"
->
-💳 Deyn
-</button>
+  <button
+    class="navBtn"
+    data-page="milkproducts"
+    onclick="showPage('milkproducts',this)"
+  >
+    🧈 Subag / 🥣 Yogurt / 🧀 Jiis
+  </button>
 
 
-<div class="navTitle">
-Maamulka
-</div>
+  <div class="navTitle">
+    Beeraha
+  </div>
 
-<button
-class="navBtn"
-data-page="inventory"
-onclick="showPage('inventory',this)"
->
-📦 Inventory
-</button>
-
-<button
-class="navBtn"
-data-page="feed"
-onclick="showPage('feed',this)"
->
-🌾 Feed / Quudin
-</button>
-
-<button
-class="navBtn"
-data-page="employees"
-onclick="showPage('employees',this)"
->
-👥 Shaqaale
-</button>
+  <button
+    class="navBtn"
+    data-page="crops"
+    onclick="showPage('crops',this)"
+  >
+    🌱 Beer & Dalag
+  </button>
 
 
-<div class="navTitle">
-Warbixin
-</div>
+  <div class="navTitle">
+    Maaliyadda
+  </div>
 
-<button
-class="navBtn"
-data-page="reports"
-onclick="showPage('reports',this)"
->
-📊 Reports
-</button>
+  <button
+    class="navBtn"
+    data-page="accounting"
+    onclick="showPage('accounting',this)"
+  >
+    💰 Accounting
+  </button>
+
+  <button
+    class="navBtn"
+    data-page="assets"
+    onclick="showPage('assets',this)"
+  >
+    🏗️ Hanti
+  </button>
+
+  <button
+    class="navBtn"
+    data-page="debts"
+    onclick="showPage('debts',this)"
+  >
+    💳 Deyn
+  </button>
+
+
+  <div class="navTitle">
+    Maamulka
+  </div>
+
+  <button
+    class="navBtn"
+    data-page="inventory"
+    onclick="showPage('inventory',this)"
+  >
+    📦 Inventory
+  </button>
+
+  <button
+    class="navBtn"
+    data-page="feed"
+    onclick="showPage('feed',this)"
+  >
+    🌾 Feed / Quudin
+  </button>
+
+  <button
+    class="navBtn"
+    data-page="employees"
+    onclick="showPage('employees',this)"
+  >
+    👥 Shaqaale
+  </button>
+
+
+  <div class="navTitle">
+    Warbixin
+  </div>
+
+  <button
+    class="navBtn"
+    data-page="reports"
+    onclick="showPage('reports',this)"
+  >
+    📊 Reports
+  </button>
 
 </aside>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main">
 
-<!-- DASHBOARD -->
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
 
 <section
-id="page-dashboard"
-class="page active"
+  id="page-dashboard"
+  class="page active"
 >
 
-<div class="pageHeader">
+  <div class="pageHeader">
 
-<div>
-<h2>🏠 Dashboard</h2>
-<p>Ku soo dhawoow TACBO Agro</p>
-</div>
+    <div>
 
-<div class="actions">
-<button
-class="btn btnLight"
-onclick="loadDashboard()"
->
-🔄 Refresh
-</button>
-</div>
+      <h2>
+        🏠 Dashboard
+      </h2>
 
-</div>
+      <p>
+        Ku soo dhawoow TACBO Agro
+      </p>
 
+    </div>
 
-<div class="cards">
+    <div class="actions">
 
-<div class="card statCard">
-<div class="statIcon">🐄</div>
-<div class="statInfo">
-<small>Xoolaha</small>
-<strong id="statAnimals">0</strong>
-</div>
-</div>
+      <button
+        class="btn btnLight"
+        onclick="loadDashboard()"
+      >
+        🔄 Refresh
+      </button>
 
-<div class="card statCard">
-<div class="statIcon">🥛</div>
-<div class="statInfo">
-<small>Caano</small>
-<strong id="statMilk">0 L</strong>
-</div>
-</div>
+    </div>
 
-<div class="card statCard">
-<div class="statIcon">💰</div>
-<div class="statInfo">
-<small>Dakhli</small>
-<strong id="statIncome">$0</strong>
-</div>
-</div>
-
-<div class="card statCard">
-<div class="statIcon">💸</div>
-<div class="statInfo">
-<small>Kharash</small>
-<strong id="statExpenses">$0</strong>
-</div>
-</div>
-
-</div>
+  </div>
 
 
-<div class="cards">
+  <div class="cards">
 
-<div class="card statCard">
-<div class="statIcon">📈</div>
-<div class="statInfo">
-<small>Faa'iido</small>
-<strong id="statProfit">$0</strong>
-</div>
-</div>
+    <div class="card statCard">
 
-<div class="card statCard">
-<div class="statIcon">🌱</div>
-<div class="statInfo">
-<small>Beeraha</small>
-<strong id="statCrops">0</strong>
-</div>
-</div>
+      <div class="statIcon">
+        🐄
+      </div>
 
-<div class="card statCard">
-<div class="statIcon">🏗️</div>
-<div class="statInfo">
-<small>Hanti</small>
-<strong id="statAssets">$0</strong>
-</div>
-</div>
+      <div class="statInfo">
 
-<div class="card statCard">
-<div class="statIcon">📦</div>
-<div class="statInfo">
-<small>Inventory</small>
-<strong id="statInventory">0</strong>
-</div>
-</div>
+        <small>
+          Xoolaha
+        </small>
 
-</div>
+        <strong id="statAnimals">
+          0
+        </strong>
+
+      </div>
+
+    </div>
 
 
-<div class="grid2">
+    <div class="card statCard">
 
-<div class="panel">
+      <div class="statIcon">
+        🥛
+      </div>
 
-<div class="panelHeader">
-<h3>🏡 Farm-ka</h3>
-</div>
+      <div class="statInfo">
 
-<div class="panelBody">
+        <small>
+          Caano
+        </small>
 
-<div class="formGroup">
-<label>Magaca Farm-ka</label>
-<input
-id="farmNameDisplay"
-readonly
->
-</div>
+        <strong id="statMilk">
+          0 L
+        </strong>
 
-<div class="formGroup">
-<label>Goobta</label>
-<input
-id="farmLocationDisplay"
-readonly
->
-</div>
+      </div>
 
-<div class="formGroup">
-<label>Baaxadda</label>
-<input
-id="farmHectaresDisplay"
-readonly
->
-</div>
-
-</div>
-
-</div>
+    </div>
 
 
-<div class="panel">
+    <div class="card statCard">
 
-<div class="panelHeader">
-<h3>📌 TACBO Agro</h3>
-</div>
+      <div class="statIcon">
+        💰
+      </div>
 
-<div class="panelBody">
+      <div class="statInfo">
 
-<p style="line-height:1.8;color:#68756c">
-TACBO Agro wuxuu isku xirayaa
-xoolaha, caanaha, wax soo saarka,
-beeraha, dakhliga, kharashaadka,
-hantida, inventory-ga, shaqaalaha
-iyo deymaha.
-</p>
+        <small>
+          Dakhli
+        </small>
 
-</div>
+        <strong id="statIncome">
+          $0
+        </strong>
 
-</div>
+      </div>
 
-</div>
+    </div>
+
+
+    <div class="card statCard">
+
+      <div class="statIcon">
+        💸
+      </div>
+
+      <div class="statInfo">
+
+        <small>
+          Kharash
+        </small>
+
+        <strong id="statExpenses">
+          $0
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="panel">
+
+      <div class="panelHeader">
+
+        <h3>
+          💹 Xisaabta
+        </h3>
+
+      </div>
+
+      <div class="panelBody">
+
+        <div class="cards"
+          style="
+            grid-template-columns:1fr 1fr;
+            margin:0;
+          "
+        >
+
+          <div class="card">
+
+            <small>
+              Dakhli
+            </small>
+
+            <h2
+              id="dashIncome"
+              style="margin:8px 0;color:#347d43"
+            >
+              $0
+            </h2>
+
+          </div>
+
+
+          <div class="card">
+
+            <small>
+              Kharash
+            </small>
+
+            <h2
+              id="dashExpenses"
+              style="margin:8px 0;color:#c62828"
+            >
+              $0
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="card"
+          style="margin-top:15px"
+        >
+
+          <small>
+            Faa'iido
+          </small>
+
+          <h2
+            id="dashProfit"
+            style="margin:8px 0"
+          >
+            $0
+          </h2>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="panel">
+
+      <div class="panelHeader">
+
+        <h3>
+          🌾 TACBO Agro
+        </h3>
+
+      </div>
+
+      <div class="panelBody">
+
+        <p>
+          Nidaamka maamulka beeraha iyo xoolaha.
+        </p>
+
+        <p>
+          Waxaad hal meel kaga maamuli kartaa
+          xoolaha, caanaha, beeraha, lacagta,
+          hantida, shaqaalaha iyo inventory-ga.
+        </p>
+
+        <div class="badge badgeGreen">
+          System Active
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panelHeader">
+
+      <h3>
+        📋 Waxyaabaha muhiimka ah
+      </h3>
+
+    </div>
+
+    <div class="panelBody">
+
+      <div class="grid3">
+
+        <div class="card">
+
+          <div style="font-size:30px">
+            🐄
+          </div>
+
+          <h3>
+            Xoolaha
+          </h3>
+
+          <p>
+            Animal ID gaar ah,
+            nooca, jinsi, xaalad iyo qiime.
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <div style="font-size:30px">
+            🥛
+          </div>
+
+          <h3>
+            Caano
+          </h3>
+
+          <p>
+            Diiwaangeli litirrada caanaha
+            iyo iibka.
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <div style="font-size:30px">
+            🌱
+          </div>
+
+          <h3>
+            Beer
+          </h3>
+
+          <p>
+            Maamul hektarrada,
+            dalagga iyo wax-soo-saarka.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- ANIMALS -->
+<!-- =====================================================
+     ANIMALS
+===================================================== -->
 
 <section
-id="page-animals"
-class="page"
+  id="page-animals"
+  class="page"
 >
 
-<div class="pageHeader">
+  <div class="pageHeader">
 
-<div>
-<h2>🐄 Lo & 🐐 Ari</h2>
-<p>Animal ID gaar ah xoolo kasta</p>
-</div>
+    <div>
 
-<div class="actions">
-<button
-class="btn btnPrimary"
-onclick="toggleForm('animalForm')"
->
-+ Xoolo cusub
-</button>
-</div>
+      <h2>
+        🐄 Lo & 🐐 Ari
+      </h2>
 
-</div>
+      <p>
+        Animal ID iyo maamulka xoolaha
+      </p>
 
+    </div>
 
-<div
-id="animalForm"
-class="panel hidden"
->
+    <button
+      class="btn btnPrimary"
+      onclick="openAnimalForm()"
+    >
+      ➕ Ku dar Xoolo
+    </button>
 
-<div class="panelBody">
-
-<form
-id="animalSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Animal ID</label>
-<input
-id="animalCode"
-placeholder="TACBO-0001"
-required
->
-</div>
-
-<div class="formGroup">
-<label>Nooca</label>
-<select id="animalType">
-<option value="Lo">Lo</option>
-<option value="Ari">Ari</option>
-<option value="Ido">Ido</option>
-<option value="Geel">Geel</option>
-<option value="Digaag">Digaag</option>
-<option value="Other">Other</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Jinsi</label>
-<select id="animalSex">
-<option value="">Lama cayimin</option>
-<option value="Lab">Lab</option>
-<option value="Dhadig">Dhadig</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Xaalad</label>
-<select id="animalStatus">
-<option value="nool">Nool</option>
-<option value="dhintay">Dhintay</option>
-<option value="la_gaday">La gaday</option>
-<option value="lasoo_gaday">Lasoo gaday</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Taariikh dhalasho</label>
-<input
-id="animalBirth"
-type="date"
->
-</div>
-
-<div class="formGroup">
-<label>Miisaan kg</label>
-<input
-id="animalWeight"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-<div class="formGroup">
-<label>Qiimaha iibsiga $</label>
-<input
-id="animalPurchase"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-<div class="formGroup">
-<label>Qiimaha hadda $</label>
-<input
-id="animalValue"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-<div class="formGroup fullCol">
-<label>Faahfaahin</label>
-<textarea id="animalNote"></textarea>
-</div>
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('animalForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Xoolaha
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
+  </div>
 
 
-<div class="panel">
+  <div
+    id="animalForm"
+    class="panel hidden"
+  >
 
-<div class="panelHeader">
+    <div class="panelHeader">
 
-<h3>Liiska Xoolaha</h3>
+      <h3>
+        ➕ Xoolo cusub
+      </h3>
 
-<input
-id="animalSearch"
-placeholder="🔎 Raadi Animal ID..."
-style="max-width:250px;padding:9px;border:1px solid #dce7de;border-radius:8px"
-oninput="filterRows('animalTable',this.value)"
->
+    </div>
 
-</div>
+    <div class="panelBody">
 
-<div class="tableWrap">
+      <form
+        id="animalFormElement"
+        class="formGrid"
+      >
 
-<table>
+        <div class="formGroup">
 
-<thead>
-<tr>
-<th>Animal ID</th>
-<th>Nooca</th>
-<th>Jinsi</th>
-<th>Xaalad</th>
-<th>Miisaan</th>
-<th>Qiime</th>
-<th>Ficil</th>
-</tr>
-</thead>
+          <label>
+            Animal ID
+          </label>
 
-<tbody id="animalTable">
-<tr>
-<td colspan="7" class="empty">
-<div class="emptyIcon">🐄</div>
-Loading...
-</td>
-</tr>
-</tbody>
+          <input
+            id="animalCode"
+            placeholder="TAC-0001"
+            required
+          >
 
-</table>
+        </div>
 
-</div>
 
-</div>
+        <div class="formGroup">
+
+          <label>
+            Nooca
+          </label>
+
+          <select
+            id="animalType"
+            required
+          >
+
+            <option value="">
+              Dooro
+            </option>
+
+            <option value="Lo">
+              🐄 Lo
+            </option>
+
+            <option value="Ari">
+              🐐 Ari
+            </option>
+
+            <option value="Geel">
+              🐪 Geel
+            </option>
+
+            <option value="Digaag">
+              🐔 Digaag
+            </option>
+
+            <option value="Other">
+              Kale
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Jinsi
+          </label>
+
+          <select id="animalSex">
+
+            <option value="">
+              Dooro
+            </option>
+
+            <option value="Lab">
+              Lab
+            </option>
+
+            <option value="Dhadig">
+              Dhadig
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Xaaladda
+          </label>
+
+          <select id="animalStatus">
+
+            <option value="nool">
+              Nool
+            </option>
+
+            <option value="dhintay">
+              Dhintay
+            </option>
+
+            <option value="la_gaday">
+              La gaday
+            </option>
+
+            <option value="laga_iibsaday">
+              Laga iibsaday
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Taariikhda dhalashada
+          </label>
+
+          <input
+            id="animalBirth"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Miisaanka KG
+          </label>
+
+          <input
+            id="animalWeight"
+            type="number"
+            step="0.01"
+            value="0"
+          >
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Qiimaha iibsiga
+          </label>
+
+          <input
+            id="animalPurchase"
+            type="number"
+            step="0.01"
+            value="0"
+          >
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Qiimaha hadda
+          </label>
+
+          <input
+            id="animalCurrent"
+            type="number"
+            step="0.01"
+            value="0"
+          >
+
+        </div>
+
+
+        <div class="formGroup fullCol">
+
+          <label>
+            Faahfaahin
+          </label>
+
+          <textarea
+            id="animalNote"
+            placeholder="Qoraal..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="formActions fullCol">
+
+          <button
+            type="button"
+            class="btn btnLight"
+            onclick="closeAnimalForm()"
+          >
+            Jooji
+          </button>
+
+          <button
+            type="submit"
+            class="btn btnPrimary"
+          >
+            💾 Kaydi
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panelHeader">
+
+      <h3>
+        Liiska Xoolaha
+      </h3>
+
+      <button
+        class="btn btnLight"
+        onclick="loadAnimals()"
+      >
+        🔄
+      </button>
+
+    </div>
+
+    <div class="panelBody">
+
+      <div class="tableWrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Animal ID
+              </th>
+
+              <th>
+                Nooca
+              </th>
+
+              <th>
+                Jinsi
+              </th>
+
+              <th>
+                Xaalad
+              </th>
+
+              <th>
+                KG
+              </th>
+
+              <th>
+                Qiime
+              </th>
+
+              <th>
+                Ficil
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody
+            id="animalsTable"
+          >
+
+            <tr>
+
+              <td
+                colspan="7"
+                class="empty"
+              >
+                Xogta waa la soo gelinayaa...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- MILK -->
+<!-- =====================================================
+     MILK
+===================================================== -->
 
 <section
-id="page-milk"
-class="page"
+  id="page-milk"
+  class="page"
 >
 
-<div class="pageHeader">
+  <div class="pageHeader">
 
-<div>
-<h2>🥛 Caano</h2>
-<p>Diiwaangeli caanaha iyo iibkooda</p>
-</div>
+    <div>
 
-<button
-class="btn btnPrimary"
-onclick="toggleForm('milkForm')"
->
-+ Caano
-</button>
+      <h2>
+        🥛 Caano
+      </h2>
 
-</div>
+      <p>
+        Diiwaanka caanaha iyo iibka
+      </p>
 
+    </div>
 
-<div
-id="milkForm"
-class="panel hidden"
->
+    <button
+      class="btn btnPrimary"
+      onclick="openMilkForm()"
+    >
+      ➕ Diiwaangeli Caano
+    </button>
 
-<div class="panelBody">
-
-<form
-id="milkSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Nooca xoolaha</label>
-<select id="milkAnimalType">
-<option value="Lo">Lo</option>
-<option value="Ari">Ari</option>
-<option value="Geel">Geel</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Quantity (Liters)</label>
-<input
-id="milkQuantity"
-type="number"
-step="0.01"
-min="0"
-required
->
-</div>
-
-<div class="formGroup">
-<label>Qiimaha halkii Liter $</label>
-<input
-id="milkPrice"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-<div class="formGroup">
-<label>Taariikh</label>
-<input
-id="milkDate"
-type="date"
->
-</div>
-
-<div class="formGroup fullCol">
-<label>Faahfaahin</label>
-<textarea id="milkNote"></textarea>
-</div>
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('milkForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Caanaha
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
+  </div>
 
 
-<div class="panel">
+  <div
+    id="milkForm"
+    class="panel hidden"
+  >
 
-<div class="panelHeader">
-<h3>🥛 Milk Records</h3>
-</div>
+    <div class="panelHeader">
 
-<div class="tableWrap">
+      <h3>
+        🥛 Caano cusub
+      </h3>
 
-<table>
+    </div>
 
-<thead>
-<tr>
-<th>Taariikh</th>
-<th>Nooca</th>
-<th>Litir</th>
-<th>$/Liter</th>
-<th>Wadarta</th>
-<th>Ficil</th>
-</tr>
-</thead>
+    <div class="panelBody">
 
-<tbody id="milkTable">
-<tr>
-<td colspan="6" class="empty">
-Loading...
-</td>
-</tr>
-</tbody>
+      <form
+        id="milkFormElement"
+        class="formGrid"
+      >
 
-</table>
+        <div class="formGroup">
 
-</div>
+          <label>
+            Nooca xoolaha
+          </label>
 
-</div>
+          <select id="milkAnimalType">
+
+            <option value="Lo">
+              🐄 Lo
+            </option>
+
+            <option value="Geel">
+              🐪 Geel
+            </option>
+
+            <option value="Ari">
+              🐐 Ari
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Litir
+          </label>
+
+          <input
+            id="milkQuantity"
+            type="number"
+            step="0.01"
+            min="0"
+            required
+          >
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Qiimaha / Litir
+          </label>
+
+          <input
+            id="milkPrice"
+            type="number"
+            step="0.01"
+            min="0"
+            value="0"
+          >
+
+        </div>
+
+
+        <div class="formGroup">
+
+          <label>
+            Taariikh
+          </label>
+
+          <input
+            id="milkDate"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="formGroup fullCol">
+
+          <label>
+            Faahfaahin
+          </label>
+
+          <textarea
+            id="milkNote"
+          ></textarea>
+
+        </div>
+
+
+        <div class="formActions fullCol">
+
+          <button
+            type="button"
+            class="btn btnLight"
+            onclick="closeMilkForm()"
+          >
+            Jooji
+          </button>
+
+          <button
+            type="submit"
+            class="btn btnPrimary"
+          >
+            💾 Kaydi
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <div class="cards">
+
+    <div class="card statCard">
+
+      <div class="statIcon">
+        🥛
+      </div>
+
+      <div class="statInfo">
+
+        <small>
+          Wadarta Caano
+        </small>
+
+        <strong id="milkTotal">
+          0 L
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="card statCard">
+
+      <div class="statIcon">
+        💰
+      </div>
+
+      <div class="statInfo">
+
+        <small>
+          Iibka Caano
+        </small>
+
+        <strong id="milkSales">
+          $0
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="panelHeader">
+
+      <h3>
+        Diiwaanka Caanaha
+      </h3>
+
+    </div>
+
+    <div class="panelBody">
+
+      <div class="tableWrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Taariikh
+              </th>
+
+              <th>
+                Xoolaha
+              </th>
+
+              <th>
+                Litir
+              </th>
+
+              <th>
+                Qiime/L
+              </th>
+
+              <th>
+                Wadarta
+              </th>
+
+              <th>
+                Ficil
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody
+            id="milkTable"
+          >
+
+            <tr>
+
+              <td
+                colspan="6"
+                class="empty"
+              >
+                Xogta waa la soo gelinayaa...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
-<!-- MILK PRODUCTS -->
+<!-- =====================================================
+     MILK PRODUCTS
+===================================================== -->
 
 <section
-id="page-milkproducts"
-class="page"
+  id="page-milkproducts"
+  class="page"
 >
 
-<div class="pageHeader">
+  <div class="pageHeader">
 
-<div>
-<h2>🧈 Subag / 🥣 Yogurt / 🧀 Jiis</h2>
-<p>Wax-soo-saarka caanaha</p>
-</div>
+    <div>
 
-<button
-class="btn btnPrimary"
-onclick="toggleForm('milkProductForm')"
->
-+ Product
-</button>
-
-</div>
-
-
-<div
-id="milkProductForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="milkProductSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Product</label>
-<select id="productType">
-<option value="Subag">Subag</option>
-<option value="Yogurt">Yogurt</option>
-<option value="Jiis">Jiis</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Quantity</label>
-<input
-id="productQuantity"
-type="number"
-step="0.01"
-min="0"
->
-</div>
-
-<div class="formGroup">
-<label>Unit</label>
-<select id="productUnit">
-<option value="kg">kg</option>
-<option value="liter">Liter</option>
-<option value="pcs">pcs</option>
-</select>
-</div>
-
-<div class="formGroup">
-<label>Qiimaha iibka $</label>
-<input
-id="productPrice"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-<div class="formGroup">
-<label>Taariikh</label>
-<input
-id="productDate"
-type="date"
->
-</div>
-
-<div class="formGroup fullCol">
-<label>Faahfaahin</label>
-<textarea id="productNote"></textarea>
-</div>
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('milkProductForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Product
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Taariikh</th>
-<th>Product</th>
-<th>Quantity</th>
-<th>Unit</th>
-<th>Qiime</th>
-<th>Wadarta</th>
-<th>Ficil</th>
-</tr>
-</thead>
-
-<tbody id="milkProductTable">
-<tr>
-<td colspan="7" class="empty">
-Loading...
-</td>
-</tr>
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section><!-- =========================
-     BEER & DALAG
-========================= -->
-
-<section
-id="page-crops"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-<h2>🌱 Beer & Dalag</h2>
-<p>Maamul beeraha, dalagyada iyo wax-soo-saarka</p>
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('cropForm')"
->
-+ Dalag cusub
-</button>
-
-</div>
-
-
-<div
-id="cropForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="cropSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Magaca Dalagga</label>
-
-<input
-id="cropName"
-placeholder="Galley, Masaggo, Yaanyo..."
-required
->
-</div>
-
-
-<div class="formGroup">
-<label>Baaxadda (Hectares)</label>
-
-<input
-id="cropArea"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Beerista</label>
-
-<input
-id="cropPlantingDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Goosashada</label>
-
-<input
-id="cropHarvestDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Wax-soo-saar (kg)</label>
-
-<input
-id="cropYield"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Xaaladda</label>
-
-<select id="cropStatus">
-
-<option value="la_beeray">
-La beeray
-</option>
-
-<option value="koraya">
-Koraya
-</option>
-
-<option value="goosasho">
-Goosasho
-</option>
-
-<option value="la_goostay">
-La goostay
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>Faahfaahin</label>
-
-<textarea
-id="cropNote"
-placeholder="Qoraal ku saabsan dalagga..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('cropForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Dalagga
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>🌱 Liiska Dalagyada</h3>
-
-<input
-id="cropSearch"
-placeholder="🔎 Raadi dalag..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('cropTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Dalag</th>
-<th>Hectares</th>
-<th>Beerista</th>
-<th>Goosashada</th>
-<th>Yield kg</th>
-<th>Xaalad</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="cropTable">
-
-<tr>
-<td
-colspan="7"
-class="empty"
->
-🌱 Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ACCOUNTING
-========================= -->
-
-<section
-id="page-accounting"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>💰 Accounting</h2>
-
-<p>
-Dakhli, kharash iyo faa'iido
-</p>
-
-</div>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-💰
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Dakhli
-</small>
-
-<strong id="accountIncome">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-💸
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Kharash
-</small>
-
-<strong id="accountExpense">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📈
-</div>
-
-<div class="statInfo">
-
-<small>
-Faa'iido
-</small>
-
-<strong id="accountProfit">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📊
-</div>
-
-<div class="statInfo">
-
-<small>
-Net
-</small>
-
-<strong id="accountNet">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="grid2">
-
-
-<!-- INCOME -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💰 Dakhli
-</h3>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('incomeForm')"
->
-+ Dakhli
-</button>
-
-</div>
-
-
-<div
-id="incomeForm"
-class="panelBody hidden"
->
-
-<form
-id="incomeSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Dakhliga
-</label>
-
-<select id="incomeType">
-
-<option value="Iibka Caanaha">
-Iibka Caanaha
-</option>
-
-<option value="Iibka Subagga">
-Iibka Subagga
-</option>
-
-<option value="Iibka Yogurt">
-Iibka Yogurt
-</option>
-
-<option value="Iibka Jiiska">
-Iibka Jiiska
-</option>
-
-<option value="Iibka Dalagga">
-Iibka Dalagga
-</option>
-
-<option value="Iibka Xoolaha">
-Iibka Xoolaha
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="incomeAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikh
-</label>
-
-<input
-id="incomeDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="incomeNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('incomeForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="incomeTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💸 Kharash
-</h3>
-
-<button
-class="btn btnDanger"
-onclick="toggleForm('expenseForm')"
->
-+ Kharash
-</button>
-
-</div>
-
-
-<div
-id="expenseForm"
-class="panelBody hidden"
->
-
-<form
-id="expenseSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Kharashka
-</label>
-
-<select id="expenseType">
-
-<option value="Waraab">
-💧 Waraab
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Mushahar">
-👥 Mushahar
-</option>
-
-<option value="Feed">
-🌾 Feed / Quudin
-</option>
-
-<option value="Medicine">
-💊 Medicine
-</option>
-
-<option value="Maintenance">
-🔧 Maintenance
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
-
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
-
-<option value="Transport">
-🚚 Transport
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="expenseAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikh
-</label>
-
-<input
-id="expenseDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="expenseNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('expenseForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnDanger"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="expenseTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-📌 Xusuusin Accounting
-</h3>
-
-</div>
-
-<div class="panelBody">
-
-<p
-style="
-line-height:1.8;
-color:#68756c;
-"
->
-
-💧 <b>Waraab</b> waxaa loo diiwaangelinayaa
-<strong>kharash</strong>.
-
-<br>
-
-🏗️ <b>Ceel</b> waxaa loo diiwaangelinayaa
-<strong>hanti (Asset)</strong>.
-
-<br>
-
-🌾 Feed, ⛽ Fuel, 👥 Mushahar,
-💊 Medicine iyo 🔧 Maintenance
-waa kharashaad.
-
-<br>
-
-📈 Faa'iidada =
-<strong>Dakhli − Kharash</strong>.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ASSETS
-========================= -->
-
-<section
-id="page-assets"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>🏗️ Hanti / Assets</h2>
-
-<p>
-Ceel, tractors, machines, qalab iyo hanti kale
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('assetForm')"
->
-+ Hanti cusub
-</button>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-🏗️
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Hanti
-</small>
-
-<strong id="assetTotal">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div
-id="assetForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="assetSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Hantida
-</label>
-
-<input
-id="assetName"
-placeholder="Ceel, Tractor..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="assetCategory">
-
-<option value="Ceel">
-🕳️ Ceel
-</option>
-
-<option value="Tractor">
-🚜 Tractor
-</option>
-
-<option value="Machinery">
-⚙️ Machinery
-</option>
-
-<option value="Equipment">
-🛠️ Equipment
-</option>
-
-<option value="Vehicle">
-🚚 Vehicle
-</option>
-
-<option value="Building">
-🏠 Building
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Quantity
-</label>
-
-<input
-id="assetQuantity"
-type="number"
-step="0.01"
-value="1"
-min="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Qiimaha Iibsiga ($)
-</label>
-
-<input
-id="assetValue"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikhda Iibsiga
-</label>
-
-<input
-id="assetDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="assetNote"
-placeholder="Faahfaahinta hantida..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('assetForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Hanti
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-🏗️ Liiska Hantida
-</h3>
-
-<input
-id="assetSearch"
-placeholder="🔎 Raadi hanti..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('assetTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Magac</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Qiime</th>
-<th>Date</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="assetTable">
-
-<tr>
-<td
-colspan="6"
-class="empty"
->
-🏗️ Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     INVENTORY
-========================= -->
-
-<section
-id="page-inventory"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>📦 Inventory</h2>
-
-<p>
-Maamul stock-ka TACBO Agro
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('inventoryForm')"
->
-+ Stock cusub
-</button>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-📦
-</div>
-
-<div class="statInfo">
-
-<small>
-Items
-</small>
-
-<strong id="inventoryItems">
-0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-⚠️
-</div>
-
-<div class="statInfo">
-
-<small>
-Stock Hoose
-</small>
-
-<strong id="lowStock">
-0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div
-id="inventoryForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="inventorySaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Item-ka
-</label>
-
-<input
-id="inventoryName"
-placeholder="Bac, Diesel, Seeds..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="inventoryCategory">
-
-<option value="Feed">
-🌾 Feed
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
-
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
-
-<option value="Medicine">
-💊 Medicine
-</option>
-
-<option value="Equipment">
-🛠️ Equipment
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Quantity
-</label>
-
-<input
-id="inventoryQuantity"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Unit
-</label>
-
-<select id="inventoryUnit">
-
-<option value="pcs">
-pcs
-</option>
-
-<option value="kg">
-kg
-</option>
-
-<option value="liter">
-liter
-</option>
-
-<option value="bag">
-bag
-</option>
-
-<option value="ton">
-ton
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Unit Cost ($)
-</label>
-
-<input
-id="inventoryCost"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Minimum Stock
-</label>
-
-<input
-id="inventoryMin"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="inventoryNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('inventoryForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Stock
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-📦 Stock-ka
-</h3>
-
-<input
-id="inventorySearch"
-placeholder="🔎 Raadi item..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('inventoryTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Item</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Unit</th>
-<th>Unit Cost</th>
-<th>Status</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="inventoryTable">
-
-<tr>
-<td
-colspan="7"
-class="empty"
->
-📦 Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section><!-- =========================
-     BEER & DALAG
-========================= -->
-
-<section
-id="page-crops"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-<h2>🌱 Beer & Dalag</h2>
-<p>Maamul beeraha, dalagyada iyo wax-soo-saarka</p>
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('cropForm')"
->
-+ Dalag cusub
-</button>
-
-</div>
-
-
-<div
-id="cropForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="cropSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Magaca Dalagga</label>
-
-<input
-id="cropName"
-placeholder="Galley, Masaggo, Yaanyo..."
-required
->
-</div>
-
-
-<div class="formGroup">
-<label>Baaxadda (Hectares)</label>
-
-<input
-id="cropArea"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Beerista</label>
-
-<input
-id="cropPlantingDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Goosashada</label>
-
-<input
-id="cropHarvestDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Wax-soo-saar (kg)</label>
-
-<input
-id="cropYield"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Xaaladda</label>
-
-<select id="cropStatus">
-
-<option value="la_beeray">
-La beeray
-</option>
-
-<option value="koraya">
-Koraya
-</option>
-
-<option value="goosasho">
-Goosasho
-</option>
-
-<option value="la_goostay">
-La goostay
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>Faahfaahin</label>
-
-<textarea
-id="cropNote"
-placeholder="Qoraal ku saabsan dalagga..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('cropForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Dalagga
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>🌱 Liiska Dalagyada</h3>
-
-<input
-id="cropSearch"
-placeholder="🔎 Raadi dalag..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('cropTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Dalag</th>
-<th>Hectares</th>
-<th>Beerista</th>
-<th>Goosashada</th>
-<th>Yield kg</th>
-<th>Xaalad</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="cropTable">
-
-<tr>
-<td
-colspan="7"
-class="empty"
->
-🌱 Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ACCOUNTING
-========================= -->
-
-<section
-id="page-accounting"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>💰 Accounting</h2>
-
-<p>
-Dakhli, kharash iyo faa'iido
-</p>
-
-</div>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-💰
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Dakhli
-</small>
-
-<strong id="accountIncome">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-💸
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Kharash
-</small>
-
-<strong id="accountExpense">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📈
-</div>
-
-<div class="statInfo">
-
-<small>
-Faa'iido
-</small>
-
-<strong id="accountProfit">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📊
-</div>
-
-<div class="statInfo">
-
-<small>
-Net
-</small>
-
-<strong id="accountNet">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="grid2">
-
-
-<!-- INCOME -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💰 Dakhli
-</h3>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('incomeForm')"
->
-+ Dakhli
-</button>
-
-</div>
-
-
-<div
-id="incomeForm"
-class="panelBody hidden"
->
-
-<form
-id="incomeSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Dakhliga
-</label>
-
-<select id="incomeType">
-
-<option value="Iibka Caanaha">
-Iibka Caanaha
-</option>
-
-<option value="Iibka Subagga">
-Iibka Subagga
-</option>
-
-<option value="Iibka Yogurt">
-Iibka Yogurt
-</option>
-
-<option value="Iibka Jiiska">
-Iibka Jiiska
-</option>
-
-<option value="Iibka Dalagga">
-Iibka Dalagga
-</option>
-
-<option value="Iibka Xoolaha">
-Iibka Xoolaha
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="incomeAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikh
-</label>
-
-<input
-id="incomeDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="incomeNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('incomeForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="incomeTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💸 Kharash
-</h3>
-
-<button
-class="btn btnDanger"
-onclick="toggleForm('expenseForm')"
->
-+ Kharash
-</button>
-
-</div>
-
-
-<div
-id="expenseForm"
-class="panelBody hidden"
->
-
-<form
-id="expenseSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Kharashka
-</label>
-
-<select id="expenseType">
-
-<option value="Waraab">
-💧 Waraab
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Mushahar">
-👥 Mushahar
-</option>
-
-<option value="Feed">
-🌾 Feed / Quudin
-</option>
-
-<option value="Medicine">
-💊 Medicine
-</option>
-
-<option value="Maintenance">
-🔧 Maintenance
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
-
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
-
-<option value="Transport">
-🚚 Transport
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="expenseAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikh
-</label>
-
-<input
-id="expenseDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="expenseNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('expenseForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnDanger"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="expenseTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-📌 Xusuusin Accounting
-</h3>
-
-</div>
-
-<div class="panelBody">
-
-<p
-style="
-line-height:1.8;
-color:#68756c;
-"
->
-
-💧 <b>Waraab</b> waxaa loo diiwaangelinayaa
-<strong>kharash</strong>.
-
-<br>
-
-🏗️ <b>Ceel</b> waxaa loo diiwaangelinayaa
-<strong>hanti (Asset)</strong>.
-
-<br>
-
-🌾 Feed, ⛽ Fuel, 👥 Mushahar,
-💊 Medicine iyo 🔧 Maintenance
-waa kharashaad.
-
-<br>
-
-📈 Faa'iidada =
-<strong>Dakhli − Kharash</strong>.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ASSETS
-========================= -->
-
-<section
-id="page-assets"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>🏗️ Hanti / Assets</h2>
-
-<p>
-Ceel, tractors, machines, qalab iyo hanti kale
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('assetForm')"
->
-+ Hanti cusub
-</button>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-🏗️
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Hanti
-</small>
-
-<strong id="assetTotal">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div
-id="assetForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="assetSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Hantida
-</label>
-
-<input
-id="assetName"
-placeholder="Ceel, Tractor..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="assetCategory">
-
-<option value="Ceel">
-🕳️ Ceel
-</option>
-
-<option value="Tractor">
-🚜 Tractor
-</option>
-
-<option value="Machinery">
-⚙️ Machinery
-</option>
-
-<option value="Equipment">
-🛠️ Equipment
-</option>
-
-<option value="Vehicle">
-🚚 Vehicle
-</option>
-
-<option value="Building">
-🏠 Building
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Quantity
-</label>
-
-<input
-id="assetQuantity"
-type="number"
-step="0.01"
-value="1"
-min="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Qiimaha Iibsiga ($)
-</label>
-
-<input
-id="assetValue"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikhda Iibsiga
-</label>
-
-<input
-id="assetDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="assetNote"
-placeholder="Faahfaahinta hantida..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('assetForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Hanti
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-🏗️ Liiska Hantida
-</h3>
-
-<input
-id="assetSearch"
-placeholder="🔎 Raadi hanti..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('assetTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Magac</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Qiime</th>
-<th>Date</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="assetTable">
-
-<tr>
-<td
-colspan="6"
-class="empty"
->
-🏗️ Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     INVENTORY
-========================= -->
-
-<section
-id="page-inventory"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>📦 Inventory</h2>
-
-<p>
-Maamul stock-ka TACBO Agro
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('inventoryForm')"
->
-+ Stock cusub
-</button>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-📦
-</div>
-
-<div class="statInfo">
-
-<small>
-Items
-</small>
-
-<strong id="inventoryItems">
-0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-⚠️
-</div>
-
-<div class="statInfo">
-
-<small>
-Stock Hoose
-</small>
-
-<strong id="lowStock">
-0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div
-id="inventoryForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="inventorySaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Item-ka
-</label>
-
-<input
-id="inventoryName"
-placeholder="Bac, Diesel, Seeds..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="inventoryCategory">
-
-<option value="Feed">
-🌾 Feed
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
-
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
-
-<option value="Medicine">
-💊 Medicine
-</option>
-
-<option value="Equipment">
-🛠️ Equipment
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Quantity
-</label>
-
-<input
-id="inventoryQuantity"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Unit
-</label>
-
-<select id="inventoryUnit">
-
-<option value="pcs">
-pcs
-</option>
-
-<option value="kg">
-kg
-</option>
-
-<option value="liter">
-liter
-</option>
-
-<option value="bag">
-bag
-</option>
-
-<option value="ton">
-ton
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Unit Cost ($)
-</label>
-
-<input
-id="inventoryCost"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Minimum Stock
-</label>
-
-<input
-id="inventoryMin"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="inventoryNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('inventoryForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Stock
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-📦 Stock-ka
-</h3>
-
-<input
-id="inventorySearch"
-placeholder="🔎 Raadi item..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('inventoryTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Item</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Unit</th>
-<th>Unit Cost</th>
-<th>Status</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="inventoryTable">
-
-<tr>
-<td
-colspan="7"
-class="empty"
->
-📦 Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section><!-- =========================
-     BEER & DALAG
-========================= -->
-
-<section
-id="page-crops"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-<h2>🌱 Beer & Dalag</h2>
-<p>Maamul beeraha, dalagyada iyo wax-soo-saarka</p>
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('cropForm')"
->
-+ Dalag cusub
-</button>
-
-</div>
-
-
-<div
-id="cropForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="cropSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-<label>Magaca Dalagga</label>
-
-<input
-id="cropName"
-placeholder="Galley, Masaggo, Yaanyo..."
-required
->
-</div>
-
-
-<div class="formGroup">
-<label>Baaxadda (Hectares)</label>
-
-<input
-id="cropArea"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Beerista</label>
-
-<input
-id="cropPlantingDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Taariikhda Goosashada</label>
-
-<input
-id="cropHarvestDate"
-type="date"
->
-</div>
-
-
-<div class="formGroup">
-<label>Wax-soo-saar (kg)</label>
-
-<input
-id="cropYield"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-</div>
-
-
-<div class="formGroup">
-<label>Xaaladda</label>
-
-<select id="cropStatus">
-
-<option value="la_beeray">
-La beeray
-</option>
-
-<option value="koraya">
-Koraya
-</option>
-
-<option value="goosasho">
-Goosasho
-</option>
-
-<option value="la_goostay">
-La goostay
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>Faahfaahin</label>
-
-<textarea
-id="cropNote"
-placeholder="Qoraal ku saabsan dalagga..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('cropForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Dalagga
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>🌱 Liiska Dalagyada</h3>
-
-<input
-id="cropSearch"
-placeholder="🔎 Raadi dalag..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('cropTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Dalag</th>
-<th>Hectares</th>
-<th>Beerista</th>
-<th>Goosashada</th>
-<th>Yield kg</th>
-<th>Xaalad</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="cropTable">
-
-<tr>
-<td
-colspan="7"
-class="empty"
->
-🌱 Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ACCOUNTING
-========================= -->
-
-<section
-id="page-accounting"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>💰 Accounting</h2>
-
-<p>
-Dakhli, kharash iyo faa'iido
-</p>
-
-</div>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-💰
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Dakhli
-</small>
-
-<strong id="accountIncome">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-💸
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Kharash
-</small>
-
-<strong id="accountExpense">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📈
-</div>
-
-<div class="statInfo">
-
-<small>
-Faa'iido
-</small>
-
-<strong id="accountProfit">
-$0
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="card statCard">
-
-<div class="statIcon">
-📊
-</div>
-
-<div class="statInfo">
-
-<small>
-Net
-</small>
-
-<strong id="accountNet">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="grid2">
-
-
-<!-- INCOME -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💰 Dakhli
-</h3>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('incomeForm')"
->
-+ Dakhli
-</button>
-
-</div>
-
-
-<div
-id="incomeForm"
-class="panelBody hidden"
->
-
-<form
-id="incomeSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Dakhliga
-</label>
-
-<select id="incomeType">
-
-<option value="Iibka Caanaha">
-Iibka Caanaha
-</option>
-
-<option value="Iibka Subagga">
-Iibka Subagga
-</option>
-
-<option value="Iibka Yogurt">
-Iibka Yogurt
-</option>
-
-<option value="Iibka Jiiska">
-Iibka Jiiska
-</option>
-
-<option value="Iibka Dalagga">
-Iibka Dalagga
-</option>
-
-<option value="Iibka Xoolaha">
-Iibka Xoolaha
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="incomeAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
+      <h2>
+        🧈 Subag / 🥣 Yogurt / 🧀 Jiis
+      </h2>
 
-<div class="formGroup">
+      <p>
+        Maamulka wax-soo-saarka caanaha
+      </p>
 
-<label>
-Taariikh
-</label>
+    </div>
 
-<input
-id="incomeDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="incomeNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('incomeForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="incomeTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- EXPENSE -->
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-💸 Kharash
-</h3>
-
-<button
-class="btn btnDanger"
-onclick="toggleForm('expenseForm')"
->
-+ Kharash
-</button>
-
-</div>
-
-
-<div
-id="expenseForm"
-class="panelBody hidden"
->
-
-<form
-id="expenseSaveForm"
->
-
-<div class="formGroup">
-
-<label>
-Nooca Kharashka
-</label>
-
-<select id="expenseType">
-
-<option value="Waraab">
-💧 Waraab
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Mushahar">
-👥 Mushahar
-</option>
-
-<option value="Feed">
-🌾 Feed / Quudin
-</option>
-
-<option value="Medicine">
-💊 Medicine
-</option>
-
-<option value="Maintenance">
-🔧 Maintenance
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
-
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
-
-<option value="Transport">
-🚚 Transport
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Lacag ($)
-</label>
-
-<input
-id="expenseAmount"
-type="number"
-step="0.01"
-min="0"
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikh
-</label>
-
-<input
-id="expenseDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="expenseNote"
-></textarea>
-
-</div>
-
-
-<div class="formActions">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('expenseForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnDanger"
->
-💾 Kaydi
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Nooca</th>
-<th>Lacag</th>
-<th>Taariikh</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="expenseTable">
-
-<tr>
-<td
-colspan="4"
-class="empty"
->
-Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelHeader">
-
-<h3>
-📌 Xusuusin Accounting
-</h3>
-
-</div>
-
-<div class="panelBody">
-
-<p
-style="
-line-height:1.8;
-color:#68756c;
-"
->
-
-💧 <b>Waraab</b> waxaa loo diiwaangelinayaa
-<strong>kharash</strong>.
-
-<br>
-
-🏗️ <b>Ceel</b> waxaa loo diiwaangelinayaa
-<strong>hanti (Asset)</strong>.
-
-<br>
-
-🌾 Feed, ⛽ Fuel, 👥 Mushahar,
-💊 Medicine iyo 🔧 Maintenance
-waa kharashaad.
-
-<br>
-
-📈 Faa'iidada =
-<strong>Dakhli − Kharash</strong>.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ASSETS
-========================= -->
-
-<section
-id="page-assets"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>🏗️ Hanti / Assets</h2>
-
-<p>
-Ceel, tractors, machines, qalab iyo hanti kale
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('assetForm')"
->
-+ Hanti cusub
-</button>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card statCard">
-
-<div class="statIcon">
-🏗️
-</div>
-
-<div class="statInfo">
-
-<small>
-Total Hanti
-</small>
-
-<strong id="assetTotal">
-$0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div
-id="assetForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="assetSaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Hantida
-</label>
-
-<input
-id="assetName"
-placeholder="Ceel, Tractor..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="assetCategory">
-
-<option value="Ceel">
-🕳️ Ceel
-</option>
-
-<option value="Tractor">
-🚜 Tractor
-</option>
-
-<option value="Machinery">
-⚙️ Machinery
-</option>
-
-<option value="Equipment">
-🛠️ Equipment
-</option>
-
-<option value="Vehicle">
-🚚 Vehicle
-</option>
-
-<option value="Building">
-🏠 Building
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Quantity
-</label>
-
-<input
-id="assetQuantity"
-type="number"
-step="0.01"
-value="1"
-min="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Qiimaha Iibsiga ($)
-</label>
-
-<input
-id="assetValue"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Taariikhda Iibsiga
-</label>
-
-<input
-id="assetDate"
-type="date"
->
-
-</div>
-
-
-<div class="formGroup fullCol">
-
-<label>
-Faahfaahin
-</label>
-
-<textarea
-id="assetNote"
-placeholder="Faahfaahinta hantida..."
-></textarea>
-
-</div>
-
-
-<div class="formActions fullCol">
-
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('assetForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Hanti
-</button>
+    <button
+      class="btn btnPrimary"
+      onclick="openMilkProductForm()"
+    >
+      ➕ Ku dar Product
+    </button>
 
-</div>
+  </div>
 
-</form>
 
-</div>
+  <div
+    id="milkProductForm"
+    class="panel hidden"
+  >
 
-</div>
+    <div class="panelHeader">
 
+      <h3>
+        Wax-soo-saar cusub
+      </h3>
 
-<div class="panel">
+    </div>
 
-<div class="panelHeader">
+    <div class="panelBody">
 
-<h3>
-🏗️ Liiska Hantida
-</h3>
+      <form
+        id="milkProductFormElement"
+        class="formGrid"
+      >
 
-<input
-id="assetSearch"
-placeholder="🔎 Raadi hanti..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('assetTable',this.value)"
->
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Magac</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Qiime</th>
-<th>Date</th>
-<th>Ficil</th>
-
-</tr>
-
-</thead>
-
-<tbody id="assetTable">
-
-<tr>
-<td
-colspan="6"
-class="empty"
->
-🏗️ Loading...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     INVENTORY
-========================= -->
-
-<section
-id="page-inventory"
-class="page"
->
-
-<div class="pageHeader">
-
-<div>
-
-<h2>📦 Inventory</h2>
-
-<p>
-Maamul stock-ka TACBO Agro
-</p>
-
-</div>
-
-<button
-class="btn btnPrimary"
-onclick="toggleForm('inventoryForm')"
->
-+ Stock cusub
-</button>
-
-</div>
-
-
-<div class="cards">
+        <div class="formGroup">
 
-<div class="card statCard">
+          <label>
+            Product
+          </label>
 
-<div class="statIcon">
-📦
-</div>
+          <select
+            id="productType"
+            required
+          >
 
-<div class="statInfo">
+            <option value="Subag">
+              🧈 Subag
+            </option>
 
-<small>
-Items
-</small>
+            <option value="Yogurt">
+              🥣 Yogurt
+            </option>
 
-<strong id="inventoryItems">
-0
-</strong>
+            <option value="Jiis">
+              🧀 Jiis
+            </option>
 
-</div>
+          </select>
 
-</div>
+        </div>
 
 
-<div class="card statCard">
+        <div class="formGroup">
 
-<div class="statIcon">
-⚠️
-</div>
+          <label>
+            Quantity
+          </label>
 
-<div class="statInfo">
+          <input
+            id="productQuantity"
+            type="number"
+            step="0.01"
+            min="0"
+            required
+          >
 
-<small>
-Stock Hoose
-</small>
+        </div>
 
-<strong id="lowStock">
-0
-</strong>
 
-</div>
+        <div class="formGroup">
 
-</div>
+          <label>
+            Unit
+          </label>
 
-</div>
+          <select id="productUnit">
 
+            <option value="kg">
+              KG
+            </option>
 
-<div
-id="inventoryForm"
-class="panel hidden"
->
-
-<div class="panelBody">
-
-<form
-id="inventorySaveForm"
-class="formGrid"
->
-
-<div class="formGroup">
-
-<label>
-Magaca Item-ka
-</label>
-
-<input
-id="inventoryName"
-placeholder="Bac, Diesel, Seeds..."
-required
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Category
-</label>
-
-<select id="inventoryCategory">
-
-<option value="Feed">
-🌾 Feed
-</option>
-
-<option value="Fuel">
-⛽ Fuel
-</option>
-
-<option value="Seeds">
-🌱 Seeds
-</option>
+            <option value="liter">
+              Liter
+            </option>
 
-<option value="Fertilizer">
-🧪 Fertilizer
-</option>
+            <option value="pcs">
+              Xabbo
+            </option>
 
-<option value="Medicine">
-💊 Medicine
-</option>
+          </select>
 
-<option value="Equipment">
-🛠️ Equipment
-</option>
+        </div>
 
-<option value="Other">
-Other
-</option>
 
-</select>
+        <div class="formGroup">
 
-</div>
+          <label>
+            Qiimaha iibka
+          </label>
 
+          <input
+            id="productPrice"
+            type="number"
+            step="0.01"
+            min="0"
+            value="0"
+          >
 
-<div class="formGroup">
+        </div>
 
-<label>
-Quantity
-</label>
 
-<input
-id="inventoryQuantity"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
-
-<label>
-Unit
-</label>
-
-<select id="inventoryUnit">
-
-<option value="pcs">
-pcs
-</option>
-
-<option value="kg">
-kg
-</option>
+        <div class="formGroup">
 
-<option value="liter">
-liter
-</option>
+          <label>
+            Taariikh
+          </label>
 
-<option value="bag">
-bag
-</option>
+          <input
+            id="productDate"
+            type="date"
+          >
 
-<option value="ton">
-ton
-</option>
+        </div>
 
-</select>
 
-</div>
+        <div class="formGroup fullCol">
 
+          <label>
+            Faahfaahin
+          </label>
 
-<div class="formGroup">
+          <textarea
+            id="productNote"
+          ></textarea>
 
-<label>
-Unit Cost ($)
-</label>
+        </div>
 
-<input
-id="inventoryCost"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
-
-</div>
-
-
-<div class="formGroup">
 
-<label>
-Minimum Stock
-</label>
+        <div class="formActions fullCol">
 
-<input
-id="inventoryMin"
-type="number"
-step="0.01"
-min="0"
-value="0"
->
+          <button
+            type="button"
+            class="btn btnLight"
+            onclick="closeMilkProductForm()"
+          >
+            Jooji
+          </button>
 
-</div>
+          <button
+            type="submit"
+            class="btn btnPrimary"
+          >
+            💾 Kaydi
+          </button>
 
+        </div>
 
-<div class="formGroup fullCol">
+      </form>
 
-<label>
-Faahfaahin
-</label>
+    </div>
 
-<textarea
-id="inventoryNote"
-></textarea>
+  </div>
 
-</div>
 
+  <div class="panel">
 
-<div class="formActions fullCol">
+    <div class="panelHeader">
 
-<button
-type="button"
-class="btn btnLight"
-onclick="toggleForm('inventoryForm')"
->
-Jooji
-</button>
-
-<button
-type="submit"
-class="btn btnPrimary"
->
-💾 Kaydi Stock
-</button>
+      <h3>
+        Products
+      </h3>
 
-</div>
+    </div>
 
-</form>
+    <div class="panelBody">
 
-</div>
+      <div class="tableWrap">
 
-</div>
+        <table>
 
+          <thead>
 
-<div class="panel">
+            <tr>
 
-<div class="panelHeader">
+              <th>
+                Taariikh
+              </th>
 
-<h3>
-📦 Stock-ka
-</h3>
+              <th>
+                Product
+              </th>
 
-<input
-id="inventorySearch"
-placeholder="🔎 Raadi item..."
-style="
-max-width:250px;
-padding:9px;
-border:1px solid #dce7de;
-border-radius:8px;
-"
-oninput="filterRows('inventoryTable',this.value)"
->
+              <th>
+                Quantity
+              </th>
 
-</div>
+              <th>
+                Unit
+              </th>
 
+              <th>
+                Qiime
+              </th>
 
-<div class="tableWrap">
+              <th>
+                Wadarta
+              </th>
 
-<table>
+              <th>
+                Ficil
+              </th>
 
-<thead>
+            </tr>
 
-<tr>
+          </thead>
 
-<th>Item</th>
-<th>Category</th>
-<th>Quantity</th>
-<th>Unit</th>
-<th>Unit Cost</th>
-<th>Status</th>
-<th>Ficil</th>
+          <tbody
+            id="milkProductsTable"
+          >
 
-</tr>
+            <tr>
 
-</thead>
+              <td
+                colspan="7"
+                class="empty"
+              >
+                Xogta waa la soo gelinayaa...
+              </td>
 
-<tbody id="inventoryTable">
+            </tr>
 
-<tr>
-<td
-colspan="7"
-class="empty"
->
-📦 Loading...
-</td>
-</tr>
+          </tbody>
 
-</tbody>
+        </table>
 
-</table>
+      </div>
 
-</div>
+    </div>
 
-</div>
+  </div>
 
 </section>
