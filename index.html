@@ -2,274 +2,127 @@
 <html lang="so">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#176b43">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>TACBO Agro — Agriculture & Livestock Management</title>
+<title>TACBO Agro</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
---green:#176b43;--green2:#2d8b57;--green3:#dff3e7;
---bg:#f3f7f4;--card:#fff;--text:#17231d;--muted:#718078;
---line:#dfe9e2;--danger:#c92f35;--warning:#b97912;--blue:#2877d3;
---shadow:0 10px 30px rgba(20,70,45,.08);
---shadow2:0 18px 45px rgba(20,70,45,.12)
-}
+:root{--g:#176b43;--g2:#2d8b57;--bg:#f3f7f4;--card:#fff;--txt:#17231d;--muted:#718078;--line:#dce8e0;--red:#c92f35;--blue:#2877d3;--shadow:0 10px 30px rgba(20,70,45,.08)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-margin:0;color:var(--text);
-background:radial-gradient(circle at 10% 0%,rgba(45,139,87,.10),transparent 28%),radial-gradient(circle at 95% 10%,rgba(75,150,105,.08),transparent 25%),var(--bg);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
--webkit-font-smoothing:antialiased
-}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
 .hidden{display:none!important}
-.app-header{
-position:sticky;top:0;z-index:100;
-background:linear-gradient(135deg,#145c39 0%,#176b43 55%,#2d8b57 100%);
-color:#fff;padding:17px 16px;
-box-shadow:0 5px 22px rgba(10,60,35,.20)
-}
-.header-inner{max-width:1250px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:23px;letter-spacing:-.4px;text-shadow:0 1px 1px rgba(0,0,0,.08);font-weight:900}
-.brand small{display:block;font-size:11px;letter-spacing:.2px;opacity:.85}
-.header-user{font-size:12px;text-align:right}
-.wrap{max-width:1250px;margin:auto;padding:16px 14px 45px}
-.nav{
-display:flex;gap:9px;overflow-x:auto;padding:10px 2px 14px;margin-bottom:5px;
-scrollbar-width:none;position:sticky;top:69px;z-index:80;background:var(--bg)
-}
+.header{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#145c39,#176b43,#2d8b57);color:#fff;padding:15px}
+.headerin{max-width:1250px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-size:24px;font-weight:900}.logo small{display:block;font-size:11px;font-weight:500;opacity:.85}
+.wrap{max-width:1250px;margin:auto;padding:12px 12px 40px}
+.nav{display:flex;gap:8px;overflow:auto;padding:8px 0 14px;position:sticky;top:67px;z-index:90;background:var(--bg);scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav button{
-border:1px solid var(--line);background:rgba(255,255,255,.90);color:#24422f;
-border-radius:14px;padding:11px 15px;font-weight:750;white-space:nowrap;
-box-shadow:0 3px 12px rgba(20,70,45,.06);
-transition:transform .15s ease,box-shadow .15s ease,background .15s ease
-}
-.nav button:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(20,70,45,.10)}
-.nav button.active{
-background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;
-border-color:transparent;box-shadow:0 7px 18px rgba(23,107,67,.22)
-}
-.section{display:none}
-.section.active{display:block;animation:tacboIn .22s ease}
-@keyframes tacboIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.nav button{border:1px solid var(--line);background:#fff;color:#24422f;border-radius:14px;padding:10px 14px;font-weight:800;white-space:nowrap}
+.nav button.active{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;border-color:transparent}
+.section{display:none}.section.active{display:block}
+.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:19px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{
-border:1px solid rgba(220,232,224,.9);border-radius:20px;padding:17px;margin-bottom:15px;
-background:rgba(255,255,255,.94);box-shadow:var(--shadow);
-transition:transform .16s ease,box-shadow .16s ease
-}
-.card:hover{box-shadow:var(--shadow2)}
-.stat{
-min-height:118px;position:relative;overflow:hidden;
-background:linear-gradient(145deg,#fff 0%,#f8fcf9 100%)
-}
-.stat:after{
-content:"";position:absolute;width:85px;height:85px;right:-30px;bottom:-30px;
-border-radius:50%;background:var(--green3);opacity:.8
-}
-.stat-icon{font-size:28px;position:relative;z-index:1}
-.stat-label{font-size:12px;font-weight:700;color:var(--muted)}
-.stat-value{font-size:24px;letter-spacing:-.5px;position:relative;z-index:1;font-weight:900}
-h1,h2,h3{letter-spacing:-.25px}
-h1,h2,h3{margin:5px 0 13px}
-h2{font-size:24px}
-h3{font-size:18px}
-p{line-height:1.5}
-label{font-size:12px;font-weight:800;color:#506158}
-input,select,textarea{
-width:100%;border:1px solid #d7e3db;border-radius:13px;padding:12px 13px;
-background:#fff;color:var(--text);box-shadow:inset 0 1px 2px rgba(20,70,45,.03);
-transition:border-color .15s,box-shadow .15s,transform .15s;margin-top:5px;outline:none
-}
-input:focus,select:focus,textarea:focus{
-border-color:#4aa774;box-shadow:0 0 0 4px rgba(45,139,87,.11)
-}
-textarea{min-height:82px;resize:vertical}
-.form{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{min-height:110px}.icon{font-size:28px}.label{font-size:12px;color:var(--muted);font-weight:700}.value{font-size:24px;font-weight:900;margin-top:4px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .full{grid-column:1/-1}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
-.btn{
-border:0;border-radius:13px;padding:11px 16px;
-background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;
-font-weight:850;box-shadow:0 6px 14px rgba(23,107,67,.18);
-transition:transform .14s,box-shadow .14s,filter .14s
-}
-.btn:hover{transform:translateY(-1px);box-shadow:0 9px 20px rgba(23,107,67,.22);filter:brightness(1.02)}
-.btn:active{transform:translateY(0)}
-.btn.secondary{background:#e9f3ed;color:#176b43;box-shadow:none}
-.btn.danger{background:linear-gradient(135deg,#b9232d,#d53b43)}
+label{font-size:12px;font-weight:800;color:#506158;display:block}
+input,select,textarea{width:100%;padding:11px 12px;margin-top:5px;border:1px solid #d5e2d9;border-radius:13px;background:#fff;outline:0}
+input:focus,select:focus,textarea:focus{border-color:#4aa774;box-shadow:0 0 0 4px #2d8b571c}
+textarea{min-height:75px;resize:vertical}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{border:0;border-radius:13px;padding:10px 15px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font-weight:850}
+.btn.light{background:#e8f3ec;color:var(--g)}
 .btn.edit{background:linear-gradient(135deg,#236db5,#398bd3)}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px;background:#fff}
-table{border-collapse:separate;border-spacing:0;width:100%;min-width:680px}
-th{background:#eef6f1;color:#284b37;font-weight:850;font-size:12px}
-th,td{padding:11px 10px;border-bottom:1px solid #e8eee9;text-align:left}
-tbody tr:last-child td{border-bottom:0}
-tbody tr:hover{background:#f7fbf8}
-.search{margin-bottom:10px;border-radius:14px;background:#fbfdfb}
-.notice{
-border:1px solid #cfe5d6;background:linear-gradient(135deg,#eff9f2,#e7f5eb);
-color:#24583a;border-radius:15px;padding:12px 14px;margin-bottom:14px
-}
-.error{
-color:#a82228;background:#fff0f0;border:1px solid #ffd1d3;
-border-radius:12px;padding:10px 12px;margin-top:12px
-}
-.kpi{
-padding:11px 13px;border-radius:13px;background:#f5faf7;border:1px solid #e2eee6
-}
-.login{
-min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;
-background:linear-gradient(rgba(20,92,57,.72),rgba(23,107,67,.82)),#176b43
-}
-.login-box{
-width:min(430px,100%);padding:28px;border:1px solid rgba(255,255,255,.35);
-border-radius:28px;background:rgba(255,255,255,.96);
-box-shadow:0 25px 70px rgba(0,0,0,.25)
-}
-.login .logo{
-width:76px;height:76px;margin:0 auto 8px;display:grid;place-items:center;
-border-radius:24px;background:#e4f4e9;font-size:43px;
-box-shadow:0 10px 25px rgba(23,107,67,.12)
-}
-.login h1{text-align:center;margin:4px 0 2px;font-size:29px}
+.btn.red{background:linear-gradient(135deg,#b9232d,#d53b43)}
+.table{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{width:100%;min-width:650px;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #e8eee9;text-align:left}
+th{background:#eef6f1;color:#284b37;font-size:12px}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#e8f4ec;color:var(--g);font-size:12px;font-weight:800}
+.badge.red{background:#ffe2e3;color:#b4232d}
+.notice{padding:12px;border-radius:14px;background:#eff9f2;border:1px solid #cfe5d6;margin-bottom:12px}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(135deg,#145c39,#2d8b57)}
+.loginbox{width:min(430px,100%);background:#fff;padding:25px;border-radius:27px;box-shadow:0 25px 70px #0004}
+.loginlogo{width:76px;height:76px;border-radius:23px;background:#e4f4e9;display:grid;place-items:center;font-size:43px;margin:auto}
 .center{text-align:center}
-.badge{
-display:inline-block;padding:6px 10px;border-radius:999px;
-font-size:12px;font-weight:800;background:#e8f4ec;color:#176b43
-}
-.badge.danger{background:#ffe2e3;color:#b4232d}
-.badge.warning{background:#fff1d5;color:#99600d}
-.badge.blue{background:#e2efff;color:#2167ac}
-.empty{text-align:center;padding:28px;color:var(--muted)}
-.toast{
-position:fixed;right:16px;bottom:20px;z-index:9999;
-background:#173f2b;color:#fff;padding:13px 17px;border-radius:13px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;font-weight:700
-}
-.modal{
-position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.48);
-display:none;align-items:center;justify-content:center;padding:18px
-}
-.modal.show{display:flex}
-.modal-box{
-width:min(620px,100%);max-height:90vh;overflow:auto;background:#fff;
-border-radius:22px;padding:20px;box-shadow:0 25px 80px rgba(0,0,0,.25)
-}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.close{
-width:38px;height:38px;border:0;border-radius:50%;background:#eef4f0;
-font-size:22px;color:#31503e
-}
-@media(max-width:800px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.grid3{grid-template-columns:repeat(2,1fr)}
-.grid2{grid-template-columns:1fr}
-.app-header{padding:14px 13px}
-.brand{font-size:21px}
-.wrap{padding:10px 10px 32px}
-.nav{top:67px;padding-top:7px}
-.nav button{padding:10px 13px}
-}
-@media(max-width:520px){
-.grid,.grid2,.grid3,.form{grid-template-columns:1fr}
-.full{grid-column:auto}
-.card{padding:14px;border-radius:17px}
-.stat{min-height:105px}
-h2{font-size:21px}
-.login{padding:14px}
-.login-box{padding:22px 18px;border-radius:22px}
-}
+.error{background:#fff0f0;color:#a82228;border:1px solid #ffd1d3;padding:10px;border-radius:12px;margin-top:10px}
+.toast{position:fixed;right:15px;bottom:18px;z-index:999;background:#173f2b;color:#fff;padding:13px 17px;border-radius:13px;display:none}
+.search{margin-bottom:10px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid,.grid2,.grid3,.form{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:14px}.logo{font-size:21px}}
 </style>
 </head>
 <body>
 
-<div id="loginScreen" class="login">
-<div class="login-box">
-<div class="logo">🌾</div>
-<h1>TACBO Agro</h1>
+<div id="login" class="login">
+<div class="loginbox">
+<div class="loginlogo">🌾</div>
+<h1 class="center">TACBO Agro</h1>
 <p class="center">Agriculture & Livestock Management</p>
-<div class="card">
 <label>Email</label>
-<input id="loginEmail" type="email" placeholder="Email-kaaga">
+<input id="email" type="email" value="Abdirmoz3737@gmail.com">
 <label>Password</label>
-<input id="loginPassword" type="password" placeholder="Password">
-<div class="actions">
-<button class="btn" style="width:100%" onclick="login()">🔐 Gal</button>
-</div>
+<input id="password" type="password" placeholder="Password">
+<button class="btn" style="width:100%;margin-top:12px" onclick="login()">🔐 Gal</button>
 <div id="loginMsg"></div>
-<p class="center" style="margin-top:14px">
-<a href="forgot-password.html">Forgot Password?</a>
-</p>
-</div>
+<p class="center"><a href="forgot-password.html">Forgot Password?</a></p>
 </div>
 </div>
 
 <div id="app" class="hidden">
-<header class="app-header">
-<div class="header-inner">
+<header class="header">
+<div class="headerin">
 <div>
-<div class="brand">🌾 TACBO Agro</div>
-<div style="font-size:11px;opacity:.8">Agriculture & Livestock Company</div>
+<div class="logo">🌾 TACBO Agro</div>
+<small>Agriculture & Livestock Company</small>
 </div>
-<div class="header-user">
-<div id="userEmail"></div>
-<button class="btn secondary" onclick="logout()">Ka bax</button>
+<div style="text-align:right">
+<div id="userEmail" style="font-size:11px"></div>
+<button class="btn light" onclick="logout()">Ka bax</button>
 </div>
 </div>
 </header>
 
 <div class="wrap">
-<nav class="nav">
-<button class="active" onclick="showSection('dashboard',this)">🏠 Dashboard</button>
-<button onclick="showSection('animals',this)">🐄 Lo & Ari</button>
-<button onclick="showSection('milk',this)">🥛 Caano</button>
-<button onclick="showSection('products',this)">🧈 Subag / Yogurt / 🧀 Jiis</button>
-<button onclick="showSection('crops',this)">🌱 Beer & Dalag</button>
-<button onclick="showSection('finance',this)">💰 Accounting</button>
-<button onclick="showSection('assets',this)">🏗️ Hanti</button>
-<button onclick="showSection('inventory',this)">📦 Inventory</button>
-<button onclick="showSection('feed',this)">🌾 Quudin</button>
-<button onclick="showSection('employees',this)">👥 Shaqaale</button>
-<button onclick="showSection('debts',this)">💳 Deyn</button>
-<button onclick="showSection('reports',this)">📊 Reports</button>
+<nav id="nav" class="nav">
+<button class="active" onclick="show('dashboard',this)">🏠 Dashboard</button>
+<button onclick="show('animals',this)">🐄 Lo & Ari</button>
+<button onclick="show('milk',this)">🥛 Caano</button>
+<button onclick="show('products',this)">🧈 Subag / Yogurt / 🧀 Jiis</button>
+<button onclick="show('crops',this)">🌱 Beer & Dalag</button>
+<button onclick="show('finance',this)">💰 Accounting</button>
+<button onclick="show('assets',this)">🏗️ Hanti</button>
+<button onclick="show('inventory',this)">📦 Inventory</button>
+<button onclick="show('feed',this)">🌾 Quudin</button>
+<button onclick="show('employees',this)">👥 Shaqaale</button>
+<button onclick="show('debts',this)">💳 Deyn</button>
+<button onclick="show('reports',this)">📊 Reports</button>
 </nav>
 
-<div id="dashboard" class="section active">
+<section id="dashboard" class="section active">
 <div class="card">
 <h2>🌾 TACBO Agro Dashboard</h2>
-<div class="notice">Ku soo dhowow TACBO Agro. Halkan waxaad ka maamuli kartaa beeraha, xoolaha, caanaha, dhaqaalaha iyo hantida.</div>
-<div class="actions">
+<div class="notice">Maamul beeraha, xoolaha, caanaha, wax soo saarka, hantida iyo dhaqaalaha hal meel.</div>
 <button class="btn" onclick="loadAll()">🔄 Refresh</button>
 </div>
-</div>
 <div class="grid">
-<div class="card stat"><div class="stat-icon">🐄</div><div class="stat-label">Xoolaha</div><div class="stat-value" id="dashAnimals">0</div></div>
-<div class="card stat"><div class="stat-icon">🥛</div><div class="stat-label">Caano</div><div class="stat-value" id="dashMilk">0 L</div></div>
-<div class="card stat"><div class="stat-icon">💰</div><div class="stat-label">Dakhli</div><div class="stat-value" id="dashIncome">$0</div></div>
-<div class="card stat"><div class="stat-icon">💸</div><div class="stat-label">Kharash</div><div class="stat-value" id="dashExpense">$0</div></div>
+<div class="card stat"><div class="icon">🐄</div><div class="label">Xoolaha</div><div class="value" id="dAnimals">0</div></div>
+<div class="card stat"><div class="icon">🥛</div><div class="label">Caano</div><div class="value" id="dMilk">0 L</div></div>
+<div class="card stat"><div class="icon">💰</div><div class="label">Dakhli</div><div class="value" id="dIncome">$0</div></div>
+<div class="card stat"><div class="icon">💸</div><div class="label">Kharash</div><div class="value" id="dExpense">$0</div></div>
 </div>
 <div class="grid2">
-<div class="card">
-<h3>📈 Faa'iido</h3>
-<div class="stat-value" id="dashProfit">$0</div>
-<p>Wadarta Dakhli − Wadarta Kharash</p>
+<div class="card"><h3>📈 Faa'iido</h3><div class="value" id="dProfit">$0</div></div>
+<div class="card"><h3>🏗️ Hanti</h3><div class="value" id="dAssets">$0</div></div>
 </div>
-<div class="card">
-<h3>🏗️ Hanti</h3>
-<div class="stat-value" id="dashAssets">$0</div>
-<p>Qiimaha hantida la diiwaangeliyey</p>
-</div>
-</div>
-</div>
+</section>
 
-<div id="animals" class="section">
+<section id="animals" class="section">
 <div class="card">
 <h2>🐄 Lo & Ari — Animal ID</h2>
 <form id="animalForm" class="form">
@@ -278,229 +131,206 @@ h2{font-size:21px}
 <div><label>Nooca</label><select id="animalType"><option>Lo</option><option>Ari</option><option>Ido</option><option>Geel</option><option>Faras</option><option>Digaag</option></select></div>
 <div><label>Jinsi</label><select id="animalSex"><option value="">Dooro</option><option>Lab</option><option>Dhadig</option></select></div>
 <div><label>Status</label><select id="animalStatus"><option value="nool">Nool</option><option value="dhintay">Dhintay</option><option value="la_gaday">La gaday</option><option value="laso_gaday">Laso gaday</option></select></div>
-<div><label>Taariikh dhalasho</label><input id="animalBirth" type="date"></div>
-<div><label>Miisaan KG</label><input id="animalWeight" type="number" step="0.01" value="0"></div>
-<div><label>Qiimaha iibsiga</label><input id="animalPurchase" type="number" step="0.01" value="0"></div>
-<div><label>Qiimaha hadda</label><input id="animalCurrent" type="number" step="0.01" value="0"></div>
+<div><label>Dhalasho</label><input id="animalBirth" type="date"></div>
+<div><label>Miisaan KG</label><input id="animalWeight" type="number" step=".01" value="0"></div>
+<div><label>Qiimaha iibsiga</label><input id="animalPurchase" type="number" step=".01" value="0"></div>
+<div><label>Qiimaha hadda</label><input id="animalCurrent" type="number" step=".01" value="0"></div>
 <div class="full"><label>Faallo</label><textarea id="animalNote"></textarea></div>
-<div class="full actions">
-<button class="btn" type="submit">💾 Kaydi</button>
-<button class="btn secondary" type="button" onclick="resetAnimal()">Nadiifi</button>
-</div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetAnimal()">Nadiifi</button></div>
 </form>
 </div>
 <div class="card">
-<input class="search" id="animalSearch" placeholder="🔎 Raadi Animal ID, nooc..." oninput="renderAnimals()">
-<div class="table-wrap"><table><thead><tr><th>ID</th><th>Nooc</th><th>Jinsi</th><th>Status</th><th>KG</th><th>Qiime</th><th>Ficil</th></tr></thead><tbody id="animalsBody"></tbody></table></div>
+<input id="animalSearch" class="search" placeholder="🔎 Raadi Animal ID..." oninput="renderAnimals()">
+<div class="table"><table><thead><tr><th>ID</th><th>Nooc</th><th>Jinsi</th><th>Status</th><th>KG</th><th>Qiime</th><th>Ficil</th></tr></thead><tbody id="animalsBody"></tbody></table></div>
 </div>
-</div>
+</section>
 
-<div id="milk" class="section">
+<section id="milk" class="section">
 <div class="card">
 <h2>🥛 Caano</h2>
 <form id="milkForm" class="form">
 <input type="hidden" id="milkId">
-<div><label>Nooca xoolaha</label><select id="milkAnimalType"><option>Lo</option><option>Ari</option><option>Geel</option></select></div>
-<div><label>Litir</label><input id="milkQty" type="number" step="0.01" required></div>
-<div><label>Qiimaha/Litir</label><input id="milkPrice" type="number" step="0.01" value="0"></div>
+<div><label>Nooca</label><select id="milkAnimal"><option>Lo</option><option>Ari</option><option>Geel</option></select></div>
+<div><label>Litir</label><input id="milkQty" type="number" step=".01" required></div>
+<div><label>Qiime / Litir</label><input id="milkPrice" type="number" step=".01" value="0"></div>
 <div><label>Taariikh</label><input id="milkDate" type="date"></div>
 <div class="full"><label>Faallo</label><textarea id="milkNote"></textarea></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi Caano</button><button class="btn secondary" type="button" onclick="resetMilk()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi Caano</button><button type="button" class="btn light" onclick="resetMilk()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card">
-<div class="grid3">
-<div class="kpi"><b>Wadarta Litir</b><div id="milkTotal">0 L</div></div>
-<div class="kpi"><b>Wadarta Iib</b><div id="milkSales">$0</div></div>
-<div class="kpi"><b>Celcelis/L</b><div id="milkAvg">$0</div></div>
-</div>
-</div>
-<div class="card">
-<div class="table-wrap"><table><thead><tr><th>Nooc</th><th>Litir</th><th>Qiime/L</th><th>Wadarta</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="milkBody"></tbody></table></div>
-</div>
-</div>
+<div class="card"><div class="grid3">
+<div><b>Litir</b><div id="milkTotal">0 L</div></div>
+<div><b>Iib</b><div id="milkSales">$0</div></div>
+<div><b>Celcelis</b><div id="milkAvg">$0</div></div>
+</div></div>
+<div class="card"><div class="table"><table><thead><tr><th>Nooc</th><th>Litir</th><th>Qiime/L</th><th>Wadarta</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="milkBody"></tbody></table></div></div>
+</section>
 
-<div id="products" class="section">
+<section id="products" class="section">
 <div class="card">
 <h2>🧈 Subag / 🥣 Yogurt / 🧀 Jiis</h2>
 <form id="productForm" class="form">
 <input type="hidden" id="productId">
 <div><label>Product</label><select id="productType"><option>Subag</option><option>Yogurt</option><option>Jiis</option></select></div>
-<div><label>Quantity</label><input id="productQty" type="number" step="0.01" required></div>
+<div><label>Quantity</label><input id="productQty" type="number" step=".01" required></div>
 <div><label>Unit</label><select id="productUnit"><option>kg</option><option>L</option><option>pcs</option></select></div>
-<div><label>Qiimaha iibka</label><input id="productPrice" type="number" step="0.01" value="0"></div>
+<div><label>Qiimaha iibka</label><input id="productPrice" type="number" step=".01" value="0"></div>
 <div><label>Taariikh</label><input id="productDate" type="date"></div>
 <div><label>Faallo</label><input id="productNote"></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi</button><button class="btn secondary" type="button" onclick="resetProduct()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetProduct()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card">
-<div class="table-wrap"><table><thead><tr><th>Product</th><th>Qty</th><th>Unit</th><th>Qiime</th><th>Wadarta</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="productsBody"></tbody></table></div>
-</div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Product</th><th>Qty</th><th>Unit</th><th>Qiime</th><th>Wadarta</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="productsBody"></tbody></table></div></div>
+</section>
 
-<div id="crops" class="section">
+<section id="crops" class="section">
 <div class="card">
 <h2>🌱 Beer & Dalag</h2>
 <form id="cropForm" class="form">
 <input type="hidden" id="cropId">
-<div><label>Dalagga</label><input id="cropName" required placeholder="Galley, Yaanyo..."></div>
-<div><label>Hektar</label><input id="cropArea" type="number" step="0.01" value="0"></div>
-<div><label>Taariikh beeris</label><input id="cropPlanting" type="date"></div>
+<div><label>Dalagga</label><input id="cropName" required placeholder="Galley"></div>
+<div><label>Hektar</label><input id="cropArea" type="number" step=".01" value="0"></div>
+<div><label>Taariikh beeris</label><input id="cropPlant" type="date"></div>
 <div><label>Taariikh goosasho</label><input id="cropHarvest" type="date"></div>
-<div><label>Yield KG</label><input id="cropYield" type="number" step="0.01" value="0"></div>
+<div><label>Yield KG</label><input id="cropYield" type="number" step=".01" value="0"></div>
 <div><label>Faallo</label><input id="cropNote"></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi Dalag</button><button class="btn secondary" type="button" onclick="resetCrop()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi Dalag</button><button type="button" class="btn light" onclick="resetCrop()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Dalag</th><th>Hektar</th><th>Beeris</th><th>Goosasho</th><th>Yield KG</th><th>Ficil</th></tr></thead><tbody id="cropsBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Dalag</th><th>Hektar</th><th>Beeris</th><th>Goosasho</th><th>Yield</th><th>Ficil</th></tr></thead><tbody id="cropsBody"></tbody></table></div></div>
+</section>
 
-<div id="finance" class="section">
+<section id="finance" class="section">
 <div class="card">
 <h2>💰 Accounting</h2>
 <div class="grid2">
-<div>
+<form id="incomeForm" class="card">
 <h3>➕ Dakhli</h3>
-<form id="incomeForm">
 <input type="hidden" id="incomeId">
-<label>Nooca</label><input id="incomeType" required placeholder="Caano, Dalag, Xoolo...">
-<label>Amount</label><input id="incomeAmount" type="number" step="0.01" required>
+<label>Nooca</label><input id="incomeType" required>
+<label>Amount</label><input id="incomeAmount" type="number" step=".01" required>
 <label>Taariikh</label><input id="incomeDate" type="date">
 <label>Faallo</label><textarea id="incomeNote"></textarea>
-<div class="actions"><button class="btn" type="submit">💾 Kaydi</button></div>
+<button class="btn">💾 Kaydi</button>
 </form>
-</div>
-<div>
+<form id="expenseForm" class="card">
 <h3>➖ Kharash</h3>
-<form id="expenseForm">
 <input type="hidden" id="expenseId">
-<label>Nooca</label><input id="expenseType" required placeholder="Waraab, Fuel, Mushahar...">
-<label>Amount</label><input id="expenseAmount" type="number" step="0.01" required>
+<label>Nooca</label><input id="expenseType" required placeholder="Waraab, Fuel...">
+<label>Amount</label><input id="expenseAmount" type="number" step=".01" required>
 <label>Taariikh</label><input id="expenseDate" type="date">
 <label>Faallo</label><textarea id="expenseNote"></textarea>
-<div class="actions"><button class="btn" type="submit">💾 Kaydi</button></div>
+<button class="btn">💾 Kaydi</button>
 </form>
-</div>
 </div>
 </div>
 <div class="grid3">
-<div class="card stat"><div class="stat-icon">💵</div><div class="stat-label">Dakhli</div><div class="stat-value" id="financeIncome">$0</div></div>
-<div class="card stat"><div class="stat-icon">💸</div><div class="stat-label">Kharash</div><div class="stat-value" id="financeExpense">$0</div></div>
-<div class="card stat"><div class="stat-icon">📈</div><div class="stat-label">Faa'iido</div><div class="stat-value" id="financeProfit">$0</div></div>
+<div class="card stat"><div class="icon">💰</div><div class="label">Dakhli</div><div class="value" id="fIncome">$0</div></div>
+<div class="card stat"><div class="icon">💸</div><div class="label">Kharash</div><div class="value" id="fExpense">$0</div></div>
+<div class="card stat"><div class="icon">📈</div><div class="label">Faa'iido</div><div class="value" id="fProfit">$0</div></div>
 </div>
-<div class="card">
-<h3>➕ Dakhli</h3>
-<div class="table-wrap"><table><thead><tr><th>Nooc</th><th>Amount</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="incomeBody"></tbody></table></div>
-</div>
-<div class="card">
-<h3>➖ Kharash</h3>
-<div class="table-wrap"><table><thead><tr><th>Nooc</th><th>Amount</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="expenseBody"></tbody></table></div>
-</div>
-</div>
+<div class="card"><h3>➕ Dakhli</h3><div class="table"><table><thead><tr><th>Nooc</th><th>Amount</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="incomeBody"></tbody></table></div></div>
+<div class="card"><h3>➖ Kharash</h3><div class="table"><table><thead><tr><th>Nooc</th><th>Amount</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="expenseBody"></tbody></table></div></div>
+</section>
 
-<div id="assets" class="section">
+<section id="assets" class="section">
 <div class="card">
 <h2>🏗️ Hanti</h2>
-<div class="notice">Ceelka waa <b>Hanti</b>. Waraabkuna waa <b>Kharash</b>.</div>
+<div class="notice">🕳️ <b>Ceel = Hanti</b> &nbsp; | &nbsp; 💧 <b>Waraab = Kharash</b></div>
 <form id="assetForm" class="form">
 <input type="hidden" id="assetId">
-<div><label>Magaca Hantida</label><input id="assetName" required placeholder="Ceel, Tractor..."></div>
+<div><label>Magaca Hantida</label><input id="assetName" required></div>
 <div><label>Category</label><input id="assetCategory" placeholder="Ceel / Tractor / Machine"></div>
-<div><label>Quantity</label><input id="assetQty" type="number" step="0.01" value="1"></div>
-<div><label>Purchase Value</label><input id="assetValue" type="number" step="0.01" value="0"></div>
+<div><label>Quantity</label><input id="assetQty" type="number" step=".01" value="1"></div>
+<div><label>Qiimaha</label><input id="assetValue" type="number" step=".01" value="0"></div>
 <div><label>Taariikh</label><input id="assetDate" type="date"></div>
 <div><label>Faallo</label><input id="assetNote"></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi Hanti</button><button class="btn secondary" type="button" onclick="resetAsset()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi Hanti</button><button type="button" class="btn light" onclick="resetAsset()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Hanti</th><th>Category</th><th>Qty</th><th>Qiime</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="assetsBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Hanti</th><th>Category</th><th>Qty</th><th>Qiime</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="assetsBody"></tbody></table></div></div>
+</section>
 
-<div id="inventory" class="section">
+<section id="inventory" class="section">
 <div class="card">
 <h2>📦 Inventory</h2>
 <form id="inventoryForm" class="form">
 <input type="hidden" id="inventoryId">
-<div><label>Item</label><input id="inventoryName" required placeholder="Bac, Seed, Fuel..."></div>
+<div><label>Item</label><input id="inventoryName" required></div>
 <div><label>Category</label><input id="inventoryCategory"></div>
-<div><label>Quantity</label><input id="inventoryQty" type="number" step="0.01" value="0"></div>
+<div><label>Quantity</label><input id="inventoryQty" type="number" step=".01"></div>
 <div><label>Unit</label><input id="inventoryUnit" value="pcs"></div>
-<div><label>Unit Cost</label><input id="inventoryCost" type="number" step="0.01" value="0"></div>
-<div><label>Min Stock</label><input id="inventoryMin" type="number" step="0.01" value="0"></div>
+<div><label>Unit Cost</label><input id="inventoryCost" type="number" step=".01"></div>
+<div><label>Min Stock</label><input id="inventoryMin" type="number" step=".01"></div>
 <div class="full"><label>Faallo</label><textarea id="inventoryNote"></textarea></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi</button><button class="btn secondary" type="button" onclick="resetInventory()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetInventory()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Item</th><th>Category</th><th>Qty</th><th>Unit</th><th>Cost</th><th>Ficil</th></tr></thead><tbody id="inventoryBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Item</th><th>Category</th><th>Qty</th><th>Unit</th><th>Cost</th><th>Ficil</th></tr></thead><tbody id="inventoryBody"></tbody></table></div></div>
+</section>
 
-<div id="feed" class="section">
+<section id="feed" class="section">
 <div class="card">
 <h2>🌾 Quudin</h2>
 <form id="feedForm" class="form">
 <input type="hidden" id="feedId">
-<div><label>Feed Type</label><input id="feedType" required placeholder="Galley, Grass..."></div>
-<div><label>Quantity KG</label><input id="feedQty" type="number" step="0.01" required></div>
-<div><label>Cost</label><input id="feedCost" type="number" step="0.01" value="0"></div>
+<div><label>Quudin</label><input id="feedType" required></div>
+<div><label>KG</label><input id="feedQty" type="number" step=".01" required></div>
+<div><label>Cost</label><input id="feedCost" type="number" step=".01"></div>
 <div><label>Taariikh</label><input id="feedDate" type="date"></div>
 <div class="full"><label>Faallo</label><textarea id="feedNote"></textarea></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi</button><button class="btn secondary" type="button" onclick="resetFeed()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetFeed()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Quudin</th><th>KG</th><th>Cost</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="feedBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Quudin</th><th>KG</th><th>Cost</th><th>Taariikh</th><th>Ficil</th></tr></thead><tbody id="feedBody"></tbody></table></div></div>
+</section>
 
-<div id="employees" class="section">
+<section id="employees" class="section">
 <div class="card">
 <h2>👥 Shaqaale</h2>
 <form id="employeeForm" class="form">
 <input type="hidden" id="employeeId">
 <div><label>Magac</label><input id="employeeName" required></div>
 <div><label>Shaqo</label><input id="employeeRole"></div>
-<div><label>Mushahar</label><input id="employeeSalary" type="number" step="0.01" value="0"></div>
+<div><label>Mushahar</label><input id="employeeSalary" type="number" step=".01"></div>
 <div><label>Phone</label><input id="employeePhone"></div>
 <div><label>Start Date</label><input id="employeeStart" type="date"></div>
 <div><label>Active</label><select id="employeeActive"><option value="true">Haa</option><option value="false">Maya</option></select></div>
 <div class="full"><label>Faallo</label><textarea id="employeeNote"></textarea></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi</button><button class="btn secondary" type="button" onclick="resetEmployee()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetEmployee()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Magac</th><th>Shaqo</th><th>Mushahar</th><th>Phone</th><th>Active</th><th>Ficil</th></tr></thead><tbody id="employeesBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Magac</th><th>Shaqo</th><th>Mushahar</th><th>Phone</th><th>Active</th><th>Ficil</th></tr></thead><tbody id="employeesBody"></tbody></table></div></div>
+</section>
 
-<div id="debts" class="section">
+<section id="debts" class="section">
 <div class="card">
 <h2>💳 Deyn</h2>
 <form id="debtForm" class="form">
 <input type="hidden" id="debtId">
 <div><label>Qof/Shirkad</label><input id="debtParty" required></div>
-<div><label>Debt Type</label><select id="debtType"><option>Lagu leeyahay</option><option>Lagugu leeyahay</option></select></div>
-<div><label>Amount</label><input id="debtAmount" type="number" step="0.01" required></div>
+<div><label>Nooca Deynta</label><select id="debtType"><option>Lagu leeyahay</option><option>Lagugu leeyahay</option></select></div>
+<div><label>Amount</label><input id="debtAmount" type="number" step=".01" required></div>
 <div><label>Due Date</label><input id="debtDue" type="date"></div>
 <div><label>Status</label><select id="debtStatus"><option>pending</option><option>paid</option><option>overdue</option></select></div>
 <div><label>Faallo</label><input id="debtNote"></div>
-<div class="full actions"><button class="btn" type="submit">💾 Kaydi</button><button class="btn secondary" type="button" onclick="resetDebt()">Nadiifi</button></div>
+<div class="full actions"><button class="btn">💾 Kaydi</button><button type="button" class="btn light" onclick="resetDebt()">Nadiifi</button></div>
 </form>
 </div>
-<div class="card"><div class="table-wrap"><table><thead><tr><th>Qof/Shirkad</th><th>Nooc</th><th>Amount</th><th>Due</th><th>Status</th><th>Ficil</th></tr></thead><tbody id="debtsBody"></tbody></table></div></div>
-</div>
+<div class="card"><div class="table"><table><thead><tr><th>Qof/Shirkad</th><th>Nooc</th><th>Amount</th><th>Due</th><th>Status</th><th>Ficil</th></tr></thead><tbody id="debtsBody"></tbody></table></div></div>
+</section>
 
-<div id="reports" class="section">
+<section id="reports" class="section">
 <div class="card">
 <h2>📊 Reports</h2>
 <div class="grid3">
-<div class="kpi"><b>Wadarta Dakhli</b><div id="reportIncome">$0</div></div>
-<div class="kpi"><b>Wadarta Kharash</b><div id="reportExpense">$0</div></div>
-<div class="kpi"><b>Net Profit</b><div id="reportProfit">$0</div></div>
+<div class="card stat"><div class="icon">💰</div><div class="label">Dakhli</div><div class="value" id="rIncome">$0</div></div>
+<div class="card stat"><div class="icon">💸</div><div class="label">Kharash</div><div class="value" id="rExpense">$0</div></div>
+<div class="card stat"><div class="icon">📈</div><div class="label">Net Profit</div><div class="value" id="rProfit">$0</div></div>
 </div>
+<button class="btn" onclick="loadAll()">🔄 Cusboonaysii</button>
 </div>
-<div class="card">
-<h3>📋 Warbixin TACBO Agro</h3>
-<p>Xogta warbixinta waxay ka imaanaysaa Supabase.</p>
-<button class="btn" onclick="loadAll()">🔄 Cusboonaysii Report</button>
-</div>
-</div>
+</section>
 
 </div>
 </div>
@@ -508,555 +338,202 @@ h2{font-size:21px}
 <div id="toast" class="toast"></div>
 
 <script>
-const SUPABASE_URL="https://ooytyzumwdrnrhureqmf.supabase.co";
-const SUPABASE_KEY="sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
-const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-let DATA={
-animals:[],milk:[],products:[],crops:[],income:[],expenses:[],
-assets:[],inventory:[],feed:[],employees:[],debts:[]
-};
-
-const $=id=>document.getElementById(id);
-const today=new Date().toISOString().slice(0,10);
+const URL="https://ooytyzumwdrnrhureqmf.supabase.co";
+const KEY="sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
+const db=window.supabase.createClient(URL,KEY);
+const D={animals:[],milk:[],products:[],crops:[],income:[],expenses:[],assets:[],inventory:[],feed:[],employees:[],debts:[]};
+const $=x=>document.getElementById(x);
+const today=()=>new Date().toISOString().slice(0,10);
+const n=x=>Number(x||0);
+const money=x=>"$"+n(x).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const dt=x=>x?String(x).slice(0,10):"";
+const esc=x=>String(x??"").replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[a]));
 
 document.addEventListener("DOMContentLoaded",async()=>{
-[
-"milkDate","productDate","cropPlanting","cropHarvest","incomeDate",
-"expenseDate","assetDate","feedDate","employeeStart","debtDue"
-].forEach(id=>{if($(id))$(id).value=today});
-const {data:{session}}=await supabase.auth.getSession();
-if(session)showApp(session);
-else showLogin();
+["milkDate","productDate","cropPlant","cropHarvest","incomeDate","expenseDate","assetDate","feedDate","employeeStart","debtDue"].forEach(x=>$(x)&&($(x).value=today()));
+const {data}=await db.auth.getSession();
+if(data.session)openApp(data.session);else showLogin();
 });
 
-supabase.auth.onAuthStateChange((event,session)=>{
-if(session)showApp(session);else showLogin();
-});
+db.auth.onAuthStateChange((e,s)=>{if(s)openApp(s);else showLogin()});
 
-function showLogin(){
-$("loginScreen").classList.remove("hidden");
-$("app").classList.add("hidden");
-}
-function showApp(session){
-$("loginScreen").classList.add("hidden");
-$("app").classList.remove("hidden");
-$("userEmail").textContent=session.user.email||"";
-loadAll();
-}
+function showLogin(){$("login").classList.remove("hidden");$("app").classList.add("hidden")}
+function openApp(s){$("login").classList.add("hidden");$("app").classList.remove("hidden");$("userEmail").textContent=s.user.email||"";loadAll()}
 async function login(){
-const email=$("loginEmail").value.trim();
-const password=$("loginPassword").value;
+const email=$("email").value.trim(),password=$("password").value;
 $("loginMsg").innerHTML="";
-if(!email||!password){
-$("loginMsg").innerHTML='<div class="error">Geli Email iyo Password.</div>';
-return;
+if(!email||!password){$("loginMsg").innerHTML='<div class="error">Email iyo Password geli.</div>';return}
+const {data,error}=await db.auth.signInWithPassword({email,password});
+if(error){$("loginMsg").innerHTML='<div class="error">'+esc(error.message)+'</div>';return}
+openApp(data.session)
 }
-const {data,error}=await supabase.auth.signInWithPassword({email,password});
-if(error){
-$("loginMsg").innerHTML='<div class="error">'+escapeHtml(error.message)+'</div>';
-return;
-}
-showApp(data.session);
-}
-async function logout(){
-await supabase.auth.signOut();
-showLogin();
-}
+async function logout(){await db.auth.signOut();showLogin()}
 
-function showSection(id,btn){
+function show(id,b){
 document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
 document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-$(id).classList.add("active");
-if(btn)btn.classList.add("active");
-window.scrollTo({top:0,behavior:"smooth"});
+$(id).classList.add("active");if(b)b.classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"})
 }
-
-function toast(msg){
-const t=$("toast");t.textContent=msg;t.style.display="block";
-setTimeout(()=>t.style.display="none",2200);
+function toast(x){$("toast").textContent=x;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2200)}
+async function rows(t){
+const {data,error}=await db.from(t).select("*").order("created_at",{ascending:false});
+if(error){console.log(t,error);return[]}return data||[]
 }
-
-function escapeHtml(v){
-return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
-function money(v){return "$"+Number(v||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
-function num(v){return Number(v||0)}
-function date(v){return v?v.slice(0,10):""}
-
-async function getRows(table){
-const {data,error}=await supabase.from(table).select("*").order("created_at",{ascending:false});
-if(error){console.error(table,error);return []}
-return data||[];
-}
-
 async function loadAll(){
-try{
-DATA.animals=await getRows("tacbo_animals");
-DATA.milk=await getRows("tacbo_milk_records");
-DATA.products=await getRows("tacbo_milk_products");
-DATA.crops=await getRows("tacbo_crops");
-DATA.income=await getRows("tacbo_income");
-DATA.expenses=await getRows("tacbo_expenses");
-DATA.assets=await getRows("tacbo_assets");
-DATA.inventory=await getRows("tacbo_inventory");
-DATA.feed=await getRows("tacbo_feed");
-DATA.employees=await getRows("tacbo_employees");
-DATA.debts=await getRows("tacbo_debts");
-
-renderAll();
-toast("Xogta waa la cusboonaysiiyey");
-}catch(e){console.error(e);toast("Waxaa dhacay qalad")}
+D.animals=await rows("tacbo_animals");
+D.milk=await rows("tacbo_milk_records");
+D.products=await rows("tacbo_milk_products");
+D.crops=await rows("tacbo_crops");
+D.income=await rows("tacbo_income");
+D.expenses=await rows("tacbo_expenses");
+D.assets=await rows("tacbo_assets");
+D.inventory=await rows("tacbo_inventory");
+D.feed=await rows("tacbo_feed");
+D.employees=await rows("tacbo_employees");
+D.debts=await rows("tacbo_debts");
+render();toast("Xogta waa la cusboonaysiiyey")
 }
-
-function renderAll(){
-renderAnimals();renderMilk();renderProducts();renderCrops();
-renderIncome();renderExpenses();renderAssets();renderInventory();
-renderFeed();renderEmployees();renderDebts();renderDashboard();
+function render(){renderAnimals();renderMilk();renderProducts();renderCrops();renderIncome();renderExpenses();renderAssets();renderInventory();renderFeed();renderEmployees();renderDebts();dashboard()}
+function act(t,id){return `<div class="actions" style="margin:0"><button class="btn edit" onclick="edit('${t}','${id}')">✏️ Edit</button><button class="btn red" onclick="del('${t}','${id}')">🗑️</button></div>`}
+function find(t,id){
+const map={tacbo_animals:D.animals,tacbo_milk_records:D.milk,tacbo_milk_products:D.products,tacbo_crops:D.crops,tacbo_income:D.income,tacbo_expenses:D.expenses,tacbo_assets:D.assets,tacbo_inventory:D.inventory,tacbo_feed:D.feed,tacbo_employees:D.employees,tacbo_debts:D.debts};
+return(map[t]||[]).find(x=>x.id===id)
 }
-
-function actions(table,id,type){
-return '<div class="actions" style="margin:0">'+
-'<button class="btn edit" onclick="editRow(\''+table+'\',\''+id+'\')">✏️ Edit</button>'+
-'<button class="btn danger" onclick="deleteRow(\''+table+'\',\''+id+'\')">🗑️</button></div>';
-}
-
 function renderAnimals(){
 const q=($("animalSearch")?.value||"").toLowerCase();
-const rows=DATA.animals.filter(r=>
-(r.animal_code||"").toLowerCase().includes(q)||
-(r.animal_type||"").toLowerCase().includes(q)
-);
-$("animalsBody").innerHTML=rows.length?rows.map(r=>`
-<tr>
-<td><b>${escapeHtml(r.animal_code)}</b></td>
-<td>${escapeHtml(r.animal_type)}</td>
-<td>${escapeHtml(r.sex)}</td>
-<td><span class="badge ${r.status==="nool"?"":"danger"}">${escapeHtml(r.status)}</span></td>
-<td>${num(r.weight_kg)}</td>
-<td>${money(r.current_value)}</td>
-<td>${actions("tacbo_animals",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="7" class="empty">Xog lama hayo</td></tr>';
+const a=D.animals.filter(x=>(x.animal_code||"").toLowerCase().includes(q)||(x.animal_type||"").toLowerCase().includes(q));
+$("animalsBody").innerHTML=a.length?a.map(x=>`<tr><td><b>${esc(x.animal_code)}</b></td><td>${esc(x.animal_type)}</td><td>${esc(x.sex)}</td><td><span class="badge ${x.status==="nool"?"":"red"}">${esc(x.status)}</span></td><td>${n(x.weight_kg)}</td><td>${money(x.current_value)}</td><td>${act("tacbo_animals",x.id)}</td></tr>`).join(""):`<tr><td colspan="7" style="text-align:center">Xog lama hayo</td></tr>`
 }
-
 function renderMilk(){
-let total=DATA.milk.reduce((a,r)=>a+num(r.quantity_liters),0);
-let sales=DATA.milk.reduce((a,r)=>a+num(r.total_amount),0);
-$("milkTotal").textContent=total.toLocaleString()+" L";
-$("milkSales").textContent=money(sales);
-$("milkAvg").textContent=money(total?sales/total:0);
-$("milkBody").innerHTML=DATA.milk.length?DATA.milk.map(r=>`
-<tr>
-<td>${escapeHtml(r.animal_type)}</td>
-<td>${num(r.quantity_liters)}</td>
-<td>${money(r.price_per_liter)}</td>
-<td>${money(r.total_amount)}</td>
-<td>${date(r.record_date)}</td>
-<td>${actions("tacbo_milk_records",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
+let q=D.milk.reduce((a,x)=>a+n(x.quantity_liters),0),s=D.milk.reduce((a,x)=>a+n(x.total_amount),0);
+$("milkTotal").textContent=q.toLocaleString()+" L";$("milkSales").textContent=money(s);$("milkAvg").textContent=money(q?s/q:0);
+$("milkBody").innerHTML=D.milk.map(x=>`<tr><td>${esc(x.animal_type)}</td><td>${n(x.quantity_liters)}</td><td>${money(x.price_per_liter)}</td><td>${money(x.total_amount)}</td><td>${dt(x.record_date)}</td><td>${act("tacbo_milk_records",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`
 }
-
-function renderProducts(){
-$("productsBody").innerHTML=DATA.products.length?DATA.products.map(r=>`
-<tr>
-<td>${escapeHtml(r.product_type)}</td>
-<td>${num(r.quantity)}</td>
-<td>${escapeHtml(r.unit)}</td>
-<td>${money(r.sale_price)}</td>
-<td>${money(r.total_amount)}</td>
-<td>${date(r.record_date)}</td>
-<td>${actions("tacbo_milk_products",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="7" class="empty">Xog lama hayo</td></tr>';
+function renderProducts(){$("productsBody").innerHTML=D.products.map(x=>`<tr><td>${esc(x.product_type)}</td><td>${n(x.quantity)}</td><td>${esc(x.unit)}</td><td>${money(x.sale_price)}</td><td>${money(x.total_amount)}</td><td>${dt(x.record_date)}</td><td>${act("tacbo_milk_products",x.id)}</td></tr>`).join("")||`<tr><td colspan="7">Xog lama hayo</td></tr>`}
+function renderCrops(){$("cropsBody").innerHTML=D.crops.map(x=>`<tr><td>${esc(x.crop_name)}</td><td>${n(x.area_hectares)}</td><td>${dt(x.planting_date)}</td><td>${dt(x.harvest_date)}</td><td>${n(x.yield_kg)}</td><td>${act("tacbo_crops",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`}
+function renderIncome(){$("incomeBody").innerHTML=D.income.map(x=>`<tr><td>${esc(x.income_type)}</td><td>${money(x.amount)}</td><td>${dt(x.income_date)}</td><td>${act("tacbo_income",x.id)}</td></tr>`).join("")||`<tr><td colspan="4">Xog lama hayo</td></tr>`}
+function renderExpenses(){$("expenseBody").innerHTML=D.expenses.map(x=>`<tr><td>${esc(x.expense_type)}</td><td>${money(x.amount)}</td><td>${dt(x.expense_date)}</td><td>${act("tacbo_expenses",x.id)}</td></tr>`).join("")||`<tr><td colspan="4">Xog lama hayo</td></tr>`}
+function renderAssets(){$("assetsBody").innerHTML=D.assets.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.category)}</td><td>${n(x.quantity)}</td><td>${money(x.purchase_value)}</td><td>${dt(x.purchase_date)}</td><td>${act("tacbo_assets",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`}
+function renderInventory(){$("inventoryBody").innerHTML=D.inventory.map(x=>`<tr><td>${esc(x.item_name)}</td><td>${esc(x.category)}</td><td>${n(x.quantity)}</td><td>${esc(x.unit)}</td><td>${money(x.unit_cost)}</td><td>${act("tacbo_inventory",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`}
+function renderFeed(){$("feedBody").innerHTML=D.feed.map(x=>`<tr><td>${esc(x.feed_type)}</td><td>${n(x.quantity_kg)}</td><td>${money(x.cost)}</td><td>${dt(x.feed_date)}</td><td>${act("tacbo_feed",x.id)}</td></tr>`).join("")||`<tr><td colspan="5">Xog lama hayo</td></tr>`}
+function renderEmployees(){$("employeesBody").innerHTML=D.employees.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.role)}</td><td>${money(x.salary)}</td><td>${esc(x.phone)}</td><td>${x.active?"Haa":"Maya"}</td><td>${act("tacbo_employees",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`}
+function renderDebts(){$("debtsBody").innerHTML=D.debts.map(x=>`<tr><td>${esc(x.party_name)}</td><td>${esc(x.debt_type)}</td><td>${money(x.amount)}</td><td>${dt(x.due_date)}</td><td><span class="badge">${esc(x.status)}</span></td><td>${act("tacbo_debts",x.id)}</td></tr>`).join("")||`<tr><td colspan="6">Xog lama hayo</td></tr>`}
+function dashboard(){
+let i=D.income.reduce((a,x)=>a+n(x.amount),0),e=D.expenses.reduce((a,x)=>a+n(x.amount),0),m=D.milk.reduce((a,x)=>a+n(x.quantity_liters),0),a=D.assets.reduce((s,x)=>s+n(x.purchase_value),0);
+$("dAnimals").textContent=D.animals.length;$("dMilk").textContent=m.toLocaleString()+" L";$("dIncome").textContent=money(i);$("dExpense").textContent=money(e);$("dProfit").textContent=money(i-e);$("dAssets").textContent=money(a);
+$("fIncome").textContent=money(i);$("fExpense").textContent=money(e);$("fProfit").textContent=money(i-e);
+$("rIncome").textContent=money(i);$("rExpense").textContent=money(e);$("rProfit").textContent=money(i-e)
 }
-
-function renderCrops(){
-$("cropsBody").innerHTML=DATA.crops.length?DATA.crops.map(r=>`
-<tr>
-<td>${escapeHtml(r.crop_name)}</td>
-<td>${num(r.area_hectares)}</td>
-<td>${date(r.planting_date)}</td>
-<td>${date(r.harvest_date)}</td>
-<td>${num(r.yield_kg)}</td>
-<td>${actions("tacbo_crops",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
+async function save(t,id,data){
+let r=id?await db.from(t).update(data).eq("id",id):await db.from(t).insert(data);
+if(r.error){alert(r.error.message);return false}await loadAll();return true
 }
-
-function renderIncome(){
-const total=DATA.income.reduce((a,r)=>a+num(r.amount),0);
-$("financeIncome").textContent=money(total);
-$("incomeBody").innerHTML=DATA.income.length?DATA.income.map(r=>`
-<tr>
-<td>${escapeHtml(r.income_type)}</td><td>${money(r.amount)}</td><td>${date(r.income_date)}</td>
-<td>${actions("tacbo_income",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="4" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderExpenses(){
-const total=DATA.expenses.reduce((a,r)=>a+num(r.amount),0);
-$("financeExpense").textContent=money(total);
-$("expenseBody").innerHTML=DATA.expenses.length?DATA.expenses.map(r=>`
-<tr>
-<td>${escapeHtml(r.expense_type)}</td><td>${money(r.amount)}</td><td>${date(r.expense_date)}</td>
-<td>${actions("tacbo_expenses",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="4" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderAssets(){
-$("assetsBody").innerHTML=DATA.assets.length?DATA.assets.map(r=>`
-<tr>
-<td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.category)}</td><td>${num(r.quantity)}</td>
-<td>${money(r.purchase_value)}</td><td>${date(r.purchase_date)}</td>
-<td>${actions("tacbo_assets",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderInventory(){
-$("inventoryBody").innerHTML=DATA.inventory.length?DATA.inventory.map(r=>`
-<tr>
-<td>${escapeHtml(r.item_name)}</td><td>${escapeHtml(r.category)}</td><td>${num(r.quantity)}</td>
-<td>${escapeHtml(r.unit)}</td><td>${money(r.unit_cost)}</td>
-<td>${actions("tacbo_inventory",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderFeed(){
-$("feedBody").innerHTML=DATA.feed.length?DATA.feed.map(r=>`
-<tr>
-<td>${escapeHtml(r.feed_type)}</td><td>${num(r.quantity_kg)}</td><td>${money(r.cost)}</td>
-<td>${date(r.feed_date)}</td><td>${actions("tacbo_feed",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="5" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderEmployees(){
-$("employeesBody").innerHTML=DATA.employees.length?DATA.employees.map(r=>`
-<tr>
-<td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.role)}</td><td>${money(r.salary)}</td>
-<td>${escapeHtml(r.phone)}</td><td>${r.active?"Haa":"Maya"}</td>
-<td>${actions("tacbo_employees",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderDebts(){
-$("debtsBody").innerHTML=DATA.debts.length?DATA.debts.map(r=>`
-<tr>
-<td>${escapeHtml(r.party_name)}</td><td>${escapeHtml(r.debt_type)}</td><td>${money(r.amount)}</td>
-<td>${date(r.due_date)}</td><td><span class="badge">${escapeHtml(r.status)}</span></td>
-<td>${actions("tacbo_debts",r.id)}</td>
-</tr>`).join(""):'<tr><td colspan="6" class="empty">Xog lama hayo</td></tr>';
-}
-
-function renderDashboard(){
-const animals=DATA.animals.length;
-const milk=DATA.milk.reduce((a,r)=>a+num(r.quantity_liters),0);
-const income=DATA.income.reduce((a,r)=>a+num(r.amount),0);
-const expense=DATA.expenses.reduce((a,r)=>a+num(r.amount),0);
-const assets=DATA.assets.reduce((a,r)=>a+num(r.purchase_value),0);
-$("dashAnimals").textContent=animals;
-$("dashMilk").textContent=milk.toLocaleString()+" L";
-$("dashIncome").textContent=money(income);
-$("dashExpense").textContent=money(expense);
-$("dashProfit").textContent=money(income-expense);
-$("dashAssets").textContent=money(assets);
-$("financeProfit").textContent=money(income-expense);
-$("reportIncome").textContent=money(income);
-$("reportExpense").textContent=money(expense);
-$("reportProfit").textContent=money(income-expense);
-}
-
-async function save(table,id,payload){
-let result;
-if(id)result=await supabase.from(table).update(payload).eq("id",id);
-else result=await supabase.from(table).insert(payload);
-if(result.error){alert(result.error.message);return false}
-await loadAll();return true;
-}
-
-async function deleteRow(table,id){
+async function del(t,id){
 if(!confirm("Ma hubtaa inaad tirtirayso xogtan?"))return;
-const {error}=await supabase.from(table).delete().eq("id",id);
-if(error){
-alert("Delete lama ogola: "+error.message);
-return;
+const {error}=await db.from(t).delete().eq("id",id);
+if(error){alert("Delete lama ogola: "+error.message);return}
+await loadAll();toast("Xogta waa la tirtiray")
 }
-await loadAll();
-toast("Xogta waa la tirtiray");
-}
+function val(id){return $(id).value}
+function set(id,v){if($(id))$(id).value=v??""}
+function resetAnimal(){$("animalForm").reset();set("animalId","")}
+function resetMilk(){$("milkForm").reset();set("milkId","");set("milkDate",today())}
+function resetProduct(){$("productForm").reset();set("productId","");set("productDate",today())}
+function resetCrop(){$("cropForm").reset();set("cropId","")}
+function resetAsset(){$("assetForm").reset();set("assetId","");set("assetDate",today())}
+function resetInventory(){$("inventoryForm").reset();set("inventoryId","")}
+function resetFeed(){$("feedForm").reset();set("feedId","");set("feedDate",today())}
+function resetEmployee(){$("employeeForm").reset();set("employeeId","");set("employeeStart",today())}
+function resetDebt(){$("debtForm").reset();set("debtId","")}
 
-function resetAnimal(){
-$("animalForm").reset();$("animalId").value="";
-}
-function resetMilk(){
-$("milkForm").reset();$("milkId").value="";$("milkDate").value=today;
-}
-function resetProduct(){
-$("productForm").reset();$("productId").value="";$("productDate").value=today;
-}
-function resetCrop(){
-$("cropForm").reset();$("cropId").value="";
-}
-function resetAsset(){
-$("assetForm").reset();$("assetId").value="";$("assetDate").value=today;
-}
-function resetInventory(){
-$("inventoryForm").reset();$("inventoryId").value="";
-}
-function resetFeed(){
-$("feedForm").reset();$("feedId").value="";$("feedDate").value=today;
-}
-function resetEmployee(){
-$("employeeForm").reset();$("employeeId").value="";$("employeeStart").value=today;
-}
-function resetDebt(){
-$("debtForm").reset();$("debtId").value="";
-}
+$("animalForm").onsubmit=async e=>{
+e.preventDefault();let id=val("animalId");
+await save("tacbo_animals",id,{animal_code:val("animalCode"),animal_type:val("animalType"),sex:val("animalSex")||null,status:val("animalStatus"),birth_date:val("animalBirth")||null,weight_kg:n(val("animalWeight")),purchase_value:n(val("animalPurchase")),current_value:n(val("animalCurrent")),note:val("animalNote")});resetAnimal()
+};
+$("milkForm").onsubmit=async e=>{
+e.preventDefault();let id=val("milkId"),q=n(val("milkQty")),p=n(val("milkPrice"));
+await save("tacbo_milk_records",id,{animal_type:val("milkAnimal"),quantity_liters:q,price_per_liter:p,total_amount:q*p,record_date:val("milkDate")||today(),note:val("milkNote")});resetMilk()
+};
+$("productForm").onsubmit=async e=>{
+e.preventDefault();let id=val("productId"),q=n(val("productQty")),p=n(val("productPrice"));
+await save("tacbo_milk_products",id,{product_type:val("productType"),quantity:q,unit:val("productUnit"),sale_price:p,total_amount:q*p,record_date:val("productDate")||today(),note:val("productNote")});resetProduct()
+};
+$("cropForm").onsubmit=async e=>{
+e.preventDefault();let id=val("cropId");
+await save("tacbo_crops",id,{crop_name:val("cropName"),area_hectares:n(val("cropArea")),planting_date:val("cropPlant")||null,harvest_date:val("cropHarvest")||null,yield_kg:n(val("cropYield")),note:val("cropNote")});resetCrop()
+};
+$("incomeForm").onsubmit=async e=>{
+e.preventDefault();let id=val("incomeId");
+await save("tacbo_income",id,{income_type:val("incomeType"),amount:n(val("incomeAmount")),income_date:val("incomeDate")||today(),note:val("incomeNote")});
+$("incomeForm").reset();set("incomeDate",today())
+};
+$("expenseForm").onsubmit=async e=>{
+e.preventDefault();let id=val("expenseId");
+await save("tacbo_expenses",id,{expense_type:val("expenseType"),amount:n(val("expenseAmount")),expense_date:val("expenseDate")||today(),note:val("expenseNote")});
+$("expenseForm").reset();set("expenseDate",today())
+};
+$("assetForm").onsubmit=async e=>{
+e.preventDefault();let id=val("assetId");
+await save("tacbo_assets",id,{name:val("assetName"),category:val("assetCategory"),quantity:n(val("assetQty")),purchase_value:n(val("assetValue")),purchase_date:val("assetDate")||today(),note:val("assetNote")});resetAsset()
+};
+$("inventoryForm").onsubmit=async e=>{
+e.preventDefault();let id=val("inventoryId");
+await save("tacbo_inventory",id,{item_name:val("inventoryName"),category:val("inventoryCategory"),quantity:n(val("inventoryQty")),unit:val("inventoryUnit"),unit_cost:n(val("inventoryCost")),min_stock:n(val("inventoryMin")),note:val("inventoryNote")});resetInventory()
+};
+$("feedForm").onsubmit=async e=>{
+e.preventDefault();let id=val("feedId");
+await save("tacbo_feed",id,{feed_type:val("feedType"),quantity_kg:n(val("feedQty")),cost:n(val("feedCost")),feed_date:val("feedDate")||today(),note:val("feedNote")});resetFeed()
+};
+$("employeeForm").onsubmit=async e=>{
+e.preventDefault();let id=val("employeeId");
+await save("tacbo_employees",id,{name:val("employeeName"),role:val("employeeRole"),salary:n(val("employeeSalary")),phone:val("employeePhone"),start_date:val("employeeStart")||today(),active:val("employeeActive")==="true",note:val("employeeNote")});resetEmployee()
+};
+$("debtForm").onsubmit=async e=>{
+e.preventDefault();let id=val("debtId");
+await save("tacbo_debts",id,{party_name:val("debtParty"),debt_type:val("debtType"),amount:n(val("debtAmount")),due_date:val("debtDue")||null,status:val("debtStatus"),note:val("debtNote")});resetDebt()
+};
 
-$("animalForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("animalId").value;
-await save("tacbo_animals",id,{
-animal_code:$("animalCode").value.trim(),
-animal_type:$("animalType").value,
-sex:$("animalSex").value||null,
-status:$("animalStatus").value,
-birth_date:$("animalBirth").value||null,
-weight_kg:num($("animalWeight").value),
-purchase_value:num($("animalPurchase").value),
-current_value:num($("animalCurrent").value),
-note:$("animalNote").value
-});
-resetAnimal();toast("Animal-ka waa la kaydiyey");
-});
-
-$("milkForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("milkId").value;
-const qty=num($("milkQty").value),price=num($("milkPrice").value);
-await save("tacbo_milk_records",id,{
-animal_type:$("milkAnimalType").value,
-quantity_liters:qty,
-price_per_liter:price,
-total_amount:qty*price,
-record_date:$("milkDate").value||today,
-note:$("milkNote").value
-});
-resetMilk();toast("Caanaha waa la kaydiyey");
-});
-
-$("productForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("productId").value;
-const qty=num($("productQty").value),price=num($("productPrice").value);
-await save("tacbo_milk_products",id,{
-product_type:$("productType").value,
-quantity:qty,
-unit:$("productUnit").value,
-sale_price:price,
-total_amount:qty*price,
-record_date:$("productDate").value||today,
-note:$("productNote").value
-});
-resetProduct();toast("Product-ka waa la kaydiyey");
-});
-
-$("cropForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("cropId").value;
-await save("tacbo_crops",id,{
-crop_name:$("cropName").value,
-area_hectares:num($("cropArea").value),
-planting_date:$("cropPlanting").value||null,
-harvest_date:$("cropHarvest").value||null,
-yield_kg:num($("cropYield").value),
-note:$("cropNote").value
-});
-resetCrop();toast("Dalagga waa la kaydiyey");
-});
-
-$("incomeForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("incomeId").value;
-await save("tacbo_income",id,{
-income_type:$("incomeType").value,
-amount:num($("incomeAmount").value),
-income_date:$("incomeDate").value||today,
-note:$("incomeNote").value
-});
-$("incomeForm").reset();$("incomeId").value="";$("incomeDate").value=today;
-toast("Dakhli waa la kaydiyey");
-});
-
-$("expenseForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("expenseId").value;
-await save("tacbo_expenses",id,{
-expense_type:$("expenseType").value,
-amount:num($("expenseAmount").value),
-expense_date:$("expenseDate").value||today,
-note:$("expenseNote").value
-});
-$("expenseForm").reset();$("expenseId").value="";$("expenseDate").value=today;
-toast("Kharash waa la kaydiyey");
-});
-
-$("assetForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("assetId").value;
-await save("tacbo_assets",id,{
-name:$("assetName").value,
-category:$("assetCategory").value,
-quantity:num($("assetQty").value),
-purchase_value:num($("assetValue").value),
-purchase_date:$("assetDate").value||today,
-note:$("assetNote").value
-});
-resetAsset();toast("Hantida waa la kaydiyey");
-});
-
-$("inventoryForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("inventoryId").value;
-await save("tacbo_inventory",id,{
-item_name:$("inventoryName").value,
-category:$("inventoryCategory").value,
-quantity:num($("inventoryQty").value),
-unit:$("inventoryUnit").value,
-unit_cost:num($("inventoryCost").value),
-min_stock:num($("inventoryMin").value),
-note:$("inventoryNote").value
-});
-resetInventory();toast("Inventory waa la kaydiyey");
-});
-
-$("feedForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("feedId").value;
-await save("tacbo_feed",id,{
-feed_type:$("feedType").value,
-quantity_kg:num($("feedQty").value),
-cost:num($("feedCost").value),
-feed_date:$("feedDate").value||today,
-note:$("feedNote").value
-});
-resetFeed();toast("Quudinta waa la kaydiyey");
-});
-
-$("employeeForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("employeeId").value;
-await save("tacbo_employees",id,{
-name:$("employeeName").value,
-role:$("employeeRole").value,
-salary:num($("employeeSalary").value),
-phone:$("employeePhone").value,
-start_date:$("employeeStart").value||today,
-active:$("employeeActive").value==="true",
-note:$("employeeNote").value
-});
-resetEmployee();toast("Shaqaalaha waa la kaydiyey");
-});
-
-$("debtForm").addEventListener("submit",async e=>{
-e.preventDefault();
-const id=$("debtId").value;
-await save("tacbo_debts",id,{
-party_name:$("debtParty").value,
-debt_type:$("debtType").value,
-amount:num($("debtAmount").value),
-due_date:$("debtDue").value||null,
-status:$("debtStatus").value,
-note:$("debtNote").value
-});
-resetDebt();toast("Deynta waa la kaydiyey");
-});
-
-function fill(id,value){if($(id))$(id).value=value??""}
-
-function editRow(table,id){
-const r=DATAMap(table).find(x=>x.id===id);
-if(!r)return;
-
-if(table==="tacbo_animals"){
-fill("animalId",r.id);fill("animalCode",r.animal_code);fill("animalType",r.animal_type);
-fill("animalSex",r.sex);fill("animalStatus",r.status);fill("animalBirth",date(r.birth_date));
-fill("animalWeight",r.weight_kg);fill("animalPurchase",r.purchase_value);fill("animalCurrent",r.current_value);fill("animalNote",r.note);
-showSectionById("animals");scrollToForm("animalForm");
+function edit(t,id){
+const x=find(t,id);if(!x)return;
+if(t==="tacbo_animals"){
+set("animalId",x.id);set("animalCode",x.animal_code);set("animalType",x.animal_type);set("animalSex",x.sex);set("animalStatus",x.status);set("animalBirth",dt(x.birth_date));set("animalWeight",x.weight_kg);set("animalPurchase",x.purchase_value);set("animalCurrent",x.current_value);set("animalNote",x.note);go("animals","animalForm")
 }
-else if(table==="tacbo_milk_records"){
-fill("milkId",r.id);fill("milkAnimalType",r.animal_type);fill("milkQty",r.quantity_liters);
-fill("milkPrice",r.price_per_liter);fill("milkDate",date(r.record_date));fill("milkNote",r.note);
-showSectionById("milk");scrollToForm("milkForm");
+else if(t==="tacbo_milk_records"){
+set("milkId",x.id);set("milkAnimal",x.animal_type);set("milkQty",x.quantity_liters);set("milkPrice",x.price_per_liter);set("milkDate",dt(x.record_date));set("milkNote",x.note);go("milk","milkForm")
 }
-else if(table==="tacbo_milk_products"){
-fill("productId",r.id);fill("productType",r.product_type);fill("productQty",r.quantity);
-fill("productUnit",r.unit);fill("productPrice",r.sale_price);fill("productDate",date(r.record_date));fill("productNote",r.note);
-showSectionById("products");scrollToForm("productForm");
+else if(t==="tacbo_milk_products"){
+set("productId",x.id);set("productType",x.product_type);set("productQty",x.quantity);set("productUnit",x.unit);set("productPrice",x.sale_price);set("productDate",dt(x.record_date));set("productNote",x.note);go("products","productForm")
 }
-else if(table==="tacbo_crops"){
-fill("cropId",r.id);fill("cropName",r.crop_name);fill("cropArea",r.area_hectares);
-fill("cropPlanting",date(r.planting_date));fill("cropHarvest",date(r.harvest_date));fill("cropYield",r.yield_kg);fill("cropNote",r.note);
-showSectionById("crops");scrollToForm("cropForm");
+else if(t==="tacbo_crops"){
+set("cropId",x.id);set("cropName",x.crop_name);set("cropArea",x.area_hectares);set("cropPlant",dt(x.planting_date));set("cropHarvest",dt(x.harvest_date));set("cropYield",x.yield_kg);set("cropNote",x.note);go("crops","cropForm")
 }
-else if(table==="tacbo_income"){
-fill("incomeId",r.id);fill("incomeType",r.income_type);fill("incomeAmount",r.amount);
-fill("incomeDate",date(r.income_date));fill("incomeNote",r.note);
-showSectionById("finance");scrollToForm("incomeForm");
+else if(t==="tacbo_income"){
+set("incomeId",x.id);set("incomeType",x.income_type);set("incomeAmount",x.amount);set("incomeDate",dt(x.income_date));set("incomeNote",x.note);go("finance","incomeForm")
 }
-else if(table==="tacbo_expenses"){
-fill("expenseId",r.id);fill("expenseType",r.expense_type);fill("expenseAmount",r.amount);
-fill("expenseDate",date(r.expense_date));fill("expenseNote",r.note);
-showSectionById("finance");scrollToForm("expenseForm");
+else if(t==="tacbo_expenses"){
+set("expenseId",x.id);set("expenseType",x.expense_type);set("expenseAmount",x.amount);set("expenseDate",dt(x.expense_date));set("expenseNote",x.note);go("finance","expenseForm")
 }
-else if(table==="tacbo_assets"){
-fill("assetId",r.id);fill("assetName",r.name);fill("assetCategory",r.category);
-fill("assetQty",r.quantity);fill("assetValue",r.purchase_value);fill("assetDate",date(r.purchase_date));fill("assetNote",r.note);
-showSectionById("assets");scrollToForm("assetForm");
+else if(t==="tacbo_assets"){
+set("assetId",x.id);set("assetName",x.name);set("assetCategory",x.category);set("assetQty",x.quantity);set("assetValue",x.purchase_value);set("assetDate",dt(x.purchase_date));set("assetNote",x.note);go("assets","assetForm")
 }
-else if(table==="tacbo_inventory"){
-fill("inventoryId",r.id);fill("inventoryName",r.item_name);fill("inventoryCategory",r.category);
-fill("inventoryQty",r.quantity);fill("inventoryUnit",r.unit);fill("inventoryCost",r.unit_cost);fill("inventoryMin",r.min_stock);fill("inventoryNote",r.note);
-showSectionById("inventory");scrollToForm("inventoryForm");
+else if(t==="tacbo_inventory"){
+set("inventoryId",x.id);set("inventoryName",x.item_name);set("inventoryCategory",x.category);set("inventoryQty",x.quantity);set("inventoryUnit",x.unit);set("inventoryCost",x.unit_cost);set("inventoryMin",x.min_stock);set("inventoryNote",x.note);go("inventory","inventoryForm")
 }
-else if(table==="tacbo_feed"){
-fill("feedId",r.id);fill("feedType",r.feed_type);fill("feedQty",r.quantity_kg);
-fill("feedCost",r.cost);fill("feedDate",date(r.feed_date));fill("feedNote",r.note);
-showSectionById("feed");scrollToForm("feedForm");
+else if(t==="tacbo_feed"){
+set("feedId",x.id);set("feedType",x.feed_type);set("feedQty",x.quantity_kg);set("feedCost",x.cost);set("feedDate",dt(x.feed_date));set("feedNote",x.note);go("feed","feedForm")
 }
-else if(table==="tacbo_employees"){
-fill("employeeId",r.id);fill("employeeName",r.name);fill("employeeRole",r.role);
-fill("employeeSalary",r.salary);fill("employeePhone",r.phone);fill("employeeStart",date(r.start_date));
-fill("employeeActive",String(r.active));fill("employeeNote",r.note);
-showSectionById("employees");scrollToForm("employeeForm");
+else if(t==="tacbo_employees"){
+set("employeeId",x.id);set("employeeName",x.name);set("employeeRole",x.role);set("employeeSalary",x.salary);set("employeePhone",x.phone);set("employeeStart",dt(x.start_date));set("employeeActive",String(x.active));set("employeeNote",x.note);go("employees","employeeForm")
 }
-else if(table==="tacbo_debts"){
-fill("debtId",r.id);fill("debtParty",r.party_name);fill("debtType",r.debt_type);
-fill("debtAmount",r.amount);fill("debtDue",date(r.due_date));fill("debtStatus",r.status);fill("debtNote",r.note);
-showSectionById("debts");scrollToForm("debtForm");
+else if(t==="tacbo_debts"){
+set("debtId",x.id);set("debtParty",x.party_name);set("debtType",x.debt_type);set("debtAmount",x.amount);set("debtDue",dt(x.due_date));set("debtStatus",x.status);set("debtNote",x.note);go("debts","debtForm")
 }
-toast("Edit mode waa la furay");
+toast("✏️ Edit mode waa la furay")
 }
-
-function DATAMap(table){
-return{
-tacbo_animals:DATA.animals,
-tacbo_milk_records:DATA.milk,
-tacbo_milk_products:DATA.products,
-tacbo_crops:DATA.crops,
-tacbo_income:DATA.income,
-tacbo_expenses:DATA.expenses,
-tacbo_assets:DATA.assets,
-tacbo_inventory:DATA.inventory,
-tacbo_feed:DATA.feed,
-tacbo_employees:DATA.employees,
-tacbo_debts:DATA.debts
-}[table]||[];
-}
-
-function showSectionById(id){
-const btn=[...document.querySelectorAll(".nav button")].find(b=>b.getAttribute("onclick")?.includes("'"+id+"'"));
-showSection(id,btn);
-}
-function scrollToForm(id){
-setTimeout(()=>$(id)?.scrollIntoView({behavior:"smooth",block:"start"}),100);
+function go(sec,form){
+const b=[...document.querySelectorAll(".nav button")].find(x=>x.getAttribute("onclick")?.includes("'"+sec+"'"));
+show(sec,b);setTimeout(()=>$(form)?.scrollIntoView({behavior:"smooth",block:"start"}),100)
 }
 </script>
 </body>
