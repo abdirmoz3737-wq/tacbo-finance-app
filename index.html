@@ -4,340 +4,273 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#16814f">
-<meta name="description" content="TACBO Agro — maamulka xoolaha, beeraha, maaliyadda iyo hantida.">
-<title>TACBO Agro — FINAL A-Z</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.2/dist/umd/supabase.min.js"></script>
+<title>TACBO Agro</title>
 
 <style>
 *{box-sizing:border-box}
-
-:root{
- --green:#16814f;
- --green2:#0f6840;
- --light:#f2f7f4;
- --ink:#17352a;
- --muted:#718078;
- --line:#dce7e2;
-}
-
 body{
- margin:0;
- background:var(--light);
- color:var(--ink);
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+margin:0;
+background:#f2f7f4;
+color:#17352a;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
 }
-
 header{
- background:linear-gradient(135deg,var(--green),var(--green2));
- color:#fff;
- padding:14px 18px;
- display:flex;
- align-items:center;
- gap:12px;
- position:sticky;
- top:0;
- z-index:20;
- box-shadow:0 4px 18px #0002;
+position:sticky;
+top:0;
+z-index:20;
+background:linear-gradient(135deg,#16814f,#0f6840);
+color:white;
+padding:13px;
+display:flex;
+align-items:center;
+gap:11px;
+box-shadow:0 4px 18px #0002
 }
-
 .logo{
- width:48px;
- height:48px;
- border-radius:15px;
- background:#ffffff25;
- display:grid;
- place-items:center;
- font-size:29px;
+width:46px;
+height:46px;
+border-radius:14px;
+background:#ffffff25;
+display:grid;
+place-items:center;
+font-size:27px
 }
-
 .brand{
- font-size:25px;
- font-weight:800;
+font-size:23px;
+font-weight:850
 }
-
 .top{
- margin-left:auto;
- display:flex;
- gap:8px;
+margin-left:auto;
+display:flex;
+gap:7px
 }
-
-.iconbtn{
- border:0;
- background:#ffffff20;
- color:white;
- width:46px;
- height:46px;
- border-radius:14px;
- font-size:23px;
-}
-
-.wrap{
- max-width:1000px;
- margin:auto;
- padding:20px 16px 60px;
-}
-
-h1{
- font-size:31px;
- margin:5px 0;
-}
-
-.sub{
- color:var(--muted);
- font-size:18px;
- margin-bottom:18px;
-}
-
-.actions{
- display:flex;
- gap:9px;
- flex-wrap:wrap;
- margin:18px 0;
-}
-
 button{
- border:0;
- border-radius:14px;
- padding:13px 17px;
- background:linear-gradient(135deg,var(--green),var(--green2));
- color:white;
- font-size:16px;
- font-weight:800;
- box-shadow:0 3px 9px rgba(22,129,79,.16);
- cursor:pointer;
+border:0;
+border-radius:14px;
+padding:12px 15px;
+background:linear-gradient(135deg,#16814f,#0f6840);
+color:#fff;
+font-size:15px;
+font-weight:800;
+cursor:pointer
 }
-
 button.alt{
- background:#e7f2ed;
- color:var(--green2);
- box-shadow:none;
+background:#e5f2ec;
+color:#116b45
 }
-
 button.danger{
- background:#9c3d29;
+background:#9c3d29
 }
-
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:14px;
+.icon{
+width:45px;
+height:45px;
+padding:0!important;
+background:#ffffff22!important
 }
-
-.card,.panel{
- background:#fff;
- border:1px solid #e3ece7;
- border-radius:23px;
- padding:20px;
- box-shadow:0 10px 30px rgba(23,53,42,.08);
- margin-bottom:15px;
+.wrap{
+max-width:1050px;
+margin:auto;
+padding:18px 13px 60px
 }
-
-.card:hover{
- transform:translateY(-2px);
+h1{
+font-size:30px;
+margin:4px 0
 }
-
-.label{
- color:#6a7770;
- font-weight:750;
- font-size:17px;
+.sub{
+color:#718078;
+font-size:17px
 }
-
-.big{
- font-size:29px;
- font-weight:850;
- margin-top:7px;
-}
-
-.sectiontitle{
- font-size:23px;
- font-weight:850;
- margin:0 0 14px;
-}
-
-.two{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-
-label{
- display:block;
- font-weight:700;
- color:#59665f;
- margin-top:8px;
-}
-
-input,select,textarea{
- width:100%;
- padding:14px;
- border:2px solid var(--line);
- border-radius:13px;
- background:#fff;
- font-size:16px;
- margin:6px 0 10px;
- color:var(--ink);
- outline:none;
-}
-
-input:focus,select:focus,textarea:focus{
- border-color:var(--green);
- box-shadow:0 0 0 3px rgba(22,129,79,.10);
-}
-
-textarea{
- min-height:80px;
- resize:vertical;
-}
-
-table{
- width:100%;
- border-collapse:collapse;
-}
-
-th,td{
- text-align:left;
- padding:11px 8px;
- border-bottom:1px solid #e5ece8;
-}
-
-th{
- color:#647169;
-}
-
-.scroll{
- overflow:auto;
-}
-
-.status{
- position:fixed;
- right:14px;
- bottom:18px;
- z-index:50;
- background:#17352a;
- color:#fff;
- padding:14px 17px;
- border-radius:16px;
- max-width:92%;
- box-shadow:0 8px 25px #0003;
-}
-
-.status.ok{
- background:#176f49;
-}
-
-.status.err{
- background:#963c29;
-}
-
 nav{
- display:flex;
- gap:8px;
- overflow:auto;
- padding:5px 0 13px;
- position:sticky;
- top:78px;
- background:var(--light);
- z-index:10;
+display:flex;
+gap:7px;
+overflow:auto;
+padding:12px 0;
+position:sticky;
+top:72px;
+z-index:10;
+background:#f2f7f4
 }
-
 nav button{
- white-space:nowrap;
- padding:10px 13px;
- font-size:14px;
- box-shadow:none;
+white-space:nowrap
 }
-
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin:12px 0
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px
+}
+.card,.panel{
+background:white;
+border:1px solid #e3ece7;
+border-radius:22px;
+padding:18px;
+margin-bottom:14px;
+box-shadow:0 9px 28px #17352a12
+}
+.label{
+font-weight:750;
+color:#69766f
+}
+.big{
+font-size:29px;
+font-weight:900;
+margin-top:5px
+}
+.sectiontitle{
+font-size:22px;
+font-weight:900;
+margin:0 0 12px
+}
+.two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+label{
+display:block;
+font-weight:750;
+color:#59665f;
+margin-top:7px
+}
+input,select,textarea{
+width:100%;
+padding:13px;
+border:2px solid #dce7e2;
+border-radius:13px;
+background:#fff;
+color:#17352a;
+font-size:16px;
+margin:5px 0 9px;
+outline:none
+}
+textarea{
+min-height:80px;
+resize:vertical
+}
+input:focus,select:focus,textarea:focus{
+border-color:#16814f;
+box-shadow:0 0 0 3px #16814f18
+}
+.scroll{
+overflow:auto
+}
+table{
+width:100%;
+border-collapse:collapse
+}
+th,td{
+text-align:left;
+padding:10px 7px;
+border-bottom:1px solid #e5ece8;
+white-space:nowrap
+}
 .muted{
- color:#7b8781;
+color:#7b8781
 }
-
 .item{
- padding:12px 0;
- border-bottom:1px solid #e5ece8;
- display:flex;
- justify-content:space-between;
- gap:10px;
+padding:11px 0;
+border-bottom:1px solid #e5ece8;
+display:flex;
+justify-content:space-between;
+gap:8px
 }
-
-.item:last-child{
- border-bottom:0;
-}
-
 .modal{
- position:fixed;
- inset:0;
- background:#0007;
- z-index:40;
- display:none;
- align-items:flex-end;
- justify-content:center;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:40;
+display:none;
+align-items:flex-end
 }
-
 .modal.show{
- display:flex;
+display:flex
 }
-
 .sheet{
- background:#f5faf7;
- width:100%;
- max-width:850px;
- max-height:92vh;
- overflow:auto;
- border-radius:25px 25px 0 0;
- padding:20px;
+background:#f5faf7;
+width:100%;
+max-width:850px;
+max-height:93vh;
+overflow:auto;
+border-radius:25px 25px 0 0;
+padding:18px
 }
-
 .close{
- float:right;
- background:#e4f1eb;
- color:#176f49;
+float:right;
+background:#e5f2ec;
+color:#116b45
 }
-
+.status{
+position:fixed;
+right:12px;
+bottom:15px;
+z-index:60;
+max-width:92%;
+padding:13px 16px;
+border-radius:16px;
+background:#17352a;
+color:#fff;
+box-shadow:0 8px 25px #0003
+}
+.status.ok{
+background:#176f49
+}
+.status.err{
+background:#9c3d29
+}
 .quick{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:9px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px
 }
-
+.dark{
+background:#101915;
+color:#eef7f2
+}
+.dark nav{
+background:#101915
+}
+.dark .card,
+.dark .panel{
+background:#18231e;
+border-color:#293b33;
+color:#eef7f2
+}
+.dark input,
+.dark select,
+.dark textarea{
+background:#101915;
+color:#eef7f2;
+border-color:#30443a
+}
+.dark label,
+.dark .label{
+color:#b8c8c0
+}
+.dark .sub,
+.dark .muted{
+color:#9aaea5
+}
 @media(max-width:650px){
- header{
-  padding:12px 13px;
- }
-
- .logo{
-  width:44px;
-  height:44px;
- }
-
- .brand{
-  font-size:21px;
- }
-
- .wrap{
-  padding:14px 11px 45px;
- }
-
- .card,.panel{
-  border-radius:20px;
-  padding:17px;
- }
-
- .big{
-  font-size:27px;
- }
-
- .grid,.two{
-  grid-template-columns:1fr;
- }
-
- .quick{
-  grid-template-columns:repeat(2,1fr);
- }
-
- nav{
-  top:76px;
- }
+.grid,.two{
+grid-template-columns:1fr
+}
+.quick{
+grid-template-columns:repeat(2,1fr)
+}
+.brand{
+font-size:21px
+}
+.wrap{
+padding:15px 11px 50px
+}
+nav{
+top:71px
+}
 }
 </style>
 </head>
@@ -345,13 +278,13 @@ nav button{
 <body>
 
 <header>
- <div class="logo">🌾</div>
- <div class="brand">TACBO Agro</div>
+<div class="logo">🌾</div>
+<div class="brand">TACBO Agro</div>
 
- <div class="top">
-  <button class="iconbtn" onclick="toggleTheme()">🌙</button>
-  <button class="iconbtn" onclick="loadData()">🔄</button>
- </div>
+<div class="top">
+<button class="icon" onclick="toggleTheme()">🌙</button>
+<button class="icon" onclick="loadData()">🔄</button>
+</div>
 </header>
 
 <main class="wrap">
@@ -359,52 +292,54 @@ nav button{
 <h1>🏠 Bogga Hore</h1>
 
 <div class="sub">
- Maamul xoolaha, dakhliga, kharashka, beeraha, hantida iyo deymaha.
+Maamul xoolaha, dakhliga, kharashka, beeraha, hantida iyo deymaha.
 </div>
 
 <nav>
- <button onclick="scrollToId('dashboard')">🏠 Hoy</button>
- <button onclick="openForm('animal')">🐄 Xoolo</button>
- <button onclick="openForm('finance')">💰 Maaliyad</button>
- <button onclick="openForm('farm')">🌱 Beer</button>
- <button onclick="openForm('asset')">🏠 Hanti</button>
- <button onclick="openForm('debt')">💳 Deyn</button>
- <button onclick="openForm('health')">💊 Caafimaad</button>
- <button onclick="openForm('feed')">🌾 Quudin</button>
- <button onclick="openForm('irrigation')">💧 Waraab</button>
- <button onclick="openForm('fuel')">⛽ Fuel</button>
+<button onclick="go('dashboard')">🏠 Hoy</button>
+<button onclick="openForm('animal')">🐄 Xoolo</button>
+<button onclick="openForm('finance')">💰 Maaliyad</button>
+<button onclick="openForm('farm')">🌱 Beer</button>
+<button onclick="openForm('asset')">🏠 Hanti</button>
+<button onclick="openForm('debt')">💳 Deyn</button>
+<button onclick="openForm('health')">💊 Caafimaad</button>
+<button onclick="openForm('feed')">🌾 Quudin</button>
+<button onclick="openForm('irrigation')">💧 Waraab</button>
+<button onclick="openForm('fuel')">⛽ Fuel</button>
+<button onclick="openForm('maintenance')">🔧 Dayactir</button>
+<button onclick="openForm('employee')">👷 Shaqaale</button>
 </nav>
 
 <section id="dashboard">
 
 <div class="actions">
- <button onclick="openForm('animal')">＋ Ku dar Xoolo</button>
- <button class="alt" onclick="openForm('finance')">＋ Dakhli / Kharash</button>
- <button class="alt" onclick="openForm('farm')">＋ Beer</button>
- <button class="alt" onclick="openForm('asset')">＋ Hanti</button>
- <button class="alt" onclick="openForm('debt')">＋ Deyn</button>
+<button onclick="openForm('animal')">＋ Ku dar Xoolo</button>
+<button class="alt" onclick="openForm('finance')">＋ Dakhli / Kharash</button>
+<button class="alt" onclick="openForm('farm')">＋ Beer</button>
+<button class="alt" onclick="openForm('asset')">＋ Hanti</button>
+<button class="alt" onclick="openForm('debt')">＋ Deyn</button>
 </div>
 
 <div class="grid">
 
 <div class="card">
- <div class="label">💰 Wadarta Dakhliga</div>
- <div class="big" id="income">$0.00</div>
+<div class="label">💰 Wadarta Dakhliga</div>
+<div class="big" id="income">$0.00</div>
 </div>
 
 <div class="card">
- <div class="label">💸 Wadarta Kharashka</div>
- <div class="big" id="expense">$0.00</div>
+<div class="label">💸 Wadarta Kharashka</div>
+<div class="big" id="expense">$0.00</div>
 </div>
 
 <div class="card">
- <div class="label">📈 Faa'iidada</div>
- <div class="big" id="profit">$0.00</div>
+<div class="label">📈 Faa'iidada</div>
+<div class="big" id="profit">$0.00</div>
 </div>
 
 <div class="card">
- <div class="label">🐄 Tirada Xoolaha</div>
- <div class="big" id="animalCount">0</div>
+<div class="label">🐄 Tirada Xoolaha</div>
+<div class="big" id="animalCount">0</div>
 </div>
 
 </div>
@@ -416,36 +351,55 @@ nav button{
 <div class="two">
 
 <div class="sub">
- Lagugu leeyahay:
- <b id="owed">$0.00</b>
+Lagugu leeyahay:
+<b id="owed">$0.00</b>
 </div>
 
 <div class="sub">
- Adiga lagu leeyahay:
- <b id="owe">$0.00</b>
+Adiga lagu leeyahay:
+<b id="owe">$0.00</b>
 </div>
 
 </div>
 
 <div class="sub">
- Deyn dib u dhacday:
- <b id="late">$0.00</b>
+Deyn dib u dhacday:
+<b id="late">$0.00</b>
 </div>
 
 </div>
 
 <div class="panel">
 
-<h2 class="sectiontitle">⚡ Hawlaha Degdegga ah</h2>
+<h2 class="sectiontitle">
+⚡ Hawlaha Degdegga ah
+</h2>
 
 <div class="quick">
 
-<button class="alt" onclick="openForm('animal')">🐄 Xoolo</button>
-<button class="alt" onclick="openForm('finance')">💰 Maaliyad</button>
-<button class="alt" onclick="openForm('farm')">🌱 Beer</button>
-<button class="alt" onclick="openForm('asset')">🏠 Hanti</button>
-<button class="alt" onclick="openForm('maintenance')">🔧 Dayactir</button>
-<button class="alt" onclick="openForm('employee')">👷 Shaqaale</button>
+<button class="alt" onclick="openForm('animal')">
+🐄 Xoolo
+</button>
+
+<button class="alt" onclick="openForm('finance')">
+💰 Maaliyad
+</button>
+
+<button class="alt" onclick="openForm('farm')">
+🌱 Beer
+</button>
+
+<button class="alt" onclick="openForm('asset')">
+🏠 Hanti
+</button>
+
+<button class="alt" onclick="openForm('maintenance')">
+🔧 Dayactir
+</button>
+
+<button class="alt" onclick="openForm('employee')">
+👷 Shaqaale
+</button>
 
 </div>
 
@@ -453,32 +407,42 @@ nav button{
 
 <div class="panel">
 
-<h2 class="sectiontitle">📋 Xogta ugu dambeysay</h2>
+<h2 class="sectiontitle">
+📋 Xogta ugu dambeysay
+</h2>
 
-<div id="recent" class="muted">
- Xogta waa la soo dejinayaa...
+<div id="recent" class="muted"></div>
+
 </div>
+
+<div class="panel">
+
+<h2 class="sectiontitle">
+📊 Diiwaannada
+</h2>
+
+<div class="actions">
+
+<button class="alt" onclick="showRecords('animals')">🐄 Xoolaha</button>
+<button class="alt" onclick="showRecords('income')">💰 Dakhliga</button>
+<button class="alt" onclick="showRecords('expenses')">💸 Kharashka</button>
+<button class="alt" onclick="showRecords('farms')">🌱 Beeraha</button>
+<button class="alt" onclick="showRecords('assets')">🏠 Hantida</button>
+<button class="alt" onclick="showRecords('debts')">💳 Deymaha</button>
+<button class="alt" onclick="showRecords('health')">💊 Caafimaad</button>
+<button class="alt" onclick="showRecords('feed')">🌾 Quudin</button>
+<button class="alt" onclick="showRecords('irrigation')">💧 Waraab</button>
+<button class="alt" onclick="showRecords('fuel')">⛽ Fuel</button>
+<button class="alt" onclick="showRecords('maintenance')">🔧 Dayactir</button>
+<button class="alt" onclick="showRecords('employees')">👷 Shaqaale</button>
+
+</div>
+
+<div id="records" class="scroll"></div>
 
 </div>
 
 </section>
-
-<div class="panel" id="allDataPanel">
-
-<h2 class="sectiontitle">📊 Diiwaannada</h2>
-
-<div class="actions">
- <button class="alt" onclick="showRecords('animals')">🐄 Xoolaha</button>
- <button class="alt" onclick="showRecords('income')">💰 Dakhliga</button>
- <button class="alt" onclick="showRecords('expenses')">💸 Kharashka</button>
- <button class="alt" onclick="showRecords('farms')">🌱 Beeraha</button>
- <button class="alt" onclick="showRecords('assets')">🏠 Hantida</button>
- <button class="alt" onclick="showRecords('debts')">💳 Deymaha</button>
-</div>
-
-<div id="records"></div>
-
-</div>
 
 </main>
 
@@ -486,7 +450,9 @@ nav button{
 
 <div class="sheet">
 
-<button class="close" onclick="closeForm()">✕ Xir</button>
+<button class="close" onclick="closeForm()">
+✕ Xir
+</button>
 
 <div id="formBody"></div>
 
@@ -494,1732 +460,1777 @@ nav button{
 
 </div>
 
-<div id="status" class="status">
-⏳ Supabase waa la hubinayaa...
-</div>
+<div id="status" class="status" style="display:none"></div>
 
 <script>
 
-const SUPABASE_URL="https://ujkjdxytceqfcngdzlqt.supabase.co";
+/* =========================================================
+   TACBO AGRO
+   FINAL VERSION
+   SUPABASE DIRECT REST
+   ========================================================= */
 
-const SUPABASE_KEY="sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
+const SUPABASE_URL =
+"https://ujkjdxytceqfcngdzlqt.supabase.co";
 
-const db=supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
-);
+const SUPABASE_KEY =
+"sb_publishable_URVZuxjJiQQdAGf8Q3QNuw_D3hoPS0M";
 
-const RECORD_ID="tacbo_main";
+const RECORD_ID =
+"tacbo_main";
 
-const DBKEY="TACBO_AGRO_DATA_FINAL_AZ_V1";
+const DBKEY =
+"TACBO_AGRO_DATA_FINAL_AZ_V2";
 
-const emptyData={
- animals:[],
- health:[],
- milk:[],
- feed:[],
- farms:[],
- crops:[],
- irrigation:[],
- income:[],
- expenses:[],
- debts:[],
- assets:[],
- machines:[],
- fuel:[],
- maintenance:[],
- inventory:[],
- employees:[]
+const emptyData = {
+
+animals:[],
+health:[],
+milk:[],
+feed:[],
+farms:[],
+crops:[],
+irrigation:[],
+income:[],
+expenses:[],
+debts:[],
+assets:[],
+machines:[],
+fuel:[],
+maintenance:[],
+inventory:[],
+employees:[]
+
 };
 
-let data=loadLocal();
+let data = loadLocal();
 
-let online=false;
+let online = false;
 
-function loadLocal(){
+let busy = false;
 
- try{
 
-  let x=JSON.parse(
-   localStorage.getItem(DBKEY)||"null"
-  );
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
-  return normalize(x);
-
- }catch{
-
-  return structuredClone(emptyData);
-
- }
-
+function clone(x){
+return JSON.parse(JSON.stringify(x));
 }
 
 function normalize(x){
 
- const d=structuredClone(emptyData);
+const d = clone(emptyData);
 
- if(x&&typeof x==="object"){
+if(x && typeof x === "object"){
 
-  Object.keys(d).forEach(k=>{
+Object.keys(d).forEach(k=>{
 
-   if(Array.isArray(x[k])){
+if(Array.isArray(x[k])){
+d[k] = x[k];
+}
 
-    d[k]=x[k];
-
-   }
-
-  });
-
- }
-
- return d;
+});
 
 }
 
-const money=n=>"$"+Number(n||0).toLocaleString(
- "en-US",
- {
-  minimumFractionDigits:2,
-  maximumFractionDigits:2
- }
+return d;
+
+}
+
+function loadLocal(){
+
+try{
+
+return normalize(
+JSON.parse(
+localStorage.getItem(DBKEY) || "null"
+)
 );
 
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,9);
+}catch(e){
 
-const today=()=>new Date().toISOString().slice(0,10);
+return clone(emptyData);
+
+}
+
+}
 
 function saveLocal(){
 
- localStorage.setItem(
-  DBKEY,
-  JSON.stringify(data)
- );
+localStorage.setItem(
+DBKEY,
+JSON.stringify(data)
+);
 
 }
 
-function status(msg,ok=false){
+function money(n){
 
- const s=document.getElementById("status");
-
- s.textContent=msg;
-
- s.className="status "+(ok?"ok":"err");
-
- s.style.display="block";
-
- clearTimeout(window.st);
-
- window.st=setTimeout(
-  ()=>s.style.display="none",
-  3500
- );
+return "$" +
+Number(n || 0).toLocaleString(
+"en-US",
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
 
 }
 
-function scrollToId(id){
+function today(){
 
- document.getElementById(id)?.scrollIntoView({
-  behavior:"smooth"
- });
-
-}
-
-async function loadData(){
-
- try{
-
-  const {
-   data:row,
-   error
-  }=await db
-   .from("tacbo_records")
-   .select("id,record_type,data")
-   .eq("id",RECORD_ID)
-   .maybeSingle();
-
-  if(error)throw error;
-
-  if(row?.data){
-
-   data=normalize(row.data);
-
-  }
-
-  saveLocal();
-
-  online=true;
-
-  status(
-   "✅ Supabase waa ku xiran yahay",
-   true
-  );
-
-  render();
-
- }catch(e){
-
-  console.error(
-   "Supabase load:",
-   e
-  );
-
-  online=false;
-
-  status(
-   "⚠️ Supabase lama heli karo — LocalStorage ayaa shaqaynaya"
-  );
-
-  render();
-
- }
+return new Date()
+.toISOString()
+.slice(0,10);
 
 }
 
-async function saveData(){
+function uid(){
 
- saveLocal();
-
- if(!online)return;
-
- try{
-
-  const {
-   error
-  }=await db
-   .from("tacbo_records")
-   .upsert(
-    {
-     id:RECORD_ID,
-     record_type:"tacbo_app",
-     data:data,
-     updated_at:new Date().toISOString()
-    },
-    {
-     onConflict:"id"
-    }
-   );
-
-  if(error)throw error;
-
-  status(
-   "✅ Xogta Supabase ayaa la kaydiyey",
-   true
-  );
-
- }catch(e){
-
-  console.error(
-   "Supabase save:",
-   e
-  );
-
-  online=false;
-
-  status(
-   "⚠️ Supabase kaydin waayey — xogta telefoonka waa la hayaa"
-  );
-
- }
-
-}
-
-function render(){
-
- const inc=data.income.reduce(
-  (s,x)=>s+Number(x.amount||0),
-  0
- );
-
- const exp=data.expenses.reduce(
-  (s,x)=>s+Number(x.amount||0),
-  0
- );
-
- const animals=data.animals.reduce(
-  (s,x)=>s+Number(x.tirada||0),
-  0
- );
-
- const owed=data.debts.filter(
-  x=>x.kind==="lagugu"
- ).reduce(
-  (s,x)=>s+Number(x.amount||0),
-  0
- );
-
- const owe=data.debts.filter(
-  x=>x.kind==="lagu"
- ).reduce(
-  (s,x)=>s+Number(x.amount||0),
-  0
- );
-
- const late=data.debts.filter(
-  x=>x.late
- ).reduce(
-  (s,x)=>s+Number(x.amount||0),
-  0
- );
-
- document.getElementById(
-  "income"
- ).textContent=money(inc);
-
- document.getElementById(
-  "expense"
- ).textContent=money(exp);
-
- document.getElementById(
-  "profit"
- ).textContent=money(inc-exp);
-
- document.getElementById(
-  "animalCount"
- ).textContent=animals;
-
- document.getElementById(
-  "owed"
- ).textContent=money(owed);
-
- document.getElementById(
-  "owe"
- ).textContent=money(owe);
-
- document.getElementById(
-  "late"
- ).textContent=money(late);
-
- const recent=[
-
-  ...data.animals.slice(-4).map(
-   x=>`🐄 ${esc(x.nooca)} — ${x.tirada} neef`
-  ),
-
-  ...data.income.slice(-3).map(
-   x=>`💰 Dakhli — ${money(x.amount)} ${esc(x.description)}`
-  ),
-
-  ...data.expenses.slice(-3).map(
-   x=>`💸 Kharash — ${money(x.amount)} ${esc(x.description)}`
-  ),
-
-  ...data.assets.slice(-3).map(
-   x=>`🏠 Hanti — ${esc(x.name)} ${money(x.value)}`
-  ),
-
-  ...data.farms.slice(-3).map(
-   x=>`🌱 Beer — ${esc(x.name||x.crop)} — ${x.area||0} ha`
-  )
-
- ].slice(-10).reverse();
-
- document.getElementById(
-  "recent"
- ).innerHTML=
-
- recent.length
-
- ?recent.map(
-  x=>`<div class="item"><span>${x}</span></div>`
- ).join("")
-
- :"Wax xog ah weli lama gelin.";
+return Date.now().toString(36) +
+Math.random()
+.toString(36)
+.slice(2,8);
 
 }
 
 function esc(v){
 
- return String(v??"").replace(
-  /[&<>"']/g,
-  m=>({
-   "&":"&amp;",
-   "<":"&lt;",
-   ">":"&gt;",
-   '"':"&quot;",
-   "'":"&#39;"
-  }[m])
- );
+return String(v ?? "")
+.replace(/[&<>"']/g,m=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+
+}[m]));
 
 }
+
+function a(id){
+
+return document.getElementById(id)?.value ?? "";
+
+}
+
+function go(id){
+
+document.getElementById(id)
+?.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+function status(msg,type="err"){
+
+const s =
+document.getElementById("status");
+
+s.textContent = msg;
+
+s.className =
+"status " +
+(type === "ok" ? "ok" : "err");
+
+s.style.display = "block";
+
+clearTimeout(window.statusTimer);
+
+window.statusTimer =
+setTimeout(
+()=>s.style.display="none",
+3500
+);
+
+}
+
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+async function sbRequest(path,options={}){
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/" +
+path,
+{
+
+...options,
+
+headers:{
+
+"apikey":SUPABASE_KEY,
+
+"Authorization":
+"Bearer " +
+SUPABASE_KEY,
+
+"Content-Type":
+"application/json",
+
+"Accept":
+"application/json",
+
+...(options.headers || {})
+
+}
+
+}
+);
+
+if(!response.ok){
+
+let msg = "";
+
+try{
+msg = await response.text();
+}catch(e){}
+
+throw new Error(
+"HTTP " +
+response.status +
+" " +
+msg
+);
+
+}
+
+const text =
+await response.text();
+
+return text ?
+JSON.parse(text) :
+null;
+
+}
+
+
+/* =========================================================
+   LOAD FROM SUPABASE
+   ========================================================= */
+
+async function loadData(){
+
+try{
+
+const rows =
+await sbRequest(
+"tacbo_records?select=id,record_type,data&" +
+"id=eq." +
+encodeURIComponent(RECORD_ID) +
+"&limit=1"
+);
+
+if(
+rows &&
+rows.length &&
+rows[0].data
+){
+
+data =
+normalize(rows[0].data);
+
+saveLocal();
+
+}
+
+online = true;
+
+render();
+
+status(
+"✅ Supabase waa ku xiran yahay — xogta waa la helay",
+"ok"
+);
+
+}catch(error){
+
+console.error(
+"TACBO SUPABASE LOAD:",
+error
+);
+
+online = false;
+
+render();
+
+status(
+"⚠️ Supabase lama xiriirin — xogta telefoonka waa la hayaa"
+);
+
+}
+
+}
+
+
+/* =========================================================
+   SAVE TO SUPABASE
+   ========================================================= */
+
+async function saveData(){
+
+saveLocal();
+
+if(busy){
+return;
+}
+
+busy = true;
+
+try{
+
+await sbRequest(
+"tacbo_records",
+{
+
+method:"POST",
+
+headers:{
+
+"Prefer":
+"resolution=merge-duplicates,return=minimal"
+
+},
+
+body:JSON.stringify({
+
+id:RECORD_ID,
+
+record_type:
+"tacbo_app",
+
+data:data,
+
+updated_at:
+new Date().toISOString()
+
+})
+
+}
+);
+
+online = true;
+
+}catch(error){
+
+console.error(
+"TACBO SUPABASE SAVE:",
+error
+);
+
+online = false;
+
+}finally{
+
+busy = false;
+
+}
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+function render(){
+
+const income =
+data.income.reduce(
+(s,x)=>
+s +
+Number(x.amount || 0),
+0
+);
+
+const expense =
+data.expenses.reduce(
+(s,x)=>
+s +
+Number(x.amount || 0),
+0
+);
+
+const animals =
+data.animals.reduce(
+(s,x)=>
+s +
+Number(x.tirada || 0),
+0
+);
+
+const owed =
+data.debts
+.filter(x=>x.kind==="lagugu")
+.reduce(
+(s,x)=>
+s +
+Number(x.amount || 0),
+0
+);
+
+const owe =
+data.debts
+.filter(x=>x.kind==="lagu")
+.reduce(
+(s,x)=>
+s +
+Number(x.amount || 0),
+0
+);
+
+const late =
+data.debts
+.filter(x=>x.late)
+.reduce(
+(s,x)=>
+s +
+Number(x.amount || 0),
+0
+);
+
+document.getElementById(
+"income"
+).textContent =
+money(income);
+
+document.getElementById(
+"expense"
+).textContent =
+money(expense);
+
+document.getElementById(
+"profit"
+).textContent =
+money(income-expense);
+
+document.getElementById(
+"animalCount"
+).textContent =
+animals.toLocaleString();
+
+document.getElementById(
+"owed"
+).textContent =
+money(owed);
+
+document.getElementById(
+"owe"
+).textContent =
+money(owe);
+
+document.getElementById(
+"late"
+).textContent =
+money(late);
+
+
+const recent = [
+
+...data.animals
+.slice(-4)
+.map(
+x =>
+`🐄 ${esc(x.nooca)} — ${Number(x.tirada||0).toLocaleString()} neef`
+),
+
+...data.income
+.slice(-3)
+.map(
+x =>
+`💰 Dakhli — ${money(x.amount)} ${esc(x.description)}`
+),
+
+...data.expenses
+.slice(-3)
+.map(
+x =>
+`💸 Kharash — ${money(x.amount)} ${esc(x.description)}`
+),
+
+...data.assets
+.slice(-3)
+.map(
+x =>
+`🏠 ${esc(x.name)} — ${money(x.value)}`
+)
+
+]
+.slice(-10)
+.reverse();
+
+
+document.getElementById(
+"recent"
+).innerHTML =
+recent.length ?
+
+recent
+.map(
+x =>
+`<div class="item">${x}</div>`
+)
+.join("") :
+
+"Wax xog ah weli lama gelin.";
+
+}
+
+
+/* =========================================================
+   CLOSE FORM
+   ========================================================= */
 
 function closeForm(){
 
- document.getElementById(
-  "modal"
- ).classList.remove("show");
+document.getElementById(
+"modal"
+).classList.remove("show");
 
 }
+
+
+/* =========================================================
+   FORM OPEN
+   ========================================================= */
 
 function openForm(type){
 
- const b=document.getElementById(
-  "formBody"
- );
+let b = "";
 
- let title="";
- let body="";
+let title = "";
 
- if(type==="animal"){
+const commonDate = `
+<label>Taariikh</label>
+<input id="date"
+type="date"
+value="${today()}">
+`;
 
-  title="🐄 Diiwaangeli Xoolo";
 
-  body=`
+/* ---------------- XOOLO ---------------- */
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+if(type === "animal"){
 
-  <div class="sub">
-   Hal mar waxaad gelin kartaa ilaa
-   <b>5,000 neef</b>.
-   Tusaale 200 neef ku qor Tirada.
-  </div>
+title =
+"🐄 Diiwaangeli Xoolo";
 
-  <label>Nooca Xoolaha</label>
+b = `
 
-  <input
-   id="a_type"
-   placeholder="Ri, Ari, Lo', Geel..."
-  >
+<div class="sectiontitle">
+${title}
+</div>
 
-  <div class="two">
+<div class="sub">
+Hal mar waxaad gelin kartaa
+<b>1 ilaa 5,000 neef</b>.
+Tusaale ahaan 200 neef hal mar geli.
+</div>
 
-   <div>
+<label>
+Nooca Xoolaha
+</label>
 
-    <label>Tirada</label>
+<input
+id="a_type"
+placeholder="Ri, Ari, Lo', Geel...">
 
-    <input
-     id="a_qty"
-     type="number"
-     min="1"
-     max="5000"
-     value="1"
-    >
+<div class="two">
 
-   </div>
+<div>
 
-   <div>
+<label>
+Tirada
+</label>
 
-    <label>Qiimaha halkii neef</label>
+<input
+id="a_qty"
+type="number"
+min="1"
+max="5000"
+value="1">
 
-    <input
-     id="a_price"
-     type="number"
-     min="0"
-     value="0"
-    >
+</div>
 
-   </div>
+<div>
 
-  </div>
+<label>
+Qiimaha halkii neef
+</label>
 
-  <div class="actions">
+<input
+id="a_price"
+type="number"
+min="0"
+value="0">
 
-   <button
-    class="alt"
-    onclick="qty(10)"
-   >10</button>
+</div>
 
-   <button
-    class="alt"
-    onclick="qty(50)"
-   >50</button>
+</div>
 
-   <button
-    class="alt"
-    onclick="qty(100)"
-   >100</button>
+<div class="actions">
 
-   <button
-    class="alt"
-    onclick="qty(200)"
-   >200</button>
+<button
+class="alt"
+onclick="setQty(10)">
+10
+</button>
 
-   <button
-    class="alt"
-    onclick="qty(500)"
-   >500</button>
+<button
+class="alt"
+onclick="setQty(50)">
+50
+</button>
 
-  </div>
+<button
+class="alt"
+onclick="setQty(100)">
+100
+</button>
 
-  <div class="two">
+<button
+class="alt"
+onclick="setQty(200)">
+200
+</button>
 
-   <div>
+<button
+class="alt"
+onclick="setQty(500)">
+500
+</button>
 
-    <label>Dhashay</label>
+<button
+class="alt"
+onclick="setQty(1000)">
+1000
+</button>
 
-    <input
-     id="a_born"
-     type="number"
-     min="0"
-     value="0"
-    >
+<button
+class="alt"
+onclick="setQty(5000)">
+5000
+</button>
 
-   </div>
+</div>
 
-   <div>
+<div class="two">
 
-    <label>Dhintay</label>
+<div>
 
-    <input
-     id="a_dead"
-     type="number"
-     min="0"
-     value="0"
-    >
+<label>
+Dhashay
+</label>
 
-   </div>
+<input
+id="a_born"
+type="number"
+min="0"
+value="0">
 
-  </div>
+</div>
 
-  <div class="two">
+<div>
 
-   <div>
+<label>
+Dhintay
+</label>
 
-    <label>La iibsaday</label>
+<input
+id="a_dead"
+type="number"
+min="0"
+value="0">
 
-    <input
-     id="a_bought"
-     type="number"
-     min="0"
-     value="0"
-    >
+</div>
 
-   </div>
+</div>
 
-   <div>
+<div class="two">
 
-    <label>La iibiyay</label>
+<div>
 
-    <input
-     id="a_sold"
-     type="number"
-     min="0"
-     value="0"
-    >
+<label>
+La iibsaday
+</label>
 
-   </div>
+<input
+id="a_bought"
+type="number"
+min="0"
+value="0">
 
-  </div>
+</div>
 
-  <label>Taariikh</label>
+<div>
 
-  <input
-   id="a_date"
-   type="date"
-   value="${today()}"
-  >
+<label>
+La iibiyay
+</label>
 
-  <label>Faahfaahin</label>
+<input
+id="a_sold"
+type="number"
+min="0"
+value="0">
 
-  <textarea
-   id="a_desc"
-   placeholder="Faahfaahin..."
-  ></textarea>
+</div>
 
-  <button
-   onclick="addAnimal()"
-  >
-   💾 Kaydi Xoolaha
-  </button>
+</div>
 
-  `;
+${commonDate}
 
- }else if(type==="finance"){
+<label>
+Faahfaahin
+</label>
 
-  title="💰 Dakhli / Kharash";
+<textarea id="a_desc"></textarea>
 
-  body=`
+<button onclick="addAnimal()">
+💾 Kaydi Xoolaha
+</button>
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+`;
 
-  <label>Nooca</label>
 
-  <select id="f_type">
+/* ---------------- MAALIYAD ---------------- */
 
-   <option value="income">
-    Dakhli
-   </option>
+}else if(type === "finance"){
 
-   <option value="expense">
-    Kharash
-   </option>
+title =
+"💰 Dakhli / Kharash";
 
-  </select>
+b = `
 
-  <label>Qaybta</label>
+<div class="sectiontitle">
+${title}
+</div>
 
-  <input
-   id="f_cat"
-   placeholder="Iib xoolo, fuel, waraab, mushahar..."
-  >
+<label>
+Nooca
+</label>
 
-  <label>Lacagta</label>
+<select id="f_type">
 
-  <input
-   id="f_amount"
-   type="number"
-   step="0.01"
-   min="0"
-   value="0"
-  >
+<option value="income">
+Dakhli
+</option>
 
-  <label>Taariikh</label>
+<option value="expense">
+Kharash
+</option>
 
-  <input
-   id="f_date"
-   type="date"
-   value="${today()}"
-  >
+</select>
 
-  <label>Faahfaahin</label>
+<label>
+Qaybta
+</label>
 
-  <textarea id="f_desc"></textarea>
+<input
+id="f_cat"
+placeholder="Iib xoolo, fuel, waraab, mushahar...">
 
-  <button
-   onclick="addFinance()"
-  >
-   💾 Kaydi
-  </button>
+<label>
+Lacagta
+</label>
 
-  `;
+<input
+id="f_amount"
+type="number"
+min="0"
+step="0.01"
+value="0">
 
- }else if(type==="farm"){
+${commonDate}
 
-  title="🌱 Beer";
+<label>
+Faahfaahin
+</label>
 
-  body=`
+<textarea id="f_desc"></textarea>
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+<button onclick="addFinance()">
+💾 Kaydi
+</button>
 
-  <label>Magaca Beerta</label>
+`;
 
-  <input
-   id="p_name"
-   placeholder="Beerta 1"
-  >
 
-  <label>Dalagga</label>
+/* ---------------- BEER ---------------- */
 
-  <input
-   id="p_crop"
-   placeholder="Galley, Sisinta..."
-  >
+}else if(type === "farm"){
 
-  <div class="two">
+title =
+"🌱 Beer";
 
-   <div>
+b = `
 
-    <label>Hectares</label>
+<div class="sectiontitle">
+${title}
+</div>
 
-    <input
-     id="p_area"
-     type="number"
-     value="0"
-    >
+<label>
+Magaca Beerta
+</label>
 
-   </div>
+<input id="p_name">
 
-   <div>
+<label>
+Dalagga
+</label>
 
-    <label>Kharash</label>
+<input
+id="p_crop"
+placeholder="Galley, Sisinta...">
 
-    <input
-     id="p_cost"
-     type="number"
-     value="0"
-    >
+<div class="two">
 
-   </div>
+<div>
 
-  </div>
+<label>
+Baaxadda Beerta
+</label>
 
-  <div class="two">
+<input
+id="p_area"
+type="number"
+value="0">
 
-   <div>
+</div>
 
-    <label>La beeray</label>
+<div>
 
-    <input
-     id="p_planted"
-     type="number"
-     value="0"
-    >
+<label>
+Kharash
+</label>
 
-   </div>
+<input
+id="p_cost"
+type="number"
+value="0">
 
-   <div>
+</div>
 
-    <label>La goostay</label>
+</div>
 
-    <input
-     id="p_harvested"
-     type="number"
-     value="0"
-    >
+<div class="two">
 
-   </div>
+<div>
 
-  </div>
+<label>
+La beeray
+</label>
 
-  <label>Taariikh</label>
+<input
+id="p_planted"
+type="number"
+value="0">
 
-  <input
-   id="p_date"
-   type="date"
-   value="${today()}"
-  >
+</div>
 
-  <label>Faahfaahin</label>
+<div>
 
-  <textarea id="p_desc"></textarea>
+<label>
+La goostay
+</label>
 
-  <button
-   onclick="addFarm()"
-  >
-   💾 Kaydi Beer
-  </button>
+<input
+id="p_harvested"
+type="number"
+value="0">
 
-  `;
+</div>
 
- }else if(type==="asset"){
+</div>
 
-  title="🏠 Hanti";
+${commonDate}
 
-  body=`
+<label>
+Faahfaahin
+</label>
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+<textarea id="p_desc"></textarea>
 
-  <label>Magaca Hantida</label>
+<button onclick="addFarm()">
+💾 Kaydi Beer
+</button>
 
-  <input
-   id="h_name"
-   placeholder="Ceel, Tractor, Mashiin..."
-  >
+`;
 
-  <label>Qaybta</label>
 
-  <input
-   id="h_cat"
-   placeholder="Hanti"
-  >
+/* ---------------- HANTI ---------------- */
 
-  <label>Qiimaha</label>
+}else if(type === "asset"){
 
-  <input
-   id="h_value"
-   type="number"
-   value="0"
-  >
+title =
+"🏠 Hanti";
 
-  <label>Taariikh</label>
+b = `
 
-  <input
-   id="h_date"
-   type="date"
-   value="${today()}"
-  >
+<div class="sectiontitle">
+${title}
+</div>
 
-  <label>Faahfaahin</label>
+<div class="sub">
+Ceelka waxaa loo diiwaangelinayaa
+<b>Hanti</b>.
+</div>
 
-  <textarea id="h_desc"></textarea>
+<label>
+Magaca Hantida
+</label>
 
-  <button
-   onclick="addAsset()"
-  >
-   💾 Kaydi Hanti
-  </button>
+<input
+id="h_name"
+placeholder="Ceel, Tractor, Mashiin...">
 
-  `;
+<label>
+Qaybta
+</label>
 
- }else if(type==="debt"){
+<input
+id="h_cat"
+value="Hanti">
 
-  title="💳 Deyn";
+<label>
+Qiimaha
+</label>
 
-  body=`
+<input
+id="h_value"
+type="number"
+value="0">
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+${commonDate}
 
-  <label>Nooca</label>
+<label>
+Faahfaahin
+</label>
 
-  <select id="d_kind">
+<textarea id="h_desc"></textarea>
 
-   <option value="lagugu">
-    Lagugu leeyahay
-   </option>
+<button onclick="addAsset()">
+💾 Kaydi Hanti
+</button>
 
-   <option value="lagu">
-    Adiga lagu leeyahay
-   </option>
+`;
 
-  </select>
 
-  <label>Magaca Qofka</label>
+/* ---------------- DEYN ---------------- */
 
-  <input id="d_person">
+}else if(type === "debt"){
 
-  <label>Lacagta</label>
+title =
+"💳 Deyn";
 
-  <input
-   id="d_amount"
-   type="number"
-   value="0"
-  >
+b = `
 
-  <label>Taariikh</label>
+<div class="sectiontitle">
+${title}
+</div>
 
-  <input
-   id="d_date"
-   type="date"
-   value="${today()}"
-  >
+<label>
+Nooca
+</label>
 
-  <label>Taariikh bixinta</label>
+<select id="d_kind">
 
-  <input
-   id="d_due"
-   type="date"
-  >
+<option value="lagugu">
+Lagugu leeyahay
+</option>
 
-  <label>Faahfaahin</label>
+<option value="lagu">
+Adiga lagu leeyahay
+</option>
 
-  <textarea id="d_desc"></textarea>
+</select>
 
-  <button
-   onclick="addDebt()"
-  >
-   💾 Kaydi Deyn
-  </button>
+<label>
+Magaca Qofka
+</label>
 
-  `;
+<input id="d_person">
 
- }else if(type==="health"){
+<label>
+Lacagta
+</label>
 
-  title="💊 Caafimaadka Xoolaha";
+<input
+id="d_amount"
+type="number"
+value="0">
 
-  body=`
+${commonDate}
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+<label>
+Taariikh bixinta
+</label>
 
-  <label>Nooca Xoolaha</label>
+<input
+id="d_due"
+type="date">
 
-  <input id="q_animal">
+<label>
+Faahfaahin
+</label>
 
-  <label>Daawo / Tallaal</label>
+<textarea id="d_desc"></textarea>
 
-  <input id="q_med">
+<button onclick="addDebt()">
+💾 Kaydi Deyn
+</button>
 
-  <div class="two">
+`;
 
-   <div>
 
-    <label>Tirada</label>
+/* ---------------- OTHER ---------------- */
 
-    <input
-     id="q_qty"
-     type="number"
-     value="1"
-    >
+}else{
 
-   </div>
+const cfg = {
 
-   <div>
+health:[
+"💊 Caafimaadka Xoolaha",
+[
+["animal","Nooca Xoolaha","text"],
+["medicine","Daawo / Tallaal","text"],
+["quantity","Tirada","number"],
+["cost","Kharash","number"]
+]
+],
 
-    <label>Kharash</label>
+feed:[
+"🌾 Quudin",
+[
+["name","Quudinta","text"],
+["quantity","Tirada","number"],
+["cost","Kharash","number"]
+]
+],
 
-    <input
-     id="q_cost"
-     type="number"
-     value="0"
-    >
+irrigation:[
+"💧 Waraab",
+[
+["place","Goobta / Beerta","text"],
+["quantity","Mug / Tirada","number"],
+["cost","Kharash","number"]
+]
+],
 
-   </div>
+fuel:[
+"⛽ Fuel",
+[
+["machine","Gaari / Mashiin","text"],
+["liters","Litir","number"],
+["cost","Kharash","number"]
+]
+],
 
-  </div>
+maintenance:[
+"🔧 Dayactir",
+[
+["item","Waxa la dayactiray","text"],
+["cost","Kharash","number"]
+]
+],
 
-  <label>Taariikh</label>
+employee:[
+"👷 Shaqaale",
+[
+["name","Magaca","text"],
+["job","Shaqada","text"],
+["salary","Mushahar","number"],
+["phone","Telefoon","text"]
+]
+]
 
-  <input
-   id="q_date"
-   type="date"
-   value="${today()}"
-  >
+}[type];
 
-  <label>Faahfaahin</label>
+title = cfg[0];
 
-  <textarea id="q_desc"></textarea>
+b =
+`<div class="sectiontitle">
+${title}
+</div>`;
 
-  <button
-   onclick="addSimple('health',{
-    animal:'q_animal',
-    medicine:'q_med',
-    quantity:'q_qty',
-    cost:'q_cost',
-    date:'q_date',
-    description:'q_desc'
-   })"
-  >
-   💾 Kaydi
-  </button>
+cfg[1].forEach(
+([key,label,typeInput])=>{
 
-  `;
+b += `
 
- }else if(type==="feed"){
+<label>
+${label}
+</label>
 
-  title="🌾 Quudin";
+<input
+id="s_${key}"
+type="${typeInput}"
+value="${typeInput==="number"?"0":""}">
 
-  body=`
+`;
 
-  <div class="sectiontitle">
-   ${title}
-  </div>
+});
 
-  <label>Quudinta</label>
+b += `
 
-  <input
-   id="fd_name"
-   placeholder="Caws, galley..."
-  >
+${commonDate}
 
-  <div class="two">
+<label>
+Faahfaahin
+</label>
 
-   <div>
+<textarea id="s_desc"></textarea>
 
-    <label>Tirada</label>
+<button onclick="addSimple('${type}')">
+💾 Kaydi
+</button>
 
-    <input
-     id="fd_qty"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-   <div>
-
-    <label>Kharash</label>
-
-    <input
-     id="fd_cost"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-  </div>
-
-  <label>Taariikh</label>
-
-  <input
-   id="fd_date"
-   type="date"
-   value="${today()}"
-  >
-
-  <label>Faahfaahin</label>
-
-  <textarea id="fd_desc"></textarea>
-
-  <button
-   onclick="addSimple('feed',{
-    name:'fd_name',
-    quantity:'fd_qty',
-    cost:'fd_cost',
-    date:'fd_date',
-    description:'fd_desc'
-   })"
-  >
-   💾 Kaydi
-  </button>
-
-  `;
-
- }else if(type==="irrigation"){
-
-  title="💧 Waraab";
-
-  body=`
-
-  <div class="sectiontitle">
-   ${title}
-  </div>
-
-  <label>Goobta / Beerta</label>
-
-  <input id="ir_place">
-
-  <div class="two">
-
-   <div>
-
-    <label>Kharash</label>
-
-    <input
-     id="ir_cost"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-   <div>
-
-    <label>Mug / Tirada</label>
-
-    <input
-     id="ir_qty"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-  </div>
-
-  <label>Taariikh</label>
-
-  <input
-   id="ir_date"
-   type="date"
-   value="${today()}"
-  >
-
-  <label>Faahfaahin</label>
-
-  <textarea id="ir_desc"></textarea>
-
-  <button
-   onclick="addSimple('irrigation',{
-    place:'ir_place',
-    cost:'ir_cost',
-    quantity:'ir_qty',
-    date:'ir_date',
-    description:'ir_desc'
-   })"
-  >
-   💾 Kaydi
-  </button>
-
-  `;
-
- }else if(type==="fuel"){
-
-  title="⛽ Fuel";
-
-  body=`
-
-  <div class="sectiontitle">
-   ${title}
-  </div>
-
-  <label>Gaari / Mashiin</label>
-
-  <input id="fu_machine">
-
-  <div class="two">
-
-   <div>
-
-    <label>Litir</label>
-
-    <input
-     id="fu_liters"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-   <div>
-
-    <label>Kharash</label>
-
-    <input
-     id="fu_cost"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-  </div>
-
-  <label>Taariikh</label>
-
-  <input
-   id="fu_date"
-   type="date"
-   value="${today()}"
-  >
-
-  <label>Faahfaahin</label>
-
-  <textarea id="fu_desc"></textarea>
-
-  <button
-   onclick="addSimple('fuel',{
-    machine:'fu_machine',
-    liters:'fu_liters',
-    cost:'fu_cost',
-    date:'fu_date',
-    description:'fu_desc'
-   })"
-  >
-   💾 Kaydi
-  </button>
-
-  `;
-
- }else if(type==="maintenance"){
-
-  title="🔧 Dayactir";
-
-  body=`
-
-  <div class="sectiontitle">
-   ${title}
-  </div>
-
-  <label>Waxa la dayactiray</label>
-
-  <input id="mt_item">
-
-  <label>Kharash</label>
-
-  <input
-   id="mt_cost"
-   type="number"
-   value="0"
-  >
-
-  <label>Taariikh</label>
-
-  <input
-   id="mt_date"
-   type="date"
-   value="${today()}"
-  >
-
-  <label>Faahfaahin</label>
-
-  <textarea id="mt_desc"></textarea>
-
-  <button
-   onclick="addSimple('maintenance',{
-    item:'mt_item',
-    cost:'mt_cost',
-    date:'mt_date',
-    description:'mt_desc'
-   })"
-  >
-   💾 Kaydi
-  </button>
-
-  `;
-
- }else if(type==="employee"){
-
-  title="👷 Shaqaale";
-
-  body=`
-
-  <div class="sectiontitle">
-   ${title}
-  </div>
-
-  <label>Magaca</label>
-
-  <input id="em_name">
-
-  <div class="two">
-
-   <div>
-
-    <label>Mushahar</label>
-
-    <input
-     id="em_salary"
-     type="number"
-     value="0"
-    >
-
-   </div>
-
-   <div>
-
-    <label>Telefoon</label>
-
-    <input id="em_phone">
-
-   </div>
-
-  </div>
-
-  <label>Shaqada</label>
-
-  <input id="em_job">
-
-  <label>Taariikh</label>
-
-  <input
-   id="em_date"
-   type="date"
-   value="${today()}"
-  >
-
-  <button
-   onclick="addSimple('employees',{
-    name:'em_name',
-    salary:'em_salary',
-    phone:'em_phone',
-    job:'em_job',
-    date:'em_date'
-   })"
-  >
-   💾 Kaydi
-  </button>
-
-  `;
-
- }
-
- b.innerHTML=body;
-
- document.getElementById(
-  "modal"
- ).classList.add("show");
+`;
 
 }
 
-function qty(n){
 
- document.getElementById(
-  "a_qty"
- ).value=n;
+/* SHOW */
+
+document.getElementById(
+"formBody"
+).innerHTML = b;
+
+document.getElementById(
+"modal"
+).classList.add("show");
 
 }
+
+
+/* =========================================================
+   XOOLO QTY
+   ========================================================= */
+
+function setQty(n){
+
+const q =
+document.getElementById("a_qty");
+
+if(q){
+q.value = n;
+}
+
+}
+
+
+/* =========================================================
+   ADD ANIMAL
+   ========================================================= */
 
 async function addAnimal(){
 
- const nooca=document
-  .getElementById("a_type")
-  .value
-  .trim();
+const nooca =
+document.getElementById(
+"a_type"
+).value.trim();
 
- const qtyv=Math.floor(
-  +document.getElementById("a_qty").value||0
- );
+const q =
+Number(
+document.getElementById(
+"a_qty"
+).value
+) || 0;
 
- const born=Math.floor(
-  +document.getElementById("a_born").value||0
- );
+if(!nooca){
 
- const dead=Math.floor(
-  +document.getElementById("a_dead").value||0
- );
+status(
+"⚠️ Geli nooca xoolaha"
+);
 
- if(!nooca){
-
-  return status(
-   "⚠️ Geli nooca xoolaha"
-  );
-
- }
-
- if(qtyv<1||qtyv>5000){
-
-  return status(
-   "⚠️ Tiradu waa 1 ilaa 5,000"
-  );
-
- }
-
- if(born>qtyv||dead>qtyv){
-
-  return status(
-   "⚠️ Dhashay/Dhintay kama badnaan karto tirada"
-  );
-
- }
-
- data.animals.push({
-
-  id:uid(),
-
-  nooca:nooca,
-
-  tirada:qtyv,
-
-  qiimo:+document.getElementById(
-   "a_price"
-  ).value||0,
-
-  dhashay:born,
-
-  dhintay:dead,
-
-  iibsaday:+document.getElementById(
-   "a_bought"
-  ).value||0,
-
-  iibiyay:+document.getElementById(
-   "a_sold"
-  ).value||0,
-
-  taariikh:document.getElementById(
-   "a_date"
-  ).value,
-
-  description:document.getElementById(
-   "a_desc"
-  ).value
-
- });
-
- await saveData();
-
- render();
-
- closeForm();
-
- status(
-  `✅ ${qtyv.toLocaleString()} neef ayaa la diiwaangeliyey`,
-  true
- );
+return;
 
 }
+
+if(q < 1 || q > 5000){
+
+status(
+"⚠️ Tiradu waa 1 ilaa 5,000"
+);
+
+return;
+
+}
+
+data.animals.push({
+
+id:uid(),
+
+nooca:nooca,
+
+tirada:q,
+
+qiimo:
+Number(a("a_price")) || 0,
+
+dhashay:
+Number(a("a_born")) || 0,
+
+dhintay:
+Number(a("a_dead")) || 0,
+
+iibsaday:
+Number(a("a_bought")) || 0,
+
+iibiyay:
+Number(a("a_sold")) || 0,
+
+taariikh:
+a("date"),
+
+description:
+a("a_desc")
+
+});
+
+await finish(
+"Xoolaha"
+);
+
+}
+
+
+/* =========================================================
+   FINANCE
+   ========================================================= */
 
 async function addFinance(){
 
- const type=document.getElementById(
-  "f_type"
- ).value;
+const key =
+a("f_type") === "income"
+?
+"income"
+:
+"expenses";
 
- data[
-  type==="income"
-  ?"income"
-  :"expenses"
- ].push({
+data[key].push({
 
-  id:uid(),
+id:uid(),
 
-  category:document.getElementById(
-   "f_cat"
-  ).value||"Guud",
+category:
+a("f_cat"),
 
-  amount:+document.getElementById(
-   "f_amount"
-  ).value||0,
+amount:
+Number(a("f_amount")) || 0,
 
-  date:document.getElementById(
-   "f_date"
-  ).value,
+date:
+a("date"),
 
-  description:document.getElementById(
-   "f_desc"
-  ).value
+description:
+a("f_desc")
 
- });
+});
 
- await saveData();
-
- render();
-
- closeForm();
+await finish(
+"Maaliyadda"
+);
 
 }
+
+
+/* =========================================================
+   FARM
+   ========================================================= */
 
 async function addFarm(){
 
- data.farms.push({
+data.farms.push({
 
-  id:uid(),
+id:uid(),
 
-  name:document.getElementById(
-   "p_name"
-  ).value,
+name:
+a("p_name"),
 
-  crop:document.getElementById(
-   "p_crop"
-  ).value,
+crop:
+a("p_crop"),
 
-  area:+document.getElementById(
-   "p_area"
-  ).value||0,
+area:
+Number(a("p_area")) || 0,
 
-  cost:+document.getElementById(
-   "p_cost"
-  ).value||0,
+cost:
+Number(a("p_cost")) || 0,
 
-  planted:+document.getElementById(
-   "p_planted"
-  ).value||0,
+planted:
+Number(a("p_planted")) || 0,
 
-  harvested:+document.getElementById(
-   "p_harvested"
-  ).value||0,
+harvested:
+Number(a("p_harvested")) || 0,
 
-  date:document.getElementById(
-   "p_date"
-  ).value,
+date:
+a("date"),
 
-  description:document.getElementById(
-   "p_desc"
-  ).value
+description:
+a("p_desc")
 
- });
+});
 
- await saveData();
-
- render();
-
- closeForm();
+await finish(
+"Beer"
+);
 
 }
+
+
+/* =========================================================
+   ASSET
+   ========================================================= */
 
 async function addAsset(){
 
- const name=document.getElementById(
-  "h_name"
- ).value.trim();
+if(!a("h_name").trim()){
 
- if(!name){
+status(
+"⚠️ Geli magaca hantida"
+);
 
-  return status(
-   "⚠️ Geli magaca hantida"
-  );
-
- }
-
- data.assets.push({
-
-  id:uid(),
-
-  name:name,
-
-  category:document.getElementById(
-   "h_cat"
-  ).value||"Hanti",
-
-  value:+document.getElementById(
-   "h_value"
-  ).value||0,
-
-  date:document.getElementById(
-   "h_date"
-  ).value,
-
-  description:document.getElementById(
-   "h_desc"
-  ).value
-
- });
-
- await saveData();
-
- render();
-
- closeForm();
+return;
 
 }
+
+data.assets.push({
+
+id:uid(),
+
+name:
+a("h_name"),
+
+category:
+a("h_cat") || "Hanti",
+
+value:
+Number(a("h_value")) || 0,
+
+date:
+a("date"),
+
+description:
+a("h_desc")
+
+});
+
+await finish(
+"Hantida"
+);
+
+}
+
+
+/* =========================================================
+   DEBT
+   ========================================================= */
 
 async function addDebt(){
 
- data.debts.push({
+const due =
+a("d_due");
 
-  id:uid(),
+data.debts.push({
 
-  kind:document.getElementById(
-   "d_kind"
-  ).value,
+id:uid(),
 
-  person:document.getElementById(
-   "d_person"
-  ).value,
+kind:
+a("d_kind"),
 
-  amount:+document.getElementById(
-   "d_amount"
-  ).value||0,
+person:
+a("d_person"),
 
-  date:document.getElementById(
-   "d_date"
-  ).value,
+amount:
+Number(a("d_amount")) || 0,
 
-  due:document.getElementById(
-   "d_due"
-  ).value,
+date:
+a("date"),
 
-  late:
-   document.getElementById("d_due").value &&
-   document.getElementById("d_due").value<today(),
+due:due,
 
-  description:document.getElementById(
-   "d_desc"
-  ).value
+late:
+!!due && due < today(),
 
- });
+description:
+a("d_desc")
 
- await saveData();
+});
 
- render();
-
- closeForm();
+await finish(
+"Deynta"
+);
 
 }
 
-async function addSimple(kind,map){
 
- const x={
-  id:uid()
- };
+/* =========================================================
+   SIMPLE RECORDS
+   ========================================================= */
 
- Object.entries(map).forEach(
-  ([k,id])=>{
+async function addSimple(type){
 
-   const el=document.getElementById(id);
+const maps = {
 
-   x[k]=
-    el.type==="number"
-    ?Number(el.value||0)
-    :el.value;
+health:
+[
+"animal",
+"medicine",
+"quantity",
+"cost"
+],
 
-  }
- );
+feed:
+[
+"name",
+"quantity",
+"cost"
+],
 
- data[kind].push(x);
+irrigation:
+[
+"place",
+"quantity",
+"cost"
+],
 
- await saveData();
+fuel:
+[
+"machine",
+"liters",
+"cost"
+],
 
- render();
+maintenance:
+[
+"item",
+"cost"
+],
 
- closeForm();
+employee:
+[
+"name",
+"job",
+"salary",
+"phone"
+]
+
+};
+
+const x = {
+
+id:uid(),
+
+date:
+a("date"),
+
+description:
+a("s_desc")
+
+};
+
+maps[type].forEach(
+key=>{
+
+const el =
+document.getElementById(
+"s_" + key
+);
+
+if(!el){
+return;
+}
+
+x[key] =
+el.type === "number"
+?
+Number(el.value) || 0
+:
+el.value;
+
+});
+
+const target =
+type === "employee"
+?
+"employees"
+:
+type;
+
+data[target].push(x);
+
+await finish(type);
 
 }
+
+
+/* =========================================================
+   FINISH
+   ========================================================= */
+
+async function finish(name){
+
+saveLocal();
+
+render();
+
+closeForm();
+
+await saveData();
+
+if(online){
+
+status(
+"✅ " +
+name +
+" waa la kaydiyey — Supabase",
+"ok"
+);
+
+}else{
+
+status(
+"⚠️ " +
+name +
+" waa la kaydiyey telefoonka; Supabase lama xiriirin"
+);
+
+}
+
+}
+
+
+/* =========================================================
+   RECORDS
+   ========================================================= */
 
 function showRecords(kind){
 
- const arr=data[kind]||[];
+const arr =
+data[kind] || [];
 
- const box=document.getElementById(
-  "records"
- );
+const box =
+document.getElementById(
+"records"
+);
 
- if(!arr.length){
+if(!arr.length){
 
-  box.innerHTML=
-   '<div class="muted">Xog lama gelin.</div>';
+box.innerHTML =
+'<div class="muted">Xog lama gelin.</div>';
 
-  return;
-
- }
-
- box.innerHTML=`
-
- <div class="scroll">
-
- <table>
-
- <thead>
-
- <tr>
-
-  <th>#</th>
-
-  <th>Xog</th>
-
-  <th>Lacag/Tiro</th>
-
-  <th>Taariikh</th>
-
-  <th></th>
-
- </tr>
-
- </thead>
-
- <tbody>
-
- ${arr.slice().reverse().map(
-  (x,i)=>{
-
-   const label=
-    x.nooca||
-    x.name||
-    x.category||
-    x.person||
-    x.item||
-    x.machine||
-    x.place||
-    x.medicine||
-    "Diiwaan";
-
-   const val=
-    x.amount!=null
-    ?money(x.amount)
-    :x.value!=null
-    ?money(x.value)
-    :x.cost!=null
-    ?money(x.cost)
-    :x.tirada!=null
-    ?x.tirada
-    :x.quantity!=null
-    ?x.quantity
-    :"";
-
-   return `
-
-   <tr>
-
-    <td>${i+1}</td>
-
-    <td>${esc(label)}</td>
-
-    <td>${esc(val)}</td>
-
-    <td>${esc(
-     x.date||x.taariikh||""
-    )}</td>
-
-    <td>
-
-     <button
-      class="danger"
-      style="padding:7px 9px;font-size:13px"
-      onclick="deleteRecord('${kind}','${esc(x.id)}')"
-     >
-      Tirtir
-     </button>
-
-    </td>
-
-   </tr>
-
-   `;
-
-  }
- ).join("")}
-
- </tbody>
-
- </table>
-
- </div>
-
- `;
+return;
 
 }
 
-async function deleteRecord(kind,id){
+box.innerHTML = `
 
- if(!confirm(
-  "Ma rabtaa inaad tirtirto diiwaankan?"
- ))return;
+<table>
 
- data[kind]=data[kind].filter(
-  x=>x.id!==id
- );
+<thead>
 
- await saveData();
+<tr>
 
- render();
+<th>#</th>
 
- showRecords(kind);
+<th>Xog</th>
+
+<th>Lacag/Tiro</th>
+
+<th>Taariikh</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${
+arr
+.slice()
+.reverse()
+.map(
+(x,i)=>{
+
+const label =
+x.nooca ||
+x.name ||
+x.category ||
+x.person ||
+x.item ||
+x.machine ||
+x.place ||
+x.medicine ||
+"Diiwaan";
+
+let val = "";
+
+if(x.amount != null){
+
+val =
+money(x.amount);
+
+}else if(x.value != null){
+
+val =
+money(x.value);
+
+}else if(x.cost != null){
+
+val =
+money(x.cost);
+
+}else if(x.tirada != null){
+
+val =
+x.tirada;
+
+}else if(x.quantity != null){
+
+val =
+x.quantity;
+
+}else if(x.salary != null){
+
+val =
+money(x.salary);
 
 }
+
+return `
+
+<tr>
+
+<td>
+${i+1}
+</td>
+
+<td>
+${esc(label)}
+</td>
+
+<td>
+${esc(val)}
+</td>
+
+<td>
+${esc(
+x.date ||
+x.taariikh ||
+""
+)}
+</td>
+
+<td>
+
+<button
+class="danger"
+style="padding:7px 9px"
+onclick="del('${kind}','${esc(x.id)}')">
+
+Tirtir
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}
+)
+.join("")
+}
+
+</tbody>
+
+</table>
+
+`;
+
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+async function del(kind,id){
+
+if(
+!confirm(
+"Ma rabtaa inaad tirtirto diiwaankan?"
+)
+){
+
+return;
+
+}
+
+data[kind] =
+data[kind].filter(
+x=>x.id !== id
+);
+
+await finish(
+"Diiwaanka"
+);
+
+showRecords(kind);
+
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
 
 function toggleTheme(){
 
- document.body.classList.toggle(
-  "dark"
- );
+document.body
+.classList
+.toggle("dark");
 
- const dark=
-  document.body.classList.contains(
-   "dark"
-  );
-
- document.body.style.background=
-  dark
-  ?" #101915".trim()
-  :"#f2f7f4";
-
- document.body.style.color=
-  dark
-  ?" #eef7f2".trim()
-  :"#17352a";
-
- document.querySelectorAll(
-  ".card,.panel"
- ).forEach(x=>{
-
-  x.style.background=
-   dark
-   ?" #18231e".trim()
-   :"#fff";
-
-  x.style.borderColor=
-   dark
-   ?" #293b33".trim()
-   :"#e3ece7";
-
-  x.style.color=
-   dark
-   ?" #eef7f2".trim()
-   :"#17352a";
-
- });
-
- document.querySelectorAll(
-  "input,select,textarea"
- ).forEach(x=>{
-
-  x.style.background=
-   dark
-   ?" #101915".trim()
-   :"#fff";
-
-  x.style.color=
-   dark
-   ?" #eef7f2".trim()
-   :"#17352a";
-
-  x.style.borderColor=
-   dark
-   ?" #30443a".trim()
-   :"#dce7e2";
-
- });
-
- localStorage.setItem(
-  "TACBO_DARK",
-  dark?"1":"0"
- );
+localStorage.setItem(
+"TACBO_DARK",
+document.body.classList.contains("dark")
+?
+"1"
+:
+"0"
+);
 
 }
 
 if(
- localStorage.getItem(
-  "TACBO_DARK"
- )==="1"
+localStorage.getItem(
+"TACBO_DARK"
+) === "1"
 ){
 
- setTimeout(
-  toggleTheme,
-  0
- );
+document.body.classList.add(
+"dark"
+);
 
 }
+
+
+/* =========================================================
+   START
+   ========================================================= */
 
 render();
 
