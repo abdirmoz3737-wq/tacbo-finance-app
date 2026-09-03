@@ -9,199 +9,394 @@
 <style>
 *{box-sizing:border-box}
 :root{
---g:#15803d;--g2:#16a34a;--bg:#f4f7f5;--card:#fff;
---tx:#17201a;--muted:#68756c;--bd:#d9e6dc;
---red:#dc2626;--blue:#2563eb;--orange:#d97706
+--g:#15803d;
+--g2:#16a34a;
+--bg:#f4f7f5;
+--card:#fff;
+--tx:#17201a;
+--muted:#68756c;
+--bd:#d9e6dc;
+--red:#dc2626;
+--blue:#2563eb;
+--orange:#d97706;
+--gold:#b7791f;
 }
 body.dark{
---bg:#101612;--card:#18211b;--tx:#edf7ef;
---muted:#aab8ae;--bd:#304036
+--bg:#101612;
+--card:#18211b;
+--tx:#edf7ef;
+--muted:#aab8ae;
+--bd:#304036;
 }
 html,body{
-margin:0;background:var(--bg);color:var(--tx);
+margin:0;
+padding:0;
+background:var(--bg);
+color:var(--tx);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-
 .top{
-position:sticky;top:0;z-index:10;
-background:var(--card);border-bottom:1px solid var(--bd)
+position:sticky;
+top:0;
+z-index:20;
+background:var(--card);
+border-bottom:1px solid var(--bd)
 }
 .head{
-max-width:1250px;margin:auto;padding:11px 14px;
-display:flex;justify-content:space-between;align-items:center
+max-width:1250px;
+margin:auto;
+padding:12px 14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
 }
-.brand{display:flex;gap:11px;align-items:center}
+.brand{
+display:flex;
+align-items:center;
+gap:11px
+}
 .logo{
-width:48px;height:48px;border-radius:15px;
+width:52px;
+height:52px;
+border-radius:16px;
 background:linear-gradient(135deg,#15803d,#22c55e);
-display:grid;place-items:center;font-size:25px
+display:grid;
+place-items:center;
+font-size:28px;
+box-shadow:0 5px 18px #15803d33
 }
-.brand b{font-size:21px}
-.brand small{display:block;color:var(--muted);margin-top:2px}
-.icons{display:flex;gap:7px}
+.brand b{
+display:block;
+font-size:21px;
+font-weight:900
+}
+.brand small{
+display:block;
+color:var(--muted);
+margin-top:2px
+}
+.icons{
+display:flex;
+gap:7px
+}
 .icon{
-width:44px;height:44px;border:1px solid var(--bd);
-border-radius:12px;background:var(--card);color:var(--tx);
-font-size:20px
+width:45px;
+height:45px;
+border:1px solid var(--bd);
+border-radius:13px;
+background:var(--card);
+color:var(--tx);
+font-size:21px
 }
 .nav{
-max-width:1250px;margin:auto;padding:0 10px 10px;
-display:flex;gap:8px;overflow:auto
+max-width:1250px;
+margin:auto;
+padding:0 10px 10px;
+display:flex;
+gap:8px;
+overflow:auto
 }
 .nav button{
-border:0;border-radius:12px;padding:11px 15px;
-white-space:nowrap;background:#ecfdf3;color:var(--g);
-font-weight:800
+border:0;
+border-radius:13px;
+padding:12px 16px;
+white-space:nowrap;
+background:#ecfdf3;
+color:var(--g);
+font-weight:900
 }
-.nav button.on{background:var(--g);color:white}
-
-main{max-width:1250px;margin:auto;padding:14px}
-
+.nav button.on{
+background:var(--g);
+color:#fff
+}
+main{
+max-width:1250px;
+margin:auto;
+padding:15px
+}
 .status{
-padding:13px 15px;border-radius:13px;margin-bottom:15px;
-background:#fff7ed;border:1px solid #fed7aa;color:#9a3412
+padding:14px 15px;
+border-radius:14px;
+margin-bottom:16px;
+background:#fff7ed;
+border:1px solid #fed7aa;
+color:#9a3412;
+font-weight:600
 }
 .status.ok{
-background:#ecfdf5;border-color:#bbf7d0;color:#166534
+background:#ecfdf5;
+border-color:#bbf7d0;
+color:#166534
+}
+.status.bad{
+background:#fff7ed;
+border-color:#fed7aa;
+color:#9a3412
 }
 .status.wait{
-background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8
+background:#eff6ff;
+border-color:#bfdbfe;
+color:#1d4ed8
 }
-
 .page{display:none}
 .page.on{display:block}
-
-h1{font-size:30px;margin:5px 0}
-h2{margin:0 0 5px;font-size:22px}
-h3{margin:0 0 7px}
+h1{
+font-size:31px;
+margin:5px 0
+}
+h2{
+font-size:23px;
+margin:22px 0 9px
+}
+h3{
+margin:0 0 8px
+}
 .muted{color:var(--muted)}
-
 .cards{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:12px;margin:16px 0
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin:17px 0
 }
 .card{
-background:var(--card);border:1px solid var(--bd);
-border-radius:17px;padding:17px;
-box-shadow:0 4px 18px #0000000a
+background:var(--card);
+border:1px solid var(--bd);
+border-radius:18px;
+padding:18px;
+box-shadow:0 5px 20px #0000000a
 }
-.num{font-size:30px;font-weight:900;margin-top:6px}
+.num{
+font-size:30px;
+font-weight:950;
+margin-top:6px
+}
 .green{color:#16a34a}
 .red{color:#dc2626}
 .blue{color:#2563eb}
 .orange{color:#d97706}
-
+.gold{color:#b7791f}
 .actions{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:11px;margin:14px 0
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:11px;
+margin:14px 0
 }
 .action{
-text-align:left;background:var(--card);color:var(--tx);
-border:1px solid var(--bd);border-radius:15px;padding:15px
+text-align:left;
+background:var(--card);
+color:var(--tx);
+border:1px solid var(--bd);
+border-radius:16px;
+padding:16px;
+transition:.15s
 }
-.action b{display:block;margin-bottom:4px}
-.action span{color:var(--muted);font-size:13px}
-
+.action:active{transform:scale(.98)}
+.action b{
+display:block;
+margin-bottom:5px;
+font-size:16px
+}
+.action span{
+color:var(--muted);
+font-size:13px
+}
 .toolbar{
-display:flex;justify-content:space-between;
-align-items:center;gap:10px;flex-wrap:wrap;
-margin-bottom:13px
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+margin:10px 0 14px
 }
-
 .btn{
-border:0;border-radius:11px;
-padding:10px 14px;font-weight:800
+border:0;
+border-radius:11px;
+padding:10px 14px;
+font-weight:900
 }
 .btn.g{background:var(--g);color:#fff}
 .btn.x{background:#e5e7eb;color:#111}
 .btn.r{background:#fee2e2;color:#991b1b}
 .btn.b{background:#dbeafe;color:#1d4ed8}
-
 .note{
-padding:13px;border-radius:13px;
-background:#ecfdf5;border:1px solid #bbf7d0;
-color:#166534;margin-bottom:13px
+padding:13px;
+border-radius:13px;
+background:#ecfdf5;
+border:1px solid #bbf7d0;
+color:#166534;
+margin-bottom:14px
 }
-
 .form{
-background:var(--card);border:1px solid var(--bd);
-border-radius:17px;padding:16px
+background:var(--card);
+border:1px solid var(--bd);
+border-radius:18px;
+padding:16px;
+margin-bottom:15px
 }
 .grid{
-display:grid;grid-template-columns:repeat(3,1fr);gap:12px
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
 }
 .field label{
-display:block;font-size:13px;color:var(--muted);
+display:block;
+font-size:13px;
+color:var(--muted);
 margin-bottom:5px
 }
-.field input,.field select,.field textarea{
-width:100%;padding:11px;border:1px solid var(--bd);
-border-radius:10px;background:var(--bg);
-color:var(--tx);outline:0
+.field input,
+.field select,
+.field textarea{
+width:100%;
+padding:11px 12px;
+border:1px solid var(--bd);
+border-radius:11px;
+background:var(--bg);
+color:var(--tx);
+outline:0
 }
-.field textarea{min-height:85px;resize:vertical}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+border-color:var(--g)
+}
+.field textarea{
+min-height:90px;
+resize:vertical
+}
 .full{grid-column:1/-1}
-
 .table{
-overflow:auto;background:var(--card);
-border:1px solid var(--bd);border-radius:15px
+overflow:auto;
+background:var(--card);
+border:1px solid var(--bd);
+border-radius:16px
 }
 .table table{
-border-collapse:collapse;width:100%;min-width:680px
+border-collapse:collapse;
+width:100%;
+min-width:700px
 }
-.table th,.table td{
-padding:10px;border-bottom:1px solid var(--bd);
-text-align:left;font-size:13px
+.table th,
+.table td{
+padding:11px;
+border-bottom:1px solid var(--bd);
+text-align:left;
+font-size:13px
 }
-.table th{color:var(--muted);font-size:12px}
-.empty{text-align:center;padding:32px;color:var(--muted)}
-
+.table th{
+color:var(--muted);
+font-size:12px
+}
+.table tr:last-child td{border-bottom:0}
+.empty{
+text-align:center;
+padding:34px;
+color:var(--muted)
+}
+.pill{
+display:inline-block;
+padding:5px 9px;
+border-radius:99px;
+font-size:11px;
+font-weight:800;
+background:#ecfdf5;
+color:#166534
+}
+.delete{
+border:0;
+background:#fee2e2;
+color:#991b1b;
+border-radius:8px;
+padding:6px 9px;
+font-weight:800
+}
 .modal{
-display:none;position:fixed;inset:0;z-index:50;
-background:#0009;padding:14px;overflow:auto
+display:none;
+position:fixed;
+inset:0;
+z-index:50;
+background:#0009;
+padding:14px;
+overflow:auto
 }
 .modal.show{display:block}
 .box{
-max-width:780px;margin:25px auto;background:var(--card);
-border-radius:19px;padding:18px
+max-width:820px;
+margin:25px auto;
+background:var(--card);
+border-radius:20px;
+padding:18px
 }
 .mhead{
-display:flex;justify-content:space-between;
-align-items:center;margin-bottom:12px
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px
 }
 .close{
-border:0;background:none;color:var(--tx);
-font-size:30px
+border:0;
+background:none;
+color:var(--tx);
+font-size:31px
 }
-
 .toast{
-position:fixed;z-index:100;left:50%;bottom:20px;
-transform:translate(-50%,130px);
-background:#111;color:#fff;padding:12px 17px;
-border-radius:12px;transition:.25s;
-max-width:90%;text-align:center
+position:fixed;
+z-index:100;
+left:50%;
+bottom:22px;
+transform:translate(-50%,140px);
+background:#111;
+color:#fff;
+padding:12px 17px;
+border-radius:13px;
+transition:.25s;
+max-width:92%;
+text-align:center;
+box-shadow:0 8px 30px #0005
 }
-.toast.show{transform:translate(-50%,0)}
-
+.toast.show{
+transform:translate(-50%,0)
+}
+.summary{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin:15px 0
+}
+.summary .card{padding:15px}
+.search{
+width:100%;
+padding:12px;
+border:1px solid var(--bd);
+border-radius:11px;
+background:var(--bg);
+color:var(--tx)
+}
 footer{
-text-align:center;padding:35px 8px 20px;
-color:var(--muted);font-size:12px
+text-align:center;
+padding:40px 8px 20px;
+color:var(--muted);
+font-size:12px
 }
-
 @media(max-width:900px){
 .cards,.actions{grid-template-columns:repeat(2,1fr)}
 .grid{grid-template-columns:repeat(2,1fr)}
+.summary{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:560px){
-.cards,.actions{gap:8px}
+main{padding:12px}
+.cards,.actions{grid-template-columns:repeat(2,1fr);gap:8px}
 .card{padding:13px}
 .num{font-size:25px}
 .grid{grid-template-columns:1fr}
 .full{grid-column:auto}
+.summary{grid-template-columns:1fr}
 .brand b{font-size:19px}
 .brand small{font-size:11px}
+.nav button{padding:11px 14px}
 }
 </style>
 </head>
@@ -221,8 +416,8 @@ color:var(--muted);font-size:12px
 </div>
 
 <div class="icons">
-<button class="icon" onclick="dark()">🌙</button>
-<button class="icon" onclick="loadData()">↻</button>
+<button class="icon" onclick="toggleDark()">🌙</button>
+<button class="icon" onclick="refreshData()">↻</button>
 </div>
 
 </div>
@@ -270,14 +465,36 @@ color:var(--muted);font-size:12px
 
 <div class="actions" id="quick"></div>
 
+<div class="summary">
+
+<div class="card">
+<h3>🥛 Canaha</h3>
+<div class="muted">Wadarta caanaha</div>
+<div id="milkTotal" class="num gold">0 L</div>
+</div>
+
+<div class="card">
+<h3>🌾 Beeraha</h3>
+<div class="muted">Tirada diiwaanka beeraha</div>
+<div id="farmTotal" class="num green">0</div>
+</div>
+
+<div class="card">
+<h3>🏗️ Hantida</h3>
+<div class="muted">Wadarta qiimaha hantida</div>
+<div id="assetTotal" class="num blue">0 USD</div>
+</div>
+
+</div>
+
 <div class="card">
 
 <h3>📊 Warbixin</h3>
 
 <div class="muted">
-Xogta TACBO Agro waxaa lagu kaydinayaa telefoonka iyo Supabase.
+TACBO Agro wuxuu kaydinayaa xogta telefoonka iyo Supabase.
 Haddii internet-ku go'o, xogta telefoonka ayaa sii shaqaynaysa.
-Marka internet-ku soo laabto, xogta ayaa Supabase lagu kaydinayaa.
+Marka internet-ku soo laabto, xogta waxaa lagu kaydinayaa Supabase.
 </div>
 
 </div>
@@ -313,7 +530,7 @@ TACBO Agro © 2026 — Maamulka Beeraha & Xoolaha
 
 /* =========================================================
    TACBO AGRO
-   SUPABASE CONNECTION
+   SUPABASE
    ========================================================= */
 
 const SUPABASE_URL =
@@ -324,6 +541,25 @@ const SUPABASE_KEY =
 
 const RECORD_ID="tacbo_main";
 const LOCAL_KEY="tacbo_agro_data_v5";
+
+let data={
+livestock:[],
+income:[],
+expense:[],
+farms:[],
+assets:[],
+debts:[],
+health:[],
+feed:[],
+irrigation:[],
+fuel:[],
+maintenance:[],
+employees:[],
+milk:[]
+};
+
+let currentModule="dashboard";
+let controller=null;
 
 
 /* =========================================================
@@ -337,7 +573,7 @@ title:"🐐 Xoolaha",
 add:"＋ Xoolo Ku Dar",
 fields:[
 ["animalId","ID Xoolaha","text"],
-["kind","Nooca","select:Ri',Ido,Lo',Geel,Digaag,Faras,Kale"],
+["kind","Nooca","select:Ri,Ido,Lo,Geel,Digaag,Faras,Kale"],
 ["qty","Tirada","number"],
 ["sex","Jinsi","select:Lab,Dhadig"],
 ["status","Xaalad","select:Nool,Dhintay,La iibiyey,La soo iibsaday"],
@@ -378,7 +614,7 @@ add:"＋ Kharash Ku Dar",
 fields:[
 ["name","Magac / Sharaxaad","text"],
 ["amount","Lacagta USD","number"],
-["category","Qaybta","text"],
+["category","Qaybta","select:Waraab,Shidaal,Mushahar,Quudin,Daawo,Dayactir,Kale"],
 ["date","Taariikh","date"],
 ["note","Qoraal","textarea"]
 ],
@@ -459,26 +695,28 @@ fields:[
 ],
 cols:[
 ["animalId","ID"],
-["name","Daawo/Tallaal"],
+["name","Daawo"],
 ["amount","Kharash"],
+["person","Qof"],
 ["date","Taariikh"]
 ]
 },
 
 feed:{
-title:"🌿 Quudinta",
+title:"🌽 Quudinta",
 add:"＋ Quudin Ku Dar",
 fields:[
 ["name","Nooca Quudinta","text"],
 ["qty","Tirada","number"],
-["amount","Qiimaha USD","number"],
-["location","Goobta","text"],
+["unit","Halbeeg","select:Kg,Tan,Boorso,Litir,Kale"],
+["amount","Kharash USD","number"],
 ["date","Taariikh","date"],
 ["note","Qoraal","textarea"]
 ],
 cols:[
 ["name","Quudin"],
-["qty","Tiro"],
+["qty","Tirada"],
+["unit","Halbeeg"],
 ["amount","Kharash"],
 ["date","Taariikh"]
 ]
@@ -488,38 +726,36 @@ irrigation:{
 title:"💧 Waraabka",
 add:"＋ Waraab Ku Dar",
 fields:[
-["name","Sharaxaad","text"],
 ["farm","Beerta","text"],
-["hours","Saacadaha","number"],
+["water","Biyaha / Saacadaha","number"],
 ["amount","Kharash USD","number"],
 ["date","Taariikh","date"],
 ["note","Qoraal","textarea"]
 ],
 cols:[
-["name","Sharaxaad"],
 ["farm","Beer"],
-["hours","Saacado"],
+["water","Biyo/Saac"],
 ["amount","Kharash"],
 ["date","Taariikh"]
 ]
 },
 
 fuel:{
-title:"⛽ Fuel",
-add:"＋ Fuel Ku Dar",
+title:"⛽ Shidaalka",
+add:"＋ Shidaal Ku Dar",
 fields:[
-["name","Nooca Fuel","text"],
-["qty","Tirada","number"],
-["machine","Mashiin / Gaari","text"],
+["type","Nooca Shidaalka","select:Diesel,Batrool,Kale"],
+["qty","Tirada Litir","number"],
 ["amount","Kharash USD","number"],
+["machine","Mashiinka / Gaadiidka","text"],
 ["date","Taariikh","date"],
 ["note","Qoraal","textarea"]
 ],
 cols:[
-["name","Fuel"],
-["qty","Tiro"],
-["machine","Mashiin"],
+["type","Nooc"],
+["qty","Litir"],
 ["amount","Kharash"],
+["machine","Mashiin"],
 ["date","Taariikh"]
 ]
 },
@@ -528,16 +764,15 @@ maintenance:{
 title:"🔧 Dayactirka",
 add:"＋ Dayactir Ku Dar",
 fields:[
-["name","Mashiin / Qalab","text"],
-["category","Nooca Dayactirka","text"],
+["item","Waxa la dayactiray","text"],
+["machine","Mashiin / Qalab","text"],
 ["amount","Kharash USD","number"],
-["person","Qofka Dayactiray","text"],
 ["date","Taariikh","date"],
-["note","Faahfaahin","textarea"]
+["note","Qoraal","textarea"]
 ],
 cols:[
-["name","Mashiin/Qalab"],
-["category","Nooc"],
+["item","Shay"],
+["machine","Mashiin"],
 ["amount","Kharash"],
 ["date","Taariikh"]
 ]
@@ -549,7 +784,7 @@ add:"＋ Shaqaale Ku Dar",
 fields:[
 ["name","Magaca Shaqaalaha","text"],
 ["job","Shaqada","text"],
-["amount","Mushahar USD","number"],
+["salary","Mushahar USD","number"],
 ["phone","Telefoon","tel"],
 ["date","Taariikh","date"],
 ["note","Qoraal","textarea"]
@@ -557,8 +792,30 @@ fields:[
 cols:[
 ["name","Magac"],
 ["job","Shaqo"],
-["amount","Mushahar"],
+["salary","Mushahar"],
 ["phone","Telefoon"],
+["date","Taariikh"]
+]
+},
+
+milk:{
+title:"🥛 Canaha",
+add:"＋ Caano Ku Dar",
+fields:[
+["animalId","ID Xoolaha","text"],
+["animalType","Nooca Xoolaha","select:Lo,Geel,Riyo,Ido"],
+["liters","Tirada Caanaha (L)","number"],
+["price","Qiimaha/Litir USD","number"],
+["buyer","Qofka Iibsaday","text"],
+["date","Taariikh","date"],
+["note","Qoraal","textarea"]
+],
+cols:[
+["animalId","ID"],
+["animalType","Nooc"],
+["liters","Litir"],
+["price","USD/L"],
+["buyer","Iibsade"],
 ["date","Taariikh"]
 ]
 }
@@ -567,190 +824,372 @@ cols:[
 
 
 /* =========================================================
-   DATA
+   NAVIGATION
    ========================================================= */
 
-let data={};
+const navItems=[
+["dashboard","🏠 Hoy"],
+["livestock","🐐 Xoolo"],
+["income","💰 Dakhli"],
+["expense","💸 Kharash"],
+["milk","🥛 Canaha"],
+["farms","🌾 Beeraha"],
+["assets","🏗️ Hanti"],
+["debts","📒 Deyn"],
+["health","💊 Caafimaad"],
+["feed","🌽 Quudin"],
+["irrigation","💧 Waraab"],
+["fuel","⛽ Shidaal"],
+["maintenance","🔧 Dayactir"],
+["employees","👷 Shaqaale"]
+];
 
-Object.keys(defs).forEach(k=>{
-data[k]=[];
+function buildNav(){
+
+const nav=document.getElementById("nav");
+nav.innerHTML="";
+
+navItems.forEach(([id,label])=>{
+
+const b=document.createElement("button");
+b.textContent=label;
+b.id="nav-"+id;
+
+if(id==="dashboard")b.classList.add("on");
+
+b.onclick=()=>showPage(id);
+
+nav.appendChild(b);
+
 });
 
-let type="";
-let editId=null;
+}
+
+
+function showPage(id){
+
+currentModule=id;
+
+document.querySelectorAll(".page").forEach(x=>{
+x.classList.remove("on");
+});
+
+const dash=document.getElementById("dashboard");
+
+if(id==="dashboard"){
+dash.classList.add("on");
+}else{
+
+const p=document.getElementById("page-"+id);
+
+if(p)p.classList.add("on");
+
+}
+
+document.querySelectorAll(".nav button").forEach(x=>{
+x.classList.remove("on");
+});
+
+const n=document.getElementById("nav-"+id);
+
+if(n)n.classList.add("on");
+
+window.scrollTo({top:0,behavior:"smooth"});
+
+}
 
 
 /* =========================================================
-   START
+   PAGES
    ========================================================= */
 
-function init(){
+function buildPages(){
 
-for(const k in defs){
+const pages=document.getElementById("pages");
 
-const id="p_"+k;
+pages.innerHTML="";
 
-document.getElementById("pages").insertAdjacentHTML(
-"beforeend",
+Object.keys(defs).forEach(key=>{
 
-`<section id="${id}" class="page">
+const d=defs[key];
+
+const section=document.createElement("section");
+
+section.id="page-"+key;
+section.className="page";
+
+section.innerHTML=`
+
+<h1>${d.title}</h1>
 
 <div class="toolbar">
 
-<div>
-<h2>${defs[k].title}</h2>
-<div class="muted">Diiwaanka TACBO Agro</div>
+<div class="muted">
+${d.add}
 </div>
 
-<button class="btn g"
-onclick="openAdd('${k}')">
-${defs[k].add}
+<button class="btn g" onclick="openAdd('${key}')">
+${d.add}
 </button>
 
 </div>
 
-${k==="assets"
-?
-'<div class="note">Ceelka waa <b>Hanti</b>. Waraabku waa <b>Kharash hawleed</b>.</div>'
-:
-""}
+<div class="form">
 
-<div id="t_${k}"></div>
+<input
+class="search"
+id="search-${key}"
+placeholder="🔎 Ka raadi xogta..."
+oninput="renderTable('${key}')">
 
-</section>`
+</div>
 
-);
+<div id="table-${key}"></div>
+
+`;
+
+pages.appendChild(section);
+
+});
 
 }
 
 
-/* NAVIGATION */
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
 
-let nav=[
-["dashboard","🏠 Hoy"]
-];
+function buildQuick(){
 
-nav=nav.concat(
-Object.keys(defs).map(k=>[
-k,
-defs[k].title
-])
-);
+const q=document.getElementById("quick");
 
-document.getElementById("nav").innerHTML=
-
-nav.map((n,i)=>
-
-`<button class="${i===0?"on":""}"
-onclick="page('${n[0]}',this)">
-${n[1]}
-</button>`
-
-).join("");
-
-
-/* QUICK ACTIONS */
-
-const q=[
-
+const arr=[
 ["livestock","🐐 Diiwaangeli Xoolo","Ku dar xoolo cusub"],
-
+["milk","🥛 Diiwaangeli Caano","Qor caanaha la helay"],
 ["income","💰 Dakhli Cusub","Qor lacag soo gashay"],
-
 ["expense","💸 Kharash Cusub","Qor lacag baxday"],
-
 ["assets","🏗️ Hanti Cusub","Ku dar hantida"],
-
-["farms","🌾 Beer Cusub","Ku dar beer"],
-
-["debts","📒 Deyn Cusub","Qor deyn"],
-
-["health","💊 Caafimaad","Daawo iyo tallaal"],
-
-["employees","👷 Shaqaale","Ku dar shaqaale"]
-
+["farms","🌾 Beer Cusub","Ku dar beerta"],
+["debts","📒 Deyn Cusub","Diiwaangeli deyn"],
+["health","💊 Caafimaad","Daawo ama tallaal"],
+["feed","🌽 Quudin","Diiwaangeli quudin"],
+["irrigation","💧 Waraab","Qor kharashka waraabka"],
+["fuel","⛽ Shidaal","Qor shidaalka"],
+["maintenance","🔧 Dayactir","Qor dayactirka"]
 ];
 
-document.getElementById("quick").innerHTML=
+q.innerHTML="";
 
-q.map(x=>
+arr.forEach(x=>{
 
-`<button class="action"
-onclick="openAdd('${x[0]}')">
+const b=document.createElement("button");
 
+b.className="action";
+
+b.innerHTML=`
 <b>${x[1]}</b>
-
 <span>${x[2]}</span>
+`;
 
-</button>`
+b.onclick=()=>openAdd(x[0]);
 
-).join("");
+q.appendChild(b);
 
-
-/* DARK */
-
-if(localStorage.getItem("tacbo_dark")==="1"){
-document.body.classList.add("dark");
-}
-
-
-/* LOCAL DATA */
-
-loadLocal();
-
-render();
-
-
-/* SUPABASE */
-
-loadData();
+});
 
 }
 
 
 /* =========================================================
-   PAGE
+   MODAL
    ========================================================= */
 
-function page(id,b){
+function openAdd(key){
 
-document
-.querySelectorAll(".page")
-.forEach(x=>x.classList.remove("on"));
+const d=defs[key];
 
-document
-.getElementById(
-id==="dashboard"?"dashboard":"p_"+id
-)
-.classList.add("on");
+document.getElementById("mtitle").textContent=d.add;
 
-document
-.querySelectorAll(".nav button")
-.forEach(x=>x.classList.remove("on"));
+let html=`<form id="addForm" onsubmit="submitForm(event,'${key}')">
+<div class="grid">`;
 
-b.classList.add("on");
+d.fields.forEach(f=>{
 
-scrollTo(0,0);
+const name=f[0];
+const label=f[1];
+const type=f[2];
+
+html+=`
+<div class="field ${type==="textarea"?"full":""}">
+<label>${label}</label>
+`;
+
+if(type==="textarea"){
+
+html+=`
+<textarea
+name="${name}"
+placeholder="${label}"></textarea>
+`;
+
+}else if(type.startsWith("select:")){
+
+const options=type.substring(7).split(",");
+
+html+=`
+<select name="${name}">
+<option value="">Dooro...</option>
+`;
+
+options.forEach(o=>{
+html+=`<option value="${escapeAttr(o)}">${o}</option>`;
+});
+
+html+=`</select>`;
+
+}else{
+
+html+=`
+<input
+type="${type}"
+name="${name}"
+${name==="date"?"value=\""+today()+"\"":""}
+${name==="qty"||name==="liters"?"min=\"0\" step=\"any\"":""}
+${name==="amount"||name==="price"||name==="salary"?"min=\"0\" step=\"any\"":""}
+placeholder="${label}">
+`;
+
+}
+
+html+=`</div>`;
+
+});
+
+html+=`
+
+<div class="field full">
+<label>Fiiro gaar ah</label>
+<div class="muted">
+Xogta waxaa lagu kaydinayaa telefoonka isla markiiba,
+kadibna Supabase ayaa lala isku dayayaa.
+</div>
+</div>
+
+<div class="full" style="display:flex;gap:8px;justify-content:flex-end">
+<button type="button" class="btn x" onclick="closeModal()">Ka noqo</button>
+<button type="submit" class="btn g">💾 Kaydi</button>
+</div>
+
+</div>
+</form>`;
+
+document.getElementById("mcontent").innerHTML=html;
+
+document.getElementById("modal").classList.add("show");
+
+}
+
+
+function closeModal(){
+
+document.getElementById("modal").classList.remove("show");
+
+}
+
+
+function escapeAttr(v){
+
+return String(v)
+.replace(/&/g,"&amp;")
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
+
+}
+
+
+function today(){
+
+return new Date().toISOString().slice(0,10);
 
 }
 
 
 /* =========================================================
-   DARK MODE
+   FORM SAVE
    ========================================================= */
 
-function dark(){
+async function submitForm(e,key){
 
-document.body.classList.toggle("dark");
+e.preventDefault();
 
-localStorage.setItem(
-"tacbo_dark",
-document.body.classList.contains("dark")
-?
-"1"
-:
-"0"
-);
+const form=e.target;
+
+const fd=new FormData(form);
+
+const item={
+id:Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8),
+created_at:new Date().toISOString()
+};
+
+defs[key].fields.forEach(f=>{
+
+let v=fd.get(f[0]);
+
+if(v===null)v="";
+
+if(
+f[2]==="number" ||
+f[0]==="amount" ||
+f[0]==="price" ||
+f[0]==="salary" ||
+f[0]==="liters" ||
+f[0]==="qty" ||
+f[0]==="area"
+){
+
+if(v!=="")v=Number(v);
+
+}
+
+item[f[0]]=v;
+
+});
+
+if(!Array.isArray(data[key]))data[key]=[];
+
+data[key].push(item);
+
+saveLocal();
+
+closeModal();
+
+renderAll();
+
+toast("✅ Xogta telefoonka waa la kaydiyey");
+
+await saveToSupabase();
+
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+async function removeItem(key,id){
+
+if(!confirm("Ma hubtaa inaad tirtirayso xogtan?"))return;
+
+data[key]=(data[key]||[]).filter(x=>x.id!==id);
+
+saveLocal();
+
+renderAll();
+
+toast("🗑️ Xogta waa la tirtiray telefoonka");
+
+await saveToSupabase();
 
 }
 
@@ -759,7 +1198,7 @@ document.body.classList.contains("dark")
    LOCAL STORAGE
    ========================================================= */
 
-function local(){
+function saveLocal(){
 
 try{
 
@@ -781,11 +1220,18 @@ function loadLocal(){
 
 try{
 
-let x=localStorage.getItem(LOCAL_KEY);
+const raw=localStorage.getItem(LOCAL_KEY);
 
-if(x){
+if(!raw)return;
 
-data=norm(JSON.parse(x));
+const parsed=JSON.parse(raw);
+
+if(parsed && typeof parsed==="object"){
+
+data={
+...data,
+...parsed
+};
 
 }
 
@@ -798,90 +1244,56 @@ console.error(e);
 }
 
 
-function norm(x){
-
-Object.keys(defs).forEach(k=>{
-
-if(!Array.isArray(x[k])){
-x[k]=[];
-}
-
-});
-
-return x;
-
-}
-
-
 /* =========================================================
-   SUPABASE API
+   SUPABASE REQUEST
    ========================================================= */
 
-async function api(path,opt={}){
+async function api(path,options={}){
 
-let c=new AbortController();
+if(controller)controller.abort();
 
-let t=setTimeout(
-()=>c.abort(),
-10000
+controller=new AbortController();
+
+const headers={
+"apikey":SUPABASE_KEY,
+"Authorization":"Bearer "+SUPABASE_KEY,
+"Content-Type":"application/json",
+"Accept":"application/json",
+...options.headers
+};
+
+const response=await fetch(
+SUPABASE_URL+"/rest/v1/"+path,
+{
+...options,
+headers,
+signal:controller.signal
+}
 );
+
+if(!response.ok){
+
+let text="";
 
 try{
+text=await response.text();
+}catch(e){}
 
-let r=await fetch(
-
-SUPABASE_URL+
-"/rest/v1/"+
-path,
-
-{
-
-...opt,
-
-signal:c.signal,
-
-headers:{
-
-apikey:SUPABASE_KEY,
-
-Authorization:
-"Bearer "+SUPABASE_KEY,
-
-"Content-Type":
-"application/json",
-
-Accept:
-"application/json",
-
-...(opt.headers||{})
-
-}
-
-}
-
-);
-
-if(!r.ok){
-
-throw Error(
-"HTTP "+r.status
+throw new Error(
+"Supabase HTTP "+response.status+" "+text
 );
 
 }
 
-let s=await r.text();
+const ct=response.headers.get("content-type")||"";
 
-return s?
-JSON.parse(s):
-null;
+if(ct.includes("application/json")){
 
-}
-
-finally{
-
-clearTimeout(t);
+return await response.json();
 
 }
+
+return null;
 
 }
 
@@ -890,116 +1302,53 @@ clearTimeout(t);
    LOAD FROM SUPABASE
    ========================================================= */
 
-async function loadData(){
+async function loadFromSupabase(){
 
-status(
+setStatus(
 "wait",
 "⏳ Supabase waa la hubinayaa..."
 );
 
 try{
 
-let r=await api(
-
-"tacbo_records?select=id,record_type,data&id=eq."+
-encodeURIComponent(RECORD_ID)+
-"&limit=1"
-
-);
-
-if(
-r &&
-r[0] &&
-r[0].data
-){
-
-data=norm(r[0].data);
-
-local();
-
-render();
-
-}
-
-status(
-"ok",
-"✅ Supabase waa ku xiran yahay — xogta waa diyaar."
-);
-
-}
-
-catch(e){
-
-console.error(e);
-
-status(
-"bad",
-"⚠️ Supabase lama xiriirin — xogta telefoonka waa la hayaa."
-);
-
-}
-
-}
-
-
-/* =========================================================
-   SAVE
-   ========================================================= */
-
-async function save(){
-
-local();
-
-try{
-
-await api(
-
-"tacbo_records?on_conflict=id",
-
+const rows=await api(
+"tacbo_records?select=id,record_type,data&id=eq."+encodeURIComponent(RECORD_ID)+"&limit=1",
 {
+method:"GET"
+}
+);
 
-method:"POST",
+if(Array.isArray(rows) && rows.length){
 
-headers:{
+if(rows[0].data && typeof rows[0].data==="object"){
 
-Prefer:
-"resolution=merge-duplicates,return=minimal"
+data={
+...data,
+...rows[0].data
+};
 
-},
+saveLocal();
 
-body:JSON.stringify({
-
-id:RECORD_ID,
-
-record_type:"tacbo_app",
-
-data:data,
-
-updated_at:
-new Date().toISOString()
-
-})
+renderAll();
 
 }
 
-);
+}
 
-status(
+setStatus(
 "ok",
-"✅ Supabase waa ku xiran yahay — xogta waa la kaydiyey."
+"✅ Supabase waa ku xiran yahay — xogta waa la kaydin karaa."
 );
 
 return true;
 
-}
-
-catch(e){
+}catch(e){
 
 console.error(e);
 
-status(
+setStatus(
 "bad",
-"⚠️ Internet/Supabase lama xiriirin — xogta telefoonka waa la hayaa."
+"⚠️ Supabase lama xiriirin — xogta telefoonka waa la hayaa."
 );
 
 return false;
@@ -1010,338 +1359,172 @@ return false;
 
 
 /* =========================================================
-   STATUS
+   SAVE TO SUPABASE
    ========================================================= */
 
-function status(c,t){
+async function saveToSupabase(){
 
-let e=document.getElementById("status");
+try{
 
-e.textContent=t;
-
-e.className=
-"status "+
-(
-c==="ok"
-?
-"ok"
-:
-c==="wait"
-?
-"wait"
-:
-""
+await api(
+"tacbo_records?on_conflict=id",
+{
+method:"POST",
+headers:{
+"Prefer":"resolution=merge-duplicates,return=minimal"
+},
+body:JSON.stringify({
+id:RECORD_ID,
+record_type:"tacbo_app",
+data:data,
+updated_at:new Date().toISOString()
+})
+}
 );
+
+setStatus(
+"ok",
+"✅ Xogta waa la kaydiyey — telefoonka iyo Supabase."
+);
+
+return true;
+
+}catch(e){
+
+console.error(e);
+
+setStatus(
+"bad",
+"⚠️ Supabase lama xiriirin — xogta telefoonka waa la hayaa."
+);
+
+toast("⚠️ Internet/Supabase lama xiriirin");
+
+return false;
+
+}
 
 }
 
 
 /* =========================================================
-   ADD / EDIT
+   RENDER TABLE
    ========================================================= */
 
-function openAdd(k,id=null){
+function renderTable(key){
 
-type=k;
+const d=defs[key];
 
-editId=id;
+const box=document.getElementById("table-"+key);
 
-let item=
-id
-?
-data[k].find(x=>x.id===id)||{}
-:
-{};
+if(!box)return;
 
-document.getElementById("mtitle").textContent=
+let rows=Array.isArray(data[key])?data[key]:[];
 
-id
-?
-"✏️ Wax ka beddel"
-:
-defs[k].title;
+const searchEl=document.getElementById("search-"+key);
 
-document.getElementById("mcontent").innerHTML=
-form(k,item);
+const search=searchEl?
+searchEl.value.trim().toLowerCase():"";
 
-document
-.getElementById("modal")
-.classList.add("show");
+if(search){
 
-}
+rows=rows.filter(row=>{
 
-
-function closeModal(){
-
-document
-.getElementById("modal")
-.classList.remove("show");
-
-type="";
-
-editId=null;
-
-}
-
-
-/* =========================================================
-   FORM
-   ========================================================= */
-
-function form(k,it){
-
-let html=
-'<form class="form" onsubmit="submitForm(event)">';
-
-html+=
-'<div class="grid">';
-
-defs[k].fields.forEach(f=>{
-
-let name=f[0];
-
-let label=f[1];
-
-let kind=f[2];
-
-let v=
-it[name] ??
-(
-name==="date"
-?
-new Date().toISOString().slice(0,10)
-:
-name==="qty"
-?
-1
-:
-""
-);
-
-if(kind==="textarea"){
-
-html+=`
-
-<div class="field full">
-
-<label>${label}</label>
-
-<textarea name="${name}">
-${esc(v)}
-</textarea>
-
-</div>`;
-
-}
-
-else if(
-kind.startsWith("select:")
-){
-
-let opts=
-kind.slice(7).split(",");
-
-html+=`
-
-<div class="field">
-
-<label>${label}</label>
-
-<select name="${name}">
-
-${opts.map(o=>
-
-`<option
-${String(v)===o?"selected":""}>
-${o}
-</option>`
-
-).join("")}
-
-</select>
-
-</div>`;
-
-}
-
-else{
-
-html+=`
-
-<div class="field">
-
-<label>${label}</label>
-
-<input
-name="${name}"
-type="${kind}"
-value="${esc(v)}"
-${name==="qty"?
-'min="1" max="5000"':
-""}
-${["name","amount"].includes(name)?
-"required":
-""}
->
-
-</div>`;
-
-}
+return JSON.stringify(row)
+.toLowerCase()
+.includes(search);
 
 });
 
-html+=`
+}
 
-</div>
+if(!rows.length){
 
-<div style="margin-top:14px;display:flex;gap:8px">
-
-<button class="btn g">
-💾 Kaydi
+box.innerHTML=`
+<div class="table">
+<div class="empty">
+📭 Xog wali laguma darin.
+<br><br>
+<button class="btn g" onclick="openAdd('${key}')">
+${d.add}
 </button>
-
-<button
-type="button"
-class="btn x"
-onclick="closeModal()">
-Jooji
-</button>
-
 </div>
-
-</form>`;
-
-return html;
-
-}
-
-
-/* =========================================================
-   SUBMIT
-   ========================================================= */
-
-async function submitForm(e){
-
-e.preventDefault();
-
-let o={};
-
-new FormData(e.target)
-.forEach((v,k)=>o[k]=v);
-
-
-/* NUMBER FIELDS */
-
-[
-"qty",
-"amount",
-"area",
-"hours"
-].forEach(k=>{
-
-if(
-o[k]!==undefined &&
-o[k]!==""
-){
-
-o[k]=Number(o[k]);
-
-}
-
-});
-
-
-o.id=
-editId ||
-crypto.randomUUID();
-
-o.updated_at=
-new Date().toISOString();
-
-
-/* EDIT */
-
-if(editId){
-
-let i=
-data[type]
-.findIndex(x=>x.id===editId);
-
-if(i>=0){
-
-data[type][i]={
-...data[type][i],
-...o
-};
-
-}
-
-}
-
-
-/* NEW */
-
-else{
-
-data[type].push(o);
-
-}
-
-
-/* RENDER */
-
-render();
-
-closeModal();
-
-toast(
-"✅ Xogta telefoonka waa la kaydiyey"
-);
-
-
-/* SUPABASE */
-
-if(
-await save()
-){
-
-toast(
-"✅ Xogta waa la kaydiyey — Supabase waa OK"
-);
-
-}
-
-}
-
-
-/* =========================================================
-   DELETE
-   ========================================================= */
-
-async function del(k,id){
-
-if(
-!confirm(
-"Ma hubtaa inaad tirtirayso xogtan?"
-)
-){
+</div>
+`;
 
 return;
 
 }
 
-data[k]=
-data[k].filter(
-x=>x.id!==id
-);
+let html=`
+<div class="table">
+<table>
+<thead>
+<tr>
+`;
 
-render();
+d.cols.forEach(c=>{
+html+=`<th>${c[1]}</th>`;
+});
 
-toast(
-"🗑️ Xogta waa la tirtiray"
-);
+html+=`<th>Ficil</th></tr></thead><tbody>`;
 
-await save();
+rows.slice().reverse().forEach(row=>{
+
+html+="<tr>";
+
+d.cols.forEach(c=>{
+
+let value=row[c[0]];
+
+if(value===undefined||value===null)value="";
+
+if(c[0]==="amount"||
+c[0]==="price"||
+c[0]==="salary"){
+
+value=number(value)+" USD";
+
+}
+
+if(c[0]==="liters"){
+
+value=number(value)+" L";
+
+}
+
+html+=`<td>${safe(value)}</td>`;
+
+});
+
+html+=`
+<td>
+<button class="delete"
+onclick="removeItem('${key}','${row.id}')">
+Tirtir
+</button>
+</td>
+</tr>
+`;
+
+});
+
+html+=`</tbody></table></div>`;
+
+box.innerHTML=html;
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+   ========================================================= */
+
+function renderAll(){
+
+Object.keys(defs).forEach(renderTable);
+
+updateDashboard();
 
 }
 
@@ -1350,215 +1533,113 @@ await save();
    DASHBOARD
    ========================================================= */
 
-function render(){
+function updateDashboard(){
 
-let income=
-sum("income");
-
-let expense=
-sum("expense")
-+
-[
-"health",
-"feed",
-"irrigation",
-"fuel",
-"maintenance",
-"employees"
-]
-.reduce(
-(a,k)=>a+sum(k),
-0
+const income=(data.income||[]).reduce(
+(a,x)=>a+number(x.amount),0
 );
 
-let animals=
-data.livestock.reduce(
-(a,x)=>
-a+Number(x.qty||0),
-0
+const expense=(data.expense||[]).reduce(
+(a,x)=>a+number(x.amount),0
 );
 
+const profit=income-expense;
 
-document.getElementById("inc")
-.textContent=
-money(income);
+const animals=(data.livestock||[]).reduce(
+(a,x)=>{
 
-document.getElementById("exp")
-.textContent=
-money(expense);
+const q=number(x.qty);
 
-document.getElementById("profit")
-.textContent=
-money(
-income-expense
+if(
+x.status==="Dhintay" ||
+x.status==="La iibiyey"
+)return a;
+
+return a+q;
+
+},0
 );
 
-document.getElementById("animals")
-.textContent=
-animals.toLocaleString();
+const milk=(data.milk||[]).reduce(
+(a,x)=>a+number(x.liters),0
+);
 
+const assets=(data.assets||[]).reduce(
+(a,x)=>a+number(x.amount),0
+);
 
-Object.keys(defs)
-.forEach(k=>draw(k));
+document.getElementById("inc").textContent=
+money(income)+" USD";
+
+document.getElementById("exp").textContent=
+money(expense)+" USD";
+
+document.getElementById("profit").textContent=
+money(profit)+" USD";
+
+document.getElementById("animals").textContent=
+money(animals);
+
+document.getElementById("milkTotal").textContent=
+money(milk)+" L";
+
+document.getElementById("farmTotal").textContent=
+(data.farms||[]).length;
+
+document.getElementById("assetTotal").textContent=
+money(assets)+" USD";
 
 }
 
 
 /* =========================================================
-   SUM
+   NUMBER HELPERS
    ========================================================= */
 
-function sum(k){
+function number(v){
 
-return data[k].reduce(
-(a,x)=>
-a+Number(x.amount||0),
-0
+const n=Number(v);
+
+return Number.isFinite(n)?n:0;
+
+}
+
+
+function money(v){
+
+return number(v).toLocaleString(
+"en-US",
+{
+maximumFractionDigits:2
+}
 );
 
 }
 
 
-/* =========================================================
-   MONEY
-   ========================================================= */
+function safe(v){
 
-function money(n){
-
-return Number(n||0)
-.toLocaleString("en-US")
-+" USD";
-
-}
-
-
-/* =========================================================
-   DRAW TABLES
-   ========================================================= */
-
-function draw(k){
-
-let el=
-document.getElementById("t_"+k);
-
-let rows=data[k];
-
-let cols=defs[k].cols;
-
-
-if(!rows.length){
-
-el.innerHTML=
-
-`<div class="table">
-
-<div class="empty">
-
-Xog wali lama gelin.
-
-<br><br>
-
-<button
-class="btn g"
-onclick="openAdd('${k}')">
-
-${defs[k].add}
-
-</button>
-
-</div>
-
-</div>`;
-
-return;
-
-}
-
-
-let h=
-
-'<div class="table"><table><thead><tr>';
-
-h+=
-cols.map(c=>
-"<th>"+c[1]+"</th>"
-).join("");
-
-h+="<th>Ficil</th></tr></thead><tbody>";
-
-
-rows
-.slice()
-.reverse()
-.forEach(r=>{
-
-h+="<tr>";
-
-h+=cols.map(c=>{
-
-let value=
-c[0]==="amount"
-?
-money(r[c[0]])
-:
-r[c[0]]??"";
-
-return "<td>"+
-esc(value)+
-"</td>";
-
-}).join("");
-
-
-h+=`
-
-<td>
-
-<button
-class="btn b"
-onclick="openAdd('${k}','${r.id}')">
-✏️
-</button>
-
-<button
-class="btn r"
-onclick="del('${k}','${r.id}')">
-🗑️
-</button>
-
-</td>
-
-</tr>`;
-
-});
-
-
-h+=
-"</tbody></table></div>";
-
-el.innerHTML=h;
+return String(v)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   ESCAPE
+   STATUS
    ========================================================= */
 
-function esc(v){
+function setStatus(type,text){
 
-return String(v??"")
-.replace(
-/[&<>"']/g,
-m=>
-({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[m])
-);
+const el=document.getElementById("status");
+
+el.className="status "+type;
+
+el.textContent=text;
 
 }
 
@@ -1567,53 +1648,121 @@ m=>
    TOAST
    ========================================================= */
 
-function toast(s){
+let toastTimer=null;
 
-let e=
-document.getElementById("toast");
+function toast(text){
 
-e.textContent=s;
+const el=document.getElementById("toast");
 
-e.classList.add("show");
+el.textContent=text;
 
-clearTimeout(window.tt);
+el.classList.add("show");
 
-window.tt=setTimeout(
-()=>e.classList.remove("show"),
-3000
-);
+clearTimeout(toastTimer);
+
+toastTimer=setTimeout(()=>{
+el.classList.remove("show");
+},2600);
 
 }
 
 
 /* =========================================================
-   MODAL
+   DARK MODE
    ========================================================= */
 
-document
-.getElementById("modal")
-.onclick=e=>{
+function toggleDark(){
 
-if(
-e.target.id==="modal"
-){
+document.body.classList.toggle("dark");
 
-closeModal();
+localStorage.setItem(
+"tacbo_dark",
+document.body.classList.contains("dark")
+?"1":"0"
+);
 
 }
 
-};
+
+function loadDark(){
+
+if(localStorage.getItem("tacbo_dark")==="1"){
+
+document.body.classList.add("dark");
+
+}
+
+}
+
+
+/* =========================================================
+   REFRESH
+   ========================================================= */
+
+async function refreshData(){
+
+toast("⏳ Xogta waa la cusboonaysiinayaa...");
+
+loadLocal();
+
+renderAll();
+
+await loadFromSupabase();
+
+toast("🔄 Cusboonaysiin dhammaatay");
+
+}
+
+
+/* =========================================================
+   MODAL CLICK
+   ========================================================= */
+
+document.getElementById("modal").addEventListener(
+"click",
+function(e){
+
+if(e.target===this){
+closeModal();
+}
+
+});
 
 
 document.addEventListener(
 "keydown",
-e=>{
+function(e){
 
 if(e.key==="Escape"){
-
 closeModal();
+}
+
+});
+
+
+/* =========================================================
+   ONLINE / OFFLINE
+   ========================================================= */
+
+window.addEventListener(
+"online",
+function(){
+
+toast("🌐 Internet-ka waa soo noqday");
+
+loadFromSupabase();
 
 }
+);
+
+window.addEventListener(
+"offline",
+function(){
+
+setStatus(
+"bad",
+"📱 Internet ma jiro — xogta telefoonka ayaa shaqaynaysa."
+);
 
 }
 );
@@ -1622,6 +1771,29 @@ closeModal();
 /* =========================================================
    START APP
    ========================================================= */
+
+async function init(){
+
+buildNav();
+
+buildPages();
+
+buildQuick();
+
+loadDark();
+
+loadLocal();
+
+renderAll();
+
+setStatus(
+"wait",
+"⏳ Supabase waa la hubinayaa..."
+);
+
+await loadFromSupabase();
+
+}
 
 init();
 
