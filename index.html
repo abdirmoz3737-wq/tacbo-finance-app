@@ -353,7 +353,7 @@ async function sbRequest(path,options={}){
    ...options,
    headers:{
     "apikey":SUPABASE_KEY,
-    "Authorization":"Bearer "+SUPABASE_KEY,
+    
     "Content-Type":"application/json",
     "Accept":"application/json",
     ...(options.headers||{})
