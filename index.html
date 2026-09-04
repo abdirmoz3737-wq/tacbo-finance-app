@@ -2210,7 +2210,143 @@ window.addEventListener("load",function(){
   loadData();
 
 });
+/* ================================
+   TACBO AGRO LOGIN SECURITY
+   ================================ */
 
+(function () {
+  const LOGIN_EMAIL = "Abdirmoz3737@gmail.com";
+  const LOGIN_PASSWORD = "Tacbo@2026#Agro";
+
+  const loggedIn = sessionStorage.getItem("tacbo_logged_in");
+
+  if (!loggedIn) {
+    document.addEventListener("DOMContentLoaded", function () {
+
+      document.body.innerHTML = `
+        <div style="
+          min-height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:#f4f8f5;
+          font-family:Arial,Helvetica,sans-serif;
+          padding:20px;
+          box-sizing:border-box;
+        ">
+
+          <div style="
+            width:100%;
+            max-width:420px;
+            background:white;
+            padding:35px 25px;
+            border-radius:22px;
+            box-shadow:0 10px 35px rgba(0,0,0,.12);
+            text-align:center;
+          ">
+
+            <div style="font-size:55px;margin-bottom:10px;">🌱</div>
+
+            <h1 style="
+              margin:0 0 8px;
+              color:#087f47;
+              font-size:30px;
+            ">TACBO Agro</h1>
+
+            <p style="
+              color:#68756d;
+              margin-bottom:28px;
+            ">Farm & Livestock Management</p>
+
+            <input
+              id="tacboEmail"
+              type="email"
+              placeholder="Email"
+              autocomplete="username"
+              style="
+                width:100%;
+                padding:15px;
+                margin-bottom:14px;
+                border:1px solid #dce6df;
+                border-radius:12px;
+                font-size:16px;
+                box-sizing:border-box;
+              "
+            >
+
+            <input
+              id="tacboPassword"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              style="
+                width:100%;
+                padding:15px;
+                margin-bottom:14px;
+                border:1px solid #dce6df;
+                border-radius:12px;
+                font-size:16px;
+                box-sizing:border-box;
+              "
+            >
+
+            <button
+              id="tacboLoginBtn"
+              style="
+                width:100%;
+                padding:15px;
+                border:0;
+                border-radius:12px;
+                background:#087f47;
+                color:white;
+                font-size:18px;
+                font-weight:bold;
+                cursor:pointer;
+              "
+            >🔐 Gal App-ka</button>
+
+            <p id="tacboLoginError" style="
+              color:#c83232;
+              margin-top:16px;
+              display:none;
+            ">Email ama Password waa khalad.</p>
+
+          </div>
+        </div>
+      `;
+
+      document
+        .getElementById("tacboLoginBtn")
+        .addEventListener("click", function () {
+
+          const email =
+            document.getElementById("tacboEmail").value.trim();
+
+          const password =
+            document.getElementById("tacboPassword").value;
+
+          if (
+            email.toLowerCase() === LOGIN_EMAIL.toLowerCase() &&
+            password === LOGIN_PASSWORD
+          ) {
+            sessionStorage.setItem("tacbo_logged_in", "true");
+            location.reload();
+          } else {
+            document.getElementById("tacboLoginError").style.display = "block";
+          }
+        });
+
+      document
+        .getElementById("tacboPassword")
+        .addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            document.getElementById("tacboLoginBtn").click();
+          }
+        });
+
+    });
+  }
+})();
 </script>
 
 </body>
