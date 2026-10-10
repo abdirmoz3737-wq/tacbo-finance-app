@@ -675,7 +675,18 @@ onclick="showPage('dashboard',this)">
   <div class="brand">
     TACBO AGRO
   </div>
-
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+  <button type="button" onclick="exportBackup()"
+    style="padding:10px;background:#087f47;color:white;border:0;border-radius:8px">
+    ⬇️ Backup
+  </button>
+  <button type="button" onclick="document.getElementById('restoreFile').click()"
+    style="padding:10px;background:#1769aa;color:white;border:0;border-radius:8px">
+    ⬆️ Restore
+  </button>
+  <input id="restoreFile" type="file" accept=".json,application/json"
+    style="display:none" onchange="restoreBackup(event)">
+</div>
 </header>
 
 
