@@ -1578,13 +1578,11 @@ async function loadData(){
       MARKAAS KELIYA AYAA EMPTY LA SAMEYNAYAA.
     */
 
-    else{
-
-      data=
-        emptyData();
-
-      await createInitialRow();
-
+    else {
+  throw new Error(
+    "Xogtii hore lagama helin Supabase. Xog cusub lama abuurin."
+  );
+}
     }
 
 
