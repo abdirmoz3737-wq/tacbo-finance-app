@@ -1464,8 +1464,19 @@ async function supabase(url,options={}){
 
  "apikey": SUPABASE_KEY,
 
-"Authorization": "Bearer " + (
+headers: {
+  "apikey": SUPABASE_KEY,
+
+  "Authorization": "Bearer " + (
     options.accessToken || SUPABASE_KEY
+  )
+
+  "Content-Type": "application/json",
+
+  "Accept": "application/json",
+
+  ...(options.headers || {})
+}
 )
 
         "Content-Type":
@@ -4010,6 +4021,8 @@ function exportBackup() {
   } catch (error) {
     alert("Backup error: " + error.message);
   }
+  }
+  
 </script>
 
 </body>
