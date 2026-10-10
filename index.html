@@ -1453,64 +1453,35 @@ function notify(message,error=false){
    SUPABASE REQUEST
    ===================================================== */
 
-async function supabase(url,options={}){
 
-  const response=
-    await fetch(url,{
+async function supabase(url, options = {}) {
+  const requestHeaders = {
+    apikey: SUPABASE_KEY,
+    Authorization: "Bearer " + (options.accessToken || SUPABASE_KEY),
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    ...(options.headers || {})
+  };
 
-      ...options,
+  const requestOptions = {
+    ...options,
+    headers: requestHeaders
+  };
 
-      headers:{
+  delete requestOptions.accessToken;
 
- "apikey": SUPABASE_KEY,
+  const response = await fetch(url, requestOptions);
+  const responseText = await response.text();
 
-headers: {
-  "apikey": SUPABASE_KEY,
-
-  "Authorization": "Bearer " + (
-    options.accessToken || SUPABASE_KEY
-  )
-
-  "Content-Type": "application/json",
-
-  "Accept": "application/json",
-
-  ...(options.headers || {})
-}
-)
-
-        "Content-Type":
-          "application/json",
-
-        "Accept":
-          "application/json",
-
-        ...(options.headers||{})
-
-      }
-
-    });
-
-
-  const text=
-    await response.text();
-
-
-  if(!response.ok){
-
+  if (!response.ok) {
     throw new Error(
-      text ||
-      ("Supabase HTTP "+response.status)
+      responseText || ("Supabase HTTP " + response.status)
     );
-
   }
 
-
-  return text
-    ?JSON.parse(text)
-    :null;
-
+  return responseText ? JSON.parse(responseText) : null;
 }
+
 
 
 /* =====================================================
