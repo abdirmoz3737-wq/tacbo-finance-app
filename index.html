@@ -1,1000 +1,303 @@
-<!DOCTYPE html>
-<html lang="so">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#287847">
-<title>TACBO Agro - Maamulka Beeraha</title>
+function renderDashboard(){
+ const income=financeTotal("Income")+financeTotal("Sale");
+ const expenses=financeTotal("Expense")+financeTotal("Other");
+ const livestock=db.livestock.filter(r=>r.status==="Alive").reduce((s,r)=>s+num(r.count),0);
+ const hectares=sum(db.crops,"area");
+ const debt=db.debts.reduce((s,r)=>s+Math.max(0,num(r.amount)-num(r.paid)),0);
 
-<style>
-:root {
-  --green: #287847;
-  --light: #e9f4ec;
-  --bg: #f3f7f4;
-  --red: #b83c32;
-  --blue: #2869aa;
-  --text: #1d2b22;
-  --border: #dce7df;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background: white;
-  padding: 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.brand {
-  color: var(--green);
-  font-weight: bold;
-  font-size: 21px;
-}
-
-.brand small {
-  display: block;
-  font-size: 12px;
-  color: #68766d;
-}
-
-button, input, select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: 0;
-  border-radius: 9px;
-  padding: 11px 14px;
-  background: var(--green);
-  color: white;
-  font-weight: bold;
-}
-
-.secondary {
-  background: #e8efea;
-  color: var(--text);
-}
-
-.blue { background: var(--blue); }
-.danger { background: var(--red); }
-
-.layout {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  min-height: 90vh;
-}
-
-aside {
-  background: white;
-  padding: 12px;
-  border-right: 1px solid var(--border);
-}
-
-nav {
-  display: grid;
-  gap: 6px;
-}
-
-nav button {
-  background: transparent;
-  color: #425249;
-  text-align: left;
-}
-
-nav button.active {
-  background: var(--light);
-  color: var(--green);
-}
-
-main {
-  padding: 20px;
-  min-width: 0;
-}
-
-h1 { margin-bottom: 5px; }
-
-.sub {
-  color: #68766d;
-  margin-bottom: 20px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 18px 0;
-}
-
-.card, .panel {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 12px #00000008;
-}
-
-.label {
-  color: #68766d;
-  font-size: 14px;
-}
-
-.value {
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 8px;
-}
-
-.formgrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.field label {
-  color: #68766d;
-  font-size: 13px;
-}
-
-.field input, .field select, .search {
-  width: 100%;
-  min-width: 0;
-  padding: 11px;
-  border: 1px solid #cfddd2;
-  border-radius: 9px;
-  background: white;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.quick {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.quick button {
-  background: white;
-  color: var(--green);
-  border: 1px solid var(--border);
-  text-align: left;
-}
-
-.tablewrap { overflow-x: auto; }
-
-table {
-  width: 100%;
-  min-width: 580px;
-  border-collapse: collapse;
-}
-
-th, td {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #edf1ee;
-}
-
-th {
-  color: #68766d;
-  font-size: 12px;
-}
-
-td button {
-  padding: 7px;
-  font-size: 12px;
-  margin: 2px;
-}
-
-.notice {
-  background: #fff8df;
-  border: 1px solid #f1df9a;
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 15px;
-  font-size: 13px;
-}
-
-.empty {
-  text-align: center;
-  padding: 25px;
-  color: #68766d;
-}
-
-.hidden { display: none !important; }
-
-@media(max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
-
-  aside {
-    position: sticky;
-    top: 65px;
-    z-index: 5;
-    overflow-x: auto;
-    padding: 7px;
-  }
-
-  nav {
-    display: flex;
-    min-width: max-content;
-  }
-
-  nav button { padding: 9px; }
-
-  main { padding: 13px; }
-
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .quick { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .formgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media(max-width: 520px) {
-  .formgrid { grid-template-columns: 1fr; }
-  .card { padding: 12px; }
-  .value { font-size: 22px; }
-  .brand { font-size: 18px; }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="brand">
-    🌾 TACBO AGRO
-    <small>Maamulka Beeraha & Xoolaha</small>
+ return `
+ <div class="page-heading">
+  <div>
+   <h2>📊 Dashboard</h2>
+   <div class="muted">Dulmar guud ee TACBO Agro</div>
   </div>
-  <button class="secondary" onclick="backup()">⬇️ Backup</button>
-</header>
+  <button class="primary" onclick="openPage('finance')">+ Diiwaan dhaqaale</button>
+ </div>
 
-<div class="layout">
+ <div class="cards">
+  <div class="card"><h3>Wadarta dakhliga</h3><div class="number green">${money(income)}</div></div>
+  <div class="card"><h3>Wadarta kharashka</h3><div class="number red">${money(expenses)}</div></div>
+  <div class="card"><h3>Faa'iido / Khasaare</h3><div class="number ${income-expenses>=0?'green':'red'}">${money(income-expenses)}</div></div>
+  <div class="card"><h3>Xoolaha nool</h3><div class="number">${livestock}</div></div>
+  <div class="card"><h3>Baaxadda dalagyada (ha)</h3><div class="number">${hectares}</div></div>
+  <div class="card"><h3>Deynta weli taagan</h3><div class="number red">${money(debt)}</div></div>
+  <div class="card"><h3>Diiwaannada dhaqaale</h3><div class="number">${db.finance.length}</div></div>
+  <div class="card"><h3>Shaqaalaha</h3><div class="number">${db.employees.length}</div></div>
+ </div>
 
-<aside>
-  <nav id="nav"></nav>
+ <div class="quick">
+  <button class="secondary" onclick="openPage('livestock')">🐑 Xoolaha</button>
+  <button class="secondary" onclick="openPage('crops')">🌱 Beeraha</button>
+  <button class="secondary" onclick="openPage('debts')">📒 Deymaha</button>
+  <button class="secondary" onclick="backupData()">💾 Backup</button>
+ </div>
 
-  <div class="panel">
-    <b>Kaydinta Xogta</b>
-    <p style="font-size:12px;color:#68766d">
-      Xogta waxaa lagu kaydiyaa browser-ka.
-    </p>
+ <div class="panel">
+  <h3>Diiwaannadii dhaqaale ee ugu dambeeyey</h3>
+  <div id="dashRecent"></div>
+ </div>
 
-    <button style="width:100%;margin-bottom:7px"
-      onclick="backup()">⬇️ Backup</button>
-
-    <button class="blue" style="width:100%;margin-bottom:7px"
-      onclick="document.getElementById('restoreFile').click()">
-      ⬆️ Restore
-    </button>
-
-    <input id="restoreFile" type="file" accept=".json"
-      class="hidden" onchange="restore(event)">
-
-    <button class="secondary" style="width:100%"
-      onclick="exportCSV()">📄 CSV</button>
-  </div>
-</aside>
-
-<main>
-  <h1 id="pageTitle">Dashboard</h1>
-  <div class="sub" id="pageSub">Ku soo dhawoow TACBO Agro</div>
-
-  <input id="search" class="search hidden"
-    placeholder="🔎 Raadi xogta..." oninput="renderTable()">
-
-  <div id="content"></div>
-
-  <p style="text-align:center;color:#68766d;font-size:12px">
-    TACBO Agro • Shalaboot, Shabeellaha Hoose, Soomaaliya
+ <div class="panel">
+  <h3>Macluumaad</h3>
+  <p class="muted">
+   Xogta app-ka waxaa lagu kaydiyaa browser-ka qalabkaaga.
+   Samee Backup si aad u haysato nuqul xogtaada ah.
   </p>
-</main>
-
-</div>
-
-<script>
-const modules = [
-  ['dashboard','🏠','Dashboard'],
-  ['livestock','🐄','Xoolaha'],
-  ['farms','🌾','Beeraha'],
-  ['income','💰','Dakhliga'],
-  ['expenses','💸','Kharashka'],
-  ['milk','🥛','Caanaha'],
-  ['assets','🏡','Hantida'],
-  ['debts','📒','Deymaha'],
-  ['reports','📊','Warbixinnada'],
-  ['calculator','🧮','Calculator'],
-  ['settings','⚙️','Dejinta']
-];
-
-const schemas = {
-  livestock: {
-    title: 'Xoolaha',
-    fields: [
-      ['name','Magaca / Nooca','text'],
-      ['tag','Aqoonsiga ID','text'],
-      ['count','Tirada','number'],
-      ['status','Xaaladda','select:nool,iibiyey,dhintay'],
-      ['buyPrice','Qiimaha iibsiga ($)','number'],
-      ['sellPrice','Qiimaha iibka ($)','number'],
-      ['date','Taariikh','date'],
-      ['notes','Faahfaahin','text']
-    ]
-  },
-
-  farms: {
-    title: 'Beeraha',
-    fields: [
-      ['name','Magaca beeraha','text'],
-      ['area','Baaxadda hektar','number'],
-      ['crop','Dalagga','text'],
-      ['season','Xilliga beerashada','text'],
-      ['status','Xaaladda','select:la beeray,koraya,la goostay,diyaar'],
-      ['cost','Kharashka ($)','number'],
-      ['income','Dakhliga ($)','number'],
-      ['date','Taariikh','date']
-    ]
-  },
-
-  income: {
-    title: 'Dakhliga',
-    fields: [
-      ['name','Isha dakhliga','text'],
-      ['category','Qaybta','text'],
-      ['amount','Lacagta ($)','number'],
-      ['date','Taariikh','date'],
-      ['notes','Faahfaahin','text']
-    ]
-  },
-
-  expenses: {
-    title: 'Kharashka',
-    fields: [
-      ['name','Sababta kharashka','text'],
-      ['category','Qaybta','text'],
-      ['amount','Lacagta ($)','number'],
-      ['date','Taariikh','date'],
-      ['notes','Faahfaahin','text']
-    ]
-  },
-
-  milk: {
-    title: 'Caanaha',
-    fields: [
-      ['date','Taariikh','date'],
-      ['animal','Xoolaha / kooxda','text'],
-      ['liters','Litir','number'],
-      ['price','Qiimaha litirkiiba ($)','number'],
-      ['sold','Litir la iibiyey','number'],
-      ['notes','Faahfaahin','text']
-    ]
-  },
-
-  assets: {
-    title: 'Hantida',
-    fields: [
-      ['name','Magaca hantida','text'],
-      ['category','Qaybta','text'],
-      ['value','Qiimaha ($)','number'],
-      ['date','Taariikh','date'],
-      ['notes','Faahfaahin','text']
-    ]
-  },
-
-  debts: {
-    title: 'Deymaha',
-    fields: [
-      ['name','Qofka / shirkadda','text'],
-      ['kind','Nooca','select:nalagu leeyahay,annaga ayaa lagu leeyahay'],
-      ['amount','Lacagta ($)','number'],
-      ['paid','Lacag la bixiyey ($)','number'],
-      ['date','Taariikh','date'],
-      ['notes','Faahfaahin','text']
-    ]
-  }
-};
-
-let db = {
-  livestock: [],
-  farms: [],
-  income: [],
-  expenses: [],
-  milk: [],
-  assets: [],
-  debts: []
-};
-
-let current = 'dashboard';
-let editing = null;
-
-try {
-  const saved = localStorage.getItem('tacbo_agro_v1');
-  if (saved) db = {...db, ...JSON.parse(saved)};
-} catch(e) {}
-
-function persist() {
-  try {
-    localStorage.setItem('tacbo_agro_v1', JSON.stringify(db));
-  } catch(e) {
-    alert('Xogta lama kaydin karin. Samee Backup.');
-  }
+ </div>`;
 }
 
-function money(n) {
-  return '$' + (Number(n) || 0).toLocaleString('en-US', {
-    maximumFractionDigits: 2
-  });
+function drawDashboardTable(){
+ const el=document.getElementById("dashRecent");
+ if(!el)return;
+
+ const rows=[...db.finance]
+  .sort((a,b)=>(b.date||"").localeCompare(a.date||""))
+  .slice(0,8);
+
+ el.innerHTML=rows.length
+  ?tableHTML("finance",rows,true)
+  :'<div class="empty">Weli xog dhaqaale lama gelin.</div>';
 }
 
-function sum(arr, key) {
-  return arr.reduce((a, x) => a + (Number(x[key]) || 0), 0);
+function renderModule(key){
+ const m=MODULES[key];
+
+ if(!m)return '<div class="panel">Qaybtan lama helin.</div>';
+
+ const editing=editState&&editState.key===key
+  ?db[key].find(r=>r.id===editState.id)
+  :null;
+
+ return `
+ <div class="page-heading">
+  <div>
+   <h2>${esc(m.title)}</h2>
+   <div class="muted">Ku dar, raadi, wax ka beddel ama tirtir xogta.</div>
+  </div>
+  <button class="secondary" onclick="exportModuleCSV('${key}')">⬇ CSV</button>
+ </div>
+
+ <div class="panel">
+  <h3>${editing?'✏️ Wax ka beddel':'➕ Ku dar'} ${esc(m.singular)}</h3>
+
+  <form onsubmit="saveRecord(event,'${key}')">
+   <div class="form-grid">
+    ${m.fields.map(f=>fieldHTML(f,editing?editing[f[0]]:"")).join("")}
+   </div>
+
+   <div class="actions">
+    <button class="primary" type="submit">
+     ${editing?'Kaydi isbeddelka':'Kaydi xogta'}
+    </button>
+    <button class="secondary" type="button" onclick="cancelEdit()">Nadiifi</button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <div class="toolbar">
+   <h3 style="margin:0">Diiwaanka (${db[key].length})</h3>
+   <input class="search" id="search-${key}"
+    placeholder="🔎 Raadi xogta..."
+    oninput="filterTable('${key}')">
+  </div>
+
+  <div id="table-${key}">${tableHTML(key,db[key])}</div>
+ </div>`;
 }
 
-function esc(value) {
-  return String(value ?? '').replace(/[&<>"']/g, c => ({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[c]));
+function fieldHTML(f,value){
+ const [name,label,type]=f;
+ let v=value??"";
+
+ if(type==="date"&&!v)v=today();
+
+ if(type.startsWith("select:")){
+  const opts=type.slice(7).split(";").map(s=>s.split(","));
+
+  return `
+   <div class="field">
+    <label>${esc(label)}</label>
+    <select name="${esc(name)}">
+     ${opts.map(o=>`
+      <option value="${esc(o[0])}"
+       ${String(v)===o[0]?"selected":""}>
+       ${esc(o[1]||o[0])}
+      </option>`).join("")}
+    </select>
+   </div>`;
+ }
+
+ if(type==="textarea"){
+  return `
+   <div class="field">
+    <label>${esc(label)}</label>
+    <textarea name="${esc(name)}">${esc(v)}</textarea>
+   </div>`;
+ }
+
+ return `
+  <div class="field">
+   <label>${esc(label)}</label>
+   <input name="${esc(name)}"
+    type="${type}"
+    ${type==="number"?'min="0" step="any"':''}
+    value="${esc(v)}"
+    ${name==="date"?"required":""}>
+  </div>`;
 }
 
-function initNav() {
-  document.getElementById('nav').innerHTML =
-    modules.map(m => `
-      <button data-id="${m[0]}" onclick="go('${m[0]}')">
-        ${m[1]} ${m[2]}
-      </button>
-    `).join('');
-}
+function saveRecord(event,key){
+ event.preventDefault();
 
-function go(id) {
-  current = id;
-  editing = null;
+ const form=event.target;
+ const m=MODULES[key];
+ const item={};
 
-  document.querySelectorAll('nav button').forEach(b => {
-    b.classList.toggle('active', b.dataset.id === id);
-  });
+ m.fields.forEach(f=>{
+  const field=form.elements[f[0]];
+  item[f[0]]=field?field.value.trim():"";
+ });
 
-  document.getElementById('search')
-    .classList.toggle('hidden', !schemas[id]);
+ m.fields.forEach(f=>{
+  if(f[2]==="number")item[f[0]]=num(item[f[0]]);
+ });
 
-  document.getElementById('pageTitle').textContent =
-    modules.find(m => m[0] === id)?.[2] || id;
+ if(key==="finance"&&item.amount<=0){
+  showNotice("Fadlan geli lacag ka weyn eber.",true);
+  return;
+ }
 
-  document.getElementById('pageSub').textContent =
-    id === 'dashboard'
-      ? 'Ku soo dhawoow TACBO Agro'
-      : 'Maamul xogta TACBO Agro';
+ if(key==="livestock"&&item.count<0){
+  showNotice("Fadlan geli tiro sax ah.",true);
+  return;
+ }
 
-  render();
-}
+ if(editState&&editState.key===key){
+  const idx=db[key].findIndex(r=>r.id===editState.id);
 
-function render() {
-  const el = document.getElementById('content');
-
-  if (current === 'dashboard') return dashboard(el);
-  if (schemas[current]) return modulePage(el);
-  if (current === 'reports') return reports(el);
-  if (current === 'calculator') return calculator(el);
-  if (current === 'settings') return settings(el);
-}
-
-function dashboard(el) {
-  const animals = db.livestock
-    .filter(x => x.status === 'nool')
-    .reduce((a,x) => a + (+x.count || 0), 0);
-
-  const inc = sum(db.income, 'amount');
-  const exp = sum(db.expenses, 'amount');
-  const milk = sum(db.milk, 'liters');
-
-  el.innerHTML = `
-    <div class="cards">
-      <div class="card">
-        <div class="label">🐄 Xoolaha nool</div>
-        <div class="value">${animals}</div>
-      </div>
-
-      <div class="card">
-        <div class="label">🌾 Beeraha</div>
-        <div class="value">${db.farms.length}</div>
-      </div>
-
-      <div class="card">
-        <div class="label">💰 Dakhliga</div>
-        <div class="value" style="color:var(--green)">
-          ${money(inc)}
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="label">💸 Kharashka</div>
-        <div class="value" style="color:var(--red)">
-          ${money(exp)}
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="label">📈 Faa'iido / Khasaare</div>
-        <div class="value">${money(inc-exp)}</div>
-      </div>
-
-      <div class="card">
-        <div class="label">🥛 Caanaha</div>
-        <div class="value">${milk} L</div>
-      </div>
-
-      <div class="card">
-        <div class="label">🏡 Hantida</div>
-        <div class="value">${money(sum(db.assets,'value'))}</div>
-      </div>
-
-      <div class="card">
-        <div class="label">📒 Deymaha harsan</div>
-        <div class="value">
-          ${money(db.debts.reduce((a,x) =>
-            a + Math.max(0,(+x.amount||0)-(+x.paid||0)), 0))}
-        </div>
-      </div>
-    </div>
-
-    <section class="panel">
-      <h2>⚡ Hawlo Degdeg ah</h2>
-      <div class="quick">
-        <button onclick="go('livestock')">🐄 Diiwaangeli xoolo</button>
-        <button onclick="go('farms')">🌾 Diiwaangeli beer</button>
-        <button onclick="go('income')">💰 Ku dar dakhli</button>
-        <button onclick="go('expenses')">💸 Ku dar kharash</button>
-        <button onclick="go('milk')">🥛 Diiwaangeli caano</button>
-        <button onclick="go('reports')">📊 Arag warbixin</button>
-      </div>
-    </section>
-
-    <div class="notice">
-      Xogta waxaa lagu kaydiyaa browser-ka qalabkan.
-      Isticmaal Backup si aad u ilaaliso xogtaada.
-      Haddii browser-ka la nadiifiyo, xogta aan la backup-gareyn
-      way lumi kartaa.
-    </div>
-  `;
-}
-
-function modulePage(el) {
-  const s = schemas[current];
-  const rows = db[current];
-
-  el.innerHTML = `
-    <section class="panel">
-      <h2>${editing ? '✏️ Wax ka beddel' : '➕ Ku dar'} — ${s.title}</h2>
-
-      <form id="entryForm">
-        <div class="formgrid">
-          ${s.fields.map(([k,label,type]) => `
-            <div class="field">
-              <label>${label}</label>
-              ${
-                type.startsWith('select:')
-                ? `<select name="${k}">
-                    ${type.slice(7).split(',').map(v =>
-                      `<option>${v}</option>`).join('')}
-                   </select>`
-                : `<input name="${k}" type="${type}"
-                    ${type === 'number' ? 'step="any" min="0"' : ''}
-                    ${['name','amount','count'].includes(k) ? '' : ''}>`
-              }
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="actions">
-          <button type="submit">
-            ${editing ? 'Kaydi isbeddelka' : 'Kaydi xogta'}
-          </button>
-
-          <button type="button" class="secondary" onclick="cancelEdit()">
-            Nadiifi
-          </button>
-        </div>
-      </form>
-    </section>
-
-    <section class="panel">
-      <h2>${s.title} — Diiwaanka (${rows.length})</h2>
-      <div class="tablewrap" id="tableArea"></div>
-    </section>
-  `;
-
-  if (editing) {
-    const record = rows.find(x => x.id === editing);
-
-    if (record) {
-      const form = document.getElementById('entryForm');
-
-      s.fields.forEach(([k]) => {
-        if (form.elements[k]) form.elements[k].value = record[k] ?? '';
-      });
-    }
+  if(idx>=0){
+   db[key][idx]={
+    ...db[key][idx],
+    ...item,
+    updatedAt:new Date().toISOString()
+   };
   }
 
-  document.getElementById('entryForm').onsubmit = e => {
-    e.preventDefault();
+  editState=null;
+ }else{
+  item.id=makeId();
+  item.createdAt=new Date().toISOString();
+  db[key].unshift(item);
+ }
 
-    const data = Object.fromEntries(new FormData(e.target).entries());
+ if(saveDB()){
+  showNotice("Xogta waa la kaydiyey.");
+ }
 
-    s.fields.forEach(([k,label,type]) => {
-      if (type === 'number') data[k] = Number(data[k] || 0);
-    });
-
-    if (editing) {
-      const index = db[current].findIndex(x => x.id === editing);
-
-      if (index >= 0) {
-        db[current][index] = {
-          ...db[current][index],
-          ...data
-        };
-      }
-    } else {
-      db[current].unshift({
-        id: crypto.randomUUID
-          ? crypto.randomUUID()
-          : String(Date.now()),
-        ...data,
-        createdAt: new Date().toISOString()
-      });
-    }
-
-    persist();
-    editing = null;
-    render();
-  };
-
-  renderTable();
+ renderPage();
 }
 
-function renderTable() {
-  if (!schemas[current]) return;
-
-  const s = schemas[current];
-  const area = document.getElementById('tableArea');
-  if (!area) return;
-
-  const q = (document.getElementById('search').value || '')
-    .toLowerCase();
-
-  const rows = db[current].filter(r =>
-    Object.values(r).some(v =>
-      String(v ?? '').toLowerCase().includes(q)
-    )
-  );
-
-  if (!rows.length) {
-    area.innerHTML = '<div class="empty">Weli xog lama gelin.</div>';
-    return;
-  }
-
-  area.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          ${s.fields.map(f => `<th>${f[1]}</th>`).join('')}
-          <th>Ficil</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        ${rows.map(r => `
-          <tr>
-            ${s.fields.map(([k]) => `
-              <td>${['amount','value','cost','income','paid',
-                'buyPrice','sellPrice'].includes(k)
-                ? money(r[k])
-                : esc(r[k] ?? '—')}</td>
-            `).join('')}
-
-            <td>
-              <button class="blue" onclick="editRow('${r.id}')">
-                Edit
-              </button>
-
-              <button class="danger" onclick="deleteRow('${r.id}')">
-                Tirtir
-              </button>
-            </td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
+function makeId(){
+ return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,9);
 }
 
-function editRow(id) {
-  editing = id;
-  render();
+function cancelEdit(){
+ editState=null;
+ renderPage();
 }
 
-function cancelEdit() {
-  editing = null;
-  render();
+function editRecord(key,id){
+ editState={key,id};
+ renderPage();
+
+ document.getElementById("content")
+  .scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function deleteRow(id) {
-  if (!confirm('Ma hubtaa inaad tirtirayso diiwaankan?')) return;
+function deleteRecord(key,id){
+ const row=db[key].find(r=>r.id===id);
+ if(!row)return;
 
-  db[current] = db[current].filter(x => x.id !== id);
-  persist();
-  render();
+ if(!confirm("Ma hubtaa inaad tirtirayso diiwaankan?"))return;
+
+ db[key]=db[key].filter(r=>r.id!==id);
+ saveDB();
+
+ showNotice("Diiwaanka waa la tirtiray.");
+ renderPage();
 }
 
-function reports(el) {
-  const inc = sum(db.income, 'amount');
-  const exp = sum(db.expenses, 'amount');
+function labelFor(key,field,value){
+ const f=MODULES[key].fields.find(x=>x[0]===field);
 
-  el.innerHTML = `
-    <div class="cards">
-      <div class="card">
-        <div class="label">Dakhliga guud</div>
-        <div class="value">${money(inc)}</div>
-      </div>
+ if(f&&f[2].startsWith("select:")){
+  const found=f[2].slice(7).split(";")
+   .map(s=>s.split(","))
+   .find(a=>a[0]===String(value));
 
-      <div class="card">
-        <div class="label">Kharashka guud</div>
-        <div class="value">${money(exp)}</div>
-      </div>
+  return found?(found[1]||found[0]):value;
+ }
 
-      <div class="card">
-        <div class="label">Faa'iido / Khasaare</div>
-        <div class="value">${money(inc-exp)}</div>
-      </div>
-
-      <div class="card">
-        <div class="label">Xoolaha</div>
-        <div class="value">${sum(db.livestock,'count')}</div>
-      </div>
-    </div>
-
-    <section class="panel">
-      <h2>Warbixinta qaybaha</h2>
-
-      <table>
-        <thead>
-          <tr><th>Qaybta</th><th>Diiwaanno</th></tr>
-        </thead>
-        <tbody>
-          ${Object.keys(schemas).map(k => `
-            <tr>
-              <td>${schemas[k].title}</td>
-              <td>${db[k].length}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-
-      <div class="actions">
-        <button onclick="backup()">⬇️ Backup xogta oo dhan</button>
-        <button class="secondary" onclick="exportCSV()">CSV</button>
-      </div>
-    </section>
-  `;
+ return value;
 }
 
-function calculator(el) {
-  el.innerHTML = `
-    <section class="panel">
-      <h2>🧮 Xisaabiye</h2>
+function tableHTML(key,rows,compact=false){
+ const m=MODULES[key];
 
-      <div class="formgrid">
-        <div class="field">
-          <label>Lacagta 1</label>
-          <input id="n1" type="number" value="0">
-        </div>
+ if(!rows.length){
+  return '<div class="empty">Xog lama helin.</div>';
+ }
 
-        <div class="field">
-          <label>Hawlgalka</label>
-          <select id="op">
-            <option value="+">Isku dar (+)</option>
-            <option value="-">Kala jar (-)</option>
-            <option value="*">Isku dhufo (×)</option>
-            <option value="/">Qaybi (÷)</option>
-          </select>
-        </div>
+ const chosen=compact?m.fields.slice(0,5):m.fields;
 
-        <div class="field">
-          <label>Lacagta 2</label>
-          <input id="n2" type="number" value="0">
-        </div>
-      </div>
+ return `
+ <div class="table-wrap">
+  <table>
+   <thead>
+    <tr>
+     ${chosen.map(f=>`<th>${esc(f[1])}</th>`).join("")}
+     <th>Ficil</th>
+    </tr>
+   </thead>
 
-      <div class="actions">
-        <button onclick="calc()">Xisaabi</button>
-      </div>
+   <tbody>
+    ${rows.map(r=>`
+     <tr>
+      ${chosen.map(f=>{
+       let v=r[f[0]]??"";
 
-      <h2 id="calcResult">Natiijo: 0</h2>
-    </section>
-  `;
+       if(
+        f[2]==="number"&&
+        ["amount","purchasePrice","salePrice","price","cost","revenue","value","salary","paid","unitCost"].includes(f[0])
+       ){
+        v=money(v);
+       }else{
+        v=labelFor(key,f[0],v);
+       }
+
+       return `<td>${esc(v)}</td>`;
+      }).join("")}
+
+      <td>
+       <button class="secondary small"
+        onclick="editRecord('${key}','${r.id}')">✏️ Edit</button>
+
+       <button class="danger small"
+        onclick="deleteRecord('${key}','${r.id}')">🗑️ Tirtir</button>
+      </td>
+     </tr>`).join("")}
+   </tbody>
+  </table>
+ </div>`;
 }
 
-function calc() {
-  const a = Number(document.getElementById('n1').value);
-  const b = Number(document.getElementById('n2').value);
-  const op = document.getElementById('op').value;
+function filterTable(key){
+ const q=(document.getElementById("search-"+key)?.value||"").toLowerCase();
 
-  let result;
+ const rows=db[key].filter(r=>
+  Object.values(r).some(v=>String(v??"").toLowerCase().includes(q))
+ );
 
-  if (op === '+') result = a + b;
-  else if (op === '-') result = a - b;
-  else if (op === '*') result = a * b;
-  else if (b === 0) result = 'Lama qaybin karo eber';
-  else result = a / b;
-
-  document.getElementById('calcResult').textContent =
-    'Natiijo: ' + result;
+ document.getElementById("table-"+key).innerHTML=tableHTML(key,rows);
 }
-
-function settings(el) {
-  el.innerHTML = `
-    <section class="panel">
-      <h2>⚙️ Dejinta & Xogta</h2>
-
-      <p>
-        App-kan cusub uma baahna Supabase.
-        Xogta waxaa lagu kaydiyaa browser-ka qalabkaaga.
-      </p>
-
-      <div class="actions">
-        <button onclick="backup()">⬇️ Backup</button>
-
-        <button class="blue"
-          onclick="document.getElementById('restoreFile').click()">
-          ⬆️ Restore
-        </button>
-
-        <button class="secondary" onclick="exportCSV()">
-          📄 CSV
-        </button>
-
-        <button class="danger" onclick="clearAll()">
-          Tirtir dhammaan xogta
-        </button>
-      </div>
-
-      <div class="notice">
-        Samee Backup ka hor intaadan tirtirin xogta.
-      </div>
-    </section>
-  `;
-}
-
-function backup() {
-  const blob = new Blob([
-    JSON.stringify({
-      app: 'TACBO Agro',
-      version: 1,
-      exportedAt: new Date().toISOString(),
-      data: db
-    }, null, 2)
-  ], {type:'application/json'});
-
-  downloadBlob(
-    blob,
-    'tacbo-agro-backup-' +
-    new Date().toISOString().slice(0,10) + '.json'
-  );
-}
-
-function restore(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    try {
-      const obj = JSON.parse(reader.result);
-      const incoming = obj.data || obj;
-
-      if (!confirm(
-        'Restore wuxuu beddeli karaa xogta hadda jirta. Sii wad?'
-      )) return;
-
-      Object.keys(schemas).forEach(k => {
-        if (Array.isArray(incoming[k])) {
-          db[k] = incoming[k];
-        }
-      });
-
-      persist();
-      alert('Xogta waa la soo celiyey.');
-      go('dashboard');
-
-    } catch (e) {
-      alert('Faylka Backup-ku ma saxna.');
-    }
-
-    event.target.value = '';
-  };
-
-  reader.readAsText(file);
-}
-
-function exportCSV(which) {
-  const keys = which ? [which] : Object.keys(schemas);
-  const lines = [];
-
-  keys.forEach(k => {
-    lines.push(schemas[k].title);
-
-    const fields = schemas[k].fields;
-
-    lines.push(fields.map(f => csv(f[1])).join(','));
-
-    db[k].forEach(r => {
-      lines.push(
-        fields.map(f => csv(r[f[0]] ?? '')).join(',')
-      );
-    });
-
-    lines.push('');
-  });
-
-  const blob = new Blob(
-    ['\ufeff' + lines.join('\n')],
-    {type:'text/csv;charset=utf-8'}
-  );
-
-  downloadBlob(blob, 'tacbo-agro-xog.csv');
-}
-
-function csv(value) {
-  return '"' + String(value ?? '').replace(/"/g,'""') + '"';
-}
-
-function downloadBlob(blob, name) {
-  const a = document.createElement('a');
-  const url = URL.createObjectURL(blob);
-
-  a.href = url;
-  a.download = name;
-  a.click();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function clearAll() {
-  if (!confirm('Ma tirtiraysaa dhammaan xogta?')) return;
-  if (!confirm('Hubi inaad Backup haysato. Sii wad?')) return;
-
-  Object.keys(schemas).forEach(k => db[k] = []);
-  persist();
-  go('dashboard');
-}
-
-initNav();
-go('dashboard');
-</script>
-
-</body>
-</html>
