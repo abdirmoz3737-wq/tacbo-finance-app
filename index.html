@@ -3980,7 +3980,36 @@ window.addEventListener(
 
   }
 );
+function exportBackup() {
+  try {
+    const backupData = {
+      app: "TACBO Agro",
+      date: new Date().toISOString(),
+      data: data
+    };
 
+    const blob = new Blob(
+      [JSON.stringify(backupData, null, 2)],
+      { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "TACBO-Agro-Backup.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+    alert("Backup waa la diyaariyey!");
+  } catch (error) {
+    alert("Backup error: " + error.message);
+  }
+}
 </script>
 
 </body>
