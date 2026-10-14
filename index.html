@@ -1,204 +1,4701 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="so">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#14532d">
+<meta name="description" content="TACBO Agro Finance - Agriculture and Livestock Management System">
 <title>TACBO Agro Finance</title>
+
 <style>
-:root{--g:#14532d;--g2:#166534;--bg:#f3f7f3;--card:#fff;--line:#dfe8e0;--muted:#66766b;--red:#b91c1c;--blue:#2563eb}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#18251b}header{background:linear-gradient(135deg,#14532d,#16803d);color:white;padding:24px 18px}header h1{font-size:25px;margin:0 0 6px}header p{margin:3px 0;font-size:14px}main{max-width:1100px;margin:auto;padding:14px 12px 60px}.nav{display:flex;gap:8px;overflow:auto;padding:12px 0}.nav button{border:0;border-radius:12px;background:white;color:var(--g);padding:12px 14px;white-space:nowrap;font-weight:750}.nav button.active{background:var(--g);color:white}.page{display:none}.page.active{display:block}h2{font-size:21px;margin:10px 0 14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 3px 12px #12301a08}.label{color:var(--muted);font-size:13px}.value{font-size:24px;font-weight:850;margin-top:5px;overflow-wrap:anywhere}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}label{font-size:12px;font-weight:750;color:var(--muted);display:block;margin-bottom:5px}input,select,textarea{width:100%;min-width:0;border:1px solid #ccd9ce;border-radius:10px;padding:11px;font:inherit;background:#fff;color:#17251b}textarea{min-height:70px}.full{grid-column:1/-1}.btn{border:0;background:var(--g2);color:white;font-weight:800;border-radius:10px;padding:12px 14px;margin:4px 4px 0 0}.btn.red{background:var(--red)}.btn.blue{background:var(--blue)}.btn.gray{background:#e9f0ea;color:var(--g)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;min-width:620px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{background:#edf6ef;color:var(--g)}.tag{font-size:11px;border-radius:99px;padding:4px 7px;background:#dcfce7;color:#166534;font-weight:800}.empty{color:var(--muted);padding:18px;text-align:center}.search{margin:0 0 10px}.hint{font-size:12px;color:var(--muted);line-height:1.5}.rowhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.positive{color:var(--g2)}.negative{color:var(--red)}footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}@media(min-width:720px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.formgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.value{font-size:27px}}
+:root {
+  --primary: #14532d;
+  --secondary: #166534;
+  --accent: #22c55e;
+  --background: #f3f7f3;
+  --surface: #ffffff;
+  --text: #17251b;
+  --muted: #647568;
+  --border: #dce8de;
+  --danger: #dc2626;
+  --warning: #f59e0b;
+  --info: #2563eb;
+  --radius: 18px;
+  --shadow: 0 5px 20px rgba(20,83,45,.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Arial, sans-serif;
+  font-size: 15px;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.app-header {
+  background: linear-gradient(120deg, #14532d, #15803d);
+  color: white;
+  padding: 26px 20px;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  font-size: 38px;
+}
+
+.brand h1 {
+  font-size: clamp(24px, 4vw, 38px);
+  margin: 0;
+}
+
+.brand p {
+  margin: 8px 0 0;
+  opacity: .9;
+}
+
+.header-subtitle {
+  margin-top: 18px;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.app-layout {
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
+}
+
+.navigation {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0 18px;
+  scrollbar-width: thin;
+}
+
+.nav-button {
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+  background: white;
+  color: var(--primary);
+  padding: 15px 20px;
+  border-radius: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: .2s;
+}
+
+.nav-button:hover {
+  border-color: var(--accent);
+}
+
+.nav-button.active {
+  background: var(--primary);
+  color: white;
+}
+
+main {
+  min-width: 0;
+}
+
+.page {
+  display: none;
+  animation: fadeIn .2s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-heading {
+  margin: 22px 0;
+}
+
+.page-heading h2 {
+  font-size: clamp(25px, 4vw, 34px);
+  margin: 0 0 10px;
+}
+
+.page-heading p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 23px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+.stat-card .stat-icon {
+  font-size: 25px;
+  margin-bottom: 14px;
+}
+
+.stat-card .stat-label {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.stat-card .stat-value {
+  font-size: clamp(24px, 3vw, 35px);
+  font-weight: 800;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+
+.stat-card .stat-note {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+.panel h3 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.panel-header h3 {
+  margin: 0;
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: 650;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 13px;
+  border: 1px solid #cbd8cd;
+  border-radius: 11px;
+  background: white;
+  color: var(--text);
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 11px;
+  padding: 12px 17px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.button:hover {
+  filter: brightness(.95);
+}
+
+.button-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.button-secondary {
+  background: #e8f5e9;
+  color: var(--primary);
+}
+
+.button-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.button-warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.button-info {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.button-small {
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+  background: white;
+}
+
+th, td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #edf1ed;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+th {
+  background: #edf6ee;
+  color: var(--primary);
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: #f8fbf8;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.badge-success {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.badge-danger {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.badge-warning {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.badge-info {
+  color: #1e40af;
+  background: #dbeafe;
+}
+
+.empty-state {
+  padding: 35px 15px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.toolbar input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.notice {
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.notice-info {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.notice-warning {
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.notice-success {
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.chart-placeholder {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.progress-bar {
+  height: 9px;
+  border-radius: 99px;
+  background: #e5eee6;
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 99px;
+}
+
+.footer {
+  padding: 30px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(340px, calc(100% - 32px));
+}
+
+.toast {
+  background: #14532d;
+  color: white;
+  padding: 15px 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.15);
+  animation: fadeIn .2s ease;
+}
+
+.toast.error {
+  background: #991b1b;
+}
+
+.toast.warning {
+  background: #92400e;
+}
+
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0,0,0,.5);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.modal {
+  width: min(650px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-button {
+  border: 0;
+  background: #f1f5f1;
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 20px;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .three-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .app-header {
+    padding: 23px 16px;
+  }
+
+  .app-layout {
+    padding: 13px;
+  }
+
+  .brand-icon {
+    font-size: 32px;
+  }
+
+  .header-subtitle {
+    font-size: 14px;
+  }
+
+  .navigation {
+    gap: 8px;
+    margin-right: -13px;
+    padding-right: 13px;
+  }
+
+  .nav-button {
+    padding: 13px 16px;
+    font-size: 13px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 17px 15px;
+    border-radius: 19px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 13px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 27px;
+  }
+
+  .two-columns,
+  .three-columns,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+
+  .page-heading {
+    margin: 18px 0;
+  }
+
+  .page-heading h2 {
+    font-size: 27px;
+  }
+
+  .form-group.full {
+    grid-column: auto;
+  }
+
+  .button {
+    padding: 11px 13px;
+  }
+}
+
+@media print {
+  .app-header,
+  .navigation,
+  .form-actions,
+  .toolbar,
+  .actions,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  .app-layout {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .page {
+    display: none !important;
+  }
+
+  .page.active {
+    display: block !important;
+  }
+
+  .panel,
+  .stat-card {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}
 </style>
 </head>
+
 <body>
-<header><h1>🌾 TACBO Agro Finance</h1><p>Agriculture & Livestock Management System</p><p>Maamulka beeraha, xoolaha, caanaha, lacagta iyo hantida</p></header>
-<main>
-<nav class="nav" id="nav">
-<button class="active" data-page="dashboard">🏠 Dashboard</button><button data-page="farms">🌱 Beeraha</button><button data-page="livestock">🐪 Xoolaha</button><button data-page="milk">🥛 Caanaha</button><button data-page="income">💰 Dakhliga</button><button data-page="expenses">💸 Kharashaadka</button><button data-page="health">🩺 Caafimaadka</button><button data-page="debts">📒 Deymaha</button><button data-page="assets">🏡 Hantida</button><button data-page="reports">📊 Warbixinno</button><button data-page="backup">💾 Backup</button>
-</nav>
 
-<section id="dashboard" class="page active">
-<h2>Dashboard</h2><p class="label">Dulmarka ganacsigaaga TACBO Agro.</p>
-<div class="grid">
-<div class="card"><div class="label">Wadarta Dakhliga</div><div class="value" id="totalIncome">$0.00</div></div>
-<div class="card"><div class="label">Wadarta Kharashaadka</div><div class="value" id="totalExpenses">$0.00</div></div>
-<div class="card"><div class="label">Faa'iido / Khasaare</div><div class="value" id="profit">$0.00</div></div>
-<div class="card"><div class="label">Xoolaha Nool</div><div class="value" id="animalCount">0</div></div>
-<div class="card"><div class="label">Beeraha</div><div class="value" id="farmCount">0</div></div>
-<div class="card"><div class="label">Deyn aan la bixin</div><div class="value" id="debtTotal">$0.00</div></div>
-<div class="card"><div class="label">Caanaha la lisay</div><div class="value" id="milkTotal">0 L</div></div>
+<header class="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">🌾</div>
+      <div>
+        <h1>TACBO Agro Finance</h1>
+        <p>Agriculture &amp; Livestock Management System</p>
+      </div>
+    </div>
+
+    <div class="header-subtitle">
+      Maamulka beeraha, xoolaha, caanaha, lacagta iyo hantida.
+      <br>
+      <span id="todayDate"></span>
+    </div>
+  </div>
+</header>
+
+<div class="app-layout">
+
+  <nav class="navigation" id="mainNavigation">
+    <button class="nav-button active" data-page="dashboard">
+      🏠 Dashboard
+    </button>
+
+    <button class="nav-button" data-page="farms">
+      🌱 Beeraha
+    </button>
+
+    <button class="nav-button" data-page="livestock">
+      🐪 Xoolaha
+    </button>
+
+    <button class="nav-button" data-page="milk">
+      🥛 Caanaha
+    </button>
+
+    <button class="nav-button" data-page="income">
+      💰 Dakhliga
+    </button>
+
+    <button class="nav-button" data-page="expenses">
+      💸 Kharashaadka
+    </button>
+
+    <button class="nav-button" data-page="health">
+      🩺 Caafimaadka
+    </button>
+
+    <button class="nav-button" data-page="debts">
+      🧾 Deymaha
+    </button>
+
+    <button class="nav-button" data-page="assets">
+      🏠 Hantida
+    </button>
+
+    <button class="nav-button" data-page="reports">
+      📊 Warbixinnada
+    </button>
+
+    <button class="nav-button" data-page="settings">
+      ⚙️ Settings
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- DASHBOARD -->
+
+    <section class="page active" id="page-dashboard">
+
+      <div class="page-heading">
+        <h2>Dashboard</h2>
+        <p>Dulmarka ganacsigaaga TACBO Agro.</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <article class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Wadarta Dakhliga</div>
+          <div class="stat-value" id="dashIncome">$0.00</div>
+          <div class="stat-note">Dhammaan dakhliga la diiwaangeliyey</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">💸</div>
+          <div class="stat-label">Wadarta Kharashaadka</div>
+          <div class="stat-value" id="dashExpenses">$0.00</div>
+          <div class="stat-note">Kharashaadka la diiwaangeliyey</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">📈</div>
+          <div class="stat-label">Faa'iido / Khasaare</div>
+          <div class="stat-value" id="dashProfit">$0.00</div>
+          <div class="stat-note">Dakhliga laga jaray kharashaadka</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🐪</div>
+          <div class="stat-label">Xoolaha Nool</div>
+          <div class="stat-value" id="dashLivestock">0</div>
+          <div class="stat-note">Tirada xoolaha nool</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🌱</div>
+          <div class="stat-label">Beeraha</div>
+          <div class="stat-value" id="dashFarms">0</div>
+          <div class="stat-note">Beeraha diiwaangashan</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🧾</div>
+          <div class="stat-label">Deyn aan la bixin</div>
+          <div class="stat-value" id="dashDebts">$0.00</div>
+          <div class="stat-note">Deynta weli harsan</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🥛</div>
+          <div class="stat-label">Caanaha la lisay</div>
+          <div class="stat-value" id="dashMilk">0 L</div>
+          <div class="stat-note">Wadarta litirrada caanaha</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🏠</div>
+          <div class="stat-label">Hantida</div>
+          <div class="stat-value" id="dashAssets">$0.00</div>
+          <div class="stat-note">Qiimaha hantida la diiwaangeliyey</div>
+        </article>
+
+      </div>
+
+      <div class="two-columns">
+
+        <div class="panel">
+          <h3>📋 Dhaqdhaqaaqii Ugu Dambeeyey</h3>
+
+          <div id="recentActivity">
+            <div class="empty-state">
+              <div class="empty-icon">📭</div>
+              Weli wax dhaqdhaqaaq ah lama diiwaangelin.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>⚡ Hawlaha Degdegga ah</h3>
+
+          <div class="form-actions">
+            <button class="button button-primary"
+                    onclick="showPage('farms')">
+              ➕ Beer cusub
+            </button>
+
+            <button class="button button-primary"
+                    onclick="showPage('livestock')">
+              ➕ Xoolo cusub
+            </button>
+
+            <button class="button button-secondary"
+                    onclick="showPage('income')">
+              💰 Dakhli geli
+            </button>
+
+            <button class="button button-secondary"
+                    onclick="showPage('expenses')">
+              💸 Kharash geli
+            </button>
+
+            <button class="button button-secondary"
+                    onclick="showPage('milk')">
+              🥛 Caano geli
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BEERAHA -->
+
+    <section class="page" id="page-farms">
+
+      <div class="page-heading">
+        <h2>🌱 Maamulka Beeraha</h2>
+        <p>Diiwaangeli beeraha, dhulka, dalagyada iyo wax-soo-saarka.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Beer Cusub</h3>
+
+        <form id="farmForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="farmName">Magaca beerta *</label>
+              <input id="farmName" name="name" required
+                     placeholder="Tusaale: Beerta TACBO">
+            </div>
+
+            <div class="form-group">
+              <label for="farmLocation">Goobta beerta *</label>
+              <input id="farmLocation" name="location" required
+                     placeholder="Tusaale: Shalabood">
+            </div>
+
+            <div class="form-group">
+              <label for="farmSize">Baaxadda dhulka (hektar)</label>
+              <input id="farmSize" name="size" type="number"
+                     min="0" step="0.01" placeholder="20">
+            </div>
+
+            <div class="form-group">
+              <label for="farmCrop">Dalagga la beerayo</label>
+              <select id="farmCrop" name="crop">
+                <option value="">Dooro dalagga</option>
+                <option>Galley</option>
+                <option>Masago</option>
+                <option>Qamadi</option>
+                <option>Yaanyo</option>
+                <option>Basal</option>
+                <option>Toon</option>
+                <option>Qajaar</option>
+                <option>Qare</option>
+                <option>Calafka xoolaha</option>
+                <option>Sunflower</option>
+                <option>Dalag kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="farmWater">Habka waraabka</label>
+              <select id="farmWater" name="irrigation">
+                <option value="">Dooro habka waraabka</option>
+                <option>Solar Pump</option>
+                <option>Drip Irrigation</option>
+                <option>Sprinkler</option>
+                <option>Waraab caadi ah</option>
+                <option>Roob ku tiirsan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="farmStatus">Xaaladda beerta</label>
+              <select id="farmStatus" name="status">
+                <option value="active">Shaqaynaysa</option>
+                <option value="planned">Qorshaysan</option>
+                <option value="inactive">Hakadka ku jirta</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="farmStart">Taariikhda bilowga</label>
+              <input id="farmStart" name="startDate" type="date">
+            </div>
+
+            <div class="form-group">
+              <label for="farmCost">Kharashka bilowga ($)</label>
+              <input id="farmCost" name="cost" type="number"
+                     min="0" step="0.01" value="0">
+            </div>
+
+            <div class="form-group full">
+              <label for="farmNotes">Faahfaahin</label>
+              <textarea id="farmNotes" name="notes"
+                        placeholder="Qor faahfaahin dheeraad ah..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Beerta
+            </button>
+
+            <button class="button button-secondary"
+                    type="reset">
+              Nadiifi Foomka
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Liiska Beeraha</h3>
+          <span id="farmCount" class="badge badge-info">0 beer</span>
+        </div>
+
+        <div class="toolbar">
+          <input type="search" id="farmSearch"
+                 placeholder="🔍 Raadi magaca ama goobta beerta...">
+          <button class="button button-secondary"
+                  onclick="exportCSV('farms')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="farmTable"></div>
+      </div>
+
+    </section>
+
+    <!-- XOOLAHA -->
+
+    <section class="page" id="page-livestock">
+
+      <div class="page-heading">
+        <h2>🐪 Maamulka Xoolaha</h2>
+        <p>Diiwaangeli xoolaha, aqoonsigooda, xaaladdooda iyo qiimahooda.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Xoolo</h3>
+
+        <form id="livestockForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="animalType">Nooca xoolaha *</label>
+              <select id="animalType" name="type" required>
+                <option value="">Dooro nooca</option>
+                <option value="ARI">Ari</option>
+                <option value="GEEL">Geel</option>
+                <option value="LO">Lo'</option>
+                <option value="DIGAAG">Digaag</option>
+                <option value="FARAS">Faras</option>
+                <option value="KALE">Xoolo kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="animalQuantity">Tirada *</label>
+              <input id="animalQuantity" name="quantity"
+                     type="number" min="1" max="5000"
+                     step="1" value="1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="animalBreed">Jinsiga / Nooca gaarka ah</label>
+              <input id="animalBreed" name="breed"
+                     placeholder="Tusaale: Somali Blackhead">
+            </div>
+
+            <div class="form-group">
+              <label for="animalSex">Jinsiga</label>
+              <select id="animalSex" name="sex">
+                <option value="unknown">Lama cayimin</option>
+                <option value="male">Lab</option>
+                <option value="female">Dhedig</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="animalAge">Da'da</label>
+              <input id="animalAge" name="age"
+                     type="number" min="0" step="0.1"
+                     placeholder="Sanado">
+            </div>
+
+            <div class="form-group">
+              <label for="animalUnitCost">Qiimaha halkii neef ($)</label>
+              <input id="animalUnitCost" name="unitCost"
+                     type="number" min="0" step="0.01" value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="animalPurchaseDate">Taariikhda la keenay</label>
+              <input id="animalPurchaseDate" name="purchaseDate"
+                     type="date">
+            </div>
+
+            <div class="form-group">
+              <label for="animalOrigin">Meesha laga keenay</label>
+              <input id="animalOrigin" name="origin"
+                     placeholder="Goobta ama suuqa">
+            </div>
+
+            <div class="form-group">
+              <label for="animalStatus">Xaaladda</label>
+              <select id="animalStatus" name="status">
+                <option value="live">Nool</option>
+                <option value="sold">La iibiyey</option>
+                <option value="dead">Dhimasho</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="animalFarm">Beerta ay joogaan</label>
+              <select id="animalFarm" name="farmId">
+                <option value="">Dooro beer (ikhtiyaari)</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label for="animalNotes">Faahfaahin</label>
+              <textarea id="animalNotes" name="notes"
+                        placeholder="Tusaale: tallaal, calaamad ama xog kale..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="notice notice-info">
+            💡 Marka aad diiwaangeliso tiro badan, nidaamku wuxuu
+            neef kasta siin doonaa ID u gaar ah, sida ARI-0001.
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Diiwaangeli Xoolaha
+            </button>
+
+            <button class="button button-secondary" type="reset">
+              Nadiifi Foomka
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Xoolaha</h3>
+          <span id="livestockCount"
+                class="badge badge-info">0 neef</span>
+        </div>
+
+        <div class="toolbar">
+          <input type="search" id="livestockSearch"
+                 placeholder="🔍 Raadi ID ama nooca xoolaha...">
+
+          <select id="livestockFilter">
+            <option value="">Dhammaan xaaladaha</option>
+            <option value="live">Nool</option>
+            <option value="sold">La iibiyey</option>
+            <option value="dead">Dhimasho</option>
+          </select>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('livestock')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="livestockTable"></div>
+
+      </div>
+
+    </section>
+
+    <!-- CAANAHA -->
+
+    <section class="page" id="page-milk">
+
+      <div class="page-heading">
+        <h2>🥛 Maamulka Caanaha</h2>
+        <p>Diiwaangeli caanaha la lisay, la iibiyey iyo faa'iidada.</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <article class="stat-card">
+          <div class="stat-label">Caanaha la lisay</div>
+          <div class="stat-value" id="milkTotalProduced">0 L</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-label">Caanaha la iibiyey</div>
+          <div class="stat-value" id="milkTotalSold">0 L</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-label">Caanaha haray</div>
+          <div class="stat-value" id="milkTotalRemaining">0 L</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-label">Dakhliga caanaha</div>
+          <div class="stat-value" id="milkTotalRevenue">$0.00</div>
+        </article>
+
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Wax-soo-saarka Caanaha</h3>
+
+        <form id="milkForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="milkDate">Taariikhda *</label>
+              <input id="milkDate" name="date"
+                     type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="milkAnimal">ID-ga neefka (ikhtiyaari)</label>
+              <input id="milkAnimal" name="animalId"
+                     placeholder="Tusaale: GEEL-0001">
+            </div>
+
+            <div class="form-group">
+              <label for="milkProduced">Caanaha la lisay (litir) *</label>
+              <input id="milkProduced" name="produced"
+                     type="number" min="0" step="0.01"
+                     value="0" required>
+            </div>
+
+            <div class="form-group">
+              <label for="milkSold">Caanaha la iibiyey (litir)</label>
+              <input id="milkSold" name="sold"
+                     type="number" min="0" step="0.01"
+                     value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="milkPrice">Qiimaha halkii litir ($)</label>
+              <input id="milkPrice" name="price"
+                     type="number" min="0" step="0.01"
+                     value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="milkCost">Kharashka guud ($)</label>
+              <input id="milkCost" name="cost"
+                     type="number" min="0" step="0.01"
+                     value="0">
+            </div>
+
+            <div class="form-group full">
+              <label for="milkNotes">Faahfaahin</label>
+              <textarea id="milkNotes" name="notes"
+                        placeholder="Goobta iibka ama xog kale..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Xogta Caanaha
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Caanaha</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('milk')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="milkTable"></div>
+      </div>
+
+    </section>
+
+    <!-- DAKHLIGA -->
+
+    <section class="page" id="page-income">
+
+      <div class="page-heading">
+        <h2>💰 Maamulka Dakhliga</h2>
+        <p>Diiwaangeli dhammaan lacagaha ganacsiga soo gala.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Dakhli Cusub</h3>
+
+        <form id="incomeForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="incomeDate">Taariikhda *</label>
+              <input id="incomeDate" name="date"
+                     type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="incomeCategory">Qaybta dakhliga *</label>
+              <select id="incomeCategory" name="category" required>
+                <option value="">Dooro qaybta</option>
+                <option>Iibka xoolaha</option>
+                <option>Iibka caanaha</option>
+                <option>Iibka dalagyada</option>
+                <option>Iibka calafka</option>
+                <option>Iibka hantida</option>
+                <option>Dakhli kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="incomeDescription">Faahfaahinta *</label>
+              <input id="incomeDescription" name="description"
+                     required placeholder="Maxaa la iibiyey?">
+            </div>
+
+            <div class="form-group">
+              <label for="incomeAmount">Lacagta ($) *</label>
+              <input id="incomeAmount" name="amount"
+                     type="number" min="0.01"
+                     step="0.01" required>
+            </div>
+
+            <div class="form-group">
+              <label for="incomePayment">Habka lacag-bixinta</label>
+              <select id="incomePayment" name="payment">
+                <option>Cash</option>
+                <option>EVC Plus</option>
+                <option>Zaad</option>
+                <option>Bank</option>
+                <option>Mobile Money</option>
+                <option>Deyn</option>
+                <option>Hab kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="incomeCustomer">Macmiilka</label>
+              <input id="incomeCustomer" name="customer"
+                     placeholder="Magaca macmiilka">
+            </div>
+
+            <div class="form-group full">
+              <label for="incomeNotes">Faahfaahin dheeraad ah</label>
+              <textarea id="incomeNotes" name="notes"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Dakhliga
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Dakhliga</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('income')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="incomeTable"></div>
+      </div>
+
+    </section>
+
+    <!-- KHARASHAADKA -->
+
+    <section class="page" id="page-expenses">
+
+      <div class="page-heading">
+        <h2>💸 Maamulka Kharashaadka</h2>
+        <p>La soco kharashaadka beeraha, xoolaha, shaqaalaha iyo qalabka.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Kharash Cusub</h3>
+
+        <form id="expensesForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="expenseDate">Taariikhda *</label>
+              <input id="expenseDate" name="date"
+                     type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="expenseCategory">Qaybta kharashka *</label>
+              <select id="expenseCategory" name="category" required>
+                <option value="">Dooro qaybta</option>
+                <option>Calafka xoolaha</option>
+                <option>Daawooyinka xoolaha</option>
+                <option>Abuurka</option>
+                <option>Bacriminta</option>
+                <option>Shidaalka</option>
+                <option>Waraabka</option>
+                <option>Mushaharka shaqaalaha</option>
+                <option>Gaadiidka</option>
+                <option>Dayactirka</option>
+                <option>Korontada</option>
+                <option>Kirada</option>
+                <option>Kharash kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="expenseDescription">Faahfaahinta *</label>
+              <input id="expenseDescription" name="description"
+                     required placeholder="Maxaa la bixiyey?">
+            </div>
+
+            <div class="form-group">
+              <label for="expenseAmount">Lacagta ($) *</label>
+              <input id="expenseAmount" name="amount"
+                     type="number" min="0.01"
+                     step="0.01" required>
+            </div>
+
+            <div class="form-group">
+              <label for="expensePayment">Habka lacag-bixinta</label>
+              <select id="expensePayment" name="payment">
+                <option>Cash</option>
+                <option>EVC Plus</option>
+                <option>Zaad</option>
+                <option>Bank</option>
+                <option>Mobile Money</option>
+                <option>Deyn</option>
+                <option>Hab kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="expenseSupplier">Cidda lacagta la siiyey</label>
+              <input id="expenseSupplier" name="supplier"
+                     placeholder="Magaca qofka ama shirkadda">
+            </div>
+
+            <div class="form-group full">
+              <label for="expenseNotes">Faahfaahin dheeraad ah</label>
+              <textarea id="expenseNotes" name="notes"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Kharashka
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Kharashaadka</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('expenses')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="expensesTable"></div>
+      </div>
+
+    </section>
+
+    <!-- CAAFIMAADKA XOOLAHA -->
+
+    <section class="page" id="page-health">
+
+      <div class="page-heading">
+        <h2>🩺 Caafimaadka Xoolaha</h2>
+        <p>Diiwaangeli tallaalka, daaweynta, baaritaanka iyo kharashaadka caafimaadka.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Dhacdo Caafimaad</h3>
+
+        <form id="healthForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="healthDate">Taariikhda *</label>
+              <input id="healthDate" name="date"
+                     type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="healthAnimalId">ID-ga neefka *</label>
+              <input id="healthAnimalId" name="animalId"
+                     required placeholder="Tusaale: ARI-0001">
+            </div>
+
+            <div class="form-group">
+              <label for="healthType">Nooca adeegga *</label>
+              <select id="healthType" name="type" required>
+                <option value="">Dooro adeegga</option>
+                <option>Tallaal</option>
+                <option>Daaweyn</option>
+                <option>Baaritaan</option>
+                <option>Gooryaan-dil</option>
+                <option>Qalliin</option>
+                <option>Mid kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="healthCondition">Xaaladda / Cudurka</label>
+              <input id="healthCondition" name="condition"
+                     placeholder="Sharax xaaladda">
+            </div>
+
+            <div class="form-group">
+              <label for="healthTreatment">Daawada / Adeegga</label>
+              <input id="healthTreatment" name="treatment"
+                     placeholder="Magaca daawada ama adeegga">
+            </div>
+
+            <div class="form-group">
+              <label for="healthVet">Dhakhtarka xoolaha</label>
+              <input id="healthVet" name="vet"
+                     placeholder="Magaca dhakhtarka">
+            </div>
+
+            <div class="form-group">
+              <label for="healthCost">Kharashka ($)</label>
+              <input id="healthCost" name="cost"
+                     type="number" min="0"
+                     step="0.01" value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="healthNextDate">Taariikhda xigta</label>
+              <input id="healthNextDate" name="nextDate"
+                     type="date">
+            </div>
+
+            <div class="form-group full">
+              <label for="healthNotes">Faahfaahin</label>
+              <textarea id="healthNotes" name="notes"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Xogta Caafimaadka
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Caafimaadka</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('health')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="healthTable"></div>
+      </div>
+
+    </section>
+
+    <!-- DEYMAHA -->
+
+    <section class="page" id="page-debts">
+
+      <div class="page-heading">
+        <h2>🧾 Maamulka Deymaha</h2>
+        <p>La soco deymaha lagugu leeyahay iyo kuwa aad dadka ku leedahay.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Deyn</h3>
+
+        <form id="debtsForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="debtType">Nooca deynta *</label>
+              <select id="debtType" name="type" required>
+                <option value="receivable">Lacag nalagu leeyahay</option>
+                <option value="payable">Lacag aan leenahay</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="debtPerson">Magaca qofka / shirkadda *</label>
+              <input id="debtPerson" name="person"
+                     required placeholder="Magaca">
+            </div>
+
+            <div class="form-group">
+              <label for="debtDate">Taariikhda *</label>
+              <input id="debtDate" name="date"
+                     type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="debtAmount">Lacagta guud ($) *</label>
+              <input id="debtAmount" name="amount"
+                     type="number" min="0.01"
+                     step="0.01" required>
+            </div>
+
+            <div class="form-group">
+              <label for="debtPaid">Lacagta la bixiyey / la helay ($)</label>
+              <input id="debtPaid" name="paid"
+                     type="number" min="0"
+                     step="0.01" value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="debtDueDate">Taariikhda kama dambaysta ah</label>
+              <input id="debtDueDate" name="dueDate"
+                     type="date">
+            </div>
+
+            <div class="form-group full">
+              <label for="debtNotes">Faahfaahin</label>
+              <textarea id="debtNotes" name="notes"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Deynta
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Deymaha</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('debts')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="debtsTable"></div>
+      </div>
+
+    </section>
+
+    <!-- HANTIDA -->
+
+    <section class="page" id="page-assets">
+
+      <div class="page-heading">
+        <h2>🏠 Maamulka Hantida</h2>
+        <p>Diiwaangeli ceelasha, matoorada, qalabka, gaadiidka iyo hantida kale.</p>
+      </div>
+
+      <div class="panel">
+        <h3>➕ Diiwaangeli Hanti Cusub</h3>
+
+        <form id="assetsForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="assetName">Magaca hantida *</label>
+              <input id="assetName" name="name"
+                     required placeholder="Tusaale: Solar Pump">
+            </div>
+
+            <div class="form-group">
+              <label for="assetCategory">Qaybta hantida *</label>
+              <select id="assetCategory" name="category" required>
+                <option value="">Dooro qaybta</option>
+                <option>Dhul</option>
+                <option>Ceel</option>
+                <option>Matoor</option>
+                <option>Solar Panels</option>
+                <option>Tractor</option>
+                <option>Gaari</option>
+                <option>Qalab beeraha</option>
+                <option>Dhisme</option>
+                <option>Qalab xoolaha</option>
+                <option>Qaboojiye</option>
+                <option>Hanti kale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="assetDate">Taariikhda la iibsaday</label>
+              <input id="assetDate" name="date"
+                     type="date">
+            </div>
+
+            <div class="form-group">
+              <label for="assetCost">Qiimaha iibka ($) *</label>
+              <input id="assetCost" name="cost"
+                     type="number" min="0"
+                     step="0.01" required>
+            </div>
+
+            <div class="form-group">
+              <label for="assetValue">Qiimaha hadda ($)</label>
+              <input id="assetValue" name="value"
+                     type="number" min="0"
+                     step="0.01" value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="assetStatus">Xaaladda hantida</label>
+              <select id="assetStatus" name="status">
+                <option value="active">Shaqaynaysa</option>
+                <option value="maintenance">Dayactir u baahan</option>
+                <option value="inactive">Aan shaqaynayn</option>
+                <option value="sold">La iibiyey</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label for="assetNotes">Faahfaahin</label>
+              <textarea id="assetNotes" name="notes"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              💾 Kaydi Hantida
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>📋 Diiwaanka Hantida</h3>
+          <button class="button button-secondary"
+                  onclick="exportCSV('assets')">
+            📥 CSV
+          </button>
+        </div>
+
+        <div id="assetsTable"></div>
+      </div>
+
+    </section>
+
+    <!-- WARBIXINNADA -->
+
+    <section class="page" id="page-reports">
+
+      <div class="page-heading">
+        <h2>📊 Warbixinnada</h2>
+        <p>Warbixinta dakhliga, kharashaadka, xoolaha iyo hantida.</p>
+      </div>
+
+      <div class="panel">
+        <h3>📅 Warbixinta Taariikhda</h3>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="reportFrom">Laga bilaabo</label>
+            <input id="reportFrom" type="date">
+          </div>
+
+          <div class="form-group">
+            <label for="reportTo">Ilaa taariikhda</label>
+            <input id="reportTo" type="date">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary"
+                  onclick="generateReport()">
+            📊 Samee Warbixin
+          </button>
+
+          <button class="button button-secondary"
+                  onclick="window.print()">
+            🖨️ Daabac
+          </button>
+        </div>
+
+        <div id="reportOutput"></div>
+      </div>
+
+      <div class="panel">
+        <h3>📥 Soo Dejinta Xogta</h3>
+        <p>Waxaad xogta qaybaha kala duwan ugu dhoofin kartaa CSV.</p>
+
+        <div class="form-actions">
+          <button class="button button-secondary"
+                  onclick="exportCSV('farms')">Beeraha CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('livestock')">Xoolaha CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('income')">Dakhliga CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('expenses')">Kharashaadka CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('milk')">Caanaha CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('debts')">Deymaha CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('assets')">Hantida CSV</button>
+
+          <button class="button button-secondary"
+                  onclick="exportCSV('health')">Caafimaadka CSV</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SETTINGS -->
+
+    <section class="page" id="page-settings">
+
+      <div class="page-heading">
+        <h2>⚙️ Settings</h2>
+        <p>Dejimaha nidaamka, kaydinta xogta iyo luqadda.</p>
+      </div>
+
+      <div class="panel">
+        <h3>🌍 Dejinta Luqadda</h3>
+
+        <div class="form-group">
+          <label for="languageSelect">Luqadda app-ka</label>
+          <select id="languageSelect">
+            <option value="so">Af-Soomaali</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary"
+                  onclick="saveLanguage()">
+            💾 Kaydi Luqadda
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>💾 Kaydinta iyo Soo Celinta</h3>
+
+        <div class="notice notice-warning">
+          Xogta ku kaydsan browser-ka waxay ku xirnaan kartaa
+          qalabka aad isticmaalayso. Samee Backup joogto ah.
+          LocalStorage kaligiis ma aha kaydin online ah.
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary"
+                  onclick="backupData()">
+            📥 Soo dejiso Backup
+          </button>
+
+          <button class="button button-secondary"
+                  onclick="document.getElementById('restoreFile').click()">
+            📤 Soo celi Backup
+          </button>
+
+          <input type="file" id="restoreFile"
+                 accept=".json,application/json"
+                 hidden>
+
+          <button class="button button-danger"
+                  onclick="confirmClearData()">
+            🗑️ Tirtir Dhammaan Xogta
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>ℹ️ Macluumaadka App-ka</h3>
+
+        <p><strong>Magaca:</strong> TACBO Agro Finance</p>
+        <p><strong>Nooca:</strong> 1.0.0</p>
+        <p><strong>Ujeeddo:</strong> Maamulka beeraha, xoolaha iyo dhaqaalaha.</p>
+        <p><strong>Kaydinta:</strong> LocalStorage ilaa adeeg online ah la habeeyo.</p>
+      </div>
+
+    </section>
+
+  </main>
+
 </div>
-<div class="panel"><h2>Hawlah Degdegga ah</h2><button class="btn" onclick="go('income')">+ Dakhli</button><button class="btn red" onclick="go('expenses')">+ Kharash</button><button class="btn" onclick="go('livestock')">+ Xoolo</button><button class="btn" onclick="go('farms')">+ Beer</button><button class="btn blue" onclick="go('milk')">+ Caano</button></div>
-<div class="panel"><h2>Dhaqdhaqaaqyadii ugu dambeeyay</h2><div id="recent"></div></div>
-</section>
 
-<section id="farms" class="page">
-<h2>🌱 Maamulka Beeraha</h2>
-<div class="panel"><h3>Diiwaangeli beer</h3>
-<form id="farmForm" class="formgrid">
-<div><label>Magaca beerta</label><input name="name" required></div>
-<div><label>Goobta</label><input name="location" placeholder="Shalabood, Somalia"></div>
-<div><label>Cabbirka (hektar)</label><input name="hectares" type="number" min="0" step="any" value="0"></div>
-<div><label>Dalagga</label><input name="crop" placeholder="Galley, sisin, yaanyo..."></div>
-<div><label>Xaaladda</label><select name="status"><option>Firfircoon</option><option>La goostay</option><option>Nasasho</option></select></div>
-<div class="full"><label>Faahfaahin</label><input name="notes"></div>
-<div class="full"><button class="btn">Kaydi beerta</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi beer..." oninput="renderTable('farms',this.value)"><div id="farmsTable"></div></div>
-</section>
+<footer class="footer">
+  <p>🌾 TACBO Agro Finance</p>
+  <p>Agriculture • Livestock • Finance • Management</p>
+  <p>© <span id="footerYear"></span> TACBO Agro</p>
+</footer>
 
-<section id="livestock" class="page">
-<h2>🐪 Maamulka Xoolaha</h2>
-<div class="panel">
-<p class="hint">ID si otomaatig ah ayuu u samaysmaa. Haddii aad geliso tiro 5 ah, waxaa la abuuraa 5 ID oo kala gaar ah.</p>
-<form id="livestockForm" class="formgrid">
-<div><label>Nooca</label><select name="type"><option>Ari</option><option>Geel</option><option>Lo'</option><option>Ido</option><option>Digaag</option><option>Fardo</option><option>Kale</option></select></div>
-<div><label>Tirada la diiwaangelinayo</label><input name="quantity" type="number" min="1" max="1000" value="1" required></div>
-<div><label>Qiimaha halkii neef ($)</label><input name="price" type="number" min="0" step="any" value="0"></div>
-<div><label>Jinsi</label><select name="sex"><option>Lama cayimin</option><option>Lab</option><option>Dheddig</option></select></div>
-<div><label>Da'da (bilood)</label><input name="age" type="number" min="0" step="1" value="0"></div>
-<div><label>Taariikhda</label><input name="date" type="date" required></div>
-<div><label>Xaaladda</label><select name="status"><option>Nool</option><option>Iibiyey</option><option>Dhintay</option></select></div>
-<div><label>Goob/koox</label><input name="group" placeholder="Tusaale: Ari 1"></div>
-<div><label>Faahfaahin</label><input name="notes"></div>
-<div class="full"><button class="btn">Diiwaangeli xoolaha</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi ID ama nooca..." oninput="renderTable('livestock',this.value)"><div id="livestockTable"></div></div>
-</section>
+<div class="toast-container" id="toastContainer"></div>
 
-<section id="milk" class="page">
-<h2>🥛 Maamulka Caanaha</h2>
-<div class="panel"><form id="milkForm" class="formgrid">
-<div><label>Nooca xoolaha</label><select name="type"><option>Geel</option><option>Lo'</option><option>Ari</option><option>Ido</option></select></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Litirrada la lisay</label><input name="liters" type="number" min="0" step="0.1" required></div>
-<div><label>Litirrada la iibiyey</label><input name="sold" type="number" min="0" step="0.1" value="0" required></div>
-<div><label>Qiimaha litirkiiba ($)</label><input name="price" type="number" min="0" step="0.01" value="0"></div>
-<div><label>Kharashka maalinta ($)</label><input name="cost" type="number" min="0" step="0.01" value="0"></div>
-<div><label>Faahfaahin</label><input name="notes"></div>
-<div class="full"><button class="btn">Kaydi caanaha</button></div>
-</form></div>
-<div class="panel"><div id="milkSummary" class="hint"></div><input class="search" placeholder="Raadi diiwaanka..." oninput="renderTable('milk',this.value)"><div id="milkTable"></div></div>
-</section>
+<div class="modal-backdrop" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="editModalTitle">✏️ Wax ka beddel</h3>
+      <button class="close-button"
+              onclick="closeEditModal()"
+              aria-label="Xir">×</button>
+    </div>
 
-<section id="income" class="page">
-<h2>💰 Dakhliga</h2>
-<div class="panel"><form id="incomeForm" class="formgrid">
-<div><label>Qaybta</label><select name="category"><option>Iibka xoolaha</option><option>Caanaha</option><option>Iibka dalagga</option><option>Hilibka</option><option>Digada</option><option>Dakhli kale</option></select></div>
-<div><label>Faahfaahin</label><input name="description" required></div>
-<div><label>Lacagta ($)</label><input name="amount" type="number" min="0.01" step="any" required></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Habka lacagta</label><select name="method"><option>Cash</option><option>Bank</option><option>Mobile Money</option></select></div>
-<div class="full"><button class="btn">Kaydi dakhliga</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi dakhli..." oninput="renderTable('income',this.value)"><div id="incomeTable"></div></div>
-</section>
-
-<section id="expenses" class="page">
-<h2>💸 Kharashaadka</h2>
-<div class="panel"><form id="expenseForm" class="formgrid">
-<div><label>Qaybta</label><select name="category"><option>Raashin / calaf</option><option>Daawo / tallaal</option><option>Shaqaale</option><option>Biyo / waraab</option><option>Gaadiid</option><option>Shidaal</option><option>Abuur / bacrimin</option><option>Dayactir</option><option>Kharash kale</option></select></div>
-<div><label>Faahfaahin</label><input name="description" required></div>
-<div><label>Lacagta ($)</label><input name="amount" type="number" min="0.01" step="any" required></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Habka lacagta</label><select name="method"><option>Cash</option><option>Bank</option><option>Mobile Money</option></select></div>
-<div class="full"><button class="btn">Kaydi kharashka</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi kharash..." oninput="renderTable('expenses',this.value)"><div id="expensesTable"></div></div>
-</section>
-
-<section id="health" class="page">
-<h2>🩺 Caafimaadka Xoolaha</h2>
-<div class="panel"><form id="healthForm" class="formgrid">
-<div><label>ID xoolaha (ama koox)</label><input name="animalId" placeholder="Tusaale: ARI-0001" required></div>
-<div><label>Nooca</label><select name="type"><option>Ari</option><option>Geel</option><option>Lo'</option><option>Ido</option><option>Kale</option></select></div>
-<div><label>Daawo/tallaal</label><input name="treatment" required></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Kharash ($)</label><input name="cost" type="number" min="0" step="any" value="0"></div>
-<div><label>Taariikhda xigta</label><input name="nextDate" type="date"></div>
-<div class="full"><label>Faahfaahin</label><textarea name="notes"></textarea></div>
-<div class="full"><button class="btn">Kaydi caafimaadka</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi caafimaad..." oninput="renderTable('health',this.value)"><div id="healthTable"></div></div>
-</section>
-
-<section id="debts" class="page">
-<h2>📒 Deymaha</h2>
-<div class="panel"><form id="debtForm" class="formgrid">
-<div><label>Qofka</label><input name="person" required></div>
-<div><label>Nooca</label><select name="type"><option>La iga rabo</option><option>Aan leeyahay</option></select></div>
-<div><label>Wadarta ($)</label><input name="amount" type="number" min="0.01" step="any" required></div>
-<div><label>La bixiyey ($)</label><input name="paid" type="number" min="0" step="any" value="0" required></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Faahfaahin</label><input name="notes"></div>
-<div class="full"><button class="btn">Kaydi deynta</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi deyn..." oninput="renderTable('debts',this.value)"><div id="debtsTable"></div></div>
-</section>
-
-<section id="assets" class="page">
-<h2>🏡 Hantida</h2>
-<div class="panel"><form id="assetForm" class="formgrid">
-<div><label>Magaca hantida</label><input name="name" required></div>
-<div><label>Nooca</label><select name="category"><option>Ceel</option><option>Matoor</option><option>Tractor</option><option>Qalab waraab</option><option>Dhisme</option><option>Gaari</option><option>Qalab kale</option></select></div>
-<div><label>Qiimaha ($)</label><input name="value" type="number" min="0" step="any" required></div>
-<div><label>Taariikh</label><input name="date" type="date" required></div>
-<div><label>Xaaladda</label><select name="status"><option>Shaqaynaya</option><option>Dayactir u baahan</option><option>Iibiyey</option></select></div>
-<div><label>Faahfaahin</label><input name="notes"></div>
-<div class="full"><button class="btn">Kaydi hantida</button></div>
-</form></div>
-<div class="panel"><input class="search" placeholder="Raadi hanti..." oninput="renderTable('assets',this.value)"><div id="assetsTable"></div></div>
-</section>
-
-<section id="reports" class="page">
-<h2>📊 Warbixinno</h2>
-<div class="panel"><div id="reportContent"></div><button class="btn" onclick="exportCSV()">Soo dejiso CSV (Excel)</button></div>
-</section>
-
-<section id="backup" class="page">
-<h2>💾 Backup & Restore</h2>
-<div class="panel"><p class="hint">Xogta waxaa lagu kaydiyaa browser-ka qalabkan. Samee backup joogto ah si xogtu u lumin.</p><button class="btn" onclick="backup()">Soo dejiso backup</button><button class="btn gray" onclick="document.getElementById('restoreFile').click()">Soo geli backup</button><input id="restoreFile" type="file" accept="application/json" hidden><button class="btn red" onclick="clearData()">Tirtir xogta oo dhan</button></div>
-</section>
-
-<footer>TACBO Agro Finance © <span id="year"></span> • Nooca 1.0</footer>
-</main>
+    <div id="editModalContent"></div>
+  </div>
+</div>
 <script>
-const KEY='tacbo_agro_full_v1';
-const collections=['farms','livestock','milk','income','expenses','health','debts','assets'];
-const today=()=>new Date().toISOString().slice(0,10);
-const num=v=>Number(v)||0;
-const money=v=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(num(v));
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const emptyDB=()=>Object.fromEntries(collections.map(k=>[k,[]]));
-let db=load();
-function load(){try{const x=JSON.parse(localStorage.getItem(KEY));return {...emptyDB(),...(x||{})}}catch{return emptyDB()}}
-function save(){localStorage.setItem(KEY,JSON.stringify(db));renderAll()}
-function go(page){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===page));document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));renderAll();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
-window.go=go;
-function makeId(type){const prefixes={Ari:'ARI',Geel:'GEEL',"Lo'":'LO',Ido:'IDO',Digaag:'DIG',Fardo:'FAR',Kale:'XOL'};const prefix=prefixes[type]||'XOL';const existing=db.livestock.map(x=>x.animalId||'').filter(x=>x.startsWith(prefix+'-')).map(x=>Number(x.split('-').pop())||0);let n=Math.max(0,...existing)+1;let candidate;do{candidate=prefix+'-'+String(n++).padStart(4,'0')}while(db.livestock.some(x=>x.animalId===candidate));return candidate}
-function renderTable(key,query=''){const target=document.getElementById(key+'Table');if(!target)return;let rows=db[key]||[];const q=query.toLowerCase();if(q)rows=rows.filter(x=>JSON.stringify(x).toLowerCase().includes(q));if(!rows.length){target.innerHTML='<div class="empty">Weli xog lama diiwaangelin.</div>';return}
-let cols={farms:[['name','Magaca'],['location','Goobta'],['hectares','Hektar'],['crop','Dalagga'],['status','Xaaladda']],livestock:[['animalId','ID'],['type','Nooca'],['sex','Jinsi'],['age','Da (bilood)'],['quantity','Tirada'],['price','Qiimaha/neef'],['status','Xaaladda'],['date','Taariikh']],milk:[['type','Nooca'],['date','Taariikh'],['liters','La lisay (L)'],['sold','La iibiyey (L)'],['remaining','Hadhay (L)'],['revenue','Dakhli'],['cost','Kharash'],['profit','Faa’iido']],income:[['category','Qaybta'],['description','Faahfaahin'],['amount','Lacag'],['date','Taariikh'],['method','Habka']],expenses:[['category','Qaybta'],['description','Faahfaahin'],['amount','Lacag'],['date','Taariikh'],['method','Habka']],health:[['animalId','ID xoolaha'],['type','Nooca'],['treatment','Daawo/tallaal'],['date','Taariikh'],['cost','Kharash'],['nextDate','Taariikhda xigta']],debts:[['person','Qofka'],['type','Nooca'],['amount','Wadarta'],['paid','La bixiyey'],['remaining','Hadhay'],['date','Taariikh']],assets:[['name','Magaca'],['category','Nooca'],['value','Qiimaha'],['date','Taariikh'],['status','Xaaladda']]};
-const keys=cols[key]||[];let out='<div class="tablewrap"><table><thead><tr>'+keys.map(c=>'<th>'+c[1]+'</th>').join('')+'<th>Ficil</th></tr></thead><tbody>';
-out+=rows.slice().reverse().map(x=>'<tr>'+keys.map(([k])=>'<td>'+esc(k==='remaining'?(key==='milk'?Math.max(0,num(x.liters)-num(x.sold)).toFixed(1)+' L':money(num(x.amount)-num(x.paid)):['amount','price','value','cost','revenue','profit'].includes(k)?money(x[k]):x[k])+'</td>').join('')+'<td><button class="btn red" style="padding:6px 9px" onclick="removeItem(\\''+key+'\\',\\''+x.id+'\\')">Tirtir</button></td></tr>').join('');
-target.innerHTML=out+'</tbody></table></div>'}
-window.renderTable=renderTable;
-function removeItem(key,id){if(confirm('Ma hubtaa inaad tirtirayso diiwaankan?')){db[key]=db[key].filter(x=>x.id!==id);save()}}window.removeItem=removeItem;
-function setup(formId,key,prepare=x=>x){const form=document.getElementById(formId);const date=form.querySelector('[name="date"]');if(date)date.value=today();form.addEventListener('submit',e=>{e.preventDefault();const x=prepare(Object.fromEntries(new FormData(form).entries()));x.id=crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random());x.createdAt=new Date().toISOString();if(key==='livestock'){const qty=Math.min(1000,Math.max(1,Math.floor(num(x.quantity))));for(let i=0;i<qty;i++){const id=makeId(x.type);db.livestock.push({...x,id,animalId:id,quantity:1,group:x.group||'',createdAt:new Date().toISOString()})}}else db[key].push(x);save();form.reset();if(date)date.value=today();alert('Xogta waa la kaydiyey.');})}
-setup('farmForm','farms',x=>({...x,hectares:num(x.hectares)}));
-setup('livestockForm','livestock',x=>({...x,quantity:num(x.quantity),price:num(x.price),age:num(x.age)}));
-setup('milkForm','milk',x=>({...x,liters:num(x.liters),sold:num(x.sold),price:num(x.price),cost:num(x.cost),revenue:num(x.sold)*num(x.price),profit:num(x.sold)*num(x.price)-num(x.cost)}));
-setup('incomeForm','income',x=>({...x,amount:num(x.amount)}));
-setup('expenseForm','expenses',x=>({...x,amount:num(x.amount)}));
-setup('healthForm','health',x=>({...x,cost:num(x.cost)}));
-setup('debtForm','debts',x=>({...x,amount:num(x.amount),paid:num(x.paid)}));
-setup('assetForm','assets',x=>({...x,value:num(x.value)}));
-function renderAll(){collections.forEach(k=>renderTable(k));const inc=db.income.reduce((a,x)=>a+num(x.amount),0)+db.milk.reduce((a,x)=>a+num(x.revenue),0);const exp=db.expenses.reduce((a,x)=>a+num(x.amount),0)+db.milk.reduce((a,x)=>a+num(x.cost),0);document.getElementById('totalIncome').textContent=money(inc);document.getElementById('totalExpenses').textContent=money(exp);const p=inc-exp;document.getElementById('profit').textContent=money(p);document.getElementById('profit').className='value '+(p<0?'negative':'positive');document.getElementById('animalCount').textContent=db.livestock.filter(x=>x.status==='Nool').reduce((a,x)=>a+num(x.quantity),0);document.getElementById('farmCount').textContent=db.farms.length;document.getElementById('debtTotal').textContent=money(db.debts.reduce((a,x)=>a+Math.max(0,num(x.amount)-num(x.paid)),0));document.getElementById('milkTotal').textContent=db.milk.reduce((a,x)=>a+num(x.liters),0).toFixed(1)+' L';document.getElementById('milkSummary').textContent='La lisay: '+db.milk.reduce((a,x)=>a+num(x.liters),0).toFixed(1)+' L • La iibiyey: '+db.milk.reduce((a,x)=>a+num(x.sold),0).toFixed(1)+' L • Dakhli: '+money(db.milk.reduce((a,x)=>a+num(x.revenue),0))+' • Faa’iido: '+money(db.milk.reduce((a,x)=>a+num(x.profit),0));const recent=[...db.income.map(x=>({...x,label:'Dakhli',value:money(x.amount)})),...db.expenses.map(x=>({...x,label:'Kharash',value:'−'+money(x.amount)})),...db.milk.map(x=>({...x,label:'Caano',value:money(x.revenue)}))].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);document.getElementById('recent').innerHTML=recent.length?recent.map(x=>'<p>'+esc(x.label)+' • '+esc(x.description||x.type||x.category||'')+' • '+esc(x.date||'')+' — <b>'+esc(x.value)+'</b></p>').join(''):'<div class="empty">Weli wax dhaqdhaqaaq ah ma jiro.</div>';document.getElementById('reportContent').innerHTML='<p>Dakhli guud: <b>'+money(inc)+'</b></p><p>Kharash guud: <b>'+money(exp)+'</b></p><p>Faa’iido/khasaare: <b>'+money(p)+'</b></p><p>Xoolaha la diiwaangeliyey: <b>'+db.livestock.length+'</b></p><p>Beeraha: <b>'+db.farms.length+'</b></p><p>Caanaha la lisay: <b>'+db.milk.reduce((a,x)=>a+num(x.liters),0).toFixed(1)+' L</b></p>'}
-function backup(){const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});download(blob,'TACBO-Agro-Backup-'+today()+'.json')}function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-document.getElementById('restoreFile').addEventListener('change',async e=>{try{const x=JSON.parse(await e.target.files[0].text());if(!collections.every(k=>Array.isArray(x[k])))throw Error();if(confirm('Kaydkan ma ku beddelaa xogta hadda jirta?')){db=x;save();alert('Backup waa la soo celiyey.')}}catch{alert('Faylka backup-ku sax ma aha.')}e.target.value=''});
-function clearData(){if(confirm('DIGNIIN: xogta app-kan browser-ka ku kaydsan waa la tirtirayaa.')){db=emptyDB();save()}}
-function exportCSV(){let rows=[['Qayb','ID','Nooc','Taariikh','Tirada/Litirrada','Lacag','Faahfaahin']];for(const x of db.livestock)rows.push(['Xoolo',x.animalId,x.type,x.date,x.quantity,x.price,x.notes]);for(const x of db.milk)rows.push(['Caano','',x.type,x.date,x.liters,x.revenue,x.notes]);for(const x of db.income)rows.push(['Dakhli','',x.category,x.date,'',x.amount,x.description]);for(const x of db.expenses)rows.push(['Kharash','',x.category,x.date,'',x.amount,x.description]);const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'TACBO-Agro-Warbixin-'+today()+'.csv')}
-document.getElementById('year').textContent=new Date().getFullYear();renderAll();
+"use strict";
+
+/* =========================================
+   TACBO AGRO FINANCE
+   QAYBTA 2: DATA ENGINE
+========================================= */
+
+/* ---------- 1. CONFIGURATION ---------- */
+
+const TACBO = {
+  name: "TACBO Agro Finance",
+  version: "1.0.0",
+  currency: "USD",
+  locale: "en-US",
+  storageKey: "tacbo_agro_finance_v1"
+};
+
+const COLLECTIONS = [
+  "farms",
+  "livestock",
+  "milk",
+  "income",
+  "expenses",
+  "health",
+  "debts",
+  "assets"
+];
+
+const COLLECTION_LABELS = {
+  farms: "Beeraha",
+  livestock: "Xoolaha",
+  milk: "Caanaha",
+  income: "Dakhliga",
+  expenses: "Kharashaadka",
+  health: "Caafimaadka",
+  debts: "Deymaha",
+  assets: "Hantida"
+};
+
+const STATUS_LABELS = {
+  active: "Shaqaynaysa",
+  planned: "Qorshaysan",
+  inactive: "Aan shaqaynayn",
+  live: "Nool",
+  sold: "La iibiyey",
+  dead: "Dhimasho",
+  maintenance: "Dayactir u baahan",
+  receivable: "Lacag nalagu leeyahay",
+  payable: "Lacag aan leenahay",
+  male: "Lab",
+  female: "Dhedig",
+  unknown: "Lama cayimin"
+};
+
+/* ---------- 2. APP STATE ---------- */
+
+let db = createEmptyDatabase();
+
+let currentEdit = null;
+let currentPage = "dashboard";
+let currentLanguage = "so";
+let lastBackupDate = null;
+
+function createEmptyDatabase() {
+  return {
+    meta: {
+      version: TACBO.version,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    },
+    counters: {
+      farms: 0,
+      livestock: 0,
+      milk: 0,
+      income: 0,
+      expenses: 0,
+      health: 0,
+      debts: 0,
+      assets: 0
+    },
+    farms: [],
+    livestock: [],
+    milk: [],
+    income: [],
+    expenses: [],
+    health: [],
+    debts: [],
+    assets: []
+  };
+}
+
+/* ---------- 3. GENERAL HELPERS ---------- */
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function makeId() {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+
+  return (
+    Date.now().toString(36) +
+    Math.random().toString(36).slice(2, 12)
+  );
+}
+
+function numberValue(value) {
+  const n = Number(value);
+
+  return Number.isFinite(n) ? n : 0;
+}
+
+function money(value) {
+  const n = numberValue(value);
+
+  return new Intl.NumberFormat(TACBO.locale, {
+    style: "currency",
+    currency: TACBO.currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(n);
+}
+
+function numberFormat(value, decimals = 2) {
+  return new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: decimals
+  }).format(numberValue(value));
+}
+
+function todayISO() {
+  const d = new Date();
+
+  const local = new Date(
+    d.getTime() - d.getTimezoneOffset() * 60000
+  );
+
+  return local.toISOString().slice(0, 10);
+}
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function formatDate(value) {
+  if (!value) return "—";
+
+  const d = new Date(value + "T00:00:00");
+
+  if (Number.isNaN(d.getTime())) {
+    return escapeHTML(value);
+  }
+
+  return d.toLocaleDateString("en-GB");
+}
+
+function statusLabel(value) {
+  return STATUS_LABELS[value] || value || "—";
+}
+
+function badgeClass(value) {
+  if (
+    value === "live" ||
+    value === "active" ||
+    value === "completed"
+  ) {
+    return "badge-success";
+  }
+
+  if (
+    value === "dead" ||
+    value === "inactive" ||
+    value === "overdue"
+  ) {
+    return "badge-danger";
+  }
+
+  if (
+    value === "maintenance" ||
+    value === "planned"
+  ) {
+    return "badge-warning";
+  }
+
+  return "badge-info";
+}
+
+function safeArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+/* ---------- 4. NOTIFICATIONS ---------- */
+
+function toast(message, type = "success") {
+  const container = $("toastContainer");
+
+  if (!container) {
+    alert(message);
+    return;
+  }
+
+  const el = document.createElement("div");
+
+  el.className =
+    "toast" +
+    (type === "error" ? " error" : "") +
+    (type === "warning" ? " warning" : "");
+
+  el.textContent = message;
+
+  container.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, 3500);
+}
+
+/* ---------- 5. LOCAL DATABASE ---------- */
+
+function saveDatabase(showMessage = false) {
+  try {
+    db.meta.updatedAt = new Date().toISOString();
+
+    localStorage.setItem(
+      TACBO.storageKey,
+      JSON.stringify(db)
+    );
+
+    if (showMessage) {
+      toast("Xogta si guul leh ayaa loo kaydiyey.");
+    }
+
+    return true;
+
+  } catch (error) {
+    console.error("TACBO save error:", error);
+
+    toast(
+      "Kaydintu way fashilantay. Hubi booska browser-ka.",
+      "error"
+    );
+
+    return false;
+  }
+}
+
+function loadDatabase() {
+  try {
+    const raw = localStorage.getItem(TACBO.storageKey);
+
+    if (!raw) {
+      db = createEmptyDatabase();
+      saveDatabase(false);
+      return;
+    }
+
+    const parsed = JSON.parse(raw);
+
+    if (
+      !parsed ||
+      typeof parsed !== "object"
+    ) {
+      throw new Error("Database format is invalid.");
+    }
+
+    const fresh = createEmptyDatabase();
+
+    db = {
+      ...fresh,
+      ...parsed,
+      meta: {
+        ...fresh.meta,
+        ...(parsed.meta || {})
+      },
+      counters: {
+        ...fresh.counters,
+        ...(parsed.counters || {})
+      }
+    };
+
+    COLLECTIONS.forEach(key => {
+      db[key] = safeArray(db[key]);
+    });
+
+  } catch (error) {
+    console.error("TACBO load error:", error);
+
+    db = createEmptyDatabase();
+
+    toast(
+      "Xogta hore lama akhrin karin. Samee hubin ka hor tirtirid.",
+      "error"
+    );
+  }
+}
+
+/* ---------- 6. COLLECTION ACCESS ---------- */
+
+function getCollection(key) {
+  if (!COLLECTIONS.includes(key)) {
+    throw new Error("Qaybta lama aqoonsan: " + key);
+  }
+
+  return db[key];
+}
+
+function findRecord(key, id) {
+  return getCollection(key).find(
+    record => record.id === id
+  ) || null;
+}
+
+function countRecords(key) {
+  return getCollection(key).length;
+}
+
+/* ---------- 7. ADD RECORD ---------- */
+
+function addRecord(key, record) {
+  const collection = getCollection(key);
+
+  const newRecord = {
+    id: makeId(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    ...record
+  };
+
+  collection.unshift(newRecord);
+
+  db.counters[key] = numberValue(db.counters[key]) + 1;
+
+  if (!saveDatabase(false)) {
+    collection.shift();
+    return null;
+  }
+
+  renderAll();
+
+  return newRecord;
+}
+
+/* ---------- 8. UPDATE RECORD ---------- */
+
+function updateRecord(key, id, changes) {
+  const collection = getCollection(key);
+
+  const index = collection.findIndex(
+    record => record.id === id
+  );
+
+  if (index < 0) {
+    toast("Xogta la beddelayo lama helin.", "error");
+    return false;
+  }
+
+  const oldRecord = { ...collection[index] };
+
+  collection[index] = {
+    ...collection[index],
+    ...changes,
+    id: oldRecord.id,
+    createdAt: oldRecord.createdAt,
+    updatedAt: new Date().toISOString()
+  };
+
+  if (!saveDatabase(false)) {
+    collection[index] = oldRecord;
+    return false;
+  }
+
+  renderAll();
+
+  toast("Xogta si guul leh ayaa loo beddelay.");
+
+  return true;
+}
+
+/* ---------- 9. DELETE RECORD ---------- */
+
+function deleteRecord(key, id) {
+  const collection = getCollection(key);
+
+  const index = collection.findIndex(
+    record => record.id === id
+  );
+
+  if (index < 0) {
+    toast("Xogta lama helin.", "error");
+    return false;
+  }
+
+  const record = collection[index];
+
+  const label =
+    record.name ||
+    record.description ||
+    record.animalId ||
+    record.tag ||
+    record.id;
+
+  const confirmed = confirm(
+    "Ma hubtaa inaad tirtirayso xogtan?\n\n" +
+    label +
+    "\n\nFicilkan dib looma celin karo haddii aan Backup jirin."
+  );
+
+  if (!confirmed) return false;
+
+  collection.splice(index, 1);
+
+  if (!saveDatabase(false)) {
+    collection.splice(index, 0, record);
+    return false;
+  }
+
+  renderAll();
+
+  toast("Xogta waa la tirtiray.");
+
+  return true;
+}
+
+/* ---------- 10. GLOBAL EDIT / DELETE ---------- */
+
+function removeItem(key, id) {
+  return deleteRecord(key, id);
+}
+
+function editItem(key, id) {
+  const record = findRecord(key, id);
+
+  if (!record) {
+    toast("Xogta la beddelayo lama helin.", "error");
+    return;
+  }
+
+  openEditModal(key, record);
+}
+
+/* ---------- 11. EDIT MODAL ---------- */
+
+function closeEditModal() {
+  const modal = $("editModal");
+
+  if (modal) {
+    modal.classList.remove("open");
+  }
+
+  currentEdit = null;
+}
+
+function openEditModal(key, record) {
+  currentEdit = {
+    key,
+    id: record.id
+  };
+
+  const title = $("editModalTitle");
+  const content = $("editModalContent");
+
+  if (!title || !content) {
+    toast("Meesha Edit-ka lama helin.", "error");
+    return;
+  }
+
+  title.textContent =
+    "✏️ Wax ka beddel: " +
+    (COLLECTION_LABELS[key] || key);
+
+  const ignored = [
+    "id",
+    "createdAt",
+    "updatedAt"
+  ];
+
+  const fields = Object.keys(record).filter(
+    field => !ignored.includes(field)
+  );
+
+  content.innerHTML = `
+    <form id="editRecordForm">
+      <div class="form-grid">
+        ${fields.map(field => {
+          const value = record[field] ?? "";
+
+          const isLong =
+            String(value).length > 80 ||
+            field === "notes";
+
+          const isNumber =
+            typeof value === "number";
+
+          const label = field
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, c => c.toUpperCase());
+
+          if (typeof value === "boolean") {
+            return `
+              <div class="form-group">
+                <label>${escapeHTML(label)}</label>
+                <select name="${escapeHTML(field)}">
+                  <option value="true"
+                    ${value ? "selected" : ""}>
+                    Haa
+                  </option>
+                  <option value="false"
+                    ${!value ? "selected" : ""}>
+                    Maya
+                  </option>
+                </select>
+              </div>
+            `;
+          }
+
+          if (isLong) {
+            return `
+              <div class="form-group full">
+                <label>${escapeHTML(label)}</label>
+                <textarea
+                  name="${escapeHTML(field)}"
+                >${escapeHTML(value)}</textarea>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="form-group">
+              <label>${escapeHTML(label)}</label>
+              <input
+                name="${escapeHTML(field)}"
+                value="${escapeHTML(value)}"
+                ${isNumber ? 'type="number" step="any"' : 'type="text"'}
+              >
+            </div>
+          `;
+        }).join("")}
+      </div>
+
+      <div class="form-actions">
+        <button class="button button-primary" type="submit">
+          💾 Kaydi Isbeddelka
+        </button>
+
+        <button class="button button-secondary"
+                type="button"
+                onclick="closeEditModal()">
+          Ka noqo
+        </button>
+      </div>
+    </form>
+  `;
+
+  $("editRecordForm").addEventListener(
+    "submit",
+    saveEditModal
+  );
+
+  $("editModal").classList.add("open");
+}
+
+function saveEditModal(event) {
+  event.preventDefault();
+
+  if (!currentEdit) return;
+
+  const form = event.currentTarget;
+  const data = new FormData(form);
+
+  const oldRecord = findRecord(
+    currentEdit.key,
+    currentEdit.id
+  );
+
+  if (!oldRecord) {
+    toast("Xogta lama helin.", "error");
+    return;
+  }
+
+  const changes = {};
+
+  for (const [key, value] of data.entries()) {
+    const oldValue = oldRecord[key];
+
+    if (typeof oldValue === "number") {
+      changes[key] = numberValue(value);
+
+    } else if (typeof oldValue === "boolean") {
+      changes[key] = value === "true";
+
+    } else {
+      changes[key] = String(value).trim();
+    }
+  }
+
+  const success = updateRecord(
+    currentEdit.key,
+    currentEdit.id,
+    changes
+  );
+
+  if (success) {
+    closeEditModal();
+  }
+}
+
+/* ---------- 12. TABLE BUILDER ---------- */
+
+function renderTable(key, targetId, columns, rows) {
+  const target = $(targetId);
+
+  if (!target) return;
+
+  if (!rows.length) {
+    target.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        Wax xog ah weli lama diiwaangelin.
+      </div>
+    `;
+
+    return;
+  }
+
+  const header = columns.map(column => `
+    <th>${escapeHTML(column.label)}</th>
+  `).join("");
+
+  const body = rows.map(record => {
+    const cells = columns.map(column => {
+      let value = column.value
+        ? column.value(record)
+        : record[column.key];
+
+      if (column.type === "money") {
+        value = money(value);
+
+      } else if (column.type === "date") {
+        value = formatDate(value);
+
+      } else if (column.type === "status") {
+        const status = String(value || "");
+
+        value = `
+          <span class="badge ${badgeClass(status)}">
+            ${escapeHTML(statusLabel(status))}
+          </span>
+        `;
+
+        return `<td>${value}</td>`;
+      }
+
+      return `
+        <td>${escapeHTML(value ?? "—")}</td>
+      `;
+    }).join("");
+
+    return `
+      <tr>
+        ${cells}
+        <td>
+          <div class="actions">
+            <button
+              class="button button-warning button-small"
+              type="button"
+              onclick="editItem('${key}','${record.id}')"
+            >✏️ Edit</button>
+
+            <button
+              class="button button-danger button-small"
+              type="button"
+              onclick="removeItem('${key}','${record.id}')"
+            >🗑️ Delete</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  target.innerHTML = `
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            ${header}
+            <th>Hawlaha</th>
+          </tr>
+        </thead>
+
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ---------- 13. SEARCH ---------- */
+
+function filterRecords(key, query, fields) {
+  const q = String(query || "")
+    .trim()
+    .toLowerCase();
+
+  const records = getCollection(key);
+
+  if (!q) return records;
+
+  return records.filter(record => {
+    return fields.some(field => {
+      return String(record[field] ?? "")
+        .toLowerCase()
+        .includes(q);
+    });
+  });
+}
+
+function bindSearch(inputId, callback) {
+  const input = $(inputId);
+
+  if (!input) return;
+
+  input.addEventListener("input", callback);
+}
+
+/* ---------- 14. FARM TABLE ---------- */
+
+function renderFarms() {
+  const query = $("farmSearch")?.value || "";
+
+  const records = filterRecords(
+    "farms",
+    query,
+    ["name", "location", "crop", "irrigation"]
+  );
+
+  renderTable(
+    "farms",
+    "farmTable",
+    [
+      { key: "name", label: "Magaca" },
+      { key: "location", label: "Goobta" },
+      {
+        key: "size",
+        label: "Baaxadda (ha)",
+        value: r => numberFormat(r.size)
+      },
+      { key: "crop", label: "Dalagga" },
+      { key: "irrigation", label: "Waraabka" },
+      {
+        key: "status",
+        label: "Xaaladda",
+        type: "status"
+      }
+    ],
+    records
+  );
+
+  if ($("farmCount")) {
+    $("farmCount").textContent =
+      countRecords("farms") + " beer";
+  }
+}
+
+/* ---------- 15. LIVESTOCK TABLE ---------- */
+
+function renderLivestock() {
+  const query = $("livestockSearch")?.value || "";
+  const status = $("livestockFilter")?.value || "";
+
+  let records = filterRecords(
+    "livestock",
+    query,
+    ["tag", "type", "breed", "origin", "farmId"]
+  );
+
+  if (status) {
+    records = records.filter(
+      record => record.status === status
+    );
+  }
+
+  renderTable(
+    "livestock",
+    "livestockTable",
+    [
+      { key: "tag", label: "ID-ga" },
+      {
+        key: "type",
+        label: "Nooca",
+        value: r => animalTypeLabel(r.type)
+      },
+      { key: "breed", label: "Jinsiga gaarka ah" },
+      { key: "sex", label: "Jinsi", value: r => statusLabel(r.sex) },
+      {
+        key: "unitCost",
+        label: "Qiimaha",
+        type: "money"
+      },
+      {
+        key: "status",
+        label: "Xaaladda",
+        type: "status"
+      }
+    ],
+    records
+  );
+
+  if ($("livestockCount")) {
+    $("livestockCount").textContent =
+      records.length + " neef";
+  }
+}
+
+function animalTypeLabel(type) {
+  const names = {
+    ARI: "Ari",
+    GEEL: "Geel",
+    LO: "Lo'",
+    DIGAAG: "Digaag",
+    FARAS: "Faras",
+    KALE: "Xoolo kale"
+  };
+
+  return names[type] || type || "—";
+}
+
+/* ---------- 16. MILK TABLE ---------- */
+
+function renderMilk() {
+  const records = getCollection("milk");
+
+  renderTable(
+    "milk",
+    "milkTable",
+    [
+      { key: "date", label: "Taariikh", type: "date" },
+      { key: "animalId", label: "ID-ga neefka" },
+      {
+        key: "produced",
+        label: "La lisay (L)",
+        value: r => numberFormat(r.produced)
+      },
+      {
+        key: "sold",
+        label: "La iibiyey (L)",
+        value: r => numberFormat(r.sold)
+      },
+      {
+        key: "remaining",
+        label: "Haray (L)",
+        value: r => numberFormat(r.remaining)
+      },
+      {
+        key: "revenue",
+        label: "Dakhli",
+        type: "money"
+      }
+    ],
+    records
+  );
+
+  const produced = records.reduce(
+    (sum, r) => sum + numberValue(r.produced), 0
+  );
+
+  const sold = records.reduce(
+    (sum, r) => sum + numberValue(r.sold), 0
+  );
+
+  const remaining = records.reduce(
+    (sum, r) => sum + numberValue(r.remaining), 0
+  );
+
+  const revenue = records.reduce(
+    (sum, r) => sum + numberValue(r.revenue), 0
+  );
+
+  if ($("milkTotalProduced")) {
+    $("milkTotalProduced").textContent =
+      numberFormat(produced) + " L";
+  }
+
+  if ($("milkTotalSold")) {
+    $("milkTotalSold").textContent =
+      numberFormat(sold) + " L";
+  }
+
+  if ($("milkTotalRemaining")) {
+    $("milkTotalRemaining").textContent =
+      numberFormat(remaining) + " L";
+  }
+
+  if ($("milkTotalRevenue")) {
+    $("milkTotalRevenue").textContent =
+      money(revenue);
+  }
+}
+
+/* ---------- 17. INCOME TABLE ---------- */
+
+function renderIncome() {
+  renderTable(
+    "income",
+    "incomeTable",
+    [
+      { key: "date", label: "Taariikh", type: "date" },
+      { key: "category", label: "Qaybta" },
+      { key: "description", label: "Faahfaahin" },
+      { key: "customer", label: "Macmiilka" },
+      { key: "payment", label: "Habka lacagta" },
+      {
+        key: "amount",
+        label: "Lacagta",
+        type: "money"
+      }
+    ],
+    getCollection("income")
+  );
+}
+
+/* ---------- 18. EXPENSE TABLE ---------- */
+
+function renderExpenses() {
+  renderTable(
+    "expenses",
+    "expensesTable",
+    [
+      { key: "date", label: "Taariikh", type: "date" },
+      { key: "category", label: "Qaybta" },
+      { key: "description", label: "Faahfaahin" },
+      { key: "supplier", label: "Cidda la siiyey" },
+      { key: "payment", label: "Habka lacagta" },
+      {
+        key: "amount",
+        label: "Lacagta",
+        type: "money"
+      }
+    ],
+    getCollection("expenses")
+  );
+}
+
+/* ---------- 19. HEALTH TABLE ---------- */
+
+function renderHealth() {
+  renderTable(
+    "health",
+    "healthTable",
+    [
+      { key: "date", label: "Taariikh", type: "date" },
+      { key: "animalId", label: "ID-ga neefka" },
+      { key: "type", label: "Adeegga" },
+      { key: "condition", label: "Xaaladda" },
+      { key: "treatment", label: "Daawada" },
+      {
+        key: "cost",
+        label: "Kharashka",
+        type: "money"
+      },
+      { key: "nextDate", label: "Taariikhda xigta", type: "date" }
+    ],
+    getCollection("health")
+  );
+}
+
+/* ---------- 20. DEBTS TABLE ---------- */
+
+function renderDebts() {
+  renderTable(
+    "debts",
+    "debtsTable",
+    [
+      {
+        key: "type",
+        label: "Nooca",
+        value: r => statusLabel(r.type)
+      },
+      { key: "person", label: "Qofka / shirkadda" },
+      { key: "date", label: "Taariikh", type: "date" },
+      {
+        key: "amount",
+        label: "Guud",
+        type: "money"
+      },
+      {
+        key: "paid",
+        label: "La bixiyey",
+        type: "money"
+      },
+      {
+        key: "remaining",
+        label: "Harsan",
+        type: "money"
+      },
+      { key: "dueDate", label: "Waqtiga kama dambaysta", type: "date" }
+    ],
+    getCollection("debts")
+  );
+}
+
+/* ---------- 21. ASSETS TABLE ---------- */
+
+function renderAssets() {
+  renderTable(
+    "assets",
+    "assetsTable",
+    [
+      { key: "name", label: "Magaca" },
+      { key: "category", label: "Qaybta" },
+      { key: "date", label: "Taariikh", type: "date" },
+      {
+        key: "cost",
+        label: "Qiimaha iibka",
+        type: "money"
+      },
+      {
+        key: "value",
+        label: "Qiimaha hadda",
+        type: "money"
+      },
+      {
+        key: "status",
+        label: "Xaaladda",
+        type: "status"
+      }
+    ],
+    getCollection("assets")
+  );
+}
+
+/* ---------- 22. DASHBOARD ---------- */
+
+function renderDashboard() {
+  const totalIncome = getCollection("income").reduce(
+    (sum, r) => sum + numberValue(r.amount), 0
+  );
+
+  const milkIncome = getCollection("milk").reduce(
+    (sum, r) => sum + numberValue(r.revenue), 0
+  );
+
+  const totalExpenses = getCollection("expenses").reduce(
+    (sum, r) => sum + numberValue(r.amount), 0
+  );
+
+  const healthExpenses = getCollection("health").reduce(
+    (sum, r) => sum + numberValue(r.cost), 0
+  );
+
+  const milkCosts = getCollection("milk").reduce(
+    (sum, r) => sum + numberValue(r.cost), 0
+  );
+
+  const profit =
+    totalIncome +
+    milkIncome -
+    totalExpenses -
+    healthExpenses -
+    milkCosts;
+
+  const livingAnimals = getCollection("livestock").filter(
+    r => r.status === "live"
+  ).length;
+
+  const outstandingDebt = getCollection("debts").reduce(
+    (sum, r) => sum + numberValue(r.remaining), 0
+  );
+
+  const assetValue = getCollection("assets")
+    .filter(r => r.status !== "sold")
+    .reduce((sum, r) => sum + numberValue(r.value), 0);
+
+  const totalMilk = getCollection("milk").reduce(
+    (sum, r) => sum + numberValue(r.produced), 0
+  );
+
+  if ($("dashIncome")) {
+    $("dashIncome").textContent =
+      money(totalIncome + milkIncome);
+  }
+
+  if ($("dashExpenses")) {
+    $("dashExpenses").textContent =
+      money(totalExpenses + healthExpenses + milkCosts);
+  }
+
+  if ($("dashProfit")) {
+    $("dashProfit").textContent = money(profit);
+    $("dashProfit").style.color =
+      profit < 0 ? "#dc2626" : "#17251b";
+  }
+
+  if ($("dashLivestock")) {
+    $("dashLivestock").textContent =
+      numberFormat(livingAnimals, 0);
+  }
+
+  if ($("dashFarms")) {
+    $("dashFarms").textContent =
+      numberFormat(countRecords("farms"), 0);
+  }
+
+  if ($("dashDebts")) {
+    $("dashDebts").textContent =
+      money(outstandingDebt);
+  }
+
+  if ($("dashMilk")) {
+    $("dashMilk").textContent =
+      numberFormat(totalMilk) + " L";
+  }
+
+  if ($("dashAssets")) {
+    $("dashAssets").textContent =
+      money(assetValue);
+  }
+
+  renderRecentActivity();
+}
+
+/* ---------- 23. RECENT ACTIVITY ---------- */
+
+function renderRecentActivity() {
+  const target = $("recentActivity");
+
+  if (!target) return;
+
+  const all = [];
+
+  COLLECTIONS.forEach(key => {
+    getCollection(key).forEach(record => {
+      all.push({
+        key,
+        record,
+        timestamp:
+          record.updatedAt ||
+          record.createdAt ||
+          ""
+      });
+    });
+  });
+
+  all.sort((a, b) => {
+    return String(b.timestamp).localeCompare(
+      String(a.timestamp)
+    );
+  });
+
+  const latest = all.slice(0, 8);
+
+  if (!latest.length) {
+    target.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        Weli wax dhaqdhaqaaq ah lama diiwaangelin.
+      </div>
+    `;
+
+    return;
+  }
+
+  target.innerHTML = latest.map(item => {
+    const record = item.record;
+
+    const name =
+      record.name ||
+      record.description ||
+      record.person ||
+      record.tag ||
+      record.animalId ||
+      record.category ||
+      "Xog cusub";
+
+    return `
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        padding:12px 0;
+        border-bottom:1px solid #edf1ed;
+      ">
+        <div>
+          <strong>${escapeHTML(name)}</strong>
+          <div style="
+            color:#647568;
+            font-size:12px;
+            margin-top:5px;
+          ">
+            ${escapeHTML(COLLECTION_LABELS[item.key])}
+          </div>
+        </div>
+
+        <div style="
+          color:#647568;
+          font-size:12px;
+          white-space:nowrap;
+        ">
+          ${formatDate(
+            String(item.timestamp).slice(0, 10)
+          )}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* ---------- 24. FARM SELECT ---------- */
+
+function renderFarmSelect() {
+  const select = $("animalFarm");
+
+  if (!select) return;
+
+  const oldValue = select.value;
+
+  select.innerHTML = `
+    <option value="">Dooro beer (ikhtiyaari)</option>
+    ${getCollection("farms").map(farm => `
+      <option value="${escapeHTML(farm.id)}">
+        ${escapeHTML(farm.name)}
+        — ${escapeHTML(farm.location)}
+      </option>
+    `).join("")}
+  `;
+
+  if (
+    oldValue &&
+    getCollection("farms").some(f => f.id === oldValue)
+  ) {
+    select.value = oldValue;
+  }
+}
+
+/* ---------- 25. RENDER EVERYTHING ---------- */
+
+function renderAll() {
+  renderDashboard();
+  renderFarms();
+  renderLivestock();
+  renderMilk();
+  renderIncome();
+  renderExpenses();
+  renderHealth();
+  renderDebts();
+  renderAssets();
+  renderFarmSelect();
+}
+
+/* ---------- 26. NAVIGATION ---------- */
+
+function showPage(pageName) {
+  const page = $("page-" + pageName);
+
+  if (!page) {
+    toast("Boggan lama helin: " + pageName, "error");
+    return;
+  }
+
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.querySelectorAll(".nav-button").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.page === pageName
+    );
+  });
+
+  page.classList.add("active");
+
+  currentPage = pageName;
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+/* ---------- 27. NAVIGATION EVENTS ---------- */
+
+function bindNavigation() {
+  document.querySelectorAll(".nav-button").forEach(button => {
+    button.addEventListener("click", () => {
+      showPage(button.dataset.page);
+    });
+  });
+}
+
+/* ---------- 28. INITIAL DATE FIELDS ---------- */
+
+function initializeDateFields() {
+  const dateFields = [
+    "farmStart",
+    "animalPurchaseDate",
+    "milkDate",
+    "incomeDate",
+    "expenseDate",
+    "healthDate",
+    "debtDate",
+    "assetDate"
+  ];
+
+  dateFields.forEach(id => {
+    const field = $(id);
+
+    if (field && !field.value) {
+      field.value = todayISO();
+    }
+  });
+
+  if ($("todayDate")) {
+    $("todayDate").textContent =
+      new Date().toLocaleDateString("en-GB", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+  }
+
+  if ($("footerYear")) {
+    $("footerYear").textContent =
+      new Date().getFullYear();
+  }
+}
+
+/* ---------- 29. SEARCH EVENTS ---------- */
+
+function bindSearchEvents() {
+  bindSearch("farmSearch", renderFarms);
+  bindSearch("livestockSearch", renderLivestock);
+
+  const filter = $("livestockFilter");
+
+  if (filter) {
+    filter.addEventListener(
+      "change",
+      renderLivestock
+    );
+  }
+}
+
+/* ---------- 30. SETTINGS ---------- */
+
+function saveLanguage() {
+  const select = $("languageSelect");
+
+  if (!select) return;
+
+  currentLanguage = select.value;
+
+  localStorage.setItem(
+    "tacbo_agro_language",
+    currentLanguage
+  );
+
+  toast(
+    currentLanguage === "en"
+      ? "Language preference saved."
+      : "Luqadda waa la kaydiyey."
+  );
+}
+
+function loadLanguage() {
+  const saved = localStorage.getItem(
+    "tacbo_agro_language"
+  );
+
+  if (
+    saved === "so" ||
+    saved === "en"
+  ) {
+    currentLanguage = saved;
+  }
+
+  if ($("languageSelect")) {
+    $("languageSelect").value = currentLanguage;
+  }
+}
+
+/* ---------- 31. BACKUP ---------- */
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 1500);
+}
+
+function backupData() {
+  const payload = {
+    app: TACBO.name,
+    version: TACBO.version,
+    exportedAt: new Date().toISOString(),
+    data: db
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(payload, null, 2)],
+    { type: "application/json" }
+  );
+
+  const filename =
+    "TACBO_Backup_" +
+    todayISO() +
+    ".json";
+
+  downloadBlob(blob, filename);
+
+  lastBackupDate = new Date().toISOString();
+
+  toast("Backup-ka waa la soo dejiyey.");
+}
+
+/* ---------- 32. RESTORE ---------- */
+
+function restoreDataFromFile(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+
+      const incoming =
+        parsed && parsed.data
+          ? parsed.data
+          : parsed;
+
+      if (
+        !incoming ||
+        typeof incoming !== "object"
+      ) {
+        throw new Error("Faylku ma aha Backup sax ah.");
+      }
+
+      const missing = COLLECTIONS.filter(
+        key => !Array.isArray(incoming[key])
+      );
+
+      if (missing.length) {
+        throw new Error(
+          "Qaybaha qaarkood way maqan yihiin: " +
+          missing.join(", ")
+        );
+      }
+
+      const confirmed = confirm(
+        "Soo celinta Backup-ku waxay beddeli doontaa xogta hadda jirta.\n\n" +
+        "Marka hore soo dejiso Backup-ka hadda jira haddii loo baahdo.\n\n" +
+        "Ma rabtaa inaad sii waddo?"
+      );
+
+      if (!confirmed) return;
+
+      const fresh = createEmptyDatabase();
+
+      db = {
+        ...fresh,
+        ...incoming,
+        meta: {
+          ...fresh.meta,
+          ...(incoming.meta || {})
+        },
+        counters: {
+          ...fresh.counters,
+          ...(incoming.counters || {})
+        }
+      };
+
+      COLLECTIONS.forEach(key => {
+        db[key] = safeArray(incoming[key]);
+      });
+
+      if (saveDatabase(false)) {
+        renderAll();
+        toast("Backup-ka si guul leh ayaa loo soo celiyey.");
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      toast(
+        "Backup-ka lama soo celin karin: " + error.message,
+        "error"
+      );
+    }
+  };
+
+  reader.onerror = () => {
+    toast("Faylka lama akhrin karin.", "error");
+  };
+
+  reader.readAsText(file);
+}
+
+/* ---------- 33. CLEAR DATABASE ---------- */
+
+function confirmClearData() {
+  const first = confirm(
+    "DIGNIIN: Ma hubtaa inaad tirtirayso dhammaan xogta TACBO Agro?"
+  );
+
+  if (!first) return;
+
+  const second = prompt(
+    'Si aad u xaqiijiso, qor: TIRTIR'
+  );
+
+  if (second !== "TIRTIR") {
+    toast("Tirtiridda waa la joojiyey.", "warning");
+    return;
+  }
+
+  const previous = db;
+
+  db = createEmptyDatabase();
+
+  if (!saveDatabase(false)) {
+    db = previous;
+    return;
+  }
+
+  renderAll();
+
+  toast("Dhammaan xogta waa la tirtiray.");
+}
+
+/* ---------- 34. RESTORE FILE EVENT ---------- */
+
+function bindRestoreEvent() {
+  const input = $("restoreFile");
+
+  if (!input) return;
+
+  input.addEventListener("change", event => {
+    const file = event.target.files[0];
+
+    restoreDataFromFile(file);
+
+    event.target.value = "";
+  });
+}
+
+/* ---------- 35. CSV EXPORT ---------- */
+
+function csvCell(value) {
+  let textValue = String(value ?? "");
+
+  /*
+    Ka hortag in qoraal xogta laga keenay
+    uu si toos ah ugu noqdo formula gudaha spreadsheet.
+  */
+
+  if (/^[=+\-@]/.test(textValue)) {
+    textValue = "'" + textValue;
+  }
+
+  return '"' +
+    textValue.replace(/"/g, '""') +
+    '"';
+}
+
+function exportCSV(key) {
+  if (!COLLECTIONS.includes(key)) {
+    toast("Qaybta CSV lama aqoonsan.", "error");
+    return;
+  }
+
+  const records = getCollection(key);
+
+  if (!records.length) {
+    toast("Ma jiraan xog la dhoofin karo.", "warning");
+    return;
+  }
+
+  const ignored = [
+    "createdAt",
+    "updatedAt"
+  ];
+
+  const headers = [
+    ...new Set(
+      records.flatMap(record =>
+        Object.keys(record).filter(
+          field => !ignored.includes(field)
+        )
+      )
+    )
+  ];
+
+  const lines = [
+    headers.map(csvCell).join(",")
+  ];
+
+  records.forEach(record => {
+    lines.push(
+      headers.map(header => {
+        return csvCell(record[header]);
+      }).join(",")
+    );
+  });
+
+  const content =
+    "\uFEFF" +
+    lines.join("\r\n");
+
+  const blob = new Blob(
+    [content],
+    { type: "text/csv;charset=utf-8;" }
+  );
+
+  downloadBlob(
+    blob,
+    "TACBO_" + key + "_" + todayISO() + ".csv"
+  );
+
+  toast("CSV-ga waa la soo dejiyey.");
+}
+
+/* ---------- 36. REPORTS ---------- */
+
+function generateReport() {
+  const from = $("reportFrom")?.value || "";
+  const to = $("reportTo")?.value || "";
+
+  if (from && to && from > to) {
+    toast(
+      "Taariikhda bilowgu kama dambayn karto taariikhda dhammaadka.",
+      "error"
+    );
+    return;
+  }
+
+  function inRange(record) {
+    const date = record.date || "";
+
+    if (!date) return true;
+    if (from && date < from) return false;
+    if (to && date > to) return false;
+
+    return true;
+  }
+
+  const income = getCollection("income")
+    .filter(inRange)
+    .reduce((sum, record) =>
+      sum + numberValue(record.amount), 0
+    );
+
+  const milkRevenue = getCollection("milk")
+    .filter(inRange)
+    .reduce((sum, record) =>
+      sum + numberValue(record.revenue), 0
+    );
+
+  const expenses = getCollection("expenses")
+    .filter(inRange)
+    .reduce((sum, record) =>
+      sum + numberValue(record.amount), 0
+    );
+
+  const health = getCollection("health")
+    .filter(inRange)
+    .reduce((sum, record) =>
+      sum + numberValue(record.cost), 0
+    );
+
+  const milkCosts = getCollection("milk")
+    .filter(inRange)
+    .reduce((sum, record) =>
+      sum + numberValue(record.cost), 0
+    );
+
+  const totalRevenue = income + milkRevenue;
+  const totalCosts = expenses + health + milkCosts;
+  const profit = totalRevenue - totalCosts;
+
+  const target = $("reportOutput");
+
+  if (!target) return;
+
+  target.innerHTML = `
+    <div class="cards-grid" style="margin-top:24px">
+
+      <div class="stat-card">
+        <div class="stat-label">Dakhliga</div>
+        <div class="stat-value">${money(totalRevenue)}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Kharashaadka</div>
+        <div class="stat-value">${money(totalCosts)}</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Faa'iido / Khasaare</div>
+        <div class="stat-value">${money(profit)}</div>
+      </div>
+
+    </div>
+
+    <div class="panel">
+      <h3>Faahfaahinta Warbixinta</h3>
+
+      <p>
+        <strong>Laga bilaabo:</strong>
+        ${escapeHTML(from || "Bilowga xogta")}
+      </p>
+
+      <p>
+        <strong>Ilaa:</strong>
+        ${escapeHTML(to || "Maanta")}
+      </p>
+
+      <p>
+        <strong>Dakhliga kale:</strong>
+        ${money(income)}
+      </p>
+
+      <p>
+        <strong>Dakhliga caanaha:</strong>
+        ${money(milkRevenue)}
+      </p>
+
+      <p>
+        <strong>Kharashaadka guud:</strong>
+        ${money(expenses)}
+      </p>
+
+      <p>
+        <strong>Caafimaadka xoolaha:</strong>
+        ${money(health)}
+      </p>
+
+      <p>
+        <strong>Kharashka wax-soo-saarka caanaha:</strong>
+        ${money(milkCosts)}
+      </p>
+    </div>
+  `;
+
+  toast("Warbixinta waa la diyaariyey.");
+}
+
+/* ---------- 37. ADD RECORD HELPERS ---------- */
+
+function formObject(form) {
+  const data = new FormData(form);
+  const output = {};
+
+  for (const [key, value] of data.entries()) {
+    output[key] = String(value).trim();
+  }
+
+  return output;
+}
+
+function resetFormWithDates(form) {
+  form.reset();
+
+  const dateInput = form.querySelector(
+    'input[type="date"]'
+  );
+
+  if (dateInput) {
+    dateInput.value = todayISO();
+  }
+}
+
+/* ---------- 38. FARM FORM ---------- */
+
+function bindFarmForm() {
+  const form = $("farmForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    record.size = numberValue(record.size);
+    record.cost = numberValue(record.cost);
+
+    if (!record.name || !record.location) {
+      toast(
+        "Magaca beerta iyo goobta waa khasab.",
+        "error"
+      );
+      return;
+    }
+
+    const added = addRecord("farms", record);
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Beerta waa la diiwaangeliyey.");
+    }
+  });
+}
+
+/* ---------- 39. UNIQUE LIVESTOCK TAGS ---------- */
+
+function nextAnimalTag(type) {
+  const existing = getCollection("livestock")
+    .filter(record => record.tag)
+    .map(record => record.tag);
+
+  const prefix = String(type || "KALE").toUpperCase();
+
+  let number = 1;
+
+  while (
+    existing.includes(
+      prefix + "-" + String(number).padStart(4, "0")
+    )
+  ) {
+    number++;
+  }
+
+  return (
+    prefix +
+    "-" +
+    String(number).padStart(4, "0")
+  );
+}
+
+function generateAnimalTags(type, quantity) {
+  const tags = [];
+
+  for (let i = 0; i < quantity; i++) {
+    tags.push(nextAnimalTag(type));
+  }
+
+  return tags;
+}
+
+/* ---------- 40. LIVESTOCK FORM ---------- */
+
+function bindLivestockForm() {
+  const form = $("livestockForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    const type = record.type;
+    const quantity = Math.floor(
+      numberValue(record.quantity)
+    );
+
+    if (!type) {
+      toast("Dooro nooca xoolaha.", "error");
+      return;
+    }
+
+    if (
+      quantity < 1 ||
+      quantity > 5000
+    ) {
+      toast(
+        "Tirada xooluhu waa inay u dhexaysaa 1 iyo 5000.",
+        "error"
+      );
+      return;
+    }
+
+    const tags = generateAnimalTags(
+      type,
+      quantity
+    );
+
+    const unitCost = numberValue(record.unitCost);
+
+    let successful = 0;
+
+    for (let i = 0; i < quantity; i++) {
+      const animal = {
+        type,
+        tag: tags[i],
+        breed: record.breed || "",
+        sex: record.sex || "unknown",
+        age: numberValue(record.age),
+        unitCost,
+        purchaseDate: record.purchaseDate || "",
+        origin: record.origin || "",
+        status: record.status || "live",
+        farmId: record.farmId || "",
+        notes: record.notes || ""
+      };
+
+      const added = addRecord(
+        "livestock",
+        animal
+      );
+
+      if (!added) {
+        break;
+      }
+
+      successful++;
+    }
+
+    if (successful > 0) {
+      resetFormWithDates(form);
+
+      toast(
+        successful +
+        " neef ayaa la diiwaangeliyey."
+      );
+    }
+
+    if (successful < quantity) {
+      toast(
+        "Qaar ka mid ah xoolaha lama kaydin.",
+        "error"
+      );
+    }
+  });
+}
+
+/* ---------- 41. MILK FORM ---------- */
+
+function bindMilkForm() {
+  const form = $("milkForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    const produced = numberValue(record.produced);
+    const sold = numberValue(record.sold);
+    const price = numberValue(record.price);
+    const cost = numberValue(record.cost);
+
+    if (sold > produced) {
+      toast(
+        "Caanaha la iibiyey kama badnaan karaan kuwa la lisay.",
+        "error"
+      );
+      return;
+    }
+
+    const revenue = sold * price;
+
+    const milkRecord = {
+      date: record.date || todayISO(),
+      animalId: record.animalId || "",
+      produced,
+      sold,
+      remaining: produced - sold,
+      price,
+      revenue,
+      cost,
+      profit: revenue - cost,
+      notes: record.notes || ""
+    };
+
+    const added = addRecord(
+      "milk",
+      milkRecord
+    );
+
+    if (added) {
+      /*
+        Dakhliga caanaha waxaa lagu xisaabiyaa
+        dashboard-ka iyadoo laga akhrinayo milk.revenue.
+        Sidaas darteed halkan dakhliga mar labaad
+        looguma darayo income.
+      */
+
+      resetFormWithDates(form);
+
+      toast("Wax-soo-saarka caanaha waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 42. INCOME FORM ---------- */
+
+function bindIncomeForm() {
+  const form = $("incomeForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    record.amount = numberValue(record.amount);
+
+    if (
+      !record.description ||
+      record.amount <= 0
+    ) {
+      toast(
+        "Faahfaahinta iyo lacagta waa khasab.",
+        "error"
+      );
+      return;
+    }
+
+    const added = addRecord(
+      "income",
+      record
+    );
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Dakhliga waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 43. EXPENSE FORM ---------- */
+
+function bindExpensesForm() {
+  const form = $("expensesForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    record.amount = numberValue(record.amount);
+
+    if (
+      !record.description ||
+      record.amount <= 0
+    ) {
+      toast(
+        "Faahfaahinta iyo lacagta kharashka waa khasab.",
+        "error"
+      );
+      return;
+    }
+
+    const added = addRecord(
+      "expenses",
+      record
+    );
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Kharashka waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 44. HEALTH FORM ---------- */
+
+function bindHealthForm() {
+  const form = $("healthForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    record.cost = numberValue(record.cost);
+
+    if (!record.animalId || !record.type) {
+      toast(
+        "ID-ga neefka iyo nooca adeegga waa khasab.",
+        "error"
+      );
+      return;
+    }
+
+    const added = addRecord(
+      "health",
+      record
+    );
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Xogta caafimaadka waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 45. DEBT FORM ---------- */
+
+function bindDebtsForm() {
+  const form = $("debtsForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    const amount = numberValue(record.amount);
+    const paid = numberValue(record.paid);
+
+    if (amount <= 0 || paid < 0) {
+      toast("Hubi lacagta deynta.", "error");
+      return;
+    }
+
+    if (paid > amount) {
+      toast(
+        "Lacagta la bixiyey kama badnaan karto deynta guud.",
+        "error"
+      );
+      return;
+    }
+
+    record.amount = amount;
+    record.paid = paid;
+    record.remaining = amount - paid;
+
+    const added = addRecord(
+      "debts",
+      record
+    );
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Deynta waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 46. ASSET FORM ---------- */
+
+function bindAssetsForm() {
+  const form = $("assetsForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const record = formObject(form);
+
+    record.cost = numberValue(record.cost);
+    record.value = numberValue(record.value);
+
+    if (!record.name || !record.category) {
+      toast(
+        "Magaca iyo qaybta hantidu waa khasab.",
+        "error"
+      );
+      return;
+    }
+
+    const added = addRecord(
+      "assets",
+      record
+    );
+
+    if (added) {
+      resetFormWithDates(form);
+      toast("Hantida waa la kaydiyey.");
+    }
+  });
+}
+
+/* ---------- 47. APPLICATION STARTUP ---------- */
+
+function initializeTACBO() {
+  loadDatabase();
+
+  loadLanguage();
+
+  initializeDateFields();
+
+  bindNavigation();
+
+  bindSearchEvents();
+
+  bindRestoreEvent();
+
+  bindFarmForm();
+
+  bindLivestockForm();
+
+  bindMilkForm();
+
+  bindIncomeForm();
+
+  bindExpensesForm();
+
+  bindHealthForm();
+
+  bindDebtsForm();
+
+  bindAssetsForm();
+
+  renderAll();
+
+  console.log(
+    "TACBO Agro Finance " +
+    TACBO.version +
+    " initialized."
+  );
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeTACBO
+  );
+} else {
+  initializeTACBO();
+}
+
+/* ---------- END OF PART 2 ---------- */
 </script>
-</body>
-</html>
+<!-- ==========================================
+     TACBO AGRO FINANCE
+     QAYBTA 3: SALES, DEBT PAYMENTS & REPORTS
+========================================== -->
+
+<script>
+"use strict";
+
+/* ==========================================
+   1. IIBKA XOOLAHA
+========================================== */
+
+function sellAnimal(animalId) {
+  const animal = findRecord("livestock", animalId);
+
+  if (!animal) {
+    toast("Xoolaha lama helin.", "error");
+    return;
+  }
+
+  if (animal.status !== "live") {
+    toast("Neefkan hore ayuu xaaladdiisu isu beddelay.", "error");
+    return;
+  }
+
+  const priceInput = prompt(
+    "Geli qiimaha lagu iibiyey neefka " +
+    animal.tag +
+    " ($):"
+  );
+
+  if (priceInput === null) return;
+
+  const price = Number(priceInput);
+
+  if (!Number.isFinite(price) || price <= 0) {
+    toast("Qiimaha iibku waa inuu ka weyn yahay eber.", "error");
+    return;
+  }
+
+  const date = prompt(
+    "Geli taariikhda iibka (YYYY-MM-DD):",
+    todayISO()
+  );
+
+  if (date === null) return;
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    toast("Taariikhda si sax ah u geli.", "error");
+    return;
+  }
+
+  const customer = prompt(
+    "Magaca qofka neefka iibsaday:"
+  );
+
+  if (customer === null) return;
+
+  const previous = { ...animal };
+
+  const success = updateRecord(
+    "livestock",
+    animalId,
+    {
+      status: "sold",
+      salePrice: price,
+      saleDate: date,
+      customer: customer.trim()
+    }
+  );
+
+  if (!success) return;
+
+  const income = addRecord("income", {
+    date,
+    category: "Iibka xoolaha",
+    description: "Iibka neefka " + animal.tag,
+    amount: price,
+    payment: "Cash",
+    customer: customer.trim(),
+    notes:
+      "ID: " + animal.tag +
+      "; Qiimaha iibka: " + money(price)
+  });
+
+  if (!income) {
+    updateRecord(
+      "livestock",
+      animalId,
+      previous
+    );
+
+    toast(
+      "Diiwaangelinta dakhliga way fashilantay.",
+      "error"
+    );
+
+    return;
+  }
+
+  toast(
+    "Neefka waa la iibiyey, dakhliga iibkana waa la diiwaangeliyey."
+  );
+
+  renderAll();
+}
+
+/* ==========================================
+   2. DIB U EEGISTA XISAABAADKA
+========================================== */
+
+function getFinancialSummary(from = "", to = "") {
+  function withinRange(record) {
+    const date = record.date || "";
+
+    if (!date) return true;
+
+    if (from && date < from) return false;
+    if (to && date > to) return false;
+
+    return true;
+  }
+
+  const income = getCollection("income")
+    .filter(withinRange)
+    .reduce(
+      (sum, record) =>
+        sum + numberValue(record.amount),
+      0
+    );
+
+  const expenses = getCollection("expenses")
+    .filter(withinRange)
+    .reduce(
+      (sum, record) =>
+        sum + numberValue(record.amount),
+      0
+    );
+
+  const milk = getCollection("milk")
+    .filter(withinRange);
+
+  const milkRevenue = milk.reduce(
+    (sum, record) =>
+      sum + numberValue(record.revenue),
+    0
+  );
+
+  const milkCosts = milk.reduce(
+    (sum, record) =>
+      sum + numberValue(record.cost),
+    0
+  );
+
+  const healthCosts = getCollection("health")
+    .filter(withinRange)
+    .reduce(
+      (sum, record) =>
+        sum + numberValue(record.cost),
+      0
+    );
+
+  const revenue = income + milkRevenue;
+
+  const costs =
+    expenses +
+    milkCosts +
+    healthCosts;
+
+  return {
+    income,
+    milkRevenue,
+    revenue,
+    expenses,
+    milkCosts,
+    healthCosts,
+    costs,
+    profit: revenue - costs
+  };
+}
+
+/* ==========================================
+   3. DEYN LACAG LOOGU BIXINAYO
+========================================== */
+
+function payDebt(debtId) {
+  const debt = findRecord("debts", debtId);
+
+  if (!debt) {
+    toast("Deynta lama helin.", "error");
+    return;
+  }
+
+  const remaining = numberValue(debt.remaining);
+
+  if (remaining <= 0) {
+    toast("Deyntan hore ayaa loo dhammeeyey.", "warning");
+    return;
+  }
+
+  const amountInput = prompt(
+    "Deynta harsan: " + money(remaining) +
+    "\nGeli lacagta la bixiyey ama la helay:"
+  );
+
+  if (amountInput === null) return;
+
+  const payment = Number(amountInput);
+
+  if (
+    !Number.isFinite(payment) ||
+    payment <= 0 ||
+    payment > remaining
+  ) {
+    toast(
+      "Lacagta waa inay ka weyn tahay eber, kana yaraan ama la mid noqotaa deynta harsan.",
+      "error"
+    );
+    return;
+  }
+
+  const newPaid =
+    numberValue(debt.paid) + payment;
+
+  const newRemaining =
+    Math.max(0, numberValue(debt.amount) - newPaid);
+
+  const success = updateRecord(
+    "debts",
+    debtId,
+    {
+      paid: newPaid,
+      remaining: newRemaining,
+      lastPaymentDate: todayISO()
+    }
+  );
+
+  if (success) {
+    toast(
+      "Lacag-bixinta waa la kaydiyey. Deynta harsan: " +
+      money(newRemaining)
+    );
+  }
+}
+
+/* ==========================================
+   4. XISAABINTA QIIMAHA XOOLAHA
+========================================== */
+
+function calculateLivestockValue() {
+  const animals = getCollection("livestock");
+
+  const liveAnimals = animals.filter(
+    animal => animal.status === "live"
+  );
+
+  const purchaseValue = liveAnimals.reduce(
+    (sum, animal) =>
+      sum + numberValue(animal.unitCost),
+    0
+  );
+
+  const soldAnimals = animals.filter(
+    animal => animal.status === "sold"
+  );
+
+  const salesValue = soldAnimals.reduce(
+    (sum, animal) =>
+      sum + numberValue(animal.salePrice),
+    0
+  );
+
+  return {
+    liveCount: liveAnimals.length,
+    livePurchaseValue: purchaseValue,
+    soldCount: soldAnimals.length,
+    salesValue
+  };
+}
+
+/* ==========================================
+   5. WARBIXINTA BEERAHA
+========================================== */
+
+function getFarmSummary() {
+  const farms = getCollection("farms");
+
+  const totalArea = farms.reduce(
+    (sum, farm) =>
+      sum + numberValue(farm.size),
+    0
+  );
+
+  const totalStartCost = farms.reduce(
+    (sum, farm) =>
+      sum + numberValue(farm.cost),
+    0
+  );
+
+  const activeFarms = farms.filter(
+    farm => farm.status === "active"
+  ).length;
+
+  const plannedFarms = farms.filter(
+    farm => farm.status === "planned"
+  ).length;
+
+  return {
+    count: farms.length,
+    totalArea,
+    totalStartCost,
+    activeFarms,
+    plannedFarms
+  };
+}
+
+/* ==========================================
+   6. WARBIXINTA XOOLAHA
+========================================== */
+
+function getLivestockSummary() {
+  const animals = getCollection("livestock");
+
+  const summary = {
+    total: animals.length,
+    live: 0,
+    sold: 0,
+    dead: 0,
+    ARI: 0,
+    GEEL: 0,
+    LO: 0,
+    DIGAAG: 0,
+    FARAS: 0,
+    KALE: 0
+  };
+
+  animals.forEach(animal => {
+    if (animal.status === "live") summary.live++;
+    if (animal.status === "sold") summary.sold++;
+    if (animal.status === "dead") summary.dead++;
+
+    if (Object.prototype.hasOwnProperty.call(
+      summary,
+      animal.type
+    )) {
+      summary[animal.type]++;
+    }
+  });
+
+  return summary;
+}
+
+/* ==========================================
+   7. WARBIXINTA CAANAHA
+========================================== */
+
+function getMilkSummary(from = "", to = "") {
+  const records = getCollection("milk").filter(record => {
+    if (from && record.date < from) return false;
+    if (to && record.date > to) return false;
+
+    return true;
+  });
+
+  return records.reduce(
+    (summary, record) => {
+      summary.produced += numberValue(record.produced);
+      summary.sold += numberValue(record.sold);
+      summary.remaining += numberValue(record.remaining);
+      summary.revenue += numberValue(record.revenue);
+      summary.cost += numberValue(record.cost);
+
+      return summary;
+    },
+    {
+      produced: 0,
+      sold: 0,
+      remaining: 0,
+      revenue: 0,
+      cost: 0
+    }
+  );
+}
+
+/* ==========================================
+   8. WARBIXINTA DEYMAHA
+========================================== */
+
+function getDebtSummary() {
+  const debts = getCollection("debts");
+
+  const receivable = debts
+    .filter(debt => debt.type === "receivable")
+    .reduce(
+      (sum, debt) =>
+        sum + numberValue(debt.remaining),
+      0
+    );
+
+  const payable = debts
+    .filter(debt => debt.type === "payable")
+    .reduce(
+      (sum, debt) =>
+        sum + numberValue(debt.remaining),
+      0
+    );
+
+  return {
+    total: debts.length,
+    receivable,
+    payable,
+    net: receivable - payable
+  };
+}
+
+/* ==========================================
+   9. WARBIXINTA HANTIDA
+========================================== */
+
+function getAssetSummary() {
+  const assets = getCollection("assets");
+
+  const activeAssets = assets.filter(
+    asset => asset.status !== "sold"
+  );
+
+  const purchaseValue = activeAssets.reduce(
+    (sum, asset) =>
+      sum + numberValue(asset.cost),
+    0
+  );
+
+  const currentValue = activeAssets.reduce(
+    (sum, asset) =>
+      sum + numberValue(asset.value),
+    0
+  );
+
+  return {
+    count: activeAssets.length,
+    purchaseValue,
+    currentValue,
+    difference: currentValue - purchaseValue
+  };
+}
+
+/* ==========================================
+   10. WARBIXIN DHEERAAD AH
+========================================== */
+
+function renderDetailedReports() {
+  const target = $("reportOutput");
+
+  if (!target) return;
+
+  const finances = getFinancialSummary(
+    $("reportFrom")?.value || "",
+    $("reportTo")?.value || ""
+  );
+
+  const farms = getFarmSummary();
+  const animals = getLivestockSummary();
+  const milk = getMilkSummary(
+    $("reportFrom")?.value || "",
+    $("reportTo")?.value || ""
+  );
+  const debts = getDebtSummary();
+  const assets = getAssetSummary();
+
+  target.innerHTML = `
+    <div class="panel">
+      <h3>💰 Xisaabaadka Ganacsiga</h3>
+
+      <p>Dakhliga kale: ${money(finances.income)}</p>
+      <p>Dakhliga caanaha: ${money(finances.milkRevenue)}</p>
+      <p>Wadarta dakhliga: <strong>${money(finances.revenue)}</strong></p>
+      <p>Kharashaadka: ${money(finances.expenses)}</p>
+      <p>Kharashka caanaha: ${money(finances.milkCosts)}</p>
+      <p>Kharashka caafimaadka: ${money(finances.healthCosts)}</p>
+      <p>Wadarta kharashaadka: <strong>${money(finances.costs)}</strong></p>
+      <p>Faa'iido / Khasaare: <strong>${money(finances.profit)}</strong></p>
+    </div>
+
+    <div class="panel">
+      <h3>🌱 Beeraha</h3>
+      <p>Tirada beeraha: ${farms.count}</p>
+      <p>Baaxadda guud: ${numberFormat(farms.totalArea)} hektar</p>
+      <p>Beeraha shaqaynaya: ${farms.activeFarms}</p>
+      <p>Beeraha qorshaysan: ${farms.plannedFarms}</p>
+      <p>Kharashka bilowga: ${money(farms.totalStartCost)}</p>
+    </div>
+
+    <div class="panel">
+      <h3>🐪 Xoolaha</h3>
+      <p>Wadarta diiwaanka xoolaha: ${animals.total}</p>
+      <p>Xoolaha nool: ${animals.live}</p>
+      <p>Xoolaha la iibiyey: ${animals.sold}</p>
+      <p>Xoolaha dhintay: ${animals.dead}</p>
+      <p>Ariga: ${animals.ARI}</p>
+      <p>Geela: ${animals.GEEL}</p>
+      <p>Lo'da: ${animals.LO}</p>
+      <p>Digaagga: ${animals.DIGAAG}</p>
+    </div>
+
+    <div class="panel">
+      <h3>🥛 Caanaha</h3>
+      <p>La lisay: ${numberFormat(milk.produced)} L</p>
+      <p>La iibiyey: ${numberFormat(milk.sold)} L</p>
+      <p>Haray: ${numberFormat(milk.remaining)} L</p>
+      <p>Dakhliga: ${money(milk.revenue)}</p>
+      <p>Kharashka: ${money(milk.cost)}</p>
+      <p>Faa'iidada caanaha: ${money(milk.revenue - milk.cost)}</p>
+    </div>
+
+    <div class="panel">
+      <h3>🧾 Deymaha</h3>
+      <p>Lacag nalagu leeyahay: ${money(debts.receivable)}</p>
+      <p>Lacag aan leenahay: ${money(debts.payable)}</p>
+      <p>Farqiga saafiga ah: ${money(debts.net)}</p>
+    </div>
+
+    <div class="panel">
+      <h3>🏠 Hantida</h3>
+      <p>Tirada hantida: ${assets.count}</p>
+      <p>Qiimaha iibka: ${money(assets.purchaseValue)}</p>
+      <p>Qiimaha hadda: ${money(assets.currentValue)}</p>
+      <p>Farqiga qiimaha: ${money(assets.difference)}</p>
+    </div>
+  `;
+}
+
+/* ==========================================
+   11. XIRITAANKA QAYBTA 3
+========================================== */
+
+console.log("TACBO Agro Finance - Part 3 loaded.");
+
+</script><!-- QAYBTA 2 WAXAY KA SII SOCON DOONTAA HALKAN -->
